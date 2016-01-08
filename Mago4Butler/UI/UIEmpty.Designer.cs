@@ -58,9 +58,9 @@
             this.lblNoMoreInstallations.ForeColor = System.Drawing.Color.Gray;
             this.lblNoMoreInstallations.Location = new System.Drawing.Point(39, 97);
             this.lblNoMoreInstallations.Name = "lblNoMoreInstallations";
-            this.lblNoMoreInstallations.Size = new System.Drawing.Size(342, 39);
+            this.lblNoMoreInstallations.Size = new System.Drawing.Size(253, 39);
             this.lblNoMoreInstallations.TabIndex = 4;
-            this.lblNoMoreInstallations.Text = "No more installations";
+            this.lblNoMoreInstallations.Text = "No installations";
             this.lblNoMoreInstallations.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pictureBox

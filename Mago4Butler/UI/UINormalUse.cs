@@ -47,8 +47,45 @@ namespace Microarea.Mago4Butler
         public UINormalUse(Model model)
         {
             this.model = model;
+            this.model.InstanceAdded += Model_InstanceAdded;
+            this.model.InstanceRemoved += Model_InstanceRemoved;
+            this.model.InstanceUpdated += Model_InstanceUpdated;
 
             InitializeComponent();
+        }
+
+        private void Model_InstanceUpdated(object sender, InstanceEventArgs e)
+        {
+            var idx = this.lsvInstances.Items.IndexOfKey(e.Instance.Name);
+            if (idx < 0)
+            {
+                return;
+            }
+
+            var item = this.lsvInstances.Items[idx];
+            if (item == null)
+            {
+                return;
+            }
+            item.Text = e.Instance.ToString();
+            item.Tag = e.Instance;
+        }
+
+        private void Model_InstanceRemoved(object sender, InstanceEventArgs e)
+        {
+            this.lsvInstances.Items.RemoveByKey(e.Instance.Name);
+        }
+
+        private void Model_InstanceAdded(object sender, InstanceEventArgs e)
+        {
+            var instance = e.Instance;
+            AddInstanceToListView(instance);
+        }
+
+        private void AddInstanceToListView(Instance instance)
+        {
+            var listViewItem = this.lsvInstances.Items.Add(instance.Name, instance.ToString(), -1);
+            listViewItem.Tag = instance;
         }
 
         protected override void OnLoad(EventArgs e)
@@ -57,8 +94,7 @@ namespace Microarea.Mago4Butler
 
             foreach (var instance in this.model.Instances)
             {
-                var listViewItem = this.lsvInstances.Items.Add(instance, instance, -1);
-                listViewItem.Tag = instance;
+                AddInstanceToListView(instance);
             }
         }
 
@@ -76,29 +112,29 @@ namespace Microarea.Mago4Butler
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            List<String> selectedInstances = new List<string>();
+            List<Instance> selectedInstances = new List<Instance>();
             foreach (ListViewItem selectedItem in this.lsvInstances.SelectedItems)
             {
-                selectedInstances.Add(selectedItem.Tag as string);
+                selectedInstances.Add(selectedItem.Tag as Instance);
             }
 
             if (selectedInstances.Count > 0)
             {
-                this.OnUpdateInstance(new UpdateInstanceEventArgs() { InstanceNames = selectedInstances });
+                this.OnUpdateInstance(new UpdateInstanceEventArgs() { Instances = selectedInstances });
             }
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
-            List<String> selectedInstances = new List<string>();
+            List<Instance> selectedInstances = new List<Instance>();
             foreach (ListViewItem selectedItem in this.lsvInstances.SelectedItems)
             {
-                selectedInstances.Add(selectedItem.Tag as string);
+                selectedInstances.Add(selectedItem.Tag as Instance);
             }
 
             if (selectedInstances.Count > 0)
             {
-                this.OnRemoveInstance(new RemoveInstanceEventArgs() { InstanceNames = selectedInstances });
+                this.OnRemoveInstance(new RemoveInstanceEventArgs() { Instances = selectedInstances });
             }
         }
     }

@@ -13,6 +13,10 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -43,6 +47,24 @@
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>Microarea.Mago4Butler.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -84,12 +106,6 @@
     <Compile Include="UI\UIError.Designer.cs">
       <DependentUpon>UIError.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\UIFirstUse.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\UIFirstUse.Designer.cs">
-      <DependentUpon>UIFirstUse.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\UINormalUse.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -123,9 +139,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\UIError.resx">
       <DependentUpon>UIError.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\UIFirstUse.resx">
-      <DependentUpon>UIFirstUse.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\UINormalUse.resx">
       <DependentUpon>UINormalUse.cs</DependentUpon>

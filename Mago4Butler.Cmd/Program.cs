@@ -1,6 +1,5 @@
 ﻿using Microarea.Mago4Butler;
 using Microarea.Mago4Butler.BL;
-using Microarea.Mago4Butler.Properties;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,11 +17,9 @@ namespace Microarea.Mago4Butler.Cmd
         const string uninstallSwitch = "/uninstall";
         const string msiFilaFullPathSwitch = "/msi";
 
-        static bool startUI = false;
-
-        static List<string> instanceToUpdate = new List<string>();
-        static List<string> instanceToInstall = new List<string>();
-        static List<string> instanceToUninstall = new List<string>();
+        static List<Instance> instanceToUpdate = new List<Instance>();
+        static List<Instance> instanceToInstall = new List<Instance>();
+        static List<Instance> instanceToUninstall = new List<Instance>();
 
         static string msiFullFilePath;
 
@@ -75,7 +72,7 @@ namespace Microarea.Mago4Butler.Cmd
                                 PrintHelp();
                                 return false;
                             }
-                            instanceToUpdate.AddRange(args[i + 1].Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries));
+                            instanceToUpdate.AddRange(Parse(args[i + 1]));
                             break;
                         }
                     case installSwitch:
@@ -85,7 +82,7 @@ namespace Microarea.Mago4Butler.Cmd
                                 PrintHelp();
                                 return false;
                             }
-                            instanceToInstall.AddRange(args[i + 1].Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries));
+                            instanceToInstall.AddRange(Parse(args[i + 1]));
                             break;
                         }
                     case uninstallSwitch:
@@ -95,7 +92,7 @@ namespace Microarea.Mago4Butler.Cmd
                                 PrintHelp();
                                 return false;
                             }
-                            instanceToUninstall.AddRange(args[i + 1].Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries));
+                            instanceToUninstall.AddRange(Parse(args[i + 1]));
                             break;
                         }
                     case msiFilaFullPathSwitch:
@@ -127,7 +124,35 @@ namespace Microarea.Mago4Butler.Cmd
                 return false;
             }
 
+            var msiService = new MsiService();
+            var version = msiService.GetVersion(msiFullFilePath);
+            foreach (var instance in instanceToInstall)
+            {
+                instance.Version = version;
+            }
+            foreach (var instance in instanceToUpdate)
+            {
+                instance.Version = version;
+            }
+            foreach (var instance in instanceToUninstall)
+            {
+                instance.Version = version;
+            }
+
             return true;
+        }
+
+        static IEnumerable<Instance> Parse(string instanceNames)
+        {
+            string[] tokens = instanceNames.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+
+            var instances = new List<Instance>();
+            foreach (var instanceName in tokens)
+            {
+                instances.Add(new Instance() { Name = instanceName });
+            }
+
+            return instances;
         }
 
         static void PrintHelp()

@@ -7,11 +7,15 @@ namespace Microarea.Mago4Butler.BL
 {
     public class MsiZapper
     {
-        static readonly Type InstallerType = Type.GetTypeFromProgID("WindowsInstaller.Installer");
+        MsiService msiService;
 
+        public MsiZapper(MsiService msiService)
+        {
+            this.msiService = msiService;
+        }
         public void ZapMsi(string msiFullPath)
         {
-            string productCode = ExtractProductCode(msiFullPath);
+            string productCode = msiService.GetProductCode(msiFullPath);
 
             if (String.IsNullOrWhiteSpace(productCode))
             {
@@ -32,43 +36,6 @@ namespace Microarea.Mago4Butler.BL
 
             try { File.Delete(msZapFullPath); }
             catch {}
-        }
-
-        private string ExtractProductCode(string msiFullPath)
-        {
-            var installer = Activator.CreateInstance(InstallerType) as Installer;
-            var database = installer.OpenDatabase(msiFullPath, MsiOpenDatabaseMode.msiOpenDatabaseModeTransact);
-            var view = database.OpenView("SELECT * from Property WHERE Property = 'ProductCode'");
-
-            view.Execute(null);
-
-            Record record = null;
-            try
-            {
-                record = view.Fetch();
-                return (record != null) ? record.get_StringData(2) : String.Empty;
-            }
-            finally
-            {
-                if (record != null)
-                {
-                    Marshal.ReleaseComObject(record);
-                }
-
-                if (view != null)
-                {
-                    view.Close();
-                    Marshal.ReleaseComObject(view);
-                }
-                if (database != null)
-                {
-                    Marshal.ReleaseComObject(database);
-                }
-                if (installer != null)
-                {
-                    Marshal.ReleaseComObject(installer);
-                }
-            }
         }
     }
 }

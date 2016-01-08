@@ -27,7 +27,7 @@ namespace Microarea.Mago4Butler
         private void TxtInstanceName_TextChanged(object sender, EventArgs e)
         {
             this.errorProviderInstanceName.Clear();
-            if (this.model.Instances.Contains(this.txtInstanceName.Text.Trim()))
+            if (this.model.ContainsInstance(this.txtInstanceName.Text.Trim()))
             {
                 this.errorProviderInstanceName.SetError(this.txtInstanceName, "An instance with the given name already exists");
             }
@@ -59,7 +59,7 @@ namespace Microarea.Mago4Butler
             this.btnOK.Enabled =
                 this.txtMsiFullPath.Text.Trim().Length > 0 &&
                 (candiateInstanceName = this.txtInstanceName.Text.Trim()).Length > 0 &&
-                !this.model.Instances.Contains(candiateInstanceName);
+                !this.model.ContainsInstance(candiateInstanceName);
         }
 
         private void btnOpenFileDialog_Click(object sender, EventArgs e)

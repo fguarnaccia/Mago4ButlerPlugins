@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Microarea.Mago4Butler.Properties {
+namespace Microarea.Mago4Butler.BL {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -32,18 +32,6 @@ namespace Microarea.Mago4Butler.Properties {
             }
             set {
                 this["RootFolder"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool FirstUse {
-            get {
-                return ((bool)(this["FirstUse"]));
-            }
-            set {
-                this["FirstUse"] = value;
             }
         }
     }

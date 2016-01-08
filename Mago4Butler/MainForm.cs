@@ -18,14 +18,15 @@ namespace Microarea.Mago4Butler
     {
         SynchronizationContext syncCtx;
 
-        UIFirstUse uiFirstUse = new UIFirstUse();
         UIEmpty uiEmpty = new UIEmpty();
         UIWaiting uiWaiting = new UIWaiting();
         UIError uiError = new UIError();
         UINormalUse uiNormalUse;
 
         Model model = new Model();
-        InstallerService instanceService = new InstallerService(Settings.Default.RootFolder);
+        MsiService msiService = new MsiService();
+        InstallerService instanceService;
+        string msiFullFilePath;
 
         public MainForm()
         {
@@ -34,6 +35,8 @@ namespace Microarea.Mago4Butler
             {
                 this.syncCtx = new WindowsFormsSynchronizationContext();
             }
+
+            instanceService = new InstallerService(Settings.Default.RootFolder, msiService);
 
             InitializeComponent();
 
@@ -60,7 +63,10 @@ namespace Microarea.Mago4Butler
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             Application.ThreadException += Application_ThreadException;
 
-            this.uiFirstUse.SelectMsiToInstall += Install;
+            this.model.InstanceAdded += (s, iea) => this.instanceService.Install(this.msiFullFilePath, iea.Instance);
+            this.model.InstanceUpdated += (s, iea) => this.instanceService.Update(this.msiFullFilePath, iea.Instance);
+            this.model.InstanceRemoved += (s, iea) => this.instanceService.Uninstall(iea.Instance);
+
             this.uiEmpty.SelectMsiToInstall += Install;
             this.uiError.Back += UiError_Back;
             this.uiNormalUse.InstallNewInstance += Install;
@@ -79,49 +85,46 @@ namespace Microarea.Mago4Butler
             this.instanceService.Updating += InstanceService_Updating;
             this.instanceService.Updated += InstanceService_Updated;
 
-            Thread.Sleep(1000);
-            if (Settings.Default.FirstUse)
+            Thread.Sleep(1500);
+
+            if (this.model.Instances.Count > 0)
             {
-                Settings.Default.FirstUse = false;
-                Settings.Default.Save();
-
-                ShowUI(this.uiFirstUse);
-                return;
+                ShowUI(this.uiNormalUse);
             }
-
-            ShowUI(this.uiNormalUse);
+            else
+            {
+                ShowUI(this.uiEmpty);
+            }
         }
 
         private void InstanceService_Updated(object sender, UpdateInstanceEventArgs e)
         {
-            this.uiWaiting.SetProgressText(e.InstanceNames[0] + " successfully updated");
+            this.uiWaiting.SetProgressText(e.Instances[0].Name + " successfully updated");
         }
 
         private void InstanceService_Updating(object sender, UpdateInstanceEventArgs e)
         {
-            this.uiWaiting.SetProgressText("Updating " + e.InstanceNames[0] + " ...");
+            this.uiWaiting.SetProgressText("Updating " + e.Instances[0].Name + " ...");
         }
 
         private void InstanceService_Removed(object sender, RemoveInstanceEventArgs e)
         {
-            this.uiWaiting.SetProgressText(e.InstanceNames[0] + " successfully removed");
-            this.model.RemoveInstances(e.InstanceNames);
+            this.uiWaiting.SetProgressText(e.Instances[0].Name + " successfully removed");
         }
 
         private void InstanceService_Removing(object sender, RemoveInstanceEventArgs e)
         {
-            this.uiWaiting.SetProgressText("Removing " + e.InstanceNames[0] + " ...");
+            this.uiWaiting.SetProgressText("Removing " + e.Instances[0].Name + " ...");
         }
 
         private void InstanceService_Installed(object sender, InstallInstanceEventArgs e)
         {
-            this.uiWaiting.SetProgressText("Installation of " + e.InstanceName + " completed");
-            this.model.AddInstance(e.InstanceName);
+            this.uiWaiting.SetProgressText("Installation of " + e.Instance.Name + " completed");
         }
 
         private void InstanceService_Installing(object sender, InstallInstanceEventArgs e)
         {
-            this.uiWaiting.SetProgressText("Installing " + e.InstanceName + " ...");
+            this.uiWaiting.SetProgressText("Installing " + e.Instance.Name + " ...");
         }
 
         private void InstanceService_Stopping(object sender, EventArgs e)
@@ -207,18 +210,23 @@ namespace Microarea.Mago4Butler
                     return;
                 }
 
-                this.instanceService.Install(askForParametersDialog.MsiFullPath, askForParametersDialog.InstanceName);
+                this.msiFullFilePath = askForParametersDialog.MsiFullPath;
+
+                this.model.AddInstance(new Instance()
+                {
+                    Name = askForParametersDialog.InstanceName,
+                    Version = msiService.GetVersion(this.msiFullFilePath)
+                });
             }
         }
 
         private void UiNormalUse_RemoveInstance(object sender, RemoveInstanceEventArgs e)
         {
-            instanceService.Uninstall(e.InstanceNames);
+            this.model.RemoveInstances(e.Instances);
         }
 
         private void UiNormalUse_UpdateInstance(object sender, UpdateInstanceEventArgs e)
         {
-            string msiFullFilePath = null;
             using (var ofd = new OpenFileDialog())
             {
                 ofd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
@@ -231,10 +239,10 @@ namespace Microarea.Mago4Butler
                     return;
                 }
 
-                msiFullFilePath = ofd.FileName;
+                this.msiFullFilePath = ofd.FileName;
             }
 
-            instanceService.Update(msiFullFilePath, e.InstanceNames);
+            this.model.UpdateInstances(e.Instances);
         }
     }
 }

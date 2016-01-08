@@ -24,7 +24,10 @@ namespace Microarea.Mago4Butler.BL
         public event EventHandler<RemoveInstanceEventArgs> Removing;
         public event EventHandler<RemoveInstanceEventArgs> Removed;
 
-        MsiZapper msiZapper = new MsiZapper();
+        MsiZapper msiZapper;
+        RegistryService registryService;
+        MsiService msiService;
+
         string rootPath;
         Queue<Request> requests = new Queue<Request>();
 
@@ -38,9 +41,12 @@ namespace Microarea.Mago4Butler.BL
             }
         }
 
-        public InstallerService(string rootPath)
+        public InstallerService(string rootPath, MsiService msiService)
         {
             this.rootPath = rootPath;
+            this.msiService = msiService;
+            msiZapper = new MsiZapper(this.msiService);
+            this.registryService = new RegistryService(this.msiService);
         }
 
         protected virtual void OnStarting()
@@ -153,11 +159,11 @@ namespace Microarea.Mago4Butler.BL
             }
         }
 
-        public void Install(string msiFullFilePath, string instanceName)
+        public void Install(string msiFullFilePath, Instance instance)
         {
             this.Enqueue(new Request()
             {
-                InstanceName = instanceName,
+                Instance = instance,
                 MsiPath = msiFullFilePath,
                 RequestType = RequestType.Install,
                 RootPath = this.rootPath
@@ -165,41 +171,51 @@ namespace Microarea.Mago4Butler.BL
             StartService();
         }
 
-        public void Uninstall(ICollection<string> instanceNames)
+        public void Uninstall(ICollection<Instance> instances)
         {
-            if (instanceNames.Count == 0)
+            if (instances.Count == 0)
             {
                 return;
             }
-            foreach (var instanceName in instanceNames)
+            foreach (var instance in instances)
             {
-                this.Enqueue(new Request()
-                {
-                    InstanceName = instanceName,
-                    MsiPath = String.Empty,
-                    RequestType = RequestType.Remove,
-                    RootPath = this.rootPath
-                });
+                this.Uninstall(instance);
             }
+        }
+
+        public void Uninstall(Instance instance)
+        {
+            this.Enqueue(new Request()
+            {
+                Instance = instance,
+                MsiPath = String.Empty,
+                RequestType = RequestType.Remove,
+                RootPath = this.rootPath
+            });
             StartService();
         }
 
-        public void Update(string msiFullFilePath, ICollection<string> instanceNames)
+        public void Update(string msiFullFilePath, ICollection<Instance> instances)
         {
-            if (instanceNames.Count == 0)
+            if (instances.Count == 0)
             {
                 return;
             }
-            foreach (var instanceName in instanceNames)
+            foreach (var instance in instances)
             {
-                this.Enqueue(new Request()
-                {
-                    InstanceName = instanceName,
-                    MsiPath = msiFullFilePath,
-                    RequestType = RequestType.Update,
-                    RootPath = this.rootPath
-                });
+                this.Update(msiFullFilePath, instance);
             }
+        }
+
+        public void Update(string msiFullFilePath, Instance instance)
+        {
+            this.Enqueue(new Request()
+            {
+                Instance = instance,
+                MsiPath = msiFullFilePath,
+                RequestType = RequestType.Update,
+                RootPath = this.rootPath
+            });
             StartService();
         }
 
@@ -237,28 +253,28 @@ namespace Microarea.Mago4Butler.BL
                 {
                     case RequestType.Install:
                         {
-                            this.OnInstalling(new InstallInstanceEventArgs() { InstanceName = currentRequest.InstanceName });
+                            this.OnInstalling(new InstallInstanceEventArgs() { Instance = currentRequest.Instance });
                             this.Install(currentRequest);
 
-                            this.OnInstalled(new InstallInstanceEventArgs() { InstanceName = currentRequest.InstanceName });
+                            this.OnInstalled(new InstallInstanceEventArgs() { Instance = currentRequest.Instance });
 
                             break;
                         }
                     case RequestType.Update:
                         {
-                            this.OnUpdating(new UpdateInstanceEventArgs() { InstanceNames = new List<string>() { currentRequest.InstanceName } });
+                            this.OnUpdating(new UpdateInstanceEventArgs() { Instances = new List<Instance>() { currentRequest.Instance } });
                             this.Update(currentRequest);
 
-                            this.OnUpdated(new UpdateInstanceEventArgs() { InstanceNames = new List<string>() { currentRequest.InstanceName } });
+                            this.OnUpdated(new UpdateInstanceEventArgs() { Instances = new List<Instance>() { currentRequest.Instance } });
 
                             break;
                         }
                     case RequestType.Remove:
                         {
-                            this.OnRemoving(new RemoveInstanceEventArgs() { InstanceNames = new List<string>() { currentRequest.InstanceName } });
+                            this.OnRemoving(new RemoveInstanceEventArgs() { Instances = new List<Instance>() { currentRequest.Instance } });
                             this.Remove(currentRequest);
 
-                            this.OnRemoved(new RemoveInstanceEventArgs() { InstanceNames = new List<string>() { currentRequest.InstanceName } });
+                            this.OnRemoved(new RemoveInstanceEventArgs() { Instances = new List<Instance>() { currentRequest.Instance } });
                             break;
                         }
                     default:
@@ -295,13 +311,14 @@ namespace Microarea.Mago4Butler.BL
             }
 
             string msiFolderPath = Path.GetDirectoryName(currentRequest.MsiPath);
-            string installLogFilePath = Path.Combine(msiFolderPath, "Mago4_" + currentRequest.InstanceName + "_UpdateLog.txt");
+            string installLogFilePath = Path.Combine(msiFolderPath, "Mago4_" + currentRequest.Instance.Name + "_UpdateLog.txt");
             this.LaunchProcess(
                 msiexecPath,
-                String.Format("/i {0} /qb /norestart /l*vx {1} UICULTURE=it-IT INSTALLLOCATION=\"{2}\" INSTANCENAME={3}", currentRequest.MsiPath, msiFolderPath, currentRequest.RootPath, currentRequest.InstanceName),
+                String.Format("/i {0} /qb /norestart /l*vx {1} UICULTURE=it-IT INSTALLLOCATION=\"{2}\" INSTANCENAME={3}", currentRequest.MsiPath, msiFolderPath, currentRequest.RootPath, currentRequest.Instance.Name),
                 3600000
                 );
-            msiZapper.ZapMsi(currentRequest.MsiPath);
+            this.msiZapper.ZapMsi(currentRequest.MsiPath);
+            this.registryService.RemoveInstallationInfoKey(currentRequest.MsiPath);
         }
 
         private void Install(Request currentRequest)
@@ -311,15 +328,16 @@ namespace Microarea.Mago4Butler.BL
             {
                 rootDirInfo.Create();
             }
-#warning Attenzione che qui passo il nome dell'istanza, ma viene sovrascritto con il valore trovato nel registry.
+
             string msiFolderPath = Path.GetDirectoryName(currentRequest.MsiPath);
-            string installLogFilePath = Path.Combine(msiFolderPath, "Mago4_" + currentRequest.InstanceName + "_InstallLog.txt");
+            string installLogFilePath = Path.Combine(msiFolderPath, "Mago4_" + currentRequest.Instance.Name + "_InstallLog.txt");
             this.LaunchProcess(
                 msiexecPath,
-                String.Format("/i \"{0}\" /qb /norestart /l*vx \"{1}\" UICULTURE=it-IT INSTALLLOCATION=\"{2}\" INSTANCENAME=\"{3}\"", currentRequest.MsiPath, installLogFilePath, currentRequest.RootPath, currentRequest.InstanceName),
+                String.Format("/i \"{0}\" /qb /norestart /l*vx \"{1}\" UICULTURE=it-IT INSTALLLOCATION=\"{2}\" INSTANCENAME=\"{3}\"", currentRequest.MsiPath, installLogFilePath, currentRequest.RootPath, currentRequest.Instance.Name),
                 3600000
                 );
-            msiZapper.ZapMsi(currentRequest.MsiPath);
+            this.msiZapper.ZapMsi(currentRequest.MsiPath);
+            this.registryService.RemoveInstallationInfoKey(currentRequest.MsiPath);
         }
     }
 }

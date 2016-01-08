@@ -10,34 +10,119 @@ namespace Microarea.Mago4Butler.BL
 {
     public class Model
     {
-        List<string> instances = new List<string>();
+        List<Instance> instances = new List<Instance>();
 
-        public ICollection<string> Instances
+        public event EventHandler<InstanceEventArgs> InstanceAdded;
+        public event EventHandler<InstanceEventArgs> InstanceRemoved;
+        public event EventHandler<InstanceEventArgs> InstanceUpdated;
+
+        protected virtual void OnInstanceAdded(InstanceEventArgs e)
+        {
+            var handler = InstanceAdded;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+        protected virtual void OnInstanceRemoved(InstanceEventArgs e)
+        {
+            var handler = InstanceRemoved;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+
+        protected virtual void OnInstanceUpdated(InstanceEventArgs e)
+        {
+            var handler = InstanceUpdated;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+
+        public ICollection<Instance> Instances
         {
             get
             {
                 return instances;
             }
         }
-        public void RemoveInstances(ICollection<string> instanceNames)
+        public void RemoveInstances(ICollection<Instance> instances)
         {
-            if (instanceNames != null)
+            if (instances != null)
             {
-                foreach (var instanceName in instanceNames)
+                foreach (var instance in instances)
                 {
-                    this.RemoveInstance(instanceName);
+                    this.RemoveInstance(instance);
                 }
             }
         }
-        public void RemoveInstance(string instanceName)
+        public void RemoveInstance(Instance instance)
         {
-            instances.Remove(instanceName);
+            this.instances.Remove(instance);
+            this.OnInstanceRemoved(new InstanceEventArgs() { Instance = instance });
         }
-        public void AddInstance(string instanceName)
+        public void AddInstance(Instance instance)
         {
-            Debug.Assert(!String.IsNullOrWhiteSpace(instanceName));
+            Debug.Assert(instance != null);
+            Debug.Assert(!String.IsNullOrWhiteSpace(instance.Name));
+            Debug.Assert(instance.Version != null);
 
-            this.instances.Add(instanceName);
+            this.instances.Add(instance);
+            this.OnInstanceAdded(new InstanceEventArgs() { Instance = instance });
+        }
+
+        public void UpdateInstances(ICollection<Instance> instances)
+        {
+            if (instances != null)
+            {
+                foreach (var instance in instances)
+                {
+                    this.UpdateInstance(instance);
+                }
+            }
+        }
+
+        public void UpdateInstance(Instance instance)
+        {
+            Debug.Assert(instance != null);
+            Debug.Assert(!String.IsNullOrWhiteSpace(instance.Name));
+
+            var oldInstance = this.instances.Find((i) => String.Compare(i.Name, instance.Name, StringComparison.InvariantCultureIgnoreCase) == 0);
+
+            Debug.Assert(oldInstance != null);
+
+            oldInstance.Version = instance.Version;
+
+            this.OnInstanceUpdated(new InstanceEventArgs() { Instance = oldInstance });
+        }
+
+        public bool ContainsInstance(string instanceName)
+        {
+            foreach (var instance in this.instances)
+            {
+                if (String.Compare(instance.Name, instanceName, StringComparison.InvariantCultureIgnoreCase) == 0)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool ContainsInstance(Instance toSearchFor)
+        {
+            foreach (var instance in this.instances)
+            {
+                if (String.Compare(instance.Name, toSearchFor.Name, StringComparison.InvariantCultureIgnoreCase) == 0)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public void Init(string rootFolder)
@@ -58,7 +143,7 @@ namespace Microarea.Mago4Butler.BL
                 {
                     if (String.Compare("Standard", subDirInfo.Name, StringComparison.InvariantCultureIgnoreCase) == 0)
                     {
-                        this.instances.Add(instanceDirInfo.Name);
+                        this.AddInstance(Instance.FromStandardDirectoryInfo(subDirInfo));
                         break;
                     }
                 }

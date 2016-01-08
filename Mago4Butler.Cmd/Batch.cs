@@ -1,5 +1,4 @@
 ﻿using Microarea.Mago4Butler.BL;
-using Microarea.Mago4Butler.Properties;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +7,8 @@ namespace Microarea.Mago4Butler.Cmd
 {
     class Batch
     {
-        InstallerService instanceService = new InstallerService(Settings.Default.RootFolder);
+        MsiService msiService = new MsiService();
+        InstallerService instanceService;
         TextWriter outputWriter;
         Model model;
         bool isRunning;
@@ -25,6 +25,7 @@ namespace Microarea.Mago4Butler.Cmd
         {
             this.model = model;
             this.outputWriter = outputWriter;
+            this.instanceService = new InstallerService(Settings.Default.RootFolder, this.msiService);
 
             this.instanceService.Started += InstanceService_Started;
             this.instanceService.Starting += InstanceService_Starting;
@@ -41,31 +42,31 @@ namespace Microarea.Mago4Butler.Cmd
 
         private void InstanceService_Updated(object sender, UpdateInstanceEventArgs e)
         {
-            this.outputWriter.WriteLine(e.InstanceNames[0] + " successfully updated");
+            this.outputWriter.WriteLine(e.Instances[0].Name + " successfully updated");
             this.PrintCurrentStatus();
         }
 
         private void InstanceService_Updating(object sender, UpdateInstanceEventArgs e)
         {
-            this.outputWriter.WriteLine("Updating " + e.InstanceNames[0] + " ...");
+            this.outputWriter.WriteLine("Updating " + e.Instances[0].Name + " ...");
         }
 
         private void InstanceService_Removed(object sender, RemoveInstanceEventArgs e)
         {
-            this.outputWriter.WriteLine(e.InstanceNames[0] + " successfully removed");
-            this.model.RemoveInstances(e.InstanceNames);
+            this.outputWriter.WriteLine(e.Instances[0].Name + " successfully removed");
+            this.model.RemoveInstances(e.Instances);
             this.PrintCurrentStatus();
         }
 
         private void InstanceService_Removing(object sender, RemoveInstanceEventArgs e)
         {
-            this.outputWriter.WriteLine("Removing " + e.InstanceNames[0] + " ...");
+            this.outputWriter.WriteLine("Removing " + e.Instances[0].Name + " ...");
         }
 
         private void InstanceService_Installed(object sender, InstallInstanceEventArgs e)
         {
-            this.outputWriter.WriteLine("Installation of " + e.InstanceName + " completed");
-            this.model.AddInstance(e.InstanceName);
+            this.outputWriter.WriteLine("Installation of " + e.Instance.Name + " completed");
+            this.model.AddInstance(e.Instance);
             this.PrintCurrentStatus();
         }
 
@@ -87,7 +88,7 @@ namespace Microarea.Mago4Butler.Cmd
 
         private void InstanceService_Installing(object sender, InstallInstanceEventArgs e)
         {
-            this.outputWriter.WriteLine("Installing " + e.InstanceName + " ...");
+            this.outputWriter.WriteLine("Installing " + e.Instance.Name + " ...");
         }
 
         private void InstanceService_Stopping(object sender, EventArgs e)
@@ -112,21 +113,21 @@ namespace Microarea.Mago4Butler.Cmd
             this.isRunning = true;
         }
 
-        public void Install(string msiFullfilePath, params string[] instanceNames)
+        public void Install(string msiFullfilePath, params Instance[] instances)
         {
-            if (instanceNames.Length == 0)
+            if (instances.Length == 0)
             {
                 return;
             }
-            var workingInstances = new List<string>();
-            foreach (var instanceName in instanceNames)
+            var workingInstances = new List<Instance>();
+            foreach (var instance in instances)
             {
-                if (this.model.Instances.Contains(instanceName))
+                if (this.model.ContainsInstance(instance))
                 {
-                    this.outputWriter.WriteLine(instanceName + " already exists, I cannot install it");
+                    this.outputWriter.WriteLine(instance.Name + " already exists, I cannot install it");
                     continue;
                 }
-                workingInstances.Add(instanceName);
+                workingInstances.Add(instance);
             }
 
             foreach (var instanceName in workingInstances)
@@ -135,44 +136,44 @@ namespace Microarea.Mago4Butler.Cmd
             }
         }
 
-        public void Update(string msiFullfilePath, params string[] instanceNames)
+        public void Update(string msiFullfilePath, params Instance[] instances)
         {
-            if (instanceNames.Length == 0)
+            if (instances.Length == 0)
             {
                 return;
             }
-            var workingInstances = new List<string>();
-            foreach (var instanceName in instanceNames)
+            var workingInstances = new List<Instance>();
+            foreach (var instance in instances)
             {
-                if (!this.model.Instances.Contains(instanceName))
+                if (!this.model.ContainsInstance(instance))
                 {
-                    this.outputWriter.WriteLine(instanceName + " does not exist, I cannot update it");
+                    this.outputWriter.WriteLine(instance.Name + " does not exist, I cannot update it");
                     continue;
                 }
-                workingInstances.Add(instanceName);
+                workingInstances.Add(instance);
             }
             
             this.instanceService.Update(msiFullfilePath, workingInstances);
         }
 
-        public void Uninstall(params string[] instanceNames)
+        public void Uninstall(params Instance[] instances)
         {
-            if (instanceNames.Length == 0)
+            if (instances.Length == 0)
             {
                 return;
             }
-            var workingInstances = new List<string>();
-            foreach (var instanceName in instanceNames)
+            var workingInstances = new List<Instance>();
+            foreach (var instance in instances)
             {
-                if (!this.model.Instances.Contains(instanceName))
+                if (!this.model.ContainsInstance(instance))
                 {
-                    this.outputWriter.WriteLine(instanceName + " does not exist, I cannot uninstall it");
+                    this.outputWriter.WriteLine(instance.Name + " does not exist, I cannot uninstall it");
                     continue;
                 }
-                workingInstances.Add(instanceName);
+                workingInstances.Add(instance);
             }
 
-            this.instanceService.Uninstall(instanceNames);
+            this.instanceService.Uninstall(workingInstances);
         }
     }
 }

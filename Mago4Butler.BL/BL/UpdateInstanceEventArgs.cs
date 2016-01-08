@@ -5,6 +5,6 @@ namespace Microarea.Mago4Butler.BL
 {
     public class UpdateInstanceEventArgs : EventArgs
     {
-        public IList<string> InstanceNames { get; internal set; }
+        public IList<Instance> Instances { get; internal set; }
     }
 }

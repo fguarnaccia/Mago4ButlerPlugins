@@ -22,6 +22,7 @@ namespace Microarea.Mago4Butler.BL
             psi.RedirectStandardError = true;
             psi.RedirectStandardOutput = true;
             psi.UseShellExecute = false;
+            psi.CreateNoWindow = true;
             Process p = Process.Start(psi);
             string output = p.StandardOutput.ReadToEnd();
             string error = p.StandardError.ReadToEnd();
