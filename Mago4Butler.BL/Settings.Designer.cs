@@ -34,5 +34,17 @@ namespace Microarea.Mago4Butler.BL {
                 this["RootFolder"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Default Web Site")]
+        public string SiteName {
+            get {
+                return ((string)(this["SiteName"]));
+            }
+            set {
+                this["SiteName"] = value;
+            }
+        }
     }
 }

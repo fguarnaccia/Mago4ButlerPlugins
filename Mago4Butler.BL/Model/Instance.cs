@@ -14,6 +14,8 @@ namespace Microarea.Mago4Butler.BL
         public string Name { get; set; }
         public Version Version { get; set; }
 
+        public WebSiteInfo WebSiteInfo { get; set; }
+
         public static Instance FromStandardDirectoryInfo(DirectoryInfo standardDirInfo)
         {
             var parentDirInfo = standardDirInfo.Parent;
@@ -31,7 +33,7 @@ namespace Microarea.Mago4Butler.BL
                 var group = match.Groups["version"];
                 if (group != null)
                 {
-                    return new Instance() { Name = parentDirInfo.Name, Version = Version.Parse(group.Value) };
+                    return new Instance() { Name = parentDirInfo.Name, Version = Version.Parse(group.Value), WebSiteInfo = WebSiteInfo.DefaultWebSite };
                 }
             }
 

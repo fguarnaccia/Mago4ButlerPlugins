@@ -5,5 +5,8 @@
     <Setting Name="RootFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\Maghi</Value>
     </Setting>
+    <Setting Name="SiteName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Default Web Site</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

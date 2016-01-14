@@ -27,6 +27,8 @@ namespace Microarea.Mago4Butler.BL
         MsiZapper msiZapper;
         RegistryService registryService;
         MsiService msiService;
+        IisService iisService;
+        FileSystemService fileSystemService;
 
         string rootPath;
         Queue<Request> requests = new Queue<Request>();
@@ -45,8 +47,10 @@ namespace Microarea.Mago4Butler.BL
         {
             this.rootPath = rootPath;
             this.msiService = msiService;
-            msiZapper = new MsiZapper(this.msiService);
+            this.msiZapper = new MsiZapper(this.msiService);
             this.registryService = new RegistryService(this.msiService);
+            this.iisService = new IisService();
+            this.fileSystemService = new FileSystemService(rootPath);
         }
 
         protected virtual void OnStarting()
@@ -294,12 +298,13 @@ namespace Microarea.Mago4Butler.BL
 
         private void Remove(Request currentRequest)
         {
-#warning Remove application pools
-#warning Remove virtual dirs and applications
-#warning Remove network shares (se li creo in cloud)
-#warning Remove Desktop shortcuts
-#warning Remove Program Menu shortcuts
-#warning Remove Files
+            //Rimuovere prima le virtual folder e le application, poi gli application pool.
+            //Un application pool a cui sono collegate ancora applicazioni non puo` essere eliminato
+            this.iisService.RemoveVirtualFoldersAndApplications(currentRequest.Instance);
+
+            this.iisService.RemoveApplicationPools(currentRequest.Instance);
+
+            this.fileSystemService.RemoveAllFiles(currentRequest.Instance);
         }
 
         private void Update(Request currentRequest)
@@ -314,11 +319,12 @@ namespace Microarea.Mago4Butler.BL
             string installLogFilePath = Path.Combine(msiFolderPath, "Mago4_" + currentRequest.Instance.Name + "_UpdateLog.txt");
             this.LaunchProcess(
                 msiexecPath,
-                String.Format("/i {0} /qb /norestart /l*vx {1} UICULTURE=it-IT INSTALLLOCATION=\"{2}\" INSTANCENAME={3}", currentRequest.MsiPath, msiFolderPath, currentRequest.RootPath, currentRequest.Instance.Name),
+                String.Format("/i {0} /qb /norestart /l*vx {1} UICULTURE=\"it-IT\" INSTALLLOCATION=\"{2}\" INSTANCENAME=\"{3}\" DEFAULTWEBSITENAME=\"{4}\" DEFAULTWEBSITEID={5} DEFAULTWEBSITEPORT={6} SKIPCLICKONCEDEPLOYER=\"1\" REGISTERWCF=\"1\" NOSHORTCUTS=\"1\" NOSHARES=\"1\"", currentRequest.MsiPath, msiFolderPath, currentRequest.RootPath, currentRequest.Instance.Name, currentRequest.Instance.WebSiteInfo.SiteName, currentRequest.Instance.WebSiteInfo.SiteID, currentRequest.Instance.WebSiteInfo.SitePort),
                 3600000
                 );
             this.msiZapper.ZapMsi(currentRequest.MsiPath);
             this.registryService.RemoveInstallationInfoKey(currentRequest.MsiPath);
+            this.registryService.RemoveInstallerFoldersKeys(currentRequest.RootPath, currentRequest.Instance);
         }
 
         private void Install(Request currentRequest)
@@ -333,11 +339,12 @@ namespace Microarea.Mago4Butler.BL
             string installLogFilePath = Path.Combine(msiFolderPath, "Mago4_" + currentRequest.Instance.Name + "_InstallLog.txt");
             this.LaunchProcess(
                 msiexecPath,
-                String.Format("/i \"{0}\" /qb /norestart /l*vx \"{1}\" UICULTURE=it-IT INSTALLLOCATION=\"{2}\" INSTANCENAME=\"{3}\"", currentRequest.MsiPath, installLogFilePath, currentRequest.RootPath, currentRequest.Instance.Name),
+                String.Format("/i \"{0}\" /qb /norestart /l*vx \"{1}\" UICULTURE=\"it-IT\" INSTALLLOCATION=\"{2}\" INSTANCENAME=\"{3}\" DEFAULTWEBSITENAME=\"{4}\" DEFAULTWEBSITEID={5} DEFAULTWEBSITEPORT={6} SKIPCLICKONCEDEPLOYER=\"1\" REGISTERWCF=\"1\" NOSHORTCUTS=\"1\" NOHARES=\"1\"", currentRequest.MsiPath, installLogFilePath, currentRequest.RootPath, currentRequest.Instance.Name, currentRequest.Instance.WebSiteInfo.SiteName, currentRequest.Instance.WebSiteInfo.SiteID, currentRequest.Instance.WebSiteInfo.SitePort),
                 3600000
                 );
             this.msiZapper.ZapMsi(currentRequest.MsiPath);
             this.registryService.RemoveInstallationInfoKey(currentRequest.MsiPath);
+            this.registryService.RemoveInstallerFoldersKeys(currentRequest.RootPath, currentRequest.Instance);
         }
     }
 }

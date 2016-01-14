@@ -61,7 +61,7 @@ namespace Microarea.Mago4Butler.BL
             try
             {
                 record = view.Fetch();
-                return (record != null) ? record.get_StringData(2) : String.Empty;
+                return (record != null) ? record.get_StringData(2).Trim('{', '}') : String.Empty;
             }
             finally
             {

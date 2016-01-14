@@ -149,7 +149,7 @@ namespace Microarea.Mago4Butler.Cmd
             var instances = new List<Instance>();
             foreach (var instanceName in tokens)
             {
-                instances.Add(new Instance() { Name = instanceName });
+                instances.Add(new Instance() { Name = instanceName, WebSiteInfo = WebSiteInfo.DefaultWebSite });
             }
 
             return instances;

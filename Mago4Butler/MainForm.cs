@@ -169,6 +169,11 @@ namespace Microarea.Mago4Butler
 
         private void UiError_Back(object sender, EventArgs e)
         {
+            if (this.instanceService.IsRunning)
+            {
+                ShowUI(this.uiWaiting);
+                return;
+            }
             var ui = (this.model.Instances.Count == 0) ? this.uiEmpty as UserControl : this.uiNormalUse as UserControl;
             ShowUI(ui);
         }
@@ -215,7 +220,8 @@ namespace Microarea.Mago4Butler
                 this.model.AddInstance(new Instance()
                 {
                     Name = askForParametersDialog.InstanceName,
-                    Version = msiService.GetVersion(this.msiFullFilePath)
+                    Version = msiService.GetVersion(this.msiFullFilePath),
+                    WebSiteInfo = WebSiteInfo.DefaultWebSite
                 });
             }
         }

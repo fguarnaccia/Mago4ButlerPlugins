@@ -56,7 +56,7 @@
             this.lblNoMoreInstallations.AutoSize = true;
             this.lblNoMoreInstallations.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNoMoreInstallations.ForeColor = System.Drawing.Color.Gray;
-            this.lblNoMoreInstallations.Location = new System.Drawing.Point(39, 97);
+            this.lblNoMoreInstallations.Location = new System.Drawing.Point(62, 97);
             this.lblNoMoreInstallations.Name = "lblNoMoreInstallations";
             this.lblNoMoreInstallations.Size = new System.Drawing.Size(253, 39);
             this.lblNoMoreInstallations.TabIndex = 4;
