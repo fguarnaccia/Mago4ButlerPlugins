@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.bntAbout = new System.Windows.Forms.ToolStripButton();
+            this.tsbSettings = new System.Windows.Forms.ToolStripButton();
             this.pnlContent = new System.Windows.Forms.Panel();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
@@ -38,6 +39,7 @@
             // toolStrip
             // 
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsbSettings,
             this.bntAbout});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
@@ -54,6 +56,16 @@
             this.bntAbout.Size = new System.Drawing.Size(23, 22);
             this.bntAbout.Text = "?";
             this.bntAbout.Click += new System.EventHandler(this.bntAbout_Click);
+            // 
+            // tsbSettings
+            // 
+            this.tsbSettings.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbSettings.Image = ((System.Drawing.Image)(resources.GetObject("tsbSettings.Image")));
+            this.tsbSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbSettings.Name = "tsbSettings";
+            this.tsbSettings.Size = new System.Drawing.Size(53, 22);
+            this.tsbSettings.Text = "Settings";
+            this.tsbSettings.Click += new System.EventHandler(this.tsbSettings_Click);
             // 
             // pnlContent
             // 
@@ -90,6 +102,7 @@
         private System.Windows.Forms.ToolStrip toolStrip;
         private System.Windows.Forms.ToolStripButton bntAbout;
         private System.Windows.Forms.Panel pnlContent;
+        private System.Windows.Forms.ToolStripButton tsbSettings;
     }
 }
 

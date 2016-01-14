@@ -250,5 +250,13 @@ namespace Microarea.Mago4Butler
 
             this.model.UpdateInstances(e.Instances);
         }
+
+        private void tsbSettings_Click(object sender, EventArgs e)
+        {
+            using (var settingsForm = new SettingsForm(Settings.Default))
+            {
+                settingsForm.ShowDialog(this);
+            }
+        }
     }
 }

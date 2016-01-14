@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -316,7 +317,12 @@ namespace Microarea.Mago4Butler.BL
             }
 
             string msiFolderPath = Path.GetDirectoryName(currentRequest.MsiPath);
-            string installLogFilePath = Path.Combine(msiFolderPath, "Mago4_" + currentRequest.Instance.Name + "_UpdateLog.txt");
+            string logFilesFolderPath = Path.Combine(currentRequest.RootPath, "Logs");
+            if (!Directory.Exists(logFilesFolderPath))
+            {
+                Directory.CreateDirectory(logFilesFolderPath);
+            }
+            string installLogFilePath = Path.Combine(logFilesFolderPath, "Mago4_" + currentRequest.Instance.Name + "_UpdateLog_" + DateTime.Now.ToString("yyyyMMddhhmmss", CultureInfo.InvariantCulture) + ".log");
             this.LaunchProcess(
                 msiexecPath,
                 String.Format("/i {0} /qb /norestart /l*vx {1} UICULTURE=\"it-IT\" INSTALLLOCATION=\"{2}\" INSTANCENAME=\"{3}\" DEFAULTWEBSITENAME=\"{4}\" DEFAULTWEBSITEID={5} DEFAULTWEBSITEPORT={6} SKIPCLICKONCEDEPLOYER=\"1\" REGISTERWCF=\"1\" NOSHORTCUTS=\"1\" NOSHARES=\"1\"", currentRequest.MsiPath, msiFolderPath, currentRequest.RootPath, currentRequest.Instance.Name, currentRequest.Instance.WebSiteInfo.SiteName, currentRequest.Instance.WebSiteInfo.SiteID, currentRequest.Instance.WebSiteInfo.SitePort),
@@ -335,8 +341,12 @@ namespace Microarea.Mago4Butler.BL
                 rootDirInfo.Create();
             }
 
-            string msiFolderPath = Path.GetDirectoryName(currentRequest.MsiPath);
-            string installLogFilePath = Path.Combine(msiFolderPath, "Mago4_" + currentRequest.Instance.Name + "_InstallLog.txt");
+            string logFilesFolderPath = Path.Combine(currentRequest.RootPath, "Logs");
+            if (!Directory.Exists(logFilesFolderPath))
+            {
+                Directory.CreateDirectory(logFilesFolderPath);
+            }
+            string installLogFilePath = Path.Combine(logFilesFolderPath, "Mago4_" + currentRequest.Instance.Name + "_InstallLog_" + DateTime.Now.ToString("yyyyMMddhhmmss", CultureInfo.InvariantCulture) + ".log");
             this.LaunchProcess(
                 msiexecPath,
                 String.Format("/i \"{0}\" /qb /norestart /l*vx \"{1}\" UICULTURE=\"it-IT\" INSTALLLOCATION=\"{2}\" INSTANCENAME=\"{3}\" DEFAULTWEBSITENAME=\"{4}\" DEFAULTWEBSITEID={5} DEFAULTWEBSITEPORT={6} SKIPCLICKONCEDEPLOYER=\"1\" REGISTERWCF=\"1\" NOSHORTCUTS=\"1\" NOHARES=\"1\"", currentRequest.MsiPath, installLogFilePath, currentRequest.RootPath, currentRequest.Instance.Name, currentRequest.Instance.WebSiteInfo.SiteName, currentRequest.Instance.WebSiteInfo.SiteID, currentRequest.Instance.WebSiteInfo.SitePort),

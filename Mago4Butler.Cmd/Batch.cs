@@ -1,7 +1,8 @@
 ﻿using Microarea.Mago4Butler.BL;
 using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Drawing;
+using Console = Colorful.Console;
 
 namespace Microarea.Mago4Butler.Cmd
 {
@@ -9,7 +10,6 @@ namespace Microarea.Mago4Butler.Cmd
     {
         MsiService msiService = new MsiService();
         InstallerService instanceService;
-        TextWriter outputWriter;
         Model model;
         bool isRunning;
 
@@ -21,10 +21,9 @@ namespace Microarea.Mago4Butler.Cmd
             }
         }
 
-        public Batch(Model model, TextWriter outputWriter)
+        public Batch(Model model)
         {
             this.model = model;
-            this.outputWriter = outputWriter;
             this.instanceService = new InstallerService(Settings.Default.RootFolder, this.msiService);
 
             this.instanceService.Started += InstanceService_Started;
@@ -42,30 +41,30 @@ namespace Microarea.Mago4Butler.Cmd
 
         private void InstanceService_Updated(object sender, UpdateInstanceEventArgs e)
         {
-            this.outputWriter.WriteLine(e.Instances[0].Name + " successfully updated");
+            Console.WriteLine(e.Instances[0].Name + " successfully updated", Color.Green);
             this.PrintCurrentStatus();
         }
 
         private void InstanceService_Updating(object sender, UpdateInstanceEventArgs e)
         {
-            this.outputWriter.WriteLine("Updating " + e.Instances[0].Name + " ...");
+            Console.WriteLine("Updating " + e.Instances[0].Name + " ...");
         }
 
         private void InstanceService_Removed(object sender, RemoveInstanceEventArgs e)
         {
-            this.outputWriter.WriteLine(e.Instances[0].Name + " successfully removed");
+            Console.WriteLine(e.Instances[0].Name + " successfully removed", Color.Green);
             this.model.RemoveInstances(e.Instances);
             this.PrintCurrentStatus();
         }
 
         private void InstanceService_Removing(object sender, RemoveInstanceEventArgs e)
         {
-            this.outputWriter.WriteLine("Removing " + e.Instances[0].Name + " ...");
+            Console.WriteLine("Removing " + e.Instances[0].Name + " ...");
         }
 
         private void InstanceService_Installed(object sender, InstallInstanceEventArgs e)
         {
-            this.outputWriter.WriteLine("Installation of " + e.Instance.Name + " completed");
+            Console.WriteLine("Installation of " + e.Instance.Name + " completed", Color.Green);
             this.model.AddInstance(e.Instance);
             this.PrintCurrentStatus();
         }
@@ -74,42 +73,42 @@ namespace Microarea.Mago4Butler.Cmd
         {
             if (this.model.Instances.Count == 0)
             {
-                this.outputWriter.WriteLine("No instances installed");
+                Console.WriteLine("No instances installed");
             }
             else
             {
-                this.outputWriter.WriteLine("Current instances are:");
+                Console.WriteLine("Current instances are:");
                 foreach (var instance in this.model.Instances)
                 {
-                    this.outputWriter.WriteLine("\t" + instance);
+                    Console.WriteLine("\t" + instance);
                 }
             }
         }
 
         private void InstanceService_Installing(object sender, InstallInstanceEventArgs e)
         {
-            this.outputWriter.WriteLine("Installing " + e.Instance.Name + " ...");
+            Console.WriteLine("Installing " + e.Instance.Name + " ...");
         }
 
         private void InstanceService_Stopping(object sender, EventArgs e)
         {
-            this.outputWriter.WriteLine("Stopping install service ...");
+            Console.WriteLine("Stopping install service ...");
         }
 
         private void InstanceService_Stopped(object sender, EventArgs e)
         {
-            this.outputWriter.WriteLine("Install service stopped");
+            Console.WriteLine("Install service stopped", Color.Green);
             this.isRunning = false;
         }
 
         private void InstanceService_Starting(object sender, EventArgs e)
         {
-            this.outputWriter.WriteLine("Starting install service ...");
+            Console.WriteLine("Starting install service ...");
         }
 
         private void InstanceService_Started(object sender, EventArgs e)
         {
-            this.outputWriter.WriteLine("Install service started");
+            Console.WriteLine("Install service started", Color.Green);
             this.isRunning = true;
         }
 
@@ -124,7 +123,7 @@ namespace Microarea.Mago4Butler.Cmd
             {
                 if (this.model.ContainsInstance(instance))
                 {
-                    this.outputWriter.WriteLine(instance.Name + " already exists, I cannot install it");
+                    Console.WriteLine(instance.Name + " already exists, I cannot install it", Color.Red);
                     continue;
                 }
                 workingInstances.Add(instance);
@@ -147,7 +146,7 @@ namespace Microarea.Mago4Butler.Cmd
             {
                 if (!this.model.ContainsInstance(instance))
                 {
-                    this.outputWriter.WriteLine(instance.Name + " does not exist, I cannot update it");
+                    Console.WriteLine(instance.Name + " does not exist, I cannot update it", Color.Red);
                     continue;
                 }
                 workingInstances.Add(instance);
@@ -167,7 +166,7 @@ namespace Microarea.Mago4Butler.Cmd
             {
                 if (!this.model.ContainsInstance(instance))
                 {
-                    this.outputWriter.WriteLine(instance.Name + " does not exist, I cannot uninstall it");
+                    Console.WriteLine(instance.Name + " does not exist, I cannot uninstall it", Color.Red);
                     continue;
                 }
                 workingInstances.Add(instance);

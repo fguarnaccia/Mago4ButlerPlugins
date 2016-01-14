@@ -18,7 +18,7 @@ namespace Microarea.Mago4Butler.BL
                 var appPoolsToRemove = appPools.Where(
                     pool =>
                         pool.Name.StartsWith(String.Format(CultureInfo.InvariantCulture, "MA_{0}", instance.Name), StringComparison.InvariantCultureIgnoreCase)
-                        );
+                        ).ToList();
 
                 foreach (var appPool in appPoolsToRemove)
                 {

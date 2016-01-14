@@ -2,11 +2,13 @@
 using Microarea.Mago4Butler.BL;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Console = Colorful.Console;
 
 namespace Microarea.Mago4Butler.Cmd
 {
@@ -38,7 +40,7 @@ namespace Microarea.Mago4Butler.Cmd
             Model model = new Model();
             model.Init(Settings.Default.RootFolder);
 
-            var batch = new Batch(model, Console.Out);
+            var batch = new Batch(model);
 
             batch.Install(msiFullFilePath, instanceToInstall.ToArray());
             batch.Update(msiFullFilePath, instanceToUpdate.ToArray());
@@ -120,7 +122,7 @@ namespace Microarea.Mago4Butler.Cmd
 
             if (!File.Exists(msiFullFilePath))
             {
-                Console.Out.WriteLine("Msi file " + msiFullFilePath + " does not exist.");
+                Console.WriteLine("Msi file " + msiFullFilePath + " does not exist.", Color.Red);
                 return false;
             }
 
@@ -159,24 +161,24 @@ namespace Microarea.Mago4Butler.Cmd
         {
             var version = typeof(Program).Assembly.GetName().Version.ToString();
 
-            Console.Out.WriteLine("Microarea Mago4 multi instance manager version " + version);
-            Console.Out.WriteLine("[Microsoft .NET Framework, version " + Environment.Version.ToString() + "]");
-            Console.Out.WriteLine("Copyright (C) Microarea S.p.A. All rights reserved.");
-            Console.Out.WriteLine("");
-            Console.Out.WriteLine("");
-            Console.Out.WriteLine("Usage:");
-            Console.Out.WriteLine("\tMago4Butler.exe " + installSwitch + " InstanceName1;InstanceName2;...;InstanceNameN " + msiFilaFullPathSwitch + " <msi file path>");
-            Console.Out.WriteLine("\tInstall all the instances specified by the semicolon separated list using the specified msi file");
-            Console.Out.WriteLine("");
-            Console.Out.WriteLine("\tMago4Butler.exe " + updateSwitch + " InstanceName1;InstanceName2;...;InstanceNameN " + msiFilaFullPathSwitch + " <msi file path>");
-            Console.Out.WriteLine("\tUpdate all the instances specified by the semicolon separated list using the specified msi file");
-            Console.Out.WriteLine("");
-            Console.Out.WriteLine("\tMago4Butler.exe " + uninstallSwitch + " InstanceName1;InstanceName2;...;InstanceNameN");
-            Console.Out.WriteLine("\tUninstall all the instances specified by the semicolon separated list");
-            Console.Out.WriteLine("");
-            Console.Out.WriteLine("");
-            Console.Out.WriteLine("\t" + installSwitch + ", " + uninstallSwitch + " and " + updateSwitch + " can be used together:");
-            Console.Out.WriteLine("\tMago4Butler.exe " + installSwitch + " InstanceName1;InstanceName2;...;InstanceNameN " + updateSwitch + " InstanceName1;InstanceName2;...;InstanceNameN " + uninstallSwitch + " InstanceName1;InstanceName2;...;InstanceNameN " + msiFilaFullPathSwitch + " <msi file path>");
+            Console.WriteLine("Microarea Mago4 multi instance manager version " + version, Color.White);
+            Console.WriteLine("[Microsoft .NET Framework, version " + Environment.Version.ToString() + "]", Color.White);
+            Console.WriteLine("Copyright (C) Microarea S.p.A. All rights reserved.", Color.White);
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("Usage:");
+            Console.WriteLine("\tMago4Butler.exe " + installSwitch + " InstanceName1;InstanceName2;...;InstanceNameN " + msiFilaFullPathSwitch + " <msi file path>", Color.White);
+            Console.WriteLine("\tInstall all the instances specified by the semicolon separated list using the specified msi file");
+            Console.WriteLine("");
+            Console.WriteLine("\tMago4Butler.exe " + updateSwitch + " InstanceName1;InstanceName2;...;InstanceNameN " + msiFilaFullPathSwitch + " <msi file path>", Color.White);
+            Console.WriteLine("\tUpdate all the instances specified by the semicolon separated list using the specified msi file");
+            Console.WriteLine("");
+            Console.WriteLine("\tMago4Butler.exe " + uninstallSwitch + " InstanceName1;InstanceName2;...;InstanceNameN", Color.White);
+            Console.WriteLine("\tUninstall all the instances specified by the semicolon separated list");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("\t" + installSwitch + ", " + uninstallSwitch + " and " + updateSwitch + " can be used together:");
+            Console.WriteLine("\tMago4Butler.exe " + installSwitch + " InstanceName1;InstanceName2;...;InstanceNameN " + updateSwitch + " InstanceName1;InstanceName2;...;InstanceNameN " + uninstallSwitch + " InstanceName1;InstanceName2;...;InstanceNameN " + msiFilaFullPathSwitch + " <msi file path>", Color.White);
         }
     }
 }
