@@ -27,5 +27,10 @@ namespace Microarea.Mago4Butler.BL
                 return defaultWebSite;
             }
         }
+
+        public override string ToString()
+        {
+            return SiteName;
+        }
     }
 }

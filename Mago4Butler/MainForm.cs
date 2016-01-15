@@ -254,7 +254,7 @@ namespace Microarea.Mago4Butler
 
         private void tsbSettings_Click(object sender, EventArgs e)
         {
-            using (var settingsForm = new SettingsForm(Settings.Default))
+            using (var settingsForm = new SettingsForm(Settings.Default, new IisService()))
             {
                 settingsForm.ShowDialog(this);
             }

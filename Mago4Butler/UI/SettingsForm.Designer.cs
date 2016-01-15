@@ -34,6 +34,8 @@
             this.btnOk = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.lblRootFolder = new System.Windows.Forms.Label();
+            this.lblWebSites = new System.Windows.Forms.Label();
+            this.cmbWebSites = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // txtRootFolder
@@ -89,6 +91,27 @@
             this.lblRootFolder.TabIndex = 2;
             this.lblRootFolder.Text = "Root folder:";
             // 
+            // lblWebSites
+            // 
+            this.lblWebSites.AutoSize = true;
+            this.lblWebSites.Location = new System.Drawing.Point(15, 71);
+            this.lblWebSites.Name = "lblWebSites";
+            this.lblWebSites.Size = new System.Drawing.Size(59, 13);
+            this.lblWebSites.TabIndex = 3;
+            this.lblWebSites.Text = "Web Sites:";
+            this.lblWebSites.Visible = false;
+            // 
+            // cmbWebSites
+            // 
+            this.cmbWebSites.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbWebSites.FormattingEnabled = true;
+            this.cmbWebSites.Location = new System.Drawing.Point(18, 88);
+            this.cmbWebSites.Name = "cmbWebSites";
+            this.cmbWebSites.Size = new System.Drawing.Size(153, 21);
+            this.cmbWebSites.TabIndex = 4;
+            this.cmbWebSites.Visible = false;
+            this.cmbWebSites.SelectedIndexChanged += new System.EventHandler(this.cmbWebSites_SelectedIndexChanged);
+            // 
             // SettingsForm
             // 
             this.AcceptButton = this.btnOk;
@@ -96,6 +119,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(415, 239);
+            this.Controls.Add(this.cmbWebSites);
+            this.Controls.Add(this.lblWebSites);
             this.Controls.Add(this.lblRootFolder);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.btnCancel);
@@ -119,5 +144,7 @@
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Label lblRootFolder;
+        private System.Windows.Forms.Label lblWebSites;
+        private System.Windows.Forms.ComboBox cmbWebSites;
     }
 }

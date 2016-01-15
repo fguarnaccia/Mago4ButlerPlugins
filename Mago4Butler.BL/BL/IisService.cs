@@ -59,6 +59,51 @@ namespace Microarea.Mago4Butler.BL
                 mgr.CommitChanges();
             }
         }
+
+        public IEnumerable<WebSiteInfo> GetAvailableWebSites()
+        {
+            List<WebSiteInfo> webSites = new List<WebSiteInfo>();
+
+            using (var serverManager = new ServerManager())
+            {
+                foreach (var site in serverManager.Sites)
+                {
+                    if (
+                        site.State != ObjectState.Started ||
+                        site.Bindings == null ||
+                        site.Bindings.Count == 0
+                        )
+                    {
+                        continue;
+                    }
+
+                    foreach (var bind in site.Bindings)
+                    {
+                        if (String.Compare(bind.Protocol, "http", StringComparison.OrdinalIgnoreCase) != 0)
+                        {
+                            continue;
+                        }
+
+                        string[] bindingTokens = bind.BindingInformation.Split(':');
+                        //Il binding non esprime la porta.
+                        if (bindingTokens == null || bindingTokens.Length < 2)
+                            continue;
+
+                        WebSiteInfo wsi = new WebSiteInfo()
+                        {
+                            SiteName = site.Name,
+                            SiteID = (int)site.Id,
+                            SitePort = Int32.Parse(bindingTokens[1])
+                        };
+
+                        webSites.Add(wsi);
+                        break;
+                    }
+                }
+            }
+
+            return webSites;
+        }
     }
 
 }
