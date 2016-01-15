@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	
+    <Product
+      Id="*"
+      Name="Mago4Butler Setup"
+      Language="1033"
+      Version="$(var.ProductVersion)"
+      Manufacturer="Microarea S.p.A."
+      UpgradeCode="764d7af8-bc01-4a88-82a5-d6eed6e2196e"
+      >
+		<Package
+      InstallerVersion="200"
+      Compressed="yes"
+      InstallScope="perMachine"
+      InstallPrivileges="elevated"
+      Manufacturer="Microarea S.p.A."
+      />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<Media Id="1" Cabinet="Mago4ButlerSetup.cab" CompressionLevel="high" EmbedCab="yes" />
+
+		<Feature Id="ProductFeature" Title="Mago4Butler" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+		</Feature>
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLFOLDER" Name="Mago4Butler" />
+			</Directory>
+		</Directory>
+	</Fragment>
+
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <Component Id="MicrosoftWebAdministrationdllComponent" Guid="64EA7548-F4C8-4328-A425-B66739613929" DiskId="1">
+        <File Id="MicrosoftWebAdministrationdllFile" Checksum="yes" Source="$(var.Mago4Butler.TargetDir)\Microsoft.Web.Administration.dll" />
+      </Component>
+      <Component Id="Mago4ButlerCmdexeconfigComponent" Guid="EDE99890-6334-4E98-A167-19069D17B449" DiskId="1">
+        <File Id="Mago4ButlerCmdexeconfigFile" Checksum="yes" Source="$(var.Mago4Butler.TargetDir)\Mago4Butler.Cmd.exe.config" />
+      </Component>
+      <Component Id="Mago4ButlerexeconfigComponent" Guid="C01DE042-EB02-42A4-9AB6-3841E1482407" DiskId="1">
+        <File Id="Mago4ButlerexeconfigFile" Checksum="yes" Source="$(var.Mago4Butler.TargetDir)\Mago4Butler.exe.config" />
+      </Component>
+      <Component Id="Mago4ButlerexeComponent" Guid="B8C5CC62-8702-4761-8FEF-473E98A75315" DiskId="1">
+        <File Id="Mago4ButlerexeFile" Checksum="yes" Source="$(var.Mago4Butler.TargetDir)\Mago4Butler.exe" />
+      </Component>
+      <Component Id="Mago4ButlerCmdexeComponent" Guid="B114A002-FCBD-4491-9D4F-6CA958B22FEB" DiskId="1">
+        <File Id="Mago4ButlerCmdexeFile" Checksum="yes" Source="$(var.Mago4Butler.TargetDir)\Mago4Butler.Cmd.exe" />
+      </Component>
+			<Component Id="Mago4ButlerBLdllComponent" Guid="921AB522-287E-4C2A-BC64-83486F695CF6" DiskId="1">
+        <File Id="Mago4ButlerBLdllFile" Checksum="yes" Source="$(var.Mago4Butler.TargetDir)\Mago4Butler.BL.dll" />
+      </Component>
+      <Component Id="ColorfulConsoledllComponent" Guid="7D09A473-1B75-44BD-8C03-790123EB91F0" DiskId="1">
+        <File Id="ColorfulConsoledllFile" Checksum="yes" Source="$(var.Mago4Butler.TargetDir)\Colorful.Console.dll" />
+      </Component>
+		</ComponentGroup>
+	</Fragment>
+</Wix>

@@ -42,7 +42,7 @@ namespace Microarea.Mago4Butler.BL
             }
         }
 
-        public ICollection<Instance> Instances
+        public IEnumerable<Instance> Instances
         {
             get
             {

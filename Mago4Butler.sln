@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mago4Butler.Cmd", "Mago4But
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mago4Butler.BL", "Mago4Butler.BL\Mago4Butler.BL.csproj", "{CF1BEF3B-3042-4192-B6C4-CDC0ED25336D}"
 EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Mago4ButlerSetup", "Mago4ButlerSetup\Mago4ButlerSetup.wixproj", "{A063F660-3E25-452C-B093-0C85F2B81A27}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,12 +43,18 @@ Global
 		{CF1BEF3B-3042-4192-B6C4-CDC0ED25336D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CF1BEF3B-3042-4192-B6C4-CDC0ED25336D}.Release|x86.ActiveCfg = Release|x86
 		{CF1BEF3B-3042-4192-B6C4-CDC0ED25336D}.Release|x86.Build.0 = Release|x86
+		{A063F660-3E25-452C-B093-0C85F2B81A27}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{A063F660-3E25-452C-B093-0C85F2B81A27}.Debug|x86.ActiveCfg = Debug|x86
+		{A063F660-3E25-452C-B093-0C85F2B81A27}.Debug|x86.Build.0 = Debug|x86
+		{A063F660-3E25-452C-B093-0C85F2B81A27}.Release|Any CPU.ActiveCfg = Release|x86
+		{A063F660-3E25-452C-B093-0C85F2B81A27}.Release|x86.ActiveCfg = Release|x86
+		{A063F660-3E25-452C-B093-0C85F2B81A27}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 4
+		SccNumberOfProjects = 5
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = http://tfs:8080/tfs/microarea
 		SccLocalPath0 = .
@@ -59,5 +67,8 @@ Global
 		SccProjectUniqueName3 = Mago4Butler.BL\\Mago4Butler.BL.csproj
 		SccProjectName3 = Mago4Butler.BL
 		SccLocalPath3 = Mago4Butler.BL
+		SccProjectUniqueName4 = Mago4ButlerSetup\\Mago4ButlerSetup.wixproj
+		SccProjectName4 = Mago4ButlerSetup
+		SccLocalPath4 = Mago4ButlerSetup
 	EndGlobalSection
 EndGlobal

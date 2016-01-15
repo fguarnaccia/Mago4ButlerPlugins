@@ -54,12 +54,11 @@
             this.txtError.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtError.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtError.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtError.Location = new System.Drawing.Point(16, 166);
+            this.txtError.Location = new System.Drawing.Point(16, 141);
             this.txtError.Multiline = true;
             this.txtError.Name = "txtError";
             this.txtError.ReadOnly = true;
-            this.txtError.Size = new System.Drawing.Size(366, 119);
+            this.txtError.Size = new System.Drawing.Size(366, 144);
             this.txtError.TabIndex = 8;
             this.txtError.Text = "Error details";
             // 

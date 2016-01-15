@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using Console = Colorful.Console;
 
 namespace Microarea.Mago4Butler.Cmd
@@ -71,7 +72,7 @@ namespace Microarea.Mago4Butler.Cmd
 
         private void PrintCurrentStatus()
         {
-            if (this.model.Instances.Count == 0)
+            if (this.model.Instances.Count() == 0)
             {
                 Console.WriteLine("No instances installed");
             }

@@ -30,15 +30,17 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.toolStrip = new System.Windows.Forms.ToolStrip();
-            this.bntAbout = new System.Windows.Forms.ToolStripButton();
             this.tsbSettings = new System.Windows.Forms.ToolStripButton();
+            this.bntAbout = new System.Windows.Forms.ToolStripButton();
             this.pnlContent = new System.Windows.Forms.Panel();
+            this.tsbViewLogs = new System.Windows.Forms.ToolStripButton();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip
             // 
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsbViewLogs,
             this.tsbSettings,
             this.bntAbout});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
@@ -46,16 +48,6 @@
             this.toolStrip.Size = new System.Drawing.Size(384, 25);
             this.toolStrip.TabIndex = 0;
             this.toolStrip.Text = "toolStrip1";
-            // 
-            // bntAbout
-            // 
-            this.bntAbout.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.bntAbout.Image = ((System.Drawing.Image)(resources.GetObject("bntAbout.Image")));
-            this.bntAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.bntAbout.Name = "bntAbout";
-            this.bntAbout.Size = new System.Drawing.Size(23, 22);
-            this.bntAbout.Text = "?";
-            this.bntAbout.Click += new System.EventHandler(this.bntAbout_Click);
             // 
             // tsbSettings
             // 
@@ -67,6 +59,16 @@
             this.tsbSettings.Text = "Settings";
             this.tsbSettings.Click += new System.EventHandler(this.tsbSettings_Click);
             // 
+            // bntAbout
+            // 
+            this.bntAbout.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.bntAbout.Image = ((System.Drawing.Image)(resources.GetObject("bntAbout.Image")));
+            this.bntAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.bntAbout.Name = "bntAbout";
+            this.bntAbout.Size = new System.Drawing.Size(23, 22);
+            this.bntAbout.Text = "?";
+            this.bntAbout.Click += new System.EventHandler(this.bntAbout_Click);
+            // 
             // pnlContent
             // 
             this.pnlContent.BackgroundImage = global::Microarea.Mago4Butler.Properties.Resources.logo;
@@ -76,6 +78,16 @@
             this.pnlContent.Name = "pnlContent";
             this.pnlContent.Size = new System.Drawing.Size(384, 437);
             this.pnlContent.TabIndex = 1;
+            // 
+            // tsbViewLogs
+            // 
+            this.tsbViewLogs.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbViewLogs.Image = ((System.Drawing.Image)(resources.GetObject("tsbViewLogs.Image")));
+            this.tsbViewLogs.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbViewLogs.Name = "tsbViewLogs";
+            this.tsbViewLogs.Size = new System.Drawing.Size(64, 22);
+            this.tsbViewLogs.Text = "View Logs";
+            this.tsbViewLogs.Click += new System.EventHandler(this.tsbViewLogs_Click);
             // 
             // MainForm
             // 
@@ -103,6 +115,7 @@
         private System.Windows.Forms.ToolStripButton bntAbout;
         private System.Windows.Forms.Panel pnlContent;
         private System.Windows.Forms.ToolStripButton tsbSettings;
+        private System.Windows.Forms.ToolStripButton tsbViewLogs;
     }
 }
 

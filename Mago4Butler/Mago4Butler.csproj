@@ -178,6 +178,10 @@
       <Project>{cf1bef3b-3042-4192-b6c4-cdc0ed25336d}</Project>
       <Name>Mago4Butler.BL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Mago4Butler.Cmd\Mago4Butler.Cmd.csproj">
+      <Project>{5a1808de-e0f2-4a69-a0c0-b63a76859f8c}</Project>
+      <Name>Mago4Butler.Cmd</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

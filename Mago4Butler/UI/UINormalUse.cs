@@ -92,6 +92,7 @@ namespace Microarea.Mago4Butler
         {
             base.OnLoad(e);
 
+            this.lsvInstances.Items.Clear();
             foreach (var instance in this.model.Instances)
             {
                 AddInstanceToListView(instance);

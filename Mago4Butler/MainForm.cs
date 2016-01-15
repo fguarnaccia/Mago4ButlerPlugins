@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -87,7 +88,7 @@ namespace Microarea.Mago4Butler
 
             Thread.Sleep(1500);
 
-            if (this.model.Instances.Count > 0)
+            if (this.model.Instances.Count() > 0)
             {
                 ShowUI(this.uiNormalUse);
             }
@@ -134,7 +135,7 @@ namespace Microarea.Mago4Butler
 
         private void InstanceService_Stopped(object sender, EventArgs e)
         {
-            var ui = (this.model.Instances.Count == 0) ? this.uiEmpty as UserControl : this.uiNormalUse as UserControl;
+            var ui = (this.model.Instances.Count() == 0) ? this.uiEmpty as UserControl : this.uiNormalUse as UserControl;
             ShowUI(ui);
         }
 
@@ -174,7 +175,7 @@ namespace Microarea.Mago4Butler
                 ShowUI(this.uiWaiting);
                 return;
             }
-            var ui = (this.model.Instances.Count == 0) ? this.uiEmpty as UserControl : this.uiNormalUse as UserControl;
+            var ui = (this.model.Instances.Count() == 0) ? this.uiEmpty as UserControl : this.uiNormalUse as UserControl;
             ShowUI(ui);
         }
 
@@ -257,6 +258,11 @@ namespace Microarea.Mago4Butler
             {
                 settingsForm.ShowDialog(this);
             }
+        }
+
+        private void tsbViewLogs_Click(object sender, EventArgs e)
+        {
+            Process.Start(Path.Combine(Settings.Default.RootFolder, "Logs"));
         }
     }
 }
