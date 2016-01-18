@@ -68,7 +68,7 @@ namespace Microarea.Mago4Butler
             if (this.DialogResult == DialogResult.OK)
             {
                 this.settings.RootFolder = this.txtRootFolder.Text;
-                this.settings.SiteName = (this.cmbWebSites.SelectedItem as WebSiteInfo).SiteName;
+                //this.settings.SiteName = (this.cmbWebSites.SelectedItem as WebSiteInfo).SiteName;
             }
         }
 
