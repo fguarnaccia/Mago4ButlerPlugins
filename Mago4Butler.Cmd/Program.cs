@@ -65,7 +65,7 @@ namespace Microarea.Mago4Butler.Cmd
 
             for (int i = 0; i < args.Length; i = i + 2)
             {
-                switch (args[i])
+                switch (args[i].ToLowerInvariant())
                 {
                     case updateSwitch:
                         {
