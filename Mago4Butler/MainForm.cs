@@ -86,7 +86,7 @@ namespace Microarea.Mago4Butler
             this.instanceService.Updating += InstanceService_Updating;
             this.instanceService.Updated += InstanceService_Updated;
 
-            Thread.Sleep(1500);
+            Thread.Sleep(1000);
 
             if (this.model.Instances.Count() > 0)
             {

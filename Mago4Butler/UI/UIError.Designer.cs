@@ -58,6 +58,7 @@
             this.txtError.Multiline = true;
             this.txtError.Name = "txtError";
             this.txtError.ReadOnly = true;
+            this.txtError.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtError.Size = new System.Drawing.Size(366, 144);
             this.txtError.TabIndex = 8;
             this.txtError.Text = "Error details";
