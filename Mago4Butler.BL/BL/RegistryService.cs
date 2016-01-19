@@ -32,7 +32,14 @@ namespace Microarea.Mago4Butler.BL
             {
                 if (key != null)
                 {
-                    key.DeleteSubKeyTree(upgradeCode);
+                    foreach (var subKeyName in key.GetSubKeyNames())
+                    {
+                        if (String.Compare(subKeyName, upgradeCode, StringComparison.InvariantCultureIgnoreCase) == 0)
+                        {
+                            key.DeleteSubKeyTree(upgradeCode);
+                            break;
+                        }
+                    }
                 }
             }
         }

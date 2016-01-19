@@ -310,6 +310,17 @@ namespace Microarea.Mago4Butler.BL
 
         private void Update(Request currentRequest)
         {
+            //Rimuovo le informazioni di installazione dal registry se presenti in
+            //modo che la mia installazione non le trovi e tenga i parametri che passo io da riga di comando.
+            this.registryService.RemoveInstallationInfoKey(currentRequest.MsiPath);
+
+            //Rimuovo la parte di installazione su IIS per evitare che, se tra un setup e il successivo
+            //alcuni componenti cambiano noe, mi rimangano dei cadaveri.
+            //Rimuovere prima le virtual folder e le application, poi gli application pool.
+            //Un application pool a cui sono collegate ancora applicazioni non puo` essere eliminato
+            this.iisService.RemoveVirtualFoldersAndApplications(currentRequest.Instance);
+            this.iisService.RemoveApplicationPools(currentRequest.Instance);
+
             var rootDirInfo = new DirectoryInfo(currentRequest.RootPath);
             if (!rootDirInfo.Exists)
             {
@@ -335,6 +346,10 @@ namespace Microarea.Mago4Butler.BL
 
         private void Install(Request currentRequest)
         {
+            //Rimuovo le informazioni di installazione dal registry se presenti in
+            //modo che la mia installazione non le trovi e tenga i parametri che passo io da riga di comando.
+            this.registryService.RemoveInstallationInfoKey(currentRequest.MsiPath);
+
             var rootDirInfo = new DirectoryInfo(currentRequest.RootPath);
             if (!rootDirInfo.Exists)
             {

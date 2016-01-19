@@ -3,10 +3,10 @@
 	
     <Product
       Id="*"
-      Name="Mago4Butler Setup"
+      Name="Mago4Butler"
       Language="1033"
       Version="$(var.ProductVersion)"
-      Manufacturer="Microarea S.p.A."
+      Manufacturer="Microarea"
       UpgradeCode="764d7af8-bc01-4a88-82a5-d6eed6e2196e"
       >
 		<Package
