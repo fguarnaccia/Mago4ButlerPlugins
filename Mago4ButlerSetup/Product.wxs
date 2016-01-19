@@ -35,7 +35,12 @@
       <ComponentRef Id="DesktopShortcutComponent" />
       <ComponentRef Id="ProgramMenuFolderComponent" />
 		</Feature>
+
+    <Icon Id="IconId" SourceFile="../Mago4Butler/img/Logo.ico" />
+    <Property Id="ARPPRODUCTICON" Value="IconId" />
+    <Property Id="ARPHELPLINK" Value="http://www.microarea.it" />
 	</Product>
+  
 
 	<Fragment>
 		<Directory Id="TARGETDIR" Name="SourceDir">
