@@ -267,7 +267,7 @@ namespace Microarea.Mago4Butler
             {
                 Directory.CreateDirectory(logsPath);
             }
-            Process.Start(Path.Combine(Settings.Default.RootFolder, "Logs"));
+            Process.Start(logsPath);
         }
     }
 }
