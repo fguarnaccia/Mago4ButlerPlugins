@@ -262,6 +262,11 @@ namespace Microarea.Mago4Butler
 
         private void tsbViewLogs_Click(object sender, EventArgs e)
         {
+            var logsPath = Path.Combine(Settings.Default.RootFolder, "Logs");
+            if (!Directory.Exists(logsPath))
+            {
+                Directory.CreateDirectory(logsPath);
+            }
             Process.Start(Path.Combine(Settings.Default.RootFolder, "Logs"));
         }
     }
