@@ -58,6 +58,8 @@ namespace Microarea.Mago4Butler
         {
             Application.Idle -= Application_Idle;
 
+            this.Text = String.Format(System.Globalization.CultureInfo.InvariantCulture, "{0} v. {1}", this.Text, this.GetType().Assembly.GetName().Version.ToString());
+
             model.Init(Settings.Default.RootFolder);
             uiNormalUse = new UINormalUse(this.model);
 

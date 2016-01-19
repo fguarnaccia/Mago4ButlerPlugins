@@ -27,7 +27,7 @@ namespace Microarea.Mago4Butler.Cmd
         {
             get
             {
-                return DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss.ffff", CultureInfo.InvariantCulture);
+                return DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss.fff", CultureInfo.InvariantCulture);
             }
         }
 

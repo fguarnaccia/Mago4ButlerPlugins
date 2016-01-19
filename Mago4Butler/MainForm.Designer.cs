@@ -30,10 +30,10 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.toolStrip = new System.Windows.Forms.ToolStrip();
+            this.tsbViewLogs = new System.Windows.Forms.ToolStripButton();
             this.tsbSettings = new System.Windows.Forms.ToolStripButton();
             this.bntAbout = new System.Windows.Forms.ToolStripButton();
             this.pnlContent = new System.Windows.Forms.Panel();
-            this.tsbViewLogs = new System.Windows.Forms.ToolStripButton();
             this.toolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,6 +48,16 @@
             this.toolStrip.Size = new System.Drawing.Size(384, 25);
             this.toolStrip.TabIndex = 0;
             this.toolStrip.Text = "toolStrip1";
+            // 
+            // tsbViewLogs
+            // 
+            this.tsbViewLogs.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbViewLogs.Image = ((System.Drawing.Image)(resources.GetObject("tsbViewLogs.Image")));
+            this.tsbViewLogs.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbViewLogs.Name = "tsbViewLogs";
+            this.tsbViewLogs.Size = new System.Drawing.Size(64, 22);
+            this.tsbViewLogs.Text = "View Logs";
+            this.tsbViewLogs.Click += new System.EventHandler(this.tsbViewLogs_Click);
             // 
             // tsbSettings
             // 
@@ -78,16 +88,6 @@
             this.pnlContent.Name = "pnlContent";
             this.pnlContent.Size = new System.Drawing.Size(384, 437);
             this.pnlContent.TabIndex = 1;
-            // 
-            // tsbViewLogs
-            // 
-            this.tsbViewLogs.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tsbViewLogs.Image = ((System.Drawing.Image)(resources.GetObject("tsbViewLogs.Image")));
-            this.tsbViewLogs.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbViewLogs.Name = "tsbViewLogs";
-            this.tsbViewLogs.Size = new System.Drawing.Size(64, 22);
-            this.tsbViewLogs.Text = "View Logs";
-            this.tsbViewLogs.Click += new System.EventHandler(this.tsbViewLogs_Click);
             // 
             // MainForm
             // 
