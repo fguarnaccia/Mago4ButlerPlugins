@@ -13,8 +13,8 @@ namespace Microarea.Mago4Butler.BL
     {
         public string Name { get; set; }
         public Version Version { get; set; }
-
         public WebSiteInfo WebSiteInfo { get; set; }
+        public string ProvisioningCommandLine { get; set; }
 
         public static Instance FromStandardDirectoryInfo(DirectoryInfo standardDirInfo)
         {

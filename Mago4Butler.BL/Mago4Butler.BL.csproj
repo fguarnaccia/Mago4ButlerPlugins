@@ -75,6 +75,7 @@
       <Link>AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="BL\NotificationEventArgs.cs" />
+    <Compile Include="BL\ProvisioningService.cs" />
     <Compile Include="BL\ServerManagerTrait.cs" />
     <Compile Include="BL\FileSystemService.cs" />
     <Compile Include="BL\IisService.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="BL\Request.cs" />
     <Compile Include="BL\RequestType.cs" />
     <Compile Include="BL\UpdateInstanceEventArgs.cs" />
+    <Compile Include="ISettings.cs" />
     <Compile Include="LocalAssemblyInfo.cs" />
     <Compile Include="Model\Instance.cs" />
     <Compile Include="Model\InstanceEventArgs.cs" />
@@ -98,6 +100,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Settings.cs" />
     <Compile Include="Settings.Designer.cs">
       <DependentUpon>Settings.settings</DependentUpon>
       <AutoGen>True</AutoGen>

@@ -34,7 +34,7 @@ namespace Microarea.Mago4Butler.Cmd
         public Batch(Model model)
         {
             this.model = model;
-            this.instanceService = new InstallerService(Settings.Default.RootFolder, this.msiService);
+            this.instanceService = new InstallerService(Settings.Default, this.msiService);
 
             this.instanceService.Started += InstanceService_Started;
             this.instanceService.Starting += InstanceService_Starting;

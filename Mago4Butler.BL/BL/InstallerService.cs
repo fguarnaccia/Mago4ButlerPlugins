@@ -46,14 +46,14 @@ namespace Microarea.Mago4Butler.BL
             }
         }
 
-        public InstallerService(string rootPath, MsiService msiService)
+        public InstallerService(ISettings settings, MsiService msiService)
         {
-            this.rootPath = rootPath;
+            this.rootPath = settings.RootFolder;
             this.msiService = msiService;
             this.msiZapper = new MsiZapper(this.msiService);
             this.registryService = new RegistryService(this.msiService);
             this.iisService = new IisService();
-            this.fileSystemService = new FileSystemService(rootPath);
+            this.fileSystemService = new FileSystemService(settings);
         }
 
         protected virtual void OnStarting()

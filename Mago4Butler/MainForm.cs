@@ -1,5 +1,6 @@
 ﻿using Microarea.Mago4Butler.BL;
 using Microarea.Mago4Butler.Properties;
+using Microarea.Tools.ProvisioningConfigurator.ProvisioningConfigurator;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,6 +28,8 @@ namespace Microarea.Mago4Butler
         Model model = new Model();
         MsiService msiService = new MsiService();
         InstallerService instanceService;
+        ProvisioningService provisioningService;
+
         string msiFullFilePath;
 
         public MainForm()
@@ -37,7 +40,9 @@ namespace Microarea.Mago4Butler
                 this.syncCtx = new WindowsFormsSynchronizationContext();
             }
 
-            instanceService = new InstallerService(Settings.Default.RootFolder, msiService);
+            var rootFolder = Settings.Default.RootFolder;
+            this.instanceService = new InstallerService(Settings.Default, msiService);
+            this.provisioningService = new ProvisioningService(Settings.Default);
 
             InitializeComponent();
 
@@ -129,7 +134,11 @@ namespace Microarea.Mago4Butler
 
         private void InstanceService_Installed(object sender, InstallInstanceEventArgs e)
         {
-            this.uiWaiting.SetProgressText("Installation of " + e.Instance.Name + " completed");
+            this.uiWaiting.SetProgressText("Installation of " + e.Instance.Name + " completed, setting up last details...");
+
+            this.uiWaiting.SetDetailsText("Database configuration...");
+            this.provisioningService.StartProvisioning(e.Instance);
+            this.uiWaiting.SetDetailsText("Database configuration ended");
         }
 
         private void InstanceService_Installing(object sender, InstallInstanceEventArgs e)
@@ -225,14 +234,25 @@ namespace Microarea.Mago4Butler
                     return;
                 }
 
-                this.msiFullFilePath = askForParametersDialog.MsiFullPath;
-
-                this.model.AddInstance(new Instance()
+                using (var provisioningForm = new ProvisioningForm(true))
                 {
-                    Name = askForParametersDialog.InstanceName,
-                    Version = msiService.GetVersion(this.msiFullFilePath),
-                    WebSiteInfo = WebSiteInfo.DefaultWebSite
-                });
+                    diagRes = provisioningForm.ShowDialog();
+
+                    if (diagRes != DialogResult.OK)
+                    {
+                        return;
+                    }
+
+                    this.msiFullFilePath = askForParametersDialog.MsiFullPath;
+
+                    this.model.AddInstance(new Instance()
+                    {
+                        Name = askForParametersDialog.InstanceName,
+                        Version = msiService.GetVersion(this.msiFullFilePath),
+                        WebSiteInfo = WebSiteInfo.DefaultWebSite,
+                        ProvisioningCommandLine = provisioningForm.PreconfigurationCommandLine
+                    });
+                }
             }
         }
 

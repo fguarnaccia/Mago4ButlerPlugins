@@ -11,9 +11,9 @@ namespace Microarea.Mago4Butler.BL
     {
         string rootFolder;
 
-        public FileSystemService(string rootFolder)
+        public FileSystemService(ISettings settings)
         {
-            this.rootFolder = rootFolder;
+            this.rootFolder = settings.RootFolder;
         }
 
         public void RemoveAllFiles(Instance instance)
