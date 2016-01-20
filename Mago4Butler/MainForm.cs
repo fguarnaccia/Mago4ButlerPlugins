@@ -20,19 +20,31 @@ namespace Microarea.Mago4Butler
     {
         SynchronizationContext syncCtx;
 
-        UIEmpty uiEmpty = new UIEmpty();
-        UIWaiting uiWaiting = new UIWaiting();
-        UIError uiError = new UIError();
+        UIEmpty uiEmpty;
+        UIWaiting uiWaiting;
+        UIError uiError;
         UINormalUse uiNormalUse;
 
-        Model model = new Model();
-        MsiService msiService = new MsiService();
+        ISettings settings;
+
+        Model model;
+        MsiService msiService;
         InstallerService instanceService;
         ProvisioningService provisioningService;
 
         string msiFullFilePath;
 
-        public MainForm()
+        public MainForm(
+            Model model,
+            MsiService msiService,
+            InstallerService instanceService,
+            ProvisioningService provisioningService,
+            ISettings settings,
+            UIEmpty uiEmpty,
+            UIWaiting uiWaiting,
+            UIError uiError,
+            UINormalUse uiNormalUse
+            )
         {
             this.syncCtx = SynchronizationContext.Current;
             if (this.syncCtx == null)
@@ -40,11 +52,23 @@ namespace Microarea.Mago4Butler
                 this.syncCtx = new WindowsFormsSynchronizationContext();
             }
 
-            var rootFolder = Settings.Default.RootFolder;
-            this.instanceService = new InstallerService(Settings.Default, msiService);
-            this.provisioningService = new ProvisioningService(Settings.Default);
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            Application.ThreadException += Application_ThreadException;
+
+            this.model = model;
+
+            this.msiService = msiService;
+            this.instanceService = instanceService;
+            this.provisioningService = provisioningService;
+
+            this.settings = settings;
 
             InitializeComponent();
+
+            this.uiNormalUse = uiNormalUse;
+            this.uiEmpty = uiEmpty;
+            this.uiWaiting = uiWaiting;
+            this.uiError = uiError;
 
             Application.Idle += Application_Idle;
         }
@@ -64,12 +88,6 @@ namespace Microarea.Mago4Butler
             Application.Idle -= Application_Idle;
 
             this.Text = String.Format(System.Globalization.CultureInfo.InvariantCulture, "{0} v. {1}", this.Text, this.GetType().Assembly.GetName().Version.ToString());
-
-            model.Init(Settings.Default.RootFolder);
-            uiNormalUse = new UINormalUse(this.model);
-
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-            Application.ThreadException += Application_ThreadException;
 
             this.model.InstanceAdded += (s, iea) => this.instanceService.Install(this.msiFullFilePath, iea.Instance);
             this.model.InstanceUpdated += (s, iea) => this.instanceService.Update(this.msiFullFilePath, iea.Instance);

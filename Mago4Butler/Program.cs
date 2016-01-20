@@ -20,7 +20,10 @@ namespace Microarea.Mago4Butler
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+
+            var mainForm = IoCContainer.Instance.Get<MainForm>();
+
+            Application.Run(mainForm);
         }
 
         static Program()
