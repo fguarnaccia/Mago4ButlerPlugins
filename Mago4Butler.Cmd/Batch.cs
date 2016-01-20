@@ -136,6 +136,11 @@ namespace Microarea.Mago4Butler.Cmd
                     Console.WriteLine("[" + Now + "]: " + instance.Name + " already exists, I cannot install it", Color.Red);
                     continue;
                 }
+                if (!Model.IsInstanceNameValid(instance.Name))
+                {
+                    Console.WriteLine("'{0}' is not a valid name for an instance: only letters, digits and '-' are allowed", instance.Name, Color.Red);
+                    continue;
+                }
                 workingInstances.Add(instance);
             }
 

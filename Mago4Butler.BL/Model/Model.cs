@@ -42,6 +42,22 @@ namespace Microarea.Mago4Butler.BL
             }
         }
 
+        public static bool IsInstanceNameValid(string instanceName)
+        {
+            if (String.IsNullOrWhiteSpace(instanceName))
+            {
+                return false;
+            }
+            foreach (var c in instanceName)
+            {
+                if (!Char.IsLetterOrDigit(c) && c != '-')
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         public IEnumerable<Instance> Instances
         {
             get

@@ -31,9 +31,9 @@ namespace Microarea.Mago4Butler
             {
                 this.errorProviderInstanceName.SetError(this.txtInstanceName, "An instance with the given name already exists");
             }
-            if (this.txtInstanceName.Text.IndexOf(" ") != -1)
+            if (!Model.IsInstanceNameValid(this.txtInstanceName.Text))
             {
-                this.errorProviderInstanceName.SetError(this.txtInstanceName, "Instance name cannot contains blanks");
+                this.errorProviderInstanceName.SetError(this.txtInstanceName, "Only letters, digits and '-' are allowed");
             }
         }
 
