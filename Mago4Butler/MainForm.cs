@@ -152,7 +152,7 @@ namespace Microarea.Mago4Butler
 
         private void InstanceService_Installed(object sender, InstallInstanceEventArgs e)
         {
-            this.uiWaiting.SetProgressText("Installation of " + e.Instance.Name + " completed, setting up last details...");
+            this.uiWaiting.SetProgressText("Database configuration...");
 
             this.uiWaiting.SetDetailsText("Database configuration...");
             this.provisioningService.StartProvisioning(e.Instance);
