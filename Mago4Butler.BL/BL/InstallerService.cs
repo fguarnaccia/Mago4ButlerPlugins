@@ -245,11 +245,10 @@ namespace Microarea.Mago4Butler.BL
                 }
 
                 this.OnStarting();
-                ThreadPool.QueueUserWorkItem((state) => Worker());
+                ThreadPool.QueueUserWorkItem(Worker);
             }
         }
-
-        private void Worker()
+        private void Worker(object state)
         {
             lock (this.lockTicket)
             {
@@ -321,8 +320,15 @@ namespace Microarea.Mago4Butler.BL
             OnNotification(new NotificationEventArgs() { Message = "Application pools removed" });
 
             OnNotification(new NotificationEventArgs() { Message = "Removing all files..." });
-            this.fileSystemService.RemoveAllFiles(currentRequest.Instance);
-            OnNotification(new NotificationEventArgs() { Message = "All files removed" });
+            try
+            {
+                this.fileSystemService.RemoveAllFiles(currentRequest.Instance);
+                OnNotification(new NotificationEventArgs() { Message = "All files removed" });
+            }
+            catch (Exception exc)
+            {
+                OnNotification(new NotificationEventArgs() { Message = "Error removing files: " + exc.Message });
+            }
         }
 
         private void Update(Request currentRequest)
