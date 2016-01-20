@@ -25,6 +25,8 @@ namespace Microarea.Mago4Butler.BL
         public event EventHandler<RemoveInstanceEventArgs> Removing;
         public event EventHandler<RemoveInstanceEventArgs> Removed;
 
+        public event EventHandler<NotificationEventArgs> Notification;
+
         MsiZapper msiZapper;
         RegistryService registryService;
         MsiService msiService;
@@ -138,6 +140,15 @@ namespace Microarea.Mago4Butler.BL
         protected virtual void OnRemoved(RemoveInstanceEventArgs e)
         {
             var handler = Removed;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+
+        protected virtual void OnNotification(NotificationEventArgs e)
+        {
+            var handler = Notification;
             if (handler != null)
             {
                 handler(this, e);
@@ -299,77 +310,111 @@ namespace Microarea.Mago4Butler.BL
 
         private void Remove(Request currentRequest)
         {
+            OnNotification(new NotificationEventArgs() { Message = "Removing virtual folders..." });
             //Rimuovere prima le virtual folder e le application, poi gli application pool.
             //Un application pool a cui sono collegate ancora applicazioni non puo` essere eliminato
             this.iisService.RemoveVirtualFoldersAndApplications(currentRequest.Instance);
+            OnNotification(new NotificationEventArgs() { Message = "Virtual folders removed" });
 
+            OnNotification(new NotificationEventArgs() { Message = "Removing application pools..." });
             this.iisService.RemoveApplicationPools(currentRequest.Instance);
+            OnNotification(new NotificationEventArgs() { Message = "Application pools removed" });
 
+            OnNotification(new NotificationEventArgs() { Message = "Removing all files..." });
             this.fileSystemService.RemoveAllFiles(currentRequest.Instance);
+            OnNotification(new NotificationEventArgs() { Message = "All files removed" });
         }
 
         private void Update(Request currentRequest)
         {
+            OnNotification(new NotificationEventArgs() { Message = "Removing virtual folders..." });
             //Rimuovo le informazioni di installazione dal registry se presenti in
             //modo che la mia installazione non le trovi e tenga i parametri che passo io da riga di comando.
             this.registryService.RemoveInstallationInfoKey(currentRequest.MsiPath);
+            OnNotification(new NotificationEventArgs() { Message = "Virtual folders removed" });
 
             //Rimuovo la parte di installazione su IIS per evitare che, se tra un setup e il successivo
             //alcuni componenti cambiano noe, mi rimangano dei cadaveri.
             //Rimuovere prima le virtual folder e le application, poi gli application pool.
             //Un application pool a cui sono collegate ancora applicazioni non puo` essere eliminato
+            OnNotification(new NotificationEventArgs() { Message = "Removing application pools..." });
             this.iisService.RemoveVirtualFoldersAndApplications(currentRequest.Instance);
+            OnNotification(new NotificationEventArgs() { Message = "Application pools removed" });
+            OnNotification(new NotificationEventArgs() { Message = "Removing all files..." });
             this.iisService.RemoveApplicationPools(currentRequest.Instance);
+            OnNotification(new NotificationEventArgs() { Message = "All files removed" });
 
             var rootDirInfo = new DirectoryInfo(currentRequest.RootPath);
             if (!rootDirInfo.Exists)
             {
+                OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Creating root folder {0}...", currentRequest.RootPath) });
                 rootDirInfo.Create();
+                OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Root folder {0} created", currentRequest.RootPath) });
             }
 
             string msiFolderPath = Path.GetDirectoryName(currentRequest.MsiPath);
             string logFilesFolderPath = Path.Combine(currentRequest.RootPath, "Logs");
             if (!Directory.Exists(logFilesFolderPath))
             {
+                OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Creating logs folder {0}...", currentRequest.RootPath) });
                 Directory.CreateDirectory(logFilesFolderPath);
+                OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Logs folder {0} created", currentRequest.RootPath) });
             }
+
+            OnNotification(new NotificationEventArgs() { Message = "Launching msi..." });
             string installLogFilePath = Path.Combine(logFilesFolderPath, "Mago4_" + currentRequest.Instance.Name + "_UpdateLog_" + DateTime.Now.ToString("yyyyMMddhhmmss", CultureInfo.InvariantCulture) + ".log");
             this.LaunchProcess(
                 msiexecPath,
-                String.Format("/i {0} /qb /norestart /l*vx {1} UICULTURE=\"it-IT\" INSTALLLOCATION=\"{2}\" INSTANCENAME=\"{3}\" DEFAULTWEBSITENAME=\"{4}\" DEFAULTWEBSITEID={5} DEFAULTWEBSITEPORT={6} SKIPCLICKONCEDEPLOYER=\"1\" REGISTERWCF=\"1\" NOSHORTCUTS=\"1\" NOSHARES=\"1\" NOENVVAR=\"1\" NOEVERYONE=\"1\"", currentRequest.MsiPath, installLogFilePath, currentRequest.RootPath, currentRequest.Instance.Name, currentRequest.Instance.WebSiteInfo.SiteName, currentRequest.Instance.WebSiteInfo.SiteID, currentRequest.Instance.WebSiteInfo.SitePort),
+                String.Format("/i {0} /qn /norestart /l*vx {1} UICULTURE=\"it-IT\" INSTALLLOCATION=\"{2}\" INSTANCENAME=\"{3}\" DEFAULTWEBSITENAME=\"{4}\" DEFAULTWEBSITEID={5} DEFAULTWEBSITEPORT={6} SKIPCLICKONCEDEPLOYER=\"1\" REGISTERWCF=\"1\" NOSHORTCUTS=\"1\" NOSHARES=\"1\" NOENVVAR=\"1\" NOEVERYONE=\"1\"", currentRequest.MsiPath, installLogFilePath, currentRequest.RootPath, currentRequest.Instance.Name, currentRequest.Instance.WebSiteInfo.SiteName, currentRequest.Instance.WebSiteInfo.SiteID, currentRequest.Instance.WebSiteInfo.SitePort),
                 3600000
                 );
+            OnNotification(new NotificationEventArgs() { Message = "Msi execution terminated..." });
+
+            OnNotification(new NotificationEventArgs() { Message = "Cleaning registry..." });
             this.msiZapper.ZapMsi(currentRequest.MsiPath);
             this.registryService.RemoveInstallationInfoKey(currentRequest.MsiPath);
             this.registryService.RemoveInstallerFoldersKeys(currentRequest.RootPath, currentRequest.Instance);
+            OnNotification(new NotificationEventArgs() { Message = "Now the registry is clean" });
         }
 
         private void Install(Request currentRequest)
         {
+            OnNotification(new NotificationEventArgs() { Message = "Removing virtual folders..." });
             //Rimuovo le informazioni di installazione dal registry se presenti in
             //modo che la mia installazione non le trovi e tenga i parametri che passo io da riga di comando.
             this.registryService.RemoveInstallationInfoKey(currentRequest.MsiPath);
+            OnNotification(new NotificationEventArgs() { Message = "Virtual folders removed" });
 
             var rootDirInfo = new DirectoryInfo(currentRequest.RootPath);
             if (!rootDirInfo.Exists)
             {
+                OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Creating root folder {0}...", currentRequest.RootPath) });
                 rootDirInfo.Create();
+                OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Root folder {0} created", currentRequest.RootPath) });
             }
 
             string logFilesFolderPath = Path.Combine(currentRequest.RootPath, "Logs");
             if (!Directory.Exists(logFilesFolderPath))
             {
+                OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Creating logs folder {0}...", currentRequest.RootPath) });
                 Directory.CreateDirectory(logFilesFolderPath);
+                OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Logs folder {0} created", currentRequest.RootPath) });
             }
+
+            OnNotification(new NotificationEventArgs() { Message = "Launching msi..." });
             string installLogFilePath = Path.Combine(logFilesFolderPath, "Mago4_" + currentRequest.Instance.Name + "_InstallLog_" + DateTime.Now.ToString("yyyyMMddhhmmss", CultureInfo.InvariantCulture) + ".log");
             this.LaunchProcess(
                 msiexecPath,
-                String.Format("/i \"{0}\" /qb /norestart /l*vx \"{1}\" UICULTURE=\"it-IT\" INSTALLLOCATION=\"{2}\" INSTANCENAME=\"{3}\" DEFAULTWEBSITENAME=\"{4}\" DEFAULTWEBSITEID={5} DEFAULTWEBSITEPORT={6} SKIPCLICKONCEDEPLOYER=\"1\" REGISTERWCF=\"1\" NOSHORTCUTS=\"1\" NOSHARES=\"1\" NOENVVAR=\"1\" NOEVERYONE=\"1\"", currentRequest.MsiPath, installLogFilePath, currentRequest.RootPath, currentRequest.Instance.Name, currentRequest.Instance.WebSiteInfo.SiteName, currentRequest.Instance.WebSiteInfo.SiteID, currentRequest.Instance.WebSiteInfo.SitePort),
+                String.Format("/i \"{0}\" /qn /norestart /l*vx \"{1}\" UICULTURE=\"it-IT\" INSTALLLOCATION=\"{2}\" INSTANCENAME=\"{3}\" DEFAULTWEBSITENAME=\"{4}\" DEFAULTWEBSITEID={5} DEFAULTWEBSITEPORT={6} SKIPCLICKONCEDEPLOYER=\"1\" REGISTERWCF=\"1\" NOSHORTCUTS=\"1\" NOSHARES=\"1\" NOENVVAR=\"1\" NOEVERYONE=\"1\"", currentRequest.MsiPath, installLogFilePath, currentRequest.RootPath, currentRequest.Instance.Name, currentRequest.Instance.WebSiteInfo.SiteName, currentRequest.Instance.WebSiteInfo.SiteID, currentRequest.Instance.WebSiteInfo.SitePort),
                 3600000
                 );
+            OnNotification(new NotificationEventArgs() { Message = "Msi execution terminated..." });
+
+            OnNotification(new NotificationEventArgs() { Message = "Cleaning registry..." });
             this.msiZapper.ZapMsi(currentRequest.MsiPath);
             this.registryService.RemoveInstallationInfoKey(currentRequest.MsiPath);
             this.registryService.RemoveInstallerFoldersKeys(currentRequest.RootPath, currentRequest.Instance);
+            OnNotification(new NotificationEventArgs() { Message = "Now the registry is clean" });
         }
     }
 }

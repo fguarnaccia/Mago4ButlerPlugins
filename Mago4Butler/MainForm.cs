@@ -88,6 +88,8 @@ namespace Microarea.Mago4Butler
             this.instanceService.Updating += InstanceService_Updating;
             this.instanceService.Updated += InstanceService_Updated;
 
+            this.instanceService.Notification += InstanceService_Notification;
+
             Thread.Sleep(1000);
 
             if (this.model.Instances.Count() > 0)
@@ -98,6 +100,11 @@ namespace Microarea.Mago4Butler
             {
                 ShowUI(this.uiEmpty);
             }
+        }
+
+        private void InstanceService_Notification(object sender, NotificationEventArgs e)
+        {
+            this.uiWaiting.SetDetailsText(e.Message);
         }
 
         private void InstanceService_Updated(object sender, UpdateInstanceEventArgs e)

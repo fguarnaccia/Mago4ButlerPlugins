@@ -74,6 +74,7 @@
     <Compile Include="..\Mago4Butler\Properties\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="BL\NotificationEventArgs.cs" />
     <Compile Include="BL\ServerManagerTrait.cs" />
     <Compile Include="BL\FileSystemService.cs" />
     <Compile Include="BL\IisService.cs" />

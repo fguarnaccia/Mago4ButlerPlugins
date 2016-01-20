@@ -29,5 +29,10 @@ namespace Microarea.Mago4Butler
         {
             this.syncCtx.Post(new SendOrPostCallback((obj) => this.lblProgressText.Text = message), null);
         }
+
+        public void SetDetailsText(string message)
+        {
+            this.syncCtx.Post(new SendOrPostCallback((obj) => this.txtDetails.Text = message), null);
+        }
     }
 }

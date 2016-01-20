@@ -32,6 +32,7 @@
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.lblProgressText = new System.Windows.Forms.Label();
             this.pictureBox = new System.Windows.Forms.PictureBox();
+            this.txtDetails = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -80,10 +81,21 @@
             this.pictureBox.TabIndex = 8;
             this.pictureBox.TabStop = false;
             // 
+            // txtDetails
+            // 
+            this.txtDetails.Location = new System.Drawing.Point(7, 253);
+            this.txtDetails.Multiline = true;
+            this.txtDetails.Name = "txtDetails";
+            this.txtDetails.ReadOnly = true;
+            this.txtDetails.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtDetails.Size = new System.Drawing.Size(369, 133);
+            this.txtDetails.TabIndex = 9;
+            // 
             // UIWaiting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.txtDetails);
             this.Controls.Add(this.pictureBox);
             this.Controls.Add(this.lblProgressText);
             this.Controls.Add(this.progressBar);
@@ -104,5 +116,6 @@
         private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.Label lblProgressText;
         private System.Windows.Forms.PictureBox pictureBox;
+        private System.Windows.Forms.TextBox txtDetails;
     }
 }
