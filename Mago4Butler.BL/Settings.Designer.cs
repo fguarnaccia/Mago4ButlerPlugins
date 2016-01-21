@@ -58,5 +58,17 @@ namespace Microarea.Mago4Butler.BL {
                 this["IsFirstRun"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowRootFolderChoice {
+            get {
+                return ((bool)(this["ShowRootFolderChoice"]));
+            }
+            set {
+                this["ShowRootFolderChoice"] = value;
+            }
+        }
     }
 }

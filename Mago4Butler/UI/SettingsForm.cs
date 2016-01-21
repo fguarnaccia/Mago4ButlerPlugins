@@ -13,10 +13,10 @@ namespace Microarea.Mago4Butler
 {
     public partial class SettingsForm : Form
     {
-        Settings settings;
+        ISettings settings;
         IisService iisService;
 
-        internal SettingsForm(Settings settings, IisService iisService)
+        internal SettingsForm(ISettings settings, IisService iisService)
         {
             this.settings = settings;
             this.iisService = iisService;

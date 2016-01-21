@@ -10,7 +10,9 @@ namespace Microarea.Mago4Butler.BL
     {
         string RootFolder { get; set; }
         string SiteName { get; set; }
-
         bool IsFirstRun { get; set; }
+        bool ShowRootFolderChoice { get; set; }
+
+        void Save();
     }
 }

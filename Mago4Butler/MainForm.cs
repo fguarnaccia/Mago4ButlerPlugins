@@ -243,6 +243,15 @@ namespace Microarea.Mago4Butler
 
         private void Install(object sender, InstallInstanceEventArgs e)
         {
+            if (this.settings.ShowRootFolderChoice)
+            {
+                using (var chooseRootFolderDialog = new ChooseRootFolderForm(this.settings))
+                {
+                    chooseRootFolderDialog.ShowDialog();
+                }
+                this.settings.ShowRootFolderChoice = false;
+                this.settings.Save();
+            }
             using (var askForParametersDialog = new AskForParametersForm(this.model))
             {
                 var diagRes = askForParametersDialog.ShowDialog();
