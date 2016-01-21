@@ -83,6 +83,8 @@
             // 
             // txtDetails
             // 
+            this.txtDetails.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDetails.Location = new System.Drawing.Point(7, 253);
             this.txtDetails.Multiline = true;
             this.txtDetails.Name = "txtDetails";
@@ -90,6 +92,7 @@
             this.txtDetails.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtDetails.Size = new System.Drawing.Size(369, 133);
             this.txtDetails.TabIndex = 9;
+            this.txtDetails.Text = "Details";
             // 
             // UIWaiting
             // 

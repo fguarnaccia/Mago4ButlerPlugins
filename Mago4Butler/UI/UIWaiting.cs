@@ -25,6 +25,16 @@ namespace Microarea.Mago4Butler
             InitializeComponent();
         }
 
+        protected override void OnVisibleChanged(EventArgs e)
+        {
+            base.OnVisibleChanged(e);
+
+            if (this.Visible)
+            {
+                this.txtDetails.Clear();
+            }
+        }
+
         public void SetProgressText(string message)
         {
             this.syncCtx.Post(new SendOrPostCallback((obj) => this.lblProgressText.Text = message), null);

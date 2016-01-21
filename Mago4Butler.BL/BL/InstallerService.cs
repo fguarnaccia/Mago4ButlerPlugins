@@ -333,11 +333,11 @@ namespace Microarea.Mago4Butler.BL
 
         private void Update(Request currentRequest)
         {
-            OnNotification(new NotificationEventArgs() { Message = "Removing virtual folders..." });
+            OnNotification(new NotificationEventArgs() { Message = "Removing installation info..." });
             //Rimuovo le informazioni di installazione dal registry se presenti in
             //modo che la mia installazione non le trovi e tenga i parametri che passo io da riga di comando.
             this.registryService.RemoveInstallationInfoKey(currentRequest.MsiPath);
-            OnNotification(new NotificationEventArgs() { Message = "Virtual folders removed" });
+            OnNotification(new NotificationEventArgs() { Message = "Installation info removed" });
 
             //Rimuovo la parte di installazione su IIS per evitare che, se tra un setup e il successivo
             //alcuni componenti cambiano noe, mi rimangano dei cadaveri.
@@ -385,11 +385,11 @@ namespace Microarea.Mago4Butler.BL
 
         private void Install(Request currentRequest)
         {
-            OnNotification(new NotificationEventArgs() { Message = "Removing virtual folders..." });
+            OnNotification(new NotificationEventArgs() { Message = "Removing installation info..." });
             //Rimuovo le informazioni di installazione dal registry se presenti in
             //modo che la mia installazione non le trovi e tenga i parametri che passo io da riga di comando.
             this.registryService.RemoveInstallationInfoKey(currentRequest.MsiPath);
-            OnNotification(new NotificationEventArgs() { Message = "Virtual folders removed" });
+            OnNotification(new NotificationEventArgs() { Message = "Installation info removed" });
 
             var rootDirInfo = new DirectoryInfo(currentRequest.RootPath);
             if (!rootDirInfo.Exists)

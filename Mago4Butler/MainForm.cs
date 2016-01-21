@@ -114,7 +114,11 @@ namespace Microarea.Mago4Butler
             this.instanceService.Notification += InstanceService_Notification;
 
             Thread.Sleep(1000);
+            UpdateUI();
+        }
 
+        void UpdateUI()
+        {
             if (this.model.Instances.Count() > 0)
             {
                 ShowUI(this.uiNormalUse);
@@ -220,8 +224,13 @@ namespace Microarea.Mago4Butler
             this.syncCtx.Post(new SendOrPostCallback((obj) =>
             {
                 this.pnlContent.SuspendLayout();
-                this.pnlContent.Controls.Clear();
+                if (this.pnlContent.Controls.Count > 0)
+                {
+                    this.pnlContent.Controls[0].Visible = false;
+                    this.pnlContent.Controls.Clear();
+                }
                 this.pnlContent.Controls.Add(ui);
+                this.pnlContent.Controls[0].Visible = true;
                 ui.Dock = DockStyle.Fill;
                 this.pnlContent.ResumeLayout();
             })
@@ -310,15 +319,21 @@ namespace Microarea.Mago4Butler
 
         private void tsbSettings_Click(object sender, EventArgs e)
         {
-            using (var settingsForm = new SettingsForm(Settings.Default, new IisService()))
+            var oldRootFolder = this.settings.RootFolder;
+            using (var settingsForm = new SettingsForm(this.settings, new IisService()))
             {
                 settingsForm.ShowDialog(this);
+            }
+            if (String.Compare(oldRootFolder, this.settings.RootFolder, StringComparison.InvariantCultureIgnoreCase) != 0)
+            {
+                this.model.Init(this.settings.RootFolder);
+                UpdateUI();
             }
         }
 
         private void tsbViewLogs_Click(object sender, EventArgs e)
         {
-            var logsPath = Path.Combine(Settings.Default.RootFolder, "Logs");
+            var logsPath = Path.Combine(this.settings.RootFolder, "Logs");
             if (!Directory.Exists(logsPath))
             {
                 Directory.CreateDirectory(logsPath);

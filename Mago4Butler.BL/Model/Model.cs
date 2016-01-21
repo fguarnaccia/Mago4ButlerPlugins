@@ -159,7 +159,8 @@ namespace Microarea.Mago4Butler.BL
                 {
                     if (String.Compare("Standard", subDirInfo.Name, StringComparison.InvariantCultureIgnoreCase) == 0)
                     {
-                        this.AddInstance(Instance.FromStandardDirectoryInfo(subDirInfo));
+                        //per non far scattare gli eventi
+                        this.instances.Add(Instance.FromStandardDirectoryInfo(subDirInfo));
                         break;
                     }
                 }
