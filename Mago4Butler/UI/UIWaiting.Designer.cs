@@ -92,7 +92,6 @@
             this.txtDetails.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtDetails.Size = new System.Drawing.Size(369, 133);
             this.txtDetails.TabIndex = 9;
-            this.txtDetails.Text = "Details";
             // 
             // UIWaiting
             // 
