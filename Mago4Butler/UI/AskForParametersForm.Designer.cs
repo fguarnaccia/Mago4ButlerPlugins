@@ -134,6 +134,7 @@
             this.Controls.Add(this.txtMsiFullPath);
             this.Controls.Add(this.lblInstanceName);
             this.Controls.Add(this.txtInstanceName);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;

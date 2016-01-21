@@ -127,7 +127,7 @@ namespace Microarea.Mago4Butler
 
         private void InstanceService_Notification(object sender, NotificationEventArgs e)
         {
-            this.uiWaiting.SetDetailsText(e.Message);
+            this.uiWaiting.AddDetailsText(e.Message);
         }
 
         private void InstanceService_Updated(object sender, UpdateInstanceEventArgs e)
@@ -154,9 +154,9 @@ namespace Microarea.Mago4Butler
         {
             this.uiWaiting.SetProgressText("Database configuration...");
 
-            this.uiWaiting.SetDetailsText("Database configuration...");
+            this.uiWaiting.AddDetailsText("Database configuration...");
             this.provisioningService.StartProvisioning(e.Instance);
-            this.uiWaiting.SetDetailsText("Database configuration ended");
+            this.uiWaiting.AddDetailsText("Database configuration ended");
         }
 
         private void InstanceService_Installing(object sender, InstallInstanceEventArgs e)
