@@ -159,8 +159,15 @@ namespace Microarea.Mago4Butler
             this.uiWaiting.SetProgressText("Database configuration...");
 
             this.uiWaiting.AddDetailsText("Database configuration...");
-            this.provisioningService.StartProvisioning(e.Instance);
-            this.uiWaiting.AddDetailsText("Database configuration ended");
+            try
+            {
+                this.provisioningService.StartProvisioning(e.Instance);
+                this.uiWaiting.AddDetailsText("Database configuration ended");
+            }
+            catch (Exception exc)
+            {
+                this.uiWaiting.AddDetailsText("Database configurator returned the followinf error: " + exc.Message);
+            }
         }
 
         private void InstanceService_Installing(object sender, InstallInstanceEventArgs e)
