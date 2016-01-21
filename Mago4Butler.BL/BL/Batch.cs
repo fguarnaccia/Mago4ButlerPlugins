@@ -6,7 +6,7 @@ using System.Globalization;
 using System.Linq;
 using Console = Colorful.Console;
 
-namespace Microarea.Mago4Butler.Cmd
+namespace Microarea.Mago4Butler
 {
     class Batch
     {

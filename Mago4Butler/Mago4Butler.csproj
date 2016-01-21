@@ -67,6 +67,10 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Colorful.Console, Version=1.0.4.0, Culture=neutral, PublicKeyToken=cc1f2a0d977b1e28, processorArchitecture=MSIL">
+      <HintPath>..\packages\Colorful.Console.1.0.4\lib\net452\Colorful.Console.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
       <Private>True</Private>
@@ -85,7 +89,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IoC\IoCContainer.cs" />
-    <Compile Include="IoC\IoCModule.cs" />
     <Compile Include="UI\AskForParametersForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -197,10 +200,6 @@
     <ProjectReference Include="..\Mago4Butler.BL\Mago4Butler.BL.csproj">
       <Project>{cf1bef3b-3042-4192-b6c4-cdc0ed25336d}</Project>
       <Name>Mago4Butler.BL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Mago4Butler.Cmd\Mago4Butler.Cmd.csproj">
-      <Project>{5a1808de-e0f2-4a69-a0c0-b63a76859f8c}</Project>
-      <Name>Mago4Butler.Cmd</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

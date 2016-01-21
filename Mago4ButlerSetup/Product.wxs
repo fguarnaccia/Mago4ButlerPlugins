@@ -77,17 +77,11 @@
       <Component Id="MicrosoftWebAdministrationdllComponent" Guid="64EA7548-F4C8-4328-A425-B66739613929" DiskId="1">
         <File Id="MicrosoftWebAdministrationdllFile" Checksum="yes" Source="$(var.Mago4Butler.TargetDir)\Microsoft.Web.Administration.dll" />
       </Component>
-      <Component Id="Mago4ButlerCmdexeconfigComponent" Guid="EDE99890-6334-4E98-A167-19069D17B449" DiskId="1">
-        <File Id="Mago4ButlerCmdexeconfigFile" Checksum="yes" Source="$(var.Mago4Butler.TargetDir)\Mago4Butler.Cmd.exe.config" />
-      </Component>
       <Component Id="Mago4ButlerexeconfigComponent" Guid="C01DE042-EB02-42A4-9AB6-3841E1482407" DiskId="1">
         <File Id="Mago4ButlerexeconfigFile" Checksum="yes" Source="$(var.Mago4Butler.TargetDir)\Mago4Butler.exe.config" />
       </Component>
       <Component Id="Mago4ButlerexeComponent" Guid="B8C5CC62-8702-4761-8FEF-473E98A75315" DiskId="1">
         <File Id="Mago4ButlerexeFile" Checksum="yes" Source="$(var.Mago4Butler.TargetDir)\Mago4Butler.exe" />
-      </Component>
-      <Component Id="Mago4ButlerCmdexeComponent" Guid="B114A002-FCBD-4491-9D4F-6CA958B22FEB" DiskId="1">
-        <File Id="Mago4ButlerCmdexeFile" Checksum="yes" Source="$(var.Mago4Butler.TargetDir)\Mago4Butler.Cmd.exe" />
       </Component>
 			<Component Id="Mago4ButlerBLdllComponent" Guid="921AB522-287E-4C2A-BC64-83486F695CF6" DiskId="1">
         <File Id="Mago4ButlerBLdllFile" Checksum="yes" Source="$(var.Mago4Butler.TargetDir)\Mago4Butler.BL.dll" />

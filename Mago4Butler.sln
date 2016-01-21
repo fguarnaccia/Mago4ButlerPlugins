@@ -5,8 +5,6 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mago4Butler", "Mago4Butler\Mago4Butler.csproj", "{74895131-51FE-4FE9-BAEB-8D8E192E27CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mago4Butler.Cmd", "Mago4Butler.Cmd\Mago4Butler.Cmd.csproj", "{5A1808DE-E0F2-4A69-A0C0-B63A76859F8C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mago4Butler.BL", "Mago4Butler.BL\Mago4Butler.BL.csproj", "{CF1BEF3B-3042-4192-B6C4-CDC0ED25336D}"
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Mago4ButlerSetup", "Mago4ButlerSetup\Mago4ButlerSetup.wixproj", "{A063F660-3E25-452C-B093-0C85F2B81A27}"
@@ -39,14 +37,6 @@ Global
 		{74895131-51FE-4FE9-BAEB-8D8E192E27CF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{74895131-51FE-4FE9-BAEB-8D8E192E27CF}.Release|x86.ActiveCfg = Release|x86
 		{74895131-51FE-4FE9-BAEB-8D8E192E27CF}.Release|x86.Build.0 = Release|x86
-		{5A1808DE-E0F2-4A69-A0C0-B63A76859F8C}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{5A1808DE-E0F2-4A69-A0C0-B63A76859F8C}.Debug|Any CPU.Build.0 = Debug|x86
-		{5A1808DE-E0F2-4A69-A0C0-B63A76859F8C}.Debug|x86.ActiveCfg = Debug|x86
-		{5A1808DE-E0F2-4A69-A0C0-B63A76859F8C}.Debug|x86.Build.0 = Debug|x86
-		{5A1808DE-E0F2-4A69-A0C0-B63A76859F8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5A1808DE-E0F2-4A69-A0C0-B63A76859F8C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5A1808DE-E0F2-4A69-A0C0-B63A76859F8C}.Release|x86.ActiveCfg = Release|x86
-		{5A1808DE-E0F2-4A69-A0C0-B63A76859F8C}.Release|x86.Build.0 = Release|x86
 		{CF1BEF3B-3042-4192-B6C4-CDC0ED25336D}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{CF1BEF3B-3042-4192-B6C4-CDC0ED25336D}.Debug|Any CPU.Build.0 = Debug|x86
 		{CF1BEF3B-3042-4192-B6C4-CDC0ED25336D}.Debug|x86.ActiveCfg = Debug|x86
@@ -104,37 +94,34 @@ Global
 		{F2F1C352-B5F8-4E92-A85F-99B012F80504} = {6A50FBE7-627C-4621-BB80-7D0ADA9E3A97}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 9
+		SccNumberOfProjects = 8
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = http://tfs:8080/tfs/microarea
 		SccLocalPath0 = .
 		SccProjectUniqueName1 = Mago4Butler\\Mago4Butler.csproj
 		SccProjectName1 = Mago4Butler
 		SccLocalPath1 = Mago4Butler
-		SccProjectUniqueName2 = Mago4Butler.Cmd\\Mago4Butler.Cmd.csproj
-		SccProjectName2 = Mago4Butler.Cmd
-		SccLocalPath2 = Mago4Butler.Cmd
-		SccProjectUniqueName3 = Mago4Butler.BL\\Mago4Butler.BL.csproj
-		SccProjectName3 = Mago4Butler.BL
-		SccLocalPath3 = Mago4Butler.BL
-		SccProjectUniqueName4 = Mago4ButlerSetup\\Mago4ButlerSetup.wixproj
-		SccProjectTopLevelParentUniqueName4 = Mago4Butler.sln
-		SccProjectName4 = Mago4ButlerSetup
-		SccLocalPath4 = Mago4ButlerSetup
-		SccProjectUniqueName5 = ..\\..\\Standard\\TaskBuilder_MIA\\Tools\\ProvisioningConfigurator\\ProvisioningConfigurator\\ProvisioningConfigurator.csproj
-		SccProjectName5 = ../../TaskBuilder_MIA/Tools/ProvisioningConfigurator/ProvisioningConfigurator
-		SccLocalPath5 = ..\\..\\Standard\\TaskBuilder_MIA\\Tools\\ProvisioningConfigurator\\ProvisioningConfigurator
-		SccProjectUniqueName6 = ..\\..\\Standard\\TaskBuilder_MIA\\TaskBuilderNet\\Microarea.TaskBuilderNet.Interfaces\\Microarea.TaskBuilderNet.Interfaces.csproj
+		SccProjectUniqueName2 = Mago4Butler.BL\\Mago4Butler.BL.csproj
+		SccProjectName2 = Mago4Butler.BL
+		SccLocalPath2 = Mago4Butler.BL
+		SccProjectUniqueName3 = Mago4ButlerSetup\\Mago4ButlerSetup.wixproj
+		SccProjectTopLevelParentUniqueName3 = Mago4Butler.sln
+		SccProjectName3 = Mago4ButlerSetup
+		SccLocalPath3 = Mago4ButlerSetup
+		SccProjectUniqueName4 = ..\\..\\Standard\\TaskBuilder_MIA\\Tools\\ProvisioningConfigurator\\ProvisioningConfigurator\\ProvisioningConfigurator.csproj
+		SccProjectName4 = ../../TaskBuilder_MIA/Tools/ProvisioningConfigurator/ProvisioningConfigurator
+		SccLocalPath4 = ..\\..\\Standard\\TaskBuilder_MIA\\Tools\\ProvisioningConfigurator\\ProvisioningConfigurator
+		SccProjectUniqueName5 = ..\\..\\Standard\\TaskBuilder_MIA\\TaskBuilderNet\\Microarea.TaskBuilderNet.Interfaces\\Microarea.TaskBuilderNet.Interfaces.csproj
+		SccProjectTopLevelParentUniqueName5 = Mago4Butler.sln
+		SccProjectName5 = ../../TaskBuilder_MIA/TaskBuilderNet/Microarea.TaskBuilderNet.Interfaces
+		SccLocalPath5 = ..\\..\\Standard\\TaskBuilder_MIA\\TaskBuilderNet\\Microarea.TaskBuilderNet.Interfaces
+		SccProjectUniqueName6 = ..\\..\\Standard\\TaskBuilder_MIA\\TaskBuilderNet\\Microarea.TaskBuilderNet.Core\\Microarea.TaskBuilderNet.Core.csproj
 		SccProjectTopLevelParentUniqueName6 = Mago4Butler.sln
-		SccProjectName6 = ../../TaskBuilder_MIA/TaskBuilderNet/Microarea.TaskBuilderNet.Interfaces
-		SccLocalPath6 = ..\\..\\Standard\\TaskBuilder_MIA\\TaskBuilderNet\\Microarea.TaskBuilderNet.Interfaces
-		SccProjectUniqueName7 = ..\\..\\Standard\\TaskBuilder_MIA\\TaskBuilderNet\\Microarea.TaskBuilderNet.Core\\Microarea.TaskBuilderNet.Core.csproj
+		SccProjectName6 = ../../TaskBuilder_MIA/TaskBuilderNet/Microarea.TaskBuilderNet.Core
+		SccLocalPath6 = ..\\..\\Standard\\TaskBuilder_MIA\\TaskBuilderNet\\Microarea.TaskBuilderNet.Core
+		SccProjectUniqueName7 = ..\\..\\Standard\\TaskBuilder_MIA\\TaskBuilderNet\\Microarea.TaskBuilderNet.Data\\Microarea.TaskBuilderNet.Data.csproj
 		SccProjectTopLevelParentUniqueName7 = Mago4Butler.sln
-		SccProjectName7 = ../../TaskBuilder_MIA/TaskBuilderNet/Microarea.TaskBuilderNet.Core
-		SccLocalPath7 = ..\\..\\Standard\\TaskBuilder_MIA\\TaskBuilderNet\\Microarea.TaskBuilderNet.Core
-		SccProjectUniqueName8 = ..\\..\\Standard\\TaskBuilder_MIA\\TaskBuilderNet\\Microarea.TaskBuilderNet.Data\\Microarea.TaskBuilderNet.Data.csproj
-		SccProjectTopLevelParentUniqueName8 = Mago4Butler.sln
-		SccProjectName8 = ../../TaskBuilder_MIA/TaskBuilderNet/Microarea.TaskBuilderNet.Data
-		SccLocalPath8 = ..\\..\\Standard\\TaskBuilder_MIA\\TaskBuilderNet\\Microarea.TaskBuilderNet.Data
+		SccProjectName7 = ../../TaskBuilder_MIA/TaskBuilderNet/Microarea.TaskBuilderNet.Data
+		SccLocalPath7 = ..\\..\\Standard\\TaskBuilder_MIA\\TaskBuilderNet\\Microarea.TaskBuilderNet.Data
 	EndGlobalSection
 EndGlobal
