@@ -89,6 +89,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A063F660-3E25-452C-B093-0C85F2B81A27} = {807CBFB5-AB06-4AD2-BD86-9083B92B7504}
+		{A84F78EE-5EDE-4C7C-A042-36E0806BACF5} = {6A50FBE7-627C-4621-BB80-7D0ADA9E3A97}
 		{D21FD41D-0C68-40EF-A65A-CCFA47A05F3E} = {6A50FBE7-627C-4621-BB80-7D0ADA9E3A97}
 		{DCA1DC48-522C-41FA-9E43-3DCCE3ED0FE3} = {6A50FBE7-627C-4621-BB80-7D0ADA9E3A97}
 		{F2F1C352-B5F8-4E92-A85F-99B012F80504} = {6A50FBE7-627C-4621-BB80-7D0ADA9E3A97}
@@ -109,6 +110,7 @@ Global
 		SccProjectName3 = Mago4ButlerSetup
 		SccLocalPath3 = Mago4ButlerSetup
 		SccProjectUniqueName4 = ..\\..\\Standard\\TaskBuilder_MIA\\Tools\\ProvisioningConfigurator\\ProvisioningConfigurator\\ProvisioningConfigurator.csproj
+		SccProjectTopLevelParentUniqueName4 = Mago4Butler.sln
 		SccProjectName4 = ../../TaskBuilder_MIA/Tools/ProvisioningConfigurator/ProvisioningConfigurator
 		SccLocalPath4 = ..\\..\\Standard\\TaskBuilder_MIA\\Tools\\ProvisioningConfigurator\\ProvisioningConfigurator
 		SccProjectUniqueName5 = ..\\..\\Standard\\TaskBuilder_MIA\\TaskBuilderNet\\Microarea.TaskBuilderNet.Interfaces\\Microarea.TaskBuilderNet.Interfaces.csproj

@@ -45,5 +45,20 @@ namespace Microarea.Mago4Butler.BL
         {
             return String.Format("{0}, v.{1}", this.Name, this.Version.ToString());
         }
+
+        public override bool Equals(object obj)
+        {
+            var other = obj as Instance;
+            if (other == null)
+            {
+                return false;
+            }
+            return String.Compare(this.Name, other.Name, StringComparison.InvariantCultureIgnoreCase) == 0;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Name.GetHashCode();
+        }
     }
 }

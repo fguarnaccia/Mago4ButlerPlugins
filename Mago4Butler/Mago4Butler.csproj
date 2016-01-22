@@ -56,6 +56,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
@@ -88,7 +89,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleRunner.cs" />
+    <Compile Include="ConsoleWrapper.cs" />
+    <Compile Include="IForrest.cs" />
     <Compile Include="IoC\IoCContainer.cs" />
+    <Compile Include="IoC\Parameter.cs" />
+    <Compile Include="SafeNativeMethods.cs" />
+    <Compile Include="UIRunner.cs" />
     <Compile Include="UI\AskForParametersForm.cs">
       <SubType>Form</SubType>
     </Compile>

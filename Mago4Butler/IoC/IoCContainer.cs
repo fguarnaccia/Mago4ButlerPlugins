@@ -43,6 +43,32 @@ namespace Microarea.Mago4Butler
                 Bind<UIError>().ToSelf();
 
                 Bind<Batch>().ToSelf();
+
+                Bind<IForrest>()
+                    .To<UIRunner>()
+                    .When(
+                    (r) =>
+                    {
+                        var parameters = r.Parameters;
+                        if (parameters == null || parameters.Count == 0)
+                        {
+                            return true;
+                        }
+
+                        return false;
+                    });
+                Bind<IForrest>()
+                    .To<ConsoleRunner>()
+                    .When(
+                    (r) =>
+                    {
+                        var parameters = r.Parameters;
+                        if (parameters == null || parameters.Count == 0)
+                        {
+                            return false;
+                        }
+                        return true;
+                    });
             }
         }
 
@@ -64,14 +90,20 @@ namespace Microarea.Mago4Butler
             ioc.Load<IoCModule>();
         }
         IKernel ioc;
-        public T Get<T>()
+        public T Get<T>(params Parameter[] parameters)
         {
-            return ioc.Get<T>();
-        }
-
-       public object Get(Type type)
-        {
-            return ioc.Get(type);
+            if (parameters == null || parameters.Length == 0)
+            {
+                return ioc.Get<T>();
+            }
+            var injectParams = new List<Ninject.Parameters.IParameter>();
+            var i = 0;
+            foreach (var parameter in parameters)
+            {
+                injectParams.Add(new Ninject.Parameters.ConstructorArgument(parameter.Name, parameter.Value));
+                i++;
+            }
+            return ioc.Get<T>(injectParams.ToArray());
         }
     }
 }

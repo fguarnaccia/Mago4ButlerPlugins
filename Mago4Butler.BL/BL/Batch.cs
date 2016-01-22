@@ -31,10 +31,10 @@ namespace Microarea.Mago4Butler
             }
         }
 
-        public Batch(Model model)
+        public Batch(Model model, ISettings settings)
         {
             this.model = model;
-            this.instanceService = new InstallerService(Settings.Default, this.msiService);
+            this.instanceService = new InstallerService(settings, this.msiService);
 
             this.instanceService.Started += InstanceService_Started;
             this.instanceService.Starting += InstanceService_Starting;
@@ -143,7 +143,7 @@ namespace Microarea.Mago4Butler
                 }
                 workingInstances.Add(instance);
             }
-
+#warning TODO
             foreach (var instanceName in workingInstances)
             {
                 this.instanceService.Install(msiFullfilePath, instanceName);
