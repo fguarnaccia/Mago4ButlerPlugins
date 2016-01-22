@@ -97,11 +97,12 @@ namespace Microarea.Mago4Butler
                 return ioc.Get<T>();
             }
             var injectParams = new List<Ninject.Parameters.IParameter>();
-            var i = 0;
             foreach (var parameter in parameters)
             {
-                injectParams.Add(new Ninject.Parameters.ConstructorArgument(parameter.Name, parameter.Value));
-                i++;
+                if (parameter != null)
+                {
+                    injectParams.Add(new Ninject.Parameters.ConstructorArgument(parameter.Name, parameter.Value));
+                }
             }
             return ioc.Get<T>(injectParams.ToArray());
         }

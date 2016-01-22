@@ -23,7 +23,12 @@ namespace Microarea.Mago4Butler
         [STAThread]
         static void Main(string[] args)
         {
-            var forrest = IoCContainer.Instance.Get<IForrest>(new Parameter() { Name= "args", Value = args });
+            Parameter p = null;
+            if (args != null && args.Length > 0)
+            {
+                p = new Parameter() { Name = "args", Value = args };
+            }
+            var forrest = IoCContainer.Instance.Get<IForrest>(p);
             forrest.Run();
         }
 

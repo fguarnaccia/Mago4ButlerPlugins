@@ -1,17 +1,10 @@
 ﻿using Microarea.Mago4Butler.BL;
-using Microarea.Mago4Butler.Properties;
 using Microarea.Tools.ProvisioningConfigurator.ProvisioningConfigurator;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Microarea.Mago4Butler
@@ -281,7 +274,7 @@ namespace Microarea.Mago4Butler
                 {
                     diagRes = provisioningForm.ShowDialog();
 
-                    if (diagRes != DialogResult.OK)
+                    if (diagRes == DialogResult.Cancel)
                     {
                         return;
                     }
