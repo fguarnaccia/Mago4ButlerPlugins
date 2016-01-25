@@ -13,15 +13,6 @@ namespace Microarea.Mago4Butler
         MsiService msiService = new MsiService();
         InstallerService instanceService;
         Model model;
-        bool isRunning;
-
-        public bool IsRunning
-        {
-            get
-            {
-                return isRunning;
-            }
-        }
 
         public string Now
         {
@@ -108,7 +99,6 @@ namespace Microarea.Mago4Butler
         private void InstanceService_Stopped(object sender, EventArgs e)
         {
             Console.WriteLine("[" + Now + "]: Install service stopped", Color.Green);
-            this.isRunning = false;
         }
 
         private void InstanceService_Starting(object sender, EventArgs e)
@@ -119,7 +109,6 @@ namespace Microarea.Mago4Butler
         private void InstanceService_Started(object sender, EventArgs e)
         {
             Console.WriteLine("[" + Now + "]: Install service started", Color.Green);
-            this.isRunning = true;
         }
 
         public void Install(string msiFullfilePath, params Instance[] instances)
@@ -143,7 +132,7 @@ namespace Microarea.Mago4Butler
                 }
                 workingInstances.Add(instance);
             }
-#warning TODO
+
             foreach (var instanceName in workingInstances)
             {
                 this.instanceService.Install(msiFullfilePath, instanceName);
@@ -170,6 +159,11 @@ namespace Microarea.Mago4Butler
             this.instanceService.Update(msiFullfilePath, workingInstances);
         }
 
+        public void UpdateAll(string msiFullfilePath)
+        {
+            this.instanceService.Update(msiFullfilePath, this.model.Instances);
+        }
+
         public void Uninstall(params Instance[] instances)
         {
             if (instances.Length == 0)
@@ -188,6 +182,16 @@ namespace Microarea.Mago4Butler
             }
 
             this.instanceService.Uninstall(workingInstances);
+        }
+
+        public void UninstallAll(string msiFullFilePath)
+        {
+            this.instanceService.Uninstall(this.model.Instances);
+        }
+
+        public void WaitingForGodot()
+        {
+            this.instanceService.Join();
         }
     }
 }

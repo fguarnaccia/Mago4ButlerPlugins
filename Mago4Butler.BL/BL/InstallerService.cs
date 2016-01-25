@@ -36,13 +36,15 @@ namespace Microarea.Mago4Butler.BL
         string rootPath;
         Queue<Request> requests = new Queue<Request>();
 
-        bool isRunning;
+        Thread workingThread;
 
-        public bool IsRunning
+        public bool IsRunning { get { return this.workingThread != null; } }
+
+        public void Join()
         {
-            get
+            if (this.workingThread != null)
             {
-                return isRunning;
+                this.workingThread.Join();
             }
         }
 
@@ -187,9 +189,9 @@ namespace Microarea.Mago4Butler.BL
             StartService();
         }
 
-        public void Uninstall(ICollection<Instance> instances)
+        public void Uninstall(IEnumerable<Instance> instances)
         {
-            if (instances.Count == 0)
+            if (instances.Count() == 0)
             {
                 return;
             }
@@ -211,9 +213,9 @@ namespace Microarea.Mago4Butler.BL
             StartService();
         }
 
-        public void Update(string msiFullFilePath, ICollection<Instance> instances)
+        public void Update(string msiFullFilePath, IEnumerable<Instance> instances)
         {
-            if (instances.Count == 0)
+            if (instances.Count() == 0)
             {
                 return;
             }
@@ -239,7 +241,7 @@ namespace Microarea.Mago4Butler.BL
         {
             lock (this.lockTicket)
             {
-                if (this.isRunning)
+                if (this.workingThread != null)
                 {
                     return;
                 }
@@ -252,11 +254,11 @@ namespace Microarea.Mago4Butler.BL
         {
             lock (this.lockTicket)
             {
-                if (this.IsRunning)
+                if (this.workingThread != null)
                 {
                     return;
                 }
-                this.isRunning = true;
+                this.workingThread = Thread.CurrentThread;
             }
             this.OnStarted();
 
@@ -302,7 +304,7 @@ namespace Microarea.Mago4Butler.BL
             this.OnStopping();
             lock (this.lockTicket)
             {
-                this.isRunning = false;
+                this.workingThread = null;
             }
             this.OnStopped();
         }
