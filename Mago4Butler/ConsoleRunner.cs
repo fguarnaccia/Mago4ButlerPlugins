@@ -80,19 +80,21 @@ namespace Microarea.Mago4Butler
                         }
                 }
             }
-            if ((instanceToInstall.Count > 0 || instanceToUpdate.Count > 0) && String.IsNullOrWhiteSpace(msiFullFilePath))
+            if ((instanceToInstall.Count > 0 || instanceToUpdate.Count > 0))
             {
-                return false;
-            }
+                if (String.IsNullOrWhiteSpace(msiFullFilePath))
+                {
+                    Console.WriteLine("No msi file specified.", Color.Red);
+                    Console.WriteLine("");
+                    PrintHelp(true);
+                    return false;
+                }
+                if (!File.Exists(msiFullFilePath))
+                {
+                    Console.WriteLine("Msi file " + msiFullFilePath + " does not exist.", Color.Red);
+                    return false;
+                }
 
-            if (instanceToInstall.Count > 0 && !File.Exists(msiFullFilePath))
-            {
-                Console.WriteLine("Msi file " + msiFullFilePath + " does not exist.", Color.Red);
-                return false;
-            }
-
-            if (instanceToInstall.Count > 0)
-            {
                 var msiService = IoCContainer.Instance.Get<MsiService>();
                 var version = msiService.GetVersion(msiFullFilePath);
                 foreach (var instance in instanceToInstall)
@@ -121,15 +123,18 @@ namespace Microarea.Mago4Butler
             return instances;
         }
 
-        void PrintHelp()
+        void PrintHelp(bool skipHeader = false)
         {
             var version = typeof(Program).Assembly.GetName().Version.ToString();
 
-            Console.WriteLine("Microarea Mago4 multi instance manager version " + version, Color.White);
-            Console.WriteLine("[Microsoft .NET Framework, version " + Environment.Version.ToString() + "]", Color.White);
-            Console.WriteLine("Copyright (C) Microarea S.p.A. All rights reserved.", Color.White);
-            Console.WriteLine("");
-            Console.WriteLine("");
+            if (!skipHeader)
+            {
+                Console.WriteLine("Microarea Mago4 multi instance manager version " + version, Color.White);
+                Console.WriteLine("[Microsoft .NET Framework, version " + Environment.Version.ToString() + "]", Color.White);
+                Console.WriteLine("Copyright (C) Microarea S.p.A. All rights reserved.", Color.White);
+                Console.WriteLine("");
+                Console.WriteLine("");
+            }
             Console.WriteLine("Usage:");
             Console.WriteLine("\tMago4Butler.exe " + installSwitch + " InstanceName1;InstanceName2;...;InstanceNameN " + msiFilaFullPathSwitch + " <msi file path>", Color.White);
             Console.WriteLine("\tInstall all the instances specified by the semicolon separated list using the specified msi file");
