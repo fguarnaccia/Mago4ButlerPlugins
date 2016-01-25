@@ -79,7 +79,7 @@ namespace Microarea.Mago4Butler
             this.PrintCurrentStatus();
         }
 
-        private void PrintCurrentStatus()
+        public void PrintCurrentStatus()
         {
             if (this.model.Instances.Count() == 0)
             {
