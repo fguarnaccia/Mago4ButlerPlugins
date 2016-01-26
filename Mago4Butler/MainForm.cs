@@ -326,7 +326,7 @@ namespace Microarea.Mago4Butler
             }
             if (String.Compare(oldRootFolder, this.settings.RootFolder, StringComparison.InvariantCultureIgnoreCase) != 0)
             {
-                this.model.Init(this.settings.RootFolder);
+                this.model.Init();
                 UpdateUI();
             }
         }

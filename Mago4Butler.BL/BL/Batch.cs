@@ -153,6 +153,11 @@ namespace Microarea.Mago4Butler
                     Console.WriteLine("[" + Now + "]: " + instance.Name + " does not exist, I cannot update it", Color.Red);
                     continue;
                 }
+                if (!instance.AllowBatchDeletesUpdates)
+                {
+                    Console.WriteLine("[" + Now + "]: " + instance.Name + " is not updatable via batch, I cannot update it", Color.Orange);
+                    continue;
+                }
                 workingInstances.Add(instance);
             }
             
@@ -176,6 +181,11 @@ namespace Microarea.Mago4Butler
                 if (!this.model.ContainsInstance(instance))
                 {
                     Console.WriteLine("[" + Now + "]: " + instance.Name + " does not exist, I cannot uninstall it", Color.Red);
+                    continue;
+                }
+                if (!instance.AllowBatchDeletesUpdates)
+                {
+                    Console.WriteLine("[" + Now + "]: " + instance.Name + " is not deletable via batch, I cannot delete it", Color.Orange);
                     continue;
                 }
                 workingInstances.Add(instance);

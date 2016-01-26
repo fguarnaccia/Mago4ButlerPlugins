@@ -5,11 +5,16 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using YamlDotNet.Serialization.NamingConventions;
 
 namespace Microarea.Mago4Butler.BL
 {
     public class Model
     {
+        const string configutationFileName = "Mago4Butler.yml";
+
+        string rootFolder;
+
         List<Instance> instances = new List<Instance>();
 
         public event EventHandler<InstanceEventArgs> InstanceAdded;
@@ -42,6 +47,16 @@ namespace Microarea.Mago4Butler.BL
             }
         }
 
+        public Model()
+        {
+
+        }
+
+        public Model(ISettings settings)
+        {
+            this.rootFolder = settings.RootFolder;
+        }
+
         public static bool IsInstanceNameValid(string instanceName)
         {
             if (String.IsNullOrWhiteSpace(instanceName))
@@ -64,6 +79,11 @@ namespace Microarea.Mago4Butler.BL
             {
                 return instances;
             }
+            internal set
+            {
+                this.instances.Clear();
+                this.instances.AddRange(value);
+            }
         }
         public void RemoveInstances(ICollection<Instance> instances)
         {
@@ -79,6 +99,8 @@ namespace Microarea.Mago4Butler.BL
         {
             this.instances.Remove(instance);
             this.OnInstanceRemoved(new InstanceEventArgs() { Instance = instance });
+
+            SaveToConfigurationFile();
         }
         public void AddInstance(Instance instance)
         {
@@ -88,6 +110,8 @@ namespace Microarea.Mago4Butler.BL
 
             this.instances.Add(instance);
             this.OnInstanceAdded(new InstanceEventArgs() { Instance = instance });
+
+            SaveToConfigurationFile();
         }
 
         public void UpdateInstances(ICollection<Instance> instances)
@@ -113,6 +137,8 @@ namespace Microarea.Mago4Butler.BL
             oldInstance.Version = instance.Version;
 
             this.OnInstanceUpdated(new InstanceEventArgs() { Instance = oldInstance });
+
+            SaveToConfigurationFile();
         }
 
         public bool ContainsInstance(string instanceName)
@@ -141,16 +167,14 @@ namespace Microarea.Mago4Butler.BL
             return false;
         }
 
-        public void Init(string rootFolder)
+        public void Init()
         {
             this.instances.Clear();
 
-            var rootDirInfo = new DirectoryInfo(rootFolder);
-            if (!rootDirInfo.Exists)
-            {
-                return;
-            }
+            LoadFromConfigurationFile();
 
+            var rootDirInfo = new DirectoryInfo(rootFolder);
+            var instancesOnDisk = new List<Instance>();
             var instanceDirInfos = rootDirInfo.GetDirectories();
             foreach (var instanceDirInfo in instanceDirInfos)
             {
@@ -160,10 +184,47 @@ namespace Microarea.Mago4Butler.BL
                     if (String.Compare("Standard", subDirInfo.Name, StringComparison.InvariantCultureIgnoreCase) == 0)
                     {
                         //per non far scattare gli eventi
-                        this.instances.Add(Instance.FromStandardDirectoryInfo(subDirInfo));
+                        instancesOnDisk.Add(Instance.FromStandardDirectoryInfo(subDirInfo));
                         break;
                     }
                 }
+            }
+
+            for (int i = this.instances.Count - 1; i >= 0; i--)
+            {
+                if (!instancesOnDisk.Contains(this.instances[i]))
+                {
+                    this.instances.RemoveAt(i);
+                }
+            }
+        }
+
+        private void LoadFromConfigurationFile()
+        {
+            var confFileInfo = new FileInfo(Path.Combine(this.rootFolder, configutationFileName));
+            if (!confFileInfo.Exists)
+            {
+                return;
+            }
+
+            var deserializer = new YamlDotNet.Serialization.Deserializer(null, new PascalCaseNamingConvention());
+            using (var inputStream = confFileInfo.OpenRead())
+            using (var streamReader = new StreamReader(inputStream))
+            {
+                var model = deserializer.Deserialize<Model>(streamReader);
+                this.instances.AddRange(model.instances);
+            }
+        }
+
+        private void SaveToConfigurationFile()
+        {
+            var confFileInfo = new FileInfo(Path.Combine(this.rootFolder, configutationFileName));
+
+            var serializer = new YamlDotNet.Serialization.Serializer();
+            using (var outputStream = File.Create(confFileInfo.FullName))
+            using (var streamWriter = new StreamWriter(outputStream))
+            {
+                serializer.Serialize(streamWriter, this);
             }
         }
     }

@@ -19,8 +19,8 @@ namespace Microarea.Mago4Butler
                     .ToMethod(context =>
                     {
                         var settings = context.Kernel.Get<ISettings>();
-                        var model = new Model();
-                        model.Init(settings.RootFolder);
+                        var model = new Model(settings);
+                        model.Init();
 
                         return model;
                     })
