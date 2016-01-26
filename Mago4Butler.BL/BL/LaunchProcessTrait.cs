@@ -20,6 +20,10 @@ namespace Microarea.Mago4Butler.BL
         {
             LaunchProcess(processFilePath, args, timeoutInMillSecs);
         }
+        public static void LaunchProcess(this CompanyDBUpdateService @this, string processFilePath, string args, int timeoutInMillSecs)
+        {
+            LaunchProcess(processFilePath, args, timeoutInMillSecs);
+        }
         private static void LaunchProcess(string processFilePath, string args, int timeoutInMillSecs)
         {
             ProcessStartInfo psi = new ProcessStartInfo(processFilePath, args);

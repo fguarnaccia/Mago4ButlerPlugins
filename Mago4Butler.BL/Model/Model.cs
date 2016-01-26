@@ -212,7 +212,10 @@ namespace Microarea.Mago4Butler.BL
             using (var streamReader = new StreamReader(inputStream))
             {
                 var model = deserializer.Deserialize<Model>(streamReader);
-                this.instances.AddRange(model.instances);
+                if (model != null && model.instances.Count > 0)
+                {
+                    this.instances.AddRange(model.instances);
+                }
             }
         }
 

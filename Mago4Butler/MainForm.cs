@@ -177,6 +177,7 @@ namespace Microarea.Mago4Butler
         {
             var ui = (this.model.Instances.Count() == 0) ? this.uiEmpty as UserControl : this.uiNormalUse as UserControl;
             ShowUI(ui);
+            EnableDisableToolStripItem(this.tsbSettings, true);
         }
 
         private void InstanceService_Starting(object sender, EventArgs e)
@@ -187,6 +188,7 @@ namespace Microarea.Mago4Butler
         private void InstanceService_Started(object sender, EventArgs e)
         {
             ShowUI(uiWaiting);
+            EnableDisableToolStripItem(this.tsbSettings, false);
         }
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
@@ -233,6 +235,15 @@ namespace Microarea.Mago4Butler
                 this.pnlContent.Controls[0].Visible = true;
                 ui.Dock = DockStyle.Fill;
                 this.pnlContent.ResumeLayout();
+            })
+            , null);
+        }
+
+        private void EnableDisableToolStripItem(ToolStripItem item, bool enabled)
+        {
+            this.syncCtx.Post(new SendOrPostCallback((obj) =>
+            {
+                item.Enabled = enabled;
             })
             , null);
         }

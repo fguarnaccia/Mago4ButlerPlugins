@@ -84,6 +84,7 @@
       <Link>AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="BL\Batch.cs" />
+    <Compile Include="BL\CompanyDBUpdateService.cs" />
     <Compile Include="BL\NotificationEventArgs.cs" />
     <Compile Include="BL\ProvisioningService.cs" />
     <Compile Include="BL\ServerManagerTrait.cs" />

@@ -32,6 +32,7 @@ namespace Microarea.Mago4Butler.BL
         MsiService msiService;
         IisService iisService;
         FileSystemService fileSystemService;
+        CompanyDBUpdateService companyDBUpdateService;
 
         string rootPath;
         Queue<Request> requests = new Queue<Request>();
@@ -48,10 +49,11 @@ namespace Microarea.Mago4Butler.BL
             }
         }
 
-        public InstallerService(ISettings settings, MsiService msiService)
+        public InstallerService(ISettings settings, MsiService msiService, CompanyDBUpdateService companyDBUpdateService)
         {
             this.rootPath = settings.RootFolder;
             this.msiService = msiService;
+            this.companyDBUpdateService = companyDBUpdateService;
             this.msiZapper = new MsiZapper(this.msiService);
             this.registryService = new RegistryService(this.msiService);
             this.iisService = new IisService();
@@ -345,12 +347,12 @@ namespace Microarea.Mago4Butler.BL
             //alcuni componenti cambiano noe, mi rimangano dei cadaveri.
             //Rimuovere prima le virtual folder e le application, poi gli application pool.
             //Un application pool a cui sono collegate ancora applicazioni non puo` essere eliminato
-            OnNotification(new NotificationEventArgs() { Message = "Removing application pools..." });
+            OnNotification(new NotificationEventArgs() { Message = "Removing virtual folders..." });
             this.iisService.RemoveVirtualFoldersAndApplications(currentRequest.Instance);
-            OnNotification(new NotificationEventArgs() { Message = "Application pools removed" });
-            OnNotification(new NotificationEventArgs() { Message = "Removing all files..." });
+            OnNotification(new NotificationEventArgs() { Message = "Virtual folders removed" });
+            OnNotification(new NotificationEventArgs() { Message = "Removing application pools..." });
             this.iisService.RemoveApplicationPools(currentRequest.Instance);
-            OnNotification(new NotificationEventArgs() { Message = "All files removed" });
+            OnNotification(new NotificationEventArgs() { Message = "Application pools removed" });
 
             var rootDirInfo = new DirectoryInfo(currentRequest.RootPath);
             if (!rootDirInfo.Exists)
@@ -383,6 +385,10 @@ namespace Microarea.Mago4Butler.BL
             this.registryService.RemoveInstallationInfoKey(currentRequest.MsiPath);
             this.registryService.RemoveInstallerFoldersKeys(currentRequest.RootPath, currentRequest.Instance);
             OnNotification(new NotificationEventArgs() { Message = "Now the registry is clean" });
+
+            OnNotification(new NotificationEventArgs() { Message = "Updating company database..." });
+            this.companyDBUpdateService.UpdateCompanyDB(currentRequest.Instance);
+            OnNotification(new NotificationEventArgs() { Message = "Company databsae updated successfully" });
         }
 
         private void Install(Request currentRequest)

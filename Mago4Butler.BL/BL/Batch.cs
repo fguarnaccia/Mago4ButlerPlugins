@@ -11,6 +11,7 @@ namespace Microarea.Mago4Butler
     class Batch
     {
         MsiService msiService = new MsiService();
+        CompanyDBUpdateService companyDBUpdateService;
         InstallerService instanceService;
         Model model;
 
@@ -25,7 +26,8 @@ namespace Microarea.Mago4Butler
         public Batch(Model model, ISettings settings)
         {
             this.model = model;
-            this.instanceService = new InstallerService(settings, this.msiService);
+            companyDBUpdateService = new CompanyDBUpdateService(settings);
+            this.instanceService = new InstallerService(settings, this.msiService, this.companyDBUpdateService);
 
             this.instanceService.Started += InstanceService_Started;
             this.instanceService.Starting += InstanceService_Starting;

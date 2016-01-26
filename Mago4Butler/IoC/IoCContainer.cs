@@ -29,6 +29,7 @@ namespace Microarea.Mago4Butler
                 Bind<MsiService>().ToSelf();
                 Bind<InstallerService>().ToSelf();
                 Bind<ProvisioningService>().ToSelf();
+                Bind<CompanyDBUpdateService>().ToSelf();
                 Bind<FileSystemService>().ToSelf();
                 Bind<IisService>().ToSelf();
                 Bind<MsiZapper>().ToSelf();
