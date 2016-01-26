@@ -166,7 +166,7 @@ namespace Microarea.Mago4Butler
 
         public void UpdateAll(string msiFullfilePath)
         {
-            this.instanceService.Update(msiFullfilePath, this.model.Instances);
+            this.Update(msiFullfilePath, this.model.Instances.ToArray());
         }
 
         public void Uninstall(params Instance[] instances)
@@ -196,7 +196,7 @@ namespace Microarea.Mago4Butler
 
         public void UninstallAll(string msiFullFilePath)
         {
-            this.instanceService.Uninstall(this.model.Instances);
+            this.Uninstall(this.model.Instances.ToArray());
         }
 
         public void WaitingForGodot()

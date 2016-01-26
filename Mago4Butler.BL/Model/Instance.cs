@@ -13,7 +13,6 @@ namespace Microarea.Mago4Butler.BL
     {
         public string Name { get; set; }
         public Version Version { get; set; }
-        [YamlDotNet.Serialization.YamlIgnore]
         public WebSiteInfo WebSiteInfo { get; set; }
         public bool AllowBatchDeletesUpdates { get; set; } = true;
         [YamlDotNet.Serialization.YamlIgnore]
