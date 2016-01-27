@@ -196,47 +196,56 @@ namespace Microarea.Mago4Butler
             Console.WriteLine("Mago4Butler.exe " + installSwitch + " InstanceName1;...;InstanceNameN " + updateSwitch + " InstanceNameM;...;InstanceNameQ " + uninstallSwitch + " InstanceNameS;...;InstanceNameZ " + msiFilaFullPathSwitch + " <msi file path>", Color.White);
         }
 
-        public void Run()
+        public int Run()
         {
-            using (var consoleWrapper = new ConsoleWrapper())
+            try
             {
-                if (!ParseArgs(this.args))
+                using (var consoleWrapper = new ConsoleWrapper())
                 {
-                    PrintHelp();
-                    return;
-                }
+                    if (!ParseArgs(this.args))
+                    {
+                        PrintHelp();
+                        return 1;
+                    }
 
-                var batch = IoCContainer.Instance.Get<Batch>();
+                    var batch = IoCContainer.Instance.Get<Batch>();
 
-                if (printCurrentStatus)
-                {
-                    batch.PrintCurrentStatus();
-                    return;
-                }
+                    if (printCurrentStatus)
+                    {
+                        batch.PrintCurrentStatus();
+                        return 0;
+                    }
 
-                if (this.updateAll)
-                {
-                    batch.UpdateAll(msiFullFilePath);
-                }
-                else
-                {
-                    batch.Update(msiFullFilePath, instanceToUpdate.ToArray());
-                }
+                    if (this.updateAll)
+                    {
+                        batch.UpdateAll(msiFullFilePath);
+                    }
+                    else
+                    {
+                        batch.Update(msiFullFilePath, instanceToUpdate.ToArray());
+                    }
 
-                batch.Install(msiFullFilePath, instanceToInstall.ToArray());
-                if (this.uninstallAll)
-                {
-                    batch.UninstallAll(msiFullFilePath);
-                }
-                else
-                {
-                    batch.Uninstall(instanceToUninstall.ToArray());
-                }
+                    batch.Install(msiFullFilePath, instanceToInstall.ToArray());
+                    if (this.uninstallAll)
+                    {
+                        batch.UninstallAll(msiFullFilePath);
+                    }
+                    else
+                    {
+                        batch.Uninstall(instanceToUninstall.ToArray());
+                    }
 
-                //Giving time to the install service to start...
-                Thread.Sleep(3000);
+                    //Giving time to the install service to start...
+                    Thread.Sleep(3000);
 
-                batch.WaitingForGodot();
+                    batch.WaitingForGodot();
+                }
+                return 0;
+            }
+            catch (Exception exc)
+            {
+                Console.WriteLine("Error: " + exc.ToString());
+                return 1;
             }
         }
     }

@@ -2,6 +2,6 @@
 {
     internal interface IForrest
     {
-        void Run();
+        int Run();
     }
 }

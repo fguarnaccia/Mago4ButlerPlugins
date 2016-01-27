@@ -21,7 +21,7 @@ namespace Microarea.Mago4Butler
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main(string[] args)
+        static int Main(string[] args)
         {
             Parameter p = null;
             if (args != null && args.Length > 0)
@@ -29,7 +29,8 @@ namespace Microarea.Mago4Butler
                 p = new Parameter() { Name = "args", Value = args };
             }
             var forrest = IoCContainer.Instance.Get<IForrest>(p);
-            forrest.Run();
+
+            return forrest.Run();
         }
 
         static Program()

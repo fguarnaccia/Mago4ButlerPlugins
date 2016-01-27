@@ -171,6 +171,12 @@ namespace Microarea.Mago4Butler.BL
         {
             this.instances.Clear();
 
+            var rootFolderDirInfo = new DirectoryInfo(rootFolder);
+            if (!rootFolderDirInfo.Exists)
+            {
+                rootFolderDirInfo.Create();
+            }
+
             LoadFromConfigurationFile();
 
             var rootDirInfo = new DirectoryInfo(rootFolder);

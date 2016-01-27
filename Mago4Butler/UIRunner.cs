@@ -7,7 +7,7 @@ namespace Microarea.Mago4Butler
 {
     internal class UIRunner : IForrest
     {
-        public void Run()
+        public int Run()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -15,6 +15,8 @@ namespace Microarea.Mago4Butler
             var mainForm = IoCContainer.Instance.Get<MainForm>();
 
             Application.Run(mainForm);
+
+            return 0;
         }
     }
 }
