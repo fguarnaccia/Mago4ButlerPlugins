@@ -41,11 +41,11 @@
             this.lblPleaseWait.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblPleaseWait.AutoSize = true;
-            this.lblPleaseWait.Font = new System.Drawing.Font("Verdana", 26.25F);
+            this.lblPleaseWait.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPleaseWait.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.lblPleaseWait.Location = new System.Drawing.Point(92, 27);
+            this.lblPleaseWait.Location = new System.Drawing.Point(126, 26);
             this.lblPleaseWait.Name = "lblPleaseWait";
-            this.lblPleaseWait.Size = new System.Drawing.Size(214, 42);
+            this.lblPleaseWait.Size = new System.Drawing.Size(117, 23);
             this.lblPleaseWait.TabIndex = 5;
             this.lblPleaseWait.Text = "Please wait";
             this.lblPleaseWait.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -54,8 +54,9 @@
             // 
             this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBar.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.progressBar.Location = new System.Drawing.Point(7, 224);
-            this.progressBar.MarqueeAnimationSpeed = 10;
+            this.progressBar.MarqueeAnimationSpeed = 20;
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(369, 23);
             this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
@@ -64,10 +65,10 @@
             // lblProgressText
             // 
             this.lblProgressText.AutoSize = true;
-            this.lblProgressText.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProgressText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblProgressText.Location = new System.Drawing.Point(3, 197);
             this.lblProgressText.Name = "lblProgressText";
-            this.lblProgressText.Size = new System.Drawing.Size(119, 24);
+            this.lblProgressText.Size = new System.Drawing.Size(86, 16);
             this.lblProgressText.TabIndex = 7;
             this.lblProgressText.Text = "Progress text";
             // 
@@ -85,6 +86,8 @@
             // 
             this.txtDetails.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtDetails.BackColor = System.Drawing.Color.White;
+            this.txtDetails.Font = new System.Drawing.Font("Verdana", 8.25F);
             this.txtDetails.Location = new System.Drawing.Point(7, 253);
             this.txtDetails.Multiline = true;
             this.txtDetails.Name = "txtDetails";

@@ -39,43 +39,48 @@
             // 
             // toolStrip
             // 
+            this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsbViewLogs,
             this.tsbSettings,
             this.bntAbout});
+            this.toolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(384, 25);
+            this.toolStrip.Size = new System.Drawing.Size(384, 21);
             this.toolStrip.TabIndex = 0;
             this.toolStrip.Text = "toolStrip1";
             // 
             // tsbViewLogs
             // 
             this.tsbViewLogs.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbViewLogs.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tsbViewLogs.Image = ((System.Drawing.Image)(resources.GetObject("tsbViewLogs.Image")));
             this.tsbViewLogs.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbViewLogs.Name = "tsbViewLogs";
-            this.tsbViewLogs.Size = new System.Drawing.Size(64, 22);
+            this.tsbViewLogs.Size = new System.Drawing.Size(75, 18);
             this.tsbViewLogs.Text = "View Logs";
             this.tsbViewLogs.Click += new System.EventHandler(this.tsbViewLogs_Click);
             // 
             // tsbSettings
             // 
             this.tsbSettings.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbSettings.Font = new System.Drawing.Font("Verdana", 9F);
             this.tsbSettings.Image = ((System.Drawing.Image)(resources.GetObject("tsbSettings.Image")));
             this.tsbSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbSettings.Name = "tsbSettings";
-            this.tsbSettings.Size = new System.Drawing.Size(53, 22);
+            this.tsbSettings.Size = new System.Drawing.Size(63, 18);
             this.tsbSettings.Text = "Settings";
             this.tsbSettings.Click += new System.EventHandler(this.tsbSettings_Click);
             // 
             // bntAbout
             // 
             this.bntAbout.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.bntAbout.Font = new System.Drawing.Font("Verdana", 9F);
             this.bntAbout.Image = ((System.Drawing.Image)(resources.GetObject("bntAbout.Image")));
             this.bntAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.bntAbout.Name = "bntAbout";
-            this.bntAbout.Size = new System.Drawing.Size(23, 22);
+            this.bntAbout.Size = new System.Drawing.Size(23, 18);
             this.bntAbout.Text = "?";
             this.bntAbout.Click += new System.EventHandler(this.bntAbout_Click);
             // 
@@ -84,15 +89,16 @@
             this.pnlContent.BackgroundImage = global::Microarea.Mago4Butler.Properties.Resources.logo;
             this.pnlContent.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.pnlContent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlContent.Location = new System.Drawing.Point(0, 25);
+            this.pnlContent.Location = new System.Drawing.Point(0, 21);
             this.pnlContent.Name = "pnlContent";
-            this.pnlContent.Size = new System.Drawing.Size(384, 437);
+            this.pnlContent.Size = new System.Drawing.Size(384, 441);
             this.pnlContent.TabIndex = 1;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(384, 462);
             this.Controls.Add(this.pnlContent);
             this.Controls.Add(this.toolStrip);
