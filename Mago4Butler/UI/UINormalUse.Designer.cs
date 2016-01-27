@@ -68,6 +68,7 @@
             // lsvInstances
             // 
             this.lsvInstances.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lsvInstances.FullRowSelect = true;
             this.lsvInstances.Location = new System.Drawing.Point(0, 0);
             this.lsvInstances.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.lsvInstances.Name = "lsvInstances";
