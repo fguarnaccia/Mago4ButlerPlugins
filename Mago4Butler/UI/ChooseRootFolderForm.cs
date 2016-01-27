@@ -70,5 +70,8 @@ namespace Microarea.Mago4Butler
                 this.txtRootFolder.Text = fbd.SelectedPath;
             }
         }
+
+      
+        
     }
 }

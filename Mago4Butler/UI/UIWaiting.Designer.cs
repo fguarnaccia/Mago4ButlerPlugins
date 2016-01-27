@@ -41,11 +41,11 @@
             this.lblPleaseWait.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblPleaseWait.AutoSize = true;
-            this.lblPleaseWait.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPleaseWait.Font = new System.Drawing.Font("Verdana", 26.25F);
             this.lblPleaseWait.ForeColor = System.Drawing.SystemColors.WindowText;
             this.lblPleaseWait.Location = new System.Drawing.Point(92, 27);
             this.lblPleaseWait.Name = "lblPleaseWait";
-            this.lblPleaseWait.Size = new System.Drawing.Size(194, 39);
+            this.lblPleaseWait.Size = new System.Drawing.Size(214, 42);
             this.lblPleaseWait.TabIndex = 5;
             this.lblPleaseWait.Text = "Please wait";
             this.lblPleaseWait.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -97,6 +97,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.txtDetails);
             this.Controls.Add(this.pictureBox);
             this.Controls.Add(this.lblProgressText);

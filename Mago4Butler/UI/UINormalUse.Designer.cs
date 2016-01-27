@@ -29,12 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UINormalUse));
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.lsvInstances = new System.Windows.Forms.ListView();
-            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.btnRemove = new System.Windows.Forms.Button();
             this.btnAddInstance = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -47,6 +48,7 @@
             this.splitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
             this.splitContainer.IsSplitterFixed = true;
             this.splitContainer.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.splitContainer.Name = "splitContainer";
             this.splitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -67,6 +69,7 @@
             // 
             this.lsvInstances.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lsvInstances.Location = new System.Drawing.Point(0, 0);
+            this.lsvInstances.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.lsvInstances.Name = "lsvInstances";
             this.lsvInstances.Size = new System.Drawing.Size(400, 345);
             this.lsvInstances.TabIndex = 0;
@@ -78,10 +81,12 @@
             // 
             this.btnRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRemove.Enabled = false;
-            this.btnRemove.Image = global::Microarea.Mago4Butler.Properties.Resources.TrashCan;
-            this.btnRemove.Location = new System.Drawing.Point(245, 0);
+            this.btnRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRemove.Image = ((System.Drawing.Image)(resources.GetObject("btnRemove.Image")));
+            this.btnRemove.Location = new System.Drawing.Point(252, 7);
+            this.btnRemove.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(48, 48);
+            this.btnRemove.Size = new System.Drawing.Size(40, 32);
             this.btnRemove.TabIndex = 0;
             this.toolTip.SetToolTip(this.btnRemove, "Remove instance");
             this.btnRemove.UseVisualStyleBackColor = true;
@@ -90,10 +95,12 @@
             // btnAddInstance
             // 
             this.btnAddInstance.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddInstance.Image = global::Microarea.Mago4Butler.Properties.Resources.Add;
-            this.btnAddInstance.Location = new System.Drawing.Point(137, 0);
+            this.btnAddInstance.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddInstance.Image = ((System.Drawing.Image)(resources.GetObject("btnAddInstance.Image")));
+            this.btnAddInstance.Location = new System.Drawing.Point(108, 7);
+            this.btnAddInstance.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnAddInstance.Name = "btnAddInstance";
-            this.btnAddInstance.Size = new System.Drawing.Size(48, 48);
+            this.btnAddInstance.Size = new System.Drawing.Size(40, 32);
             this.btnAddInstance.TabIndex = 0;
             this.toolTip.SetToolTip(this.btnAddInstance, "Add instance");
             this.btnAddInstance.UseVisualStyleBackColor = true;
@@ -103,10 +110,12 @@
             // 
             this.btnUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnUpdate.Enabled = false;
-            this.btnUpdate.Image = global::Microarea.Mago4Butler.Properties.Resources.Update;
-            this.btnUpdate.Location = new System.Drawing.Point(191, 0);
+            this.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUpdate.Image = ((System.Drawing.Image)(resources.GetObject("btnUpdate.Image")));
+            this.btnUpdate.Location = new System.Drawing.Point(180, 7);
+            this.btnUpdate.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(48, 48);
+            this.btnUpdate.Size = new System.Drawing.Size(40, 32);
             this.btnUpdate.TabIndex = 0;
             this.toolTip.SetToolTip(this.btnUpdate, "Update instance");
             this.btnUpdate.UseVisualStyleBackColor = true;
@@ -114,9 +123,12 @@
             // 
             // UINormalUse
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.splitContainer);
+            this.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.MaximumSize = new System.Drawing.Size(400, 400);
             this.MinimumSize = new System.Drawing.Size(400, 400);
             this.Name = "UINormalUse";

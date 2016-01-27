@@ -45,18 +45,20 @@
             // 
             this.txtInstanceName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtInstanceName.Location = new System.Drawing.Point(94, 25);
+            this.txtInstanceName.Location = new System.Drawing.Point(125, 27);
+            this.txtInstanceName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtInstanceName.Name = "txtInstanceName";
-            this.txtInstanceName.Size = new System.Drawing.Size(347, 20);
+            this.txtInstanceName.Size = new System.Drawing.Size(354, 22);
             this.txtInstanceName.TabIndex = 1;
             this.txtInstanceName.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             // 
             // lblInstanceName
             // 
             this.lblInstanceName.AutoSize = true;
-            this.lblInstanceName.Location = new System.Drawing.Point(12, 25);
+            this.lblInstanceName.Location = new System.Drawing.Point(16, 27);
+            this.lblInstanceName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblInstanceName.Name = "lblInstanceName";
-            this.lblInstanceName.Size = new System.Drawing.Size(82, 13);
+            this.lblInstanceName.Size = new System.Drawing.Size(107, 14);
             this.lblInstanceName.TabIndex = 0;
             this.lblInstanceName.Text = "Instance Name:";
             this.lblInstanceName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -65,18 +67,20 @@
             // 
             this.txtMsiFullPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtMsiFullPath.Location = new System.Drawing.Point(94, 65);
+            this.txtMsiFullPath.Location = new System.Drawing.Point(125, 70);
+            this.txtMsiFullPath.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtMsiFullPath.Name = "txtMsiFullPath";
             this.txtMsiFullPath.ReadOnly = true;
-            this.txtMsiFullPath.Size = new System.Drawing.Size(347, 20);
+            this.txtMsiFullPath.Size = new System.Drawing.Size(354, 22);
             this.txtMsiFullPath.TabIndex = 3;
             this.txtMsiFullPath.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             // 
             // lblMsiFullPath
             // 
-            this.lblMsiFullPath.Location = new System.Drawing.Point(12, 65);
+            this.lblMsiFullPath.Location = new System.Drawing.Point(16, 70);
+            this.lblMsiFullPath.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblMsiFullPath.Name = "lblMsiFullPath";
-            this.lblMsiFullPath.Size = new System.Drawing.Size(79, 13);
+            this.lblMsiFullPath.Size = new System.Drawing.Size(105, 14);
             this.lblMsiFullPath.TabIndex = 2;
             this.lblMsiFullPath.Text = "MSI path:";
             this.lblMsiFullPath.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -84,9 +88,11 @@
             // btnOpenFileDialog
             // 
             this.btnOpenFileDialog.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOpenFileDialog.Location = new System.Drawing.Point(447, 65);
+            this.btnOpenFileDialog.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOpenFileDialog.Location = new System.Drawing.Point(489, 70);
+            this.btnOpenFileDialog.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnOpenFileDialog.Name = "btnOpenFileDialog";
-            this.btnOpenFileDialog.Size = new System.Drawing.Size(31, 23);
+            this.btnOpenFileDialog.Size = new System.Drawing.Size(37, 22);
             this.btnOpenFileDialog.TabIndex = 4;
             this.btnOpenFileDialog.Text = "...";
             this.btnOpenFileDialog.UseVisualStyleBackColor = true;
@@ -96,9 +102,11 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(403, 175);
+            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancel.Location = new System.Drawing.Point(430, 125);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.Size = new System.Drawing.Size(100, 25);
             this.btnCancel.TabIndex = 6;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -108,9 +116,11 @@
             // 
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnOK.Enabled = false;
-            this.btnOK.Location = new System.Drawing.Point(322, 175);
+            this.btnOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOK.Location = new System.Drawing.Point(322, 124);
+            this.btnOK.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(75, 23);
+            this.btnOK.Size = new System.Drawing.Size(100, 25);
             this.btnOK.TabIndex = 5;
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
@@ -123,10 +133,11 @@
             // AskForParametersForm
             // 
             this.AcceptButton = this.btnOK;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(488, 210);
+            this.ClientSize = new System.Drawing.Size(544, 162);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOpenFileDialog);
@@ -134,12 +145,14 @@
             this.Controls.Add(this.txtMsiFullPath);
             this.Controls.Add(this.lblInstanceName);
             this.Controls.Add(this.txtInstanceName);
+            this.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AskForParametersForm";
-            this.Text = "AskForParametersForm";
+            this.Text = "Parameters";
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderInstanceName)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -39,10 +39,11 @@
             this.lnkSelectMsi.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lnkSelectMsi.AutoSize = true;
-            this.lnkSelectMsi.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lnkSelectMsi.Location = new System.Drawing.Point(111, 136);
+            this.lnkSelectMsi.Font = new System.Drawing.Font("Verdana", 12F);
+            this.lnkSelectMsi.Location = new System.Drawing.Point(103, 146);
+            this.lnkSelectMsi.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lnkSelectMsi.Name = "lnkSelectMsi";
-            this.lnkSelectMsi.Size = new System.Drawing.Size(162, 20);
+            this.lnkSelectMsi.Size = new System.Drawing.Size(190, 18);
             this.lnkSelectMsi.TabIndex = 5;
             this.lnkSelectMsi.TabStop = true;
             this.lnkSelectMsi.Text = "Select a MSI to install";
@@ -54,11 +55,12 @@
             this.lblNoMoreInstallations.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblNoMoreInstallations.AutoSize = true;
-            this.lblNoMoreInstallations.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNoMoreInstallations.Font = new System.Drawing.Font("Verdana", 26.25F);
             this.lblNoMoreInstallations.ForeColor = System.Drawing.Color.Gray;
-            this.lblNoMoreInstallations.Location = new System.Drawing.Point(62, 97);
+            this.lblNoMoreInstallations.Location = new System.Drawing.Point(58, 104);
+            this.lblNoMoreInstallations.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNoMoreInstallations.Name = "lblNoMoreInstallations";
-            this.lblNoMoreInstallations.Size = new System.Drawing.Size(253, 39);
+            this.lblNoMoreInstallations.Size = new System.Drawing.Size(284, 42);
             this.lblNoMoreInstallations.TabIndex = 4;
             this.lblNoMoreInstallations.Text = "No installations";
             this.lblNoMoreInstallations.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -67,19 +69,23 @@
             // 
             this.pictureBox.BackgroundImage = global::Microarea.Mago4Butler.Properties.Resources.logo;
             this.pictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox.Location = new System.Drawing.Point(179, 27);
+            this.pictureBox.Location = new System.Drawing.Point(157, 29);
+            this.pictureBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(48, 67);
+            this.pictureBox.Size = new System.Drawing.Size(64, 72);
             this.pictureBox.TabIndex = 9;
             this.pictureBox.TabStop = false;
             // 
             // UIEmpty
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.pictureBox);
             this.Controls.Add(this.lnkSelectMsi);
             this.Controls.Add(this.lblNoMoreInstallations);
+            this.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.MaximumSize = new System.Drawing.Size(400, 400);
             this.MinimumSize = new System.Drawing.Size(400, 400);
             this.Name = "UIEmpty";

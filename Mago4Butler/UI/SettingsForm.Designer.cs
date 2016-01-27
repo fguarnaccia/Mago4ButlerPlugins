@@ -42,18 +42,21 @@
             // 
             this.txtRootFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtRootFolder.Location = new System.Drawing.Point(12, 31);
+            this.txtRootFolder.Location = new System.Drawing.Point(16, 33);
+            this.txtRootFolder.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtRootFolder.Name = "txtRootFolder";
             this.txtRootFolder.ReadOnly = true;
-            this.txtRootFolder.Size = new System.Drawing.Size(357, 20);
+            this.txtRootFolder.Size = new System.Drawing.Size(466, 22);
             this.txtRootFolder.TabIndex = 0;
             // 
             // btnRootFolder
             // 
             this.btnRootFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRootFolder.Location = new System.Drawing.Point(375, 31);
+            this.btnRootFolder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRootFolder.Location = new System.Drawing.Point(491, 33);
+            this.btnRootFolder.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnRootFolder.Name = "btnRootFolder";
-            this.btnRootFolder.Size = new System.Drawing.Size(28, 20);
+            this.btnRootFolder.Size = new System.Drawing.Size(37, 22);
             this.btnRootFolder.TabIndex = 1;
             this.btnRootFolder.Text = "...";
             this.btnRootFolder.UseVisualStyleBackColor = true;
@@ -62,9 +65,11 @@
             // btnOk
             // 
             this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOk.Location = new System.Drawing.Point(276, 204);
+            this.btnOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOk.Location = new System.Drawing.Point(322, 124);
+            this.btnOk.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnOk.Name = "btnOk";
-            this.btnOk.Size = new System.Drawing.Size(61, 23);
+            this.btnOk.Size = new System.Drawing.Size(100, 25);
             this.btnOk.TabIndex = 1;
             this.btnOk.Text = "OK";
             this.btnOk.UseVisualStyleBackColor = true;
@@ -74,9 +79,11 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(343, 204);
+            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancel.Location = new System.Drawing.Point(430, 125);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(61, 23);
+            this.btnCancel.Size = new System.Drawing.Size(100, 25);
             this.btnCancel.TabIndex = 1;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -85,18 +92,20 @@
             // lblRootFolder
             // 
             this.lblRootFolder.AutoSize = true;
-            this.lblRootFolder.Location = new System.Drawing.Point(12, 12);
+            this.lblRootFolder.Location = new System.Drawing.Point(16, 13);
+            this.lblRootFolder.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblRootFolder.Name = "lblRootFolder";
-            this.lblRootFolder.Size = new System.Drawing.Size(62, 13);
+            this.lblRootFolder.Size = new System.Drawing.Size(81, 14);
             this.lblRootFolder.TabIndex = 2;
             this.lblRootFolder.Text = "Root folder:";
             // 
             // lblWebSites
             // 
             this.lblWebSites.AutoSize = true;
-            this.lblWebSites.Location = new System.Drawing.Point(15, 71);
+            this.lblWebSites.Location = new System.Drawing.Point(16, 63);
+            this.lblWebSites.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblWebSites.Name = "lblWebSites";
-            this.lblWebSites.Size = new System.Drawing.Size(59, 13);
+            this.lblWebSites.Size = new System.Drawing.Size(76, 14);
             this.lblWebSites.TabIndex = 3;
             this.lblWebSites.Text = "Web Sites:";
             this.lblWebSites.Visible = false;
@@ -104,10 +113,12 @@
             // cmbWebSites
             // 
             this.cmbWebSites.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbWebSites.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbWebSites.FormattingEnabled = true;
-            this.cmbWebSites.Location = new System.Drawing.Point(18, 88);
+            this.cmbWebSites.Location = new System.Drawing.Point(16, 82);
+            this.cmbWebSites.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cmbWebSites.Name = "cmbWebSites";
-            this.cmbWebSites.Size = new System.Drawing.Size(153, 21);
+            this.cmbWebSites.Size = new System.Drawing.Size(284, 22);
             this.cmbWebSites.TabIndex = 4;
             this.cmbWebSites.Visible = false;
             this.cmbWebSites.SelectedIndexChanged += new System.EventHandler(this.cmbWebSites_SelectedIndexChanged);
@@ -115,10 +126,11 @@
             // SettingsForm
             // 
             this.AcceptButton = this.btnOk;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(415, 239);
+            this.ClientSize = new System.Drawing.Size(544, 162);
             this.Controls.Add(this.cmbWebSites);
             this.Controls.Add(this.lblWebSites);
             this.Controls.Add(this.lblRootFolder);
@@ -126,8 +138,10 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnRootFolder);
             this.Controls.Add(this.txtRootFolder);
+            this.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SettingsForm";
