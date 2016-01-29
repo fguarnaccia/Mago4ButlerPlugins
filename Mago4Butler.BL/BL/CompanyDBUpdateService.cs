@@ -28,7 +28,7 @@ namespace Microarea.Mago4Butler.BL
 
             this.LaunchProcess(
                 consoleExePath,
-                "/UpgradeAllCompaniesAndExit yes",
+                "/autologin yes /UpgradeAllCompaniesAndExit yes",
                 3600000
                 );
         }

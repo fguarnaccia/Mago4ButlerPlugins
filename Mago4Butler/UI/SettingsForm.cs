@@ -48,17 +48,17 @@ namespace Microarea.Mago4Butler
 
             this.txtRootFolder.Text = this.settings.RootFolder;
 
-            var availableWebSites = this.iisService.GetAvailableWebSites();
-            int selectedIdx = -1;
-            int idx = -1;
-            foreach (var site in availableWebSites)
-            {
-                idx = this.cmbWebSites.Items.Add(site);
-                if (String.Compare(site.SiteName, this.settings.SiteName, StringComparison.InvariantCultureIgnoreCase) == 0)
-                {
-                    selectedIdx = idx;
-                }
-            }
+            //var availableWebSites = this.iisService.GetAvailableWebSites();
+            //int selectedIdx = -1;
+            //int idx = -1;
+            //foreach (var site in availableWebSites)
+            //{
+            //    idx = this.cmbWebSites.Items.Add(site);
+            //    if (String.Compare(site.SiteName, this.settings.SiteName, StringComparison.InvariantCultureIgnoreCase) == 0)
+            //    {
+            //        selectedIdx = idx;
+            //    }
+            //}
         }
 
         protected override void OnFormClosed(FormClosedEventArgs e)
