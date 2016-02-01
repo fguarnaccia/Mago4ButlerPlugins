@@ -25,7 +25,7 @@ namespace Microarea.Mago4Butler.BL {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Maghi")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Microarea\\M4")]
         public string RootFolder {
             get {
                 return ((string)(this["RootFolder"]));
