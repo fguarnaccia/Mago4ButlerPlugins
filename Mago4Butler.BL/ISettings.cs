@@ -12,6 +12,7 @@ namespace Microarea.Mago4Butler.BL
         string SiteName { get; set; }
         bool IsFirstRun { get; set; }
         bool ShowRootFolderChoice { get; set; }
+        bool AlsoDeleteCustom { get; set; }
 
         void Save();
     }

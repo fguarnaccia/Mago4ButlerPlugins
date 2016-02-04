@@ -281,7 +281,7 @@ namespace Microarea.Mago4Butler
                     return;
                 }
 
-                using (var provisioningForm = new ProvisioningForm(true))
+                using (var provisioningForm = new ProvisioningForm(instanceName: askForParametersDialog.InstanceName, preconfigurationMode: true, loadDataFromFile: false))
                 {
                     diagRes = provisioningForm.ShowDialog();
 

@@ -10,24 +10,26 @@ namespace Microarea.Mago4Butler.BL
     public class FileSystemService
     {
         string rootFolder;
+        bool alsoDeleteCustom;
 
         public FileSystemService(ISettings settings)
         {
             this.rootFolder = settings.RootFolder;
+            this.alsoDeleteCustom = settings.AlsoDeleteCustom;
         }
 
         public void RemoveAllFiles(Instance instance)
         {
             var instanceRootFolder = new DirectoryInfo(Path.Combine(this.rootFolder, instance.Name));
 
-            DeleteDirectory(instanceRootFolder);
-        }
-
-        public void RemoveAllFilesButTheCustomAndAppDataFolder(Instance instance)
-        {
-            var instanceRootFolder = new DirectoryInfo(Path.Combine(this.rootFolder, instance.Name));
-
-            DeleteDirectory(instanceRootFolder, "Custom", "AppData");
+            if (this.alsoDeleteCustom)
+            {
+                DeleteDirectory(instanceRootFolder);
+            }
+            else
+            {
+                DeleteDirectory(instanceRootFolder, "Custom", "App_Data");
+            }
         }
 
         static void DeleteDirectory(DirectoryInfo dirInfo, params string[] tokensToBeSkipped)
@@ -51,10 +53,15 @@ namespace Microarea.Mago4Butler.BL
                 {
                     continue;
                 }
-                DeleteDirectory(subDir);
+                DeleteDirectory(subDir, tokensToBeSkipped);
             }
 
-            dirInfo.Delete();
+            try
+            {
+                dirInfo.Delete();
+            }
+            catch
+            {}
         }
     }
 }

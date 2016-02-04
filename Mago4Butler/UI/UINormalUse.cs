@@ -135,6 +135,13 @@ namespace Microarea.Mago4Butler
 
             if (selectedInstances.Count > 0)
             {
+                using (var form = new AskConfirmationForUninstallForm(selectedInstances))
+                {
+                    if (form.ShowDialog() != DialogResult.OK)
+                    {
+                        return;
+                    }
+                }
                 this.OnRemoveInstance(new RemoveInstanceEventArgs() { Instances = selectedInstances });
             }
         }

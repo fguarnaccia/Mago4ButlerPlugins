@@ -96,6 +96,12 @@
     <Compile Include="IoC\Parameter.cs" />
     <Compile Include="SafeNativeMethods.cs" />
     <Compile Include="UIRunner.cs" />
+    <Compile Include="UI\AskConfirmationForUninstallForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\AskConfirmationForUninstallForm.Designer.cs">
+      <DependentUpon>AskConfirmationForUninstallForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\AskForParametersForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -146,6 +152,9 @@
     <Compile Include="UI\UIWaiting.Designer.cs">
       <DependentUpon>UIWaiting.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UI\AskConfirmationForUninstallForm.resx">
+      <DependentUpon>AskConfirmationForUninstallForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\AskForParametersForm.resx">
       <DependentUpon>AskForParametersForm.cs</DependentUpon>
     </EmbeddedResource>

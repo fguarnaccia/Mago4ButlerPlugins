@@ -70,5 +70,17 @@ namespace Microarea.Mago4Butler.BL {
                 this["ShowRootFolderChoice"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AlsoDeleteCustom {
+            get {
+                return ((bool)(this["AlsoDeleteCustom"]));
+            }
+            set {
+                this["AlsoDeleteCustom"] = value;
+            }
+        }
     }
 }
