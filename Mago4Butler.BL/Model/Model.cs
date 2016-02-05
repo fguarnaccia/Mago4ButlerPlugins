@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
 namespace Microarea.Mago4Butler.BL
@@ -233,7 +234,7 @@ namespace Microarea.Mago4Butler.BL
         {
             var confFileInfo = new FileInfo(Path.Combine(this.rootFolder, configutationFileName));
 
-            var serializer = new YamlDotNet.Serialization.Serializer();
+            var serializer = new YamlDotNet.Serialization.Serializer(SerializationOptions.DisableAliases | SerializationOptions.EmitDefaults);
             using (var outputStream = File.Create(confFileInfo.FullName))
             using (var streamWriter = new StreamWriter(outputStream))
             {
