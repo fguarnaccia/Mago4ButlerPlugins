@@ -69,10 +69,10 @@
             // 
             this.pictureBox.BackgroundImage = global::Microarea.Mago4Butler.Properties.Resources.logo;
             this.pictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox.Location = new System.Drawing.Point(157, 29);
+            this.pictureBox.Location = new System.Drawing.Point(163, 29);
             this.pictureBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(64, 72);
+            this.pictureBox.Size = new System.Drawing.Size(48, 67);
             this.pictureBox.TabIndex = 9;
             this.pictureBox.TabStop = false;
             // 

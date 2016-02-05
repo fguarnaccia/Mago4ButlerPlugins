@@ -105,5 +105,4 @@ namespace Microarea.Mago4Butler.BL
             return webSites;
         }
     }
-
 }

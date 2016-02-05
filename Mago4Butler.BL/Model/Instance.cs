@@ -21,21 +21,24 @@ namespace Microarea.Mago4Butler.BL
         public static Instance FromStandardDirectoryInfo(DirectoryInfo standardDirInfo)
         {
             var parentDirInfo = standardDirInfo.Parent;
-            var installationVerFilePath = Path.Combine(standardDirInfo.FullName, "Installation.ver");
+            var installationVerFileInfo = new FileInfo(Path.Combine(standardDirInfo.FullName, "Installation.ver"));
 
-            string content = null;
-            using (var sr = new StreamReader(installationVerFilePath))
+            if (installationVerFileInfo.Exists)
             {
-                content = sr.ReadToEnd();
-            }
-            var versionRegex = new Regex("<Version>(?<version>.*)</Version>", RegexOptions.IgnoreCase);
-            var match = versionRegex.Match(content);
-            if (match.Success)
-            {
-                var group = match.Groups["version"];
-                if (group != null)
+                string content = null;
+                using (var sr = installationVerFileInfo.OpenText())
                 {
-                    return new Instance() { Name = parentDirInfo.Name, Version = Version.Parse(group.Value), WebSiteInfo = WebSiteInfo.DefaultWebSite };
+                    content = sr.ReadToEnd();
+                }
+                var versionRegex = new Regex("<Version>(?<version>.*)</Version>", RegexOptions.IgnoreCase);
+                var match = versionRegex.Match(content);
+                if (match.Success)
+                {
+                    var group = match.Groups["version"];
+                    if (group != null)
+                    {
+                        return new Instance() { Name = parentDirInfo.Name, Version = Version.Parse(group.Value), WebSiteInfo = WebSiteInfo.DefaultWebSite };
+                    }
                 }
             }
 
