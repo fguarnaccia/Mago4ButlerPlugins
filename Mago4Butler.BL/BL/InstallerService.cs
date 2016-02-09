@@ -429,6 +429,42 @@ namespace Microarea.Mago4Butler.BL
             this.registryService.RemoveInstallationInfoKey(currentRequest.MsiPath);
             this.registryService.RemoveInstallerFoldersKeys(currentRequest.RootPath, currentRequest.Instance);
             OnNotification(new NotificationEventArgs() { Message = "Now the registry is clean" });
+
+            OnNotification(new NotificationEventArgs() { Message = "Configuring the application..." });
+            this.SaveServerConnectionConfig(currentRequest);
+            OnNotification(new NotificationEventArgs() { Message = "Application configured" });
+        }
+
+        private void SaveServerConnectionConfig(Request currentRequest)
+        {
+            var customFolderPath = Path.Combine(currentRequest.RootPath, currentRequest.Instance.Name, "Custom");
+            var serverConnectionConfigFilePath = Path.Combine(customFolderPath, "ServerConnection.config");
+
+            var customDirInfo = new DirectoryInfo(customFolderPath);
+            if (!customDirInfo.Exists)
+            {
+                customDirInfo.Create();
+            }
+
+            string serverConnectionConfigTemplateContent;
+            using (var sr = new StreamReader(this.GetType().Assembly.GetManifestResourceStream("Microarea.Mago4Butler.BL.res.ServerConnectionConfig.template")))
+            {
+                serverConnectionConfigTemplateContent = sr.ReadToEnd();
+            }
+
+            var data = new {
+                PreferredLanguage = "it-IT",
+                ApplicationLanguage = "it-IT",
+                WebServicesPort = currentRequest.Instance.WebSiteInfo.SitePort
+            };
+
+            var serverConnectionConfigFileInfo = new FileInfo(serverConnectionConfigFilePath);
+            if (serverConnectionConfigFileInfo.Exists)
+            {
+                serverConnectionConfigFileInfo.Delete();
+            }
+
+            Nustache.Core.Render.StringToFile(serverConnectionConfigTemplateContent, data, serverConnectionConfigFilePath);
         }
     }
 }
