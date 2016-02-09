@@ -13,10 +13,10 @@ namespace Microarea.Mago4Butler
         const string helpSwitch = "/?";
         const string statusSwitch = "/status";
         const string updateSwitch = "/update";
-        const string updateAllSwitch = "/updateAll";
+        const string updateAllSwitch = "/updateall";
         const string installSwitch = "/install";
         const string uninstallSwitch = "/uninstall";
-        const string uninstallAllSwitch = "/uninstallAll";
+        const string uninstallAllSwitch = "/uninstallall";
         const string msiFilaFullPathSwitch = "/msi";
 
         List<Instance> instanceToUpdate = new List<Instance>();
@@ -43,7 +43,7 @@ namespace Microarea.Mago4Butler
 
             for (int i = 0; i < args.Length; i = i + 2)
             {
-                switch (args[i])
+                switch (args[i].ToLowerInvariant())
                 {
                     case statusSwitch:
                         {
