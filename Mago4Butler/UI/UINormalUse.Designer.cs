@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UINormalUse));
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.lsvInstances = new System.Windows.Forms.ListView();
+            this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.btnRemove = new System.Windows.Forms.Button();
             this.btnAddInstance = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
@@ -67,6 +68,7 @@
             // 
             // lsvInstances
             // 
+            this.lsvInstances.ContextMenuStrip = this.contextMenuStrip;
             this.lsvInstances.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lsvInstances.FullRowSelect = true;
             this.lsvInstances.Location = new System.Drawing.Point(0, 0);
@@ -77,6 +79,12 @@
             this.lsvInstances.UseCompatibleStateImageBehavior = false;
             this.lsvInstances.View = System.Windows.Forms.View.List;
             this.lsvInstances.SelectedIndexChanged += new System.EventHandler(this.lsvInstances_SelectedIndexChanged);
+            // 
+            // contextMenuStrip
+            // 
+            this.contextMenuStrip.Name = "contextMenuStrip";
+            this.contextMenuStrip.Size = new System.Drawing.Size(153, 26);
+            this.contextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip_Opening);
             // 
             // btnRemove
             // 
@@ -150,5 +158,6 @@
         private System.Windows.Forms.Button btnRemove;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.Button btnAddInstance;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
     }
 }

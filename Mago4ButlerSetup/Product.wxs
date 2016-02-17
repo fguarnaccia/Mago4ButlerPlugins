@@ -92,9 +92,6 @@
       <Component Id="ProvisioningConfiguratordllComponent" Guid="E6CAAE79-EDD7-42CC-8C5C-EF3A9DE1151E" DiskId="1">
         <File Id="ProvisioningConfiguratordllFile" Checksum="yes" Source="$(var.Mago4Butler.TargetDir)\ProvisioningConfigurator.dll" />
       </Component>
-      <Component Id="NinjectdllComponent" Guid="997A6D10-378C-4D8F-B5B4-BD00AC2D86DB" DiskId="1">
-        <File Id="NinjectdllFile" Checksum="yes" Source="$(var.Mago4Butler.TargetDir)\Ninject.dll" />
-      </Component>
       <Component Id="MicroareaTaskBuilderNetCoredllComponent" Guid="73752CE1-9438-4E6F-864A-D12A148E51F6" DiskId="1">
         <File Id="MicroareaTaskBuilderNetCoredllFile" Checksum="yes" Source="$(var.Mago4Butler.TargetDir)\Microarea.TaskBuilderNet.Core.dll" />
       </Component>
@@ -106,6 +103,12 @@
       </Component>
       <Component Id="YamlDotNetdllComponent" Guid="5DFC9C19-5605-4545-A969-1E48819F40D4" DiskId="1">
         <File Id="YamlDotNetdllFile" Checksum="yes" Source="$(var.Mago4Butler.TargetDir)\YamlDotNet.dll" />
+      </Component>
+      <Component Id="NustacheCoredllComponent" Guid="95D0E742-11E7-4B3D-A70E-CEC6D1839B69" DiskId="1">
+        <File Id="NustacheCoredllFile" Checksum="yes" Source="$(var.Mago4Butler.TargetDir)\Nustache.Core.dll" />
+      </Component>
+      <Component Id="NinjectdllComponent" Guid="B1C47C6C-61EA-414A-8D61-0F4AA0D76E18" DiskId="1">
+        <File Id="NinjectdllFile" Checksum="yes" Source="$(var.Mago4Butler.TargetDir)\Ninject.dll" />
       </Component>
 		</ComponentGroup>
 	</Fragment>

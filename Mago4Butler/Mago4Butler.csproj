@@ -94,6 +94,7 @@
     <Compile Include="IForrest.cs" />
     <Compile Include="IoC\IoCContainer.cs" />
     <Compile Include="IoC\Parameter.cs" />
+    <Compile Include="PluginService.cs" />
     <Compile Include="SafeNativeMethods.cs" />
     <Compile Include="UIRunner.cs" />
     <Compile Include="UI\AskConfirmationForUninstallForm.cs">
@@ -216,6 +217,10 @@
     <ProjectReference Include="..\Mago4Butler.BL\Mago4Butler.BL.csproj">
       <Project>{cf1bef3b-3042-4192-b6c4-cdc0ed25336d}</Project>
       <Name>Mago4Butler.BL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mago4Butler.Plugins\Mago4Butler.Plugins.csproj">
+      <Project>{2d2e7056-a199-4418-8040-1830bb6fa8d2}</Project>
+      <Name>Mago4Butler.Plugins</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

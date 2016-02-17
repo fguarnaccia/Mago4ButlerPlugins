@@ -1,14 +1,9 @@
-﻿using System;
+﻿using Microarea.Mago4Butler.BL;
+using Microarea.Mago4Butler.Plugins;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics;
-using Microarea.Mago4Butler.BL;
 
 namespace Microarea.Mago4Butler
 {
@@ -44,6 +39,7 @@ namespace Microarea.Mago4Butler
                 handler(this, e);
             }
         }
+
         public UINormalUse(Model model)
         {
             this.model = model;
@@ -82,7 +78,7 @@ namespace Microarea.Mago4Butler
             AddInstanceToListView(instance);
         }
 
-        private void AddInstanceToListView(Instance instance)
+        private void AddInstanceToListView(BL.Instance instance)
         {
             var listViewItem = this.lsvInstances.Items.Add(instance.Name, instance.ToString(), -1);
             listViewItem.Tag = instance;
@@ -113,10 +109,10 @@ namespace Microarea.Mago4Butler
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            List<Instance> selectedInstances = new List<Instance>();
+            List<BL.Instance> selectedInstances = new List<BL.Instance>();
             foreach (ListViewItem selectedItem in this.lsvInstances.SelectedItems)
             {
-                selectedInstances.Add(selectedItem.Tag as Instance);
+                selectedInstances.Add(selectedItem.Tag as BL.Instance);
             }
 
             if (selectedInstances.Count > 0)
@@ -127,10 +123,10 @@ namespace Microarea.Mago4Butler
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
-            List<Instance> selectedInstances = new List<Instance>();
+            List<BL.Instance> selectedInstances = new List<BL.Instance>();
             foreach (ListViewItem selectedItem in this.lsvInstances.SelectedItems)
             {
-                selectedInstances.Add(selectedItem.Tag as Instance);
+                selectedInstances.Add(selectedItem.Tag as BL.Instance);
             }
 
             if (selectedInstances.Count > 0)
@@ -143,6 +139,41 @@ namespace Microarea.Mago4Butler
                     }
                 }
                 this.OnRemoveInstance(new RemoveInstanceEventArgs() { Instances = selectedInstances });
+            }
+        }
+        internal void AddContextMenuItems(IEnumerable<ContextMenuItem> contextMenuItems)
+        {
+            foreach (var contextMenuItem in contextMenuItems)
+            {
+                ToolStripMenuItem menuItem = new ToolStripMenuItem();
+                menuItem.Name = contextMenuItem.Name;
+                menuItem.Text = contextMenuItem.Text;
+
+                ContextMenuItemClickHandler handler = new ContextMenuItemClickHandler() { ContextMenuItem = contextMenuItem };
+                menuItem.Click += handler.MenuItem_Click;
+                menuItem.Tag = handler;
+
+                this.contextMenuStrip.Items.Add(menuItem);
+            }
+        }
+
+        private void contextMenuStrip_Opening(object sender, CancelEventArgs e)
+        {
+            var pointClicked = this.lsvInstances.PointToClient(MousePosition);
+            var lvi = this.lsvInstances.GetItemAt(pointClicked.X, pointClicked.Y);
+            if (lvi == null)
+            {
+                return;
+            }
+            var instance = lvi.Tag as BL.Instance;
+
+            foreach (ToolStripMenuItem item in this.contextMenuStrip.Items)
+            {
+                var handler = item.Tag as ContextMenuItemClickHandler;
+                if (handler != null)
+                {
+                    handler.Instance = new Microarea.Mago4Butler.Plugins.Instance() { Name = instance.Name };
+                }
             }
         }
     }

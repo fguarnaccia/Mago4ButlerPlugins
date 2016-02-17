@@ -1,6 +1,8 @@
 ﻿using Microarea.Mago4Butler.BL;
+using Microarea.Mago4Butler.Plugins;
 using Microarea.Tools.ProvisioningConfigurator.ProvisioningConfigurator;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -24,6 +26,8 @@ namespace Microarea.Mago4Butler
         MsiService msiService;
         InstallerService instanceService;
         ProvisioningService provisioningService;
+
+        List<IPlugin> plugins = new List<IPlugin>();
 
         string msiFullFilePath;
 
@@ -79,6 +83,18 @@ namespace Microarea.Mago4Butler
         private void Application_Idle(object sender, EventArgs e)
         {
             Application.Idle -= Application_Idle;
+
+            ThreadPool.QueueUserWorkItem((_) =>
+            {
+                foreach (var plugin in new PluginService().LoadAndInitPlugins())
+                {
+                    if (plugin != null)
+                    {
+                        this.plugins.Add(plugin);
+                        this.uiNormalUse.AddContextMenuItems(plugin.GetContextMenuItems());
+                    }
+                }
+            });
 
             this.Text = String.Format(System.Globalization.CultureInfo.InvariantCulture, "{0} v. {1}", this.Text, this.GetType().Assembly.GetName().Version.ToString());
 
@@ -292,7 +308,7 @@ namespace Microarea.Mago4Butler
 
                     this.msiFullFilePath = askForParametersDialog.MsiFullPath;
 
-                    this.model.AddInstance(new Instance()
+                    this.model.AddInstance(new BL.Instance()
                     {
                         Name = askForParametersDialog.InstanceName,
                         Version = msiService.GetVersion(this.msiFullFilePath),
