@@ -18,12 +18,12 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
-    <DefineConstants>Debug</DefineConstants>
+    <DefineConstants>Debug;SourceDir=..\Mago4Butler\bin\$(PlatformName)\$(Configuration)</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
-    <DefineConstants>SourceDir=..\Mago4Butler\bin\$(Platform)\$(Configuration)</DefineConstants>
+    <DefineConstants>M4BSourceDir=..\Mago4Butler\bin\$(Platform)\$(Configuration)</DefineConstants>
     <SuppressPdbOutput>True</SuppressPdbOutput>
   </PropertyGroup>
   <ItemGroup>
@@ -83,6 +83,6 @@
   <PropertyGroup>
     <PreBuildEvent>cd..
 cd..
-$(ProjectDir)CollectFiles.bat $(Configuration) $(SolutionDir)</PreBuildEvent>
+$(ProjectDir)CollectFiles.bat $(Configuration) $(SolutionDir) $(PlatformName)</PreBuildEvent>
   </PropertyGroup>
 </Project>

@@ -2,8 +2,6 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:msxsl="urn:schemas-microsoft-com:xslt" exclude-result-prefixes="msxsl" xmlns:wix="http://schemas.microsoft.com/wix/2006/wi">
   <xsl:template match="wix:Wix">
     <xsl:copy>
-      <!--<xsl:processing-instruction name="include">..\PreprocessorVariables.wxi</xsl:processing-instruction>
-      <xsl:processing-instruction name="include">$(var.ProjectDir)\Platform.wxi</xsl:processing-instruction>-->
       <xsl:apply-templates select="@*" />
       <xsl:apply-templates select="*" />
     </xsl:copy>

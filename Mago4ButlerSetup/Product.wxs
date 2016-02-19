@@ -18,8 +18,8 @@
       />
 
     <CustomAction Id="LaunchApplication"
-                  Directory="INSTALLFOLDER"
-                  ExeCommand="[INSTALLFOLDER]\Mago4Butler.exe"
+                  Directory="INSTALLLOCATION"
+                  ExeCommand="[INSTALLLOCATION]\Mago4Butler.exe"
                   Return="asyncNoWait"
                   Impersonate="yes" />
 
@@ -47,7 +47,7 @@
       
       <Directory Id="DesktopFolder" Name="DesktopFolder">
         <Component Id="DesktopShortcutComponent" DiskId="1" Guid="0BEA19D8-EBAF-40C5-9146-5B45966D1AE8">
-          <Shortcut Id="_6" Name="Mago4 Butler" Target="[INSTALLFOLDER]\Mago4Butler.exe" WorkingDirectory="INSTALLFOLDER" />
+          <Shortcut Id="_6" Name="Mago4 Butler" Target="[INSTALLLOCATION]\Mago4Butler.exe" WorkingDirectory="INSTALLFOLDER" />
           <RemoveFolder Id="DesktopFolder" On="uninstall"/>
           <RegistryValue Name="Mago4ButlerDSC installed" Root="HKCU" Key="SOFTWARE\Microarea\Mago4Butler"
                          Value="1" Type="integer" KeyPath="yes" />
@@ -57,7 +57,7 @@
       <Directory Id="ProgramMenuFolder" Name="ProgramMenuFolder">
         <Directory Id="MicroareaProgramsFolder" Name="Microarea">
             <Component Id="ProgramMenuFolderComponent" DiskId="1" Guid="A5FA6B44-6A7A-4097-AAD3-6FC61F2EA961">
-              <Shortcut Id="_4" Name="Mago4 Butler" Target="[INSTALLFOLDER]\Mago4Butler.exe" WorkingDirectory="INSTALLFOLDER" />
+              <Shortcut Id="_4" Name="Mago4 Butler" Target="[INSTALLLOCATION]\Mago4Butler.exe" WorkingDirectory="INSTALLFOLDER" />
               <RemoveFolder Id="MicroareaProgramsFolder" On="uninstall" />
               <RegistryValue Name="Mago4ButlerPFSC installed" Root="HKCU" Key="SOFTWARE\Microarea\Mago4Butler"
                          Value="1" Type="integer" KeyPath="yes" />
@@ -66,7 +66,7 @@
         </Directory>
 
 			  <Directory Id="ProgramFilesFolder">
-				  <Directory Id="INSTALLFOLDER" Name="Mago4Butler" />
+				  <Directory Id="INSTALLLOCATION" Name="Mago4Butler" />
 			  </Directory>
       
       </Directory>

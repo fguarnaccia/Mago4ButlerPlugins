@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mago4Butler.Plugins", "Mago
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginExample", "PluginExample\PluginExample.csproj", "{50E626D1-A1C4-4FF7-B2F3-0D116BCD7FD0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VersionManager", "VersionManager\VersionManager.csproj", "{0FF997AA-E75E-48B6-ABEE-3BEE0D69852C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -131,6 +133,14 @@ Global
 		{50E626D1-A1C4-4FF7-B2F3-0D116BCD7FD0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{50E626D1-A1C4-4FF7-B2F3-0D116BCD7FD0}.Release|x86.ActiveCfg = Release|Any CPU
 		{50E626D1-A1C4-4FF7-B2F3-0D116BCD7FD0}.Release|x86.Build.0 = Release|Any CPU
+		{0FF997AA-E75E-48B6-ABEE-3BEE0D69852C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FF997AA-E75E-48B6-ABEE-3BEE0D69852C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FF997AA-E75E-48B6-ABEE-3BEE0D69852C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0FF997AA-E75E-48B6-ABEE-3BEE0D69852C}.Debug|x86.Build.0 = Debug|Any CPU
+		{0FF997AA-E75E-48B6-ABEE-3BEE0D69852C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FF997AA-E75E-48B6-ABEE-3BEE0D69852C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FF997AA-E75E-48B6-ABEE-3BEE0D69852C}.Release|x86.ActiveCfg = Release|Any CPU
+		{0FF997AA-E75E-48B6-ABEE-3BEE0D69852C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -144,9 +154,10 @@ Global
 		{BEFDB95F-5504-4C27-993B-094C069CB8BF} = {6A50FBE7-627C-4621-BB80-7D0ADA9E3A97}
 		{042804B4-7D3B-490B-864D-EFE3F7AC3462} = {6A50FBE7-627C-4621-BB80-7D0ADA9E3A97}
 		{00545D6C-42B4-4F42-B8F3-5E7282E03DBE} = {807CBFB5-AB06-4AD2-BD86-9083B92B7504}
+		{0FF997AA-E75E-48B6-ABEE-3BEE0D69852C} = {807CBFB5-AB06-4AD2-BD86-9083B92B7504}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 13
+		SccNumberOfProjects = 14
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = http://tfs:8080/tfs/microarea
 		SccLocalPath0 = .
@@ -194,5 +205,9 @@ Global
 		SccProjectUniqueName12 = PluginExample\\PluginExample.csproj
 		SccProjectName12 = PluginExample
 		SccLocalPath12 = PluginExample
+		SccProjectUniqueName13 = VersionManager\\VersionManager.csproj
+		SccProjectTopLevelParentUniqueName13 = Mago4Butler.sln
+		SccProjectName13 = VersionManager
+		SccLocalPath13 = VersionManager
 	EndGlobalSection
 EndGlobal
