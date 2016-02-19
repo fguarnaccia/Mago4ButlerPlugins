@@ -89,6 +89,7 @@
     </Compile>
     <Compile Include="BL\Batch.cs" />
     <Compile Include="BL\CompanyDBUpdateService.cs" />
+    <Compile Include="BL\InstallerServiceErrorEventArgs.cs" />
     <Compile Include="BL\NotificationEventArgs.cs" />
     <Compile Include="BL\ProvisioningService.cs" />
     <Compile Include="BL\ServerManagerTrait.cs" />

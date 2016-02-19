@@ -24,6 +24,7 @@ namespace Microarea.Mago4Butler.BL
         public event EventHandler<UpdateInstanceEventArgs> Updated;
         public event EventHandler<RemoveInstanceEventArgs> Removing;
         public event EventHandler<RemoveInstanceEventArgs> Removed;
+        public event EventHandler<InstallerServiceErrorEventArgs> Error;
 
         public event EventHandler<NotificationEventArgs> Notification;
 
@@ -34,7 +35,7 @@ namespace Microarea.Mago4Butler.BL
         FileSystemService fileSystemService;
         CompanyDBUpdateService companyDBUpdateService;
 
-        string rootPath;
+        ISettings settings;
         Queue<Request> requests = new Queue<Request>();
 
         Thread workingThread;
@@ -51,7 +52,7 @@ namespace Microarea.Mago4Butler.BL
 
         public InstallerService(ISettings settings, MsiService msiService, CompanyDBUpdateService companyDBUpdateService)
         {
-            this.rootPath = settings.RootFolder;
+            this.settings = settings;
             this.msiService = msiService;
             this.companyDBUpdateService = companyDBUpdateService;
             this.msiZapper = new MsiZapper(this.msiService);
@@ -159,6 +160,15 @@ namespace Microarea.Mago4Butler.BL
             }
         }
 
+        protected virtual void OnError(InstallerServiceErrorEventArgs e)
+        {
+            var handler = Error;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+
         void Enqueue(Request request)
         {
             lock (this.lockTicket)
@@ -186,7 +196,7 @@ namespace Microarea.Mago4Butler.BL
                 Instance = instance,
                 MsiPath = msiFullFilePath,
                 RequestType = RequestType.Install,
-                RootPath = this.rootPath
+                RootFolder = this.settings.RootFolder
             });
             StartService();
         }
@@ -210,7 +220,7 @@ namespace Microarea.Mago4Butler.BL
                 Instance = instance,
                 MsiPath = String.Empty,
                 RequestType = RequestType.Remove,
-                RootPath = this.rootPath
+                RootFolder = this.settings.RootFolder
             });
             StartService();
         }
@@ -234,7 +244,7 @@ namespace Microarea.Mago4Butler.BL
                 Instance = instance,
                 MsiPath = msiFullFilePath,
                 RequestType = RequestType.Update,
-                RootPath = this.rootPath
+                RootFolder = this.settings.RootFolder
             });
             StartService();
         }
@@ -332,6 +342,11 @@ namespace Microarea.Mago4Butler.BL
             catch (Exception exc)
             {
                 OnNotification(new NotificationEventArgs() { Message = "Error removing files: " + exc.Message });
+                OnError(new InstallerServiceErrorEventArgs()
+                {
+                    Message = "Error removing files for " + currentRequest.Instance.Name,
+                    Error = exc
+                });
             }
         }
 
@@ -354,36 +369,48 @@ namespace Microarea.Mago4Butler.BL
             this.iisService.RemoveApplicationPools(currentRequest.Instance);
             OnNotification(new NotificationEventArgs() { Message = "Application pools removed" });
 
-            var rootDirInfo = new DirectoryInfo(currentRequest.RootPath);
+            var rootDirInfo = new DirectoryInfo(currentRequest.RootFolder);
             if (!rootDirInfo.Exists)
             {
-                OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Creating root folder {0}...", currentRequest.RootPath) });
+                OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Creating root folder {0}...", currentRequest.RootFolder) });
                 rootDirInfo.Create();
-                OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Root folder {0} created", currentRequest.RootPath) });
+                OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Root folder {0} created", currentRequest.RootFolder) });
             }
 
             string msiFolderPath = Path.GetDirectoryName(currentRequest.MsiPath);
-            string logFilesFolderPath = Path.Combine(currentRequest.RootPath, "Logs");
+            string logFilesFolderPath = Path.Combine(currentRequest.RootFolder, "Logs");
             if (!Directory.Exists(logFilesFolderPath))
             {
-                OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Creating logs folder {0}...", currentRequest.RootPath) });
+                OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Creating logs folder {0}...", currentRequest.RootFolder) });
                 Directory.CreateDirectory(logFilesFolderPath);
-                OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Logs folder {0} created", currentRequest.RootPath) });
+                OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Logs folder {0} created", currentRequest.RootFolder) });
             }
 
             OnNotification(new NotificationEventArgs() { Message = "Launching msi..." });
             string installLogFilePath = Path.Combine(logFilesFolderPath, "Mago4_" + currentRequest.Instance.Name + "_UpdateLog_" + DateTime.Now.ToString("yyyyMMddhhmmss", CultureInfo.InvariantCulture) + ".log");
-            this.LaunchProcess(
-                msiexecPath,
-                String.Format("/i {0} /qn /norestart /l*vx {1} UICULTURE=\"it-IT\" INSTALLLOCATION=\"{2}\" INSTANCENAME=\"{3}\" DEFAULTWEBSITENAME=\"{4}\" DEFAULTWEBSITEID={5} DEFAULTWEBSITEPORT={6} SKIPCLICKONCEDEPLOYER=\"1\" REGISTERWCF=\"1\" NOSHORTCUTS=\"1\" NOSHARES=\"1\" NOENVVAR=\"1\" NOEVERYONE=\"1\"", currentRequest.MsiPath, installLogFilePath, currentRequest.RootPath, currentRequest.Instance.Name, currentRequest.Instance.WebSiteInfo.SiteName, currentRequest.Instance.WebSiteInfo.SiteID, currentRequest.Instance.WebSiteInfo.SitePort),
-                3600000
-                );
-            OnNotification(new NotificationEventArgs() { Message = "Msi execution terminated..." });
+            try
+            {
+                this.LaunchProcess(
+                        msiexecPath,
+                        String.Format("/i \"{0}\" /qn /norestart {1} UICULTURE=\"it-IT\" INSTALLLOCATION=\"{2}\" INSTANCENAME=\"{3}\" DEFAULTWEBSITENAME=\"{4}\" DEFAULTWEBSITEID={5} DEFAULTWEBSITEPORT={6} SKIPCLICKONCEDEPLOYER=\"1\" REGISTERWCF=\"1\" NOSHORTCUTS=\"1\" NOSHARES=\"1\" NOENVVAR=\"1\" NOEVERYONE=\"1\"", currentRequest.MsiPath, this.settings.MsiLog ? String.Format("/l*vx \"{0}\"", installLogFilePath) : string.Empty, currentRequest.RootFolder, currentRequest.Instance.Name, currentRequest.Instance.WebSiteInfo.SiteName, currentRequest.Instance.WebSiteInfo.SiteID, currentRequest.Instance.WebSiteInfo.SitePort),
+                        3600000
+                        );
+                OnNotification(new NotificationEventArgs() { Message = "Msi execution successfully terminated..." });
+            }
+            catch (Exception exc)
+            {
+                OnNotification(new NotificationEventArgs() { Message = "Msi execution terminated with errors..." });
+                OnError(new InstallerServiceErrorEventArgs()
+                {
+                    Message = "Error updating " + currentRequest.Instance.Name,
+                    Error = exc
+                });
+            }
 
             OnNotification(new NotificationEventArgs() { Message = "Cleaning registry..." });
             this.msiZapper.ZapMsi(currentRequest.MsiPath);
             this.registryService.RemoveInstallationInfoKey(currentRequest.MsiPath);
-            this.registryService.RemoveInstallerFoldersKeys(currentRequest.RootPath, currentRequest.Instance);
+            this.registryService.RemoveInstallerFoldersKeys(currentRequest.RootFolder, currentRequest.Instance);
             OnNotification(new NotificationEventArgs() { Message = "Now the registry is clean" });
 
             OnNotification(new NotificationEventArgs() { Message = "Updating company database..." });
@@ -399,35 +426,47 @@ namespace Microarea.Mago4Butler.BL
             this.registryService.RemoveInstallationInfoKey(currentRequest.MsiPath);
             OnNotification(new NotificationEventArgs() { Message = "Installation info removed" });
 
-            var rootDirInfo = new DirectoryInfo(currentRequest.RootPath);
+            var rootDirInfo = new DirectoryInfo(currentRequest.RootFolder);
             if (!rootDirInfo.Exists)
             {
-                OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Creating root folder {0}...", currentRequest.RootPath) });
+                OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Creating root folder {0}...", currentRequest.RootFolder) });
                 rootDirInfo.Create();
-                OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Root folder {0} created", currentRequest.RootPath) });
+                OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Root folder {0} created", currentRequest.RootFolder) });
             }
 
-            string logFilesFolderPath = Path.Combine(currentRequest.RootPath, "Logs");
+            string logFilesFolderPath = Path.Combine(currentRequest.RootFolder, "Logs");
             if (!Directory.Exists(logFilesFolderPath))
             {
-                OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Creating logs folder {0}...", currentRequest.RootPath) });
+                OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Creating logs folder {0}...", currentRequest.RootFolder) });
                 Directory.CreateDirectory(logFilesFolderPath);
-                OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Logs folder {0} created", currentRequest.RootPath) });
+                OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Logs folder {0} created", currentRequest.RootFolder) });
             }
 
             OnNotification(new NotificationEventArgs() { Message = "Launching msi..." });
             string installLogFilePath = Path.Combine(logFilesFolderPath, "Mago4_" + currentRequest.Instance.Name + "_InstallLog_" + DateTime.Now.ToString("yyyyMMddhhmmss", CultureInfo.InvariantCulture) + ".log");
-            this.LaunchProcess(
-                msiexecPath,
-                String.Format("/i \"{0}\" /qn /norestart /l*vx \"{1}\" UICULTURE=\"it-IT\" INSTALLLOCATION=\"{2}\" INSTANCENAME=\"{3}\" DEFAULTWEBSITENAME=\"{4}\" DEFAULTWEBSITEID={5} DEFAULTWEBSITEPORT={6} SKIPCLICKONCEDEPLOYER=\"1\" REGISTERWCF=\"1\" NOSHORTCUTS=\"1\" NOSHARES=\"1\" NOENVVAR=\"1\" NOEVERYONE=\"1\"", currentRequest.MsiPath, installLogFilePath, currentRequest.RootPath, currentRequest.Instance.Name, currentRequest.Instance.WebSiteInfo.SiteName, currentRequest.Instance.WebSiteInfo.SiteID, currentRequest.Instance.WebSiteInfo.SitePort),
-                3600000
-                );
-            OnNotification(new NotificationEventArgs() { Message = "Msi execution terminated..." });
+            try
+            {
+                this.LaunchProcess(
+                        msiexecPath,
+                        String.Format("/i \"{0}\" /qn /norestart {1} UICULTURE=\"it-IT\" INSTALLLOCATION=\"{2}\" INSTANCENAME=\"{3}\" DEFAULTWEBSITENAME=\"{4}\" DEFAULTWEBSITEID={5} DEFAULTWEBSITEPORT={6} SKIPCLICKONCEDEPLOYER=\"1\" REGISTERWCF=\"1\" NOSHORTCUTS=\"1\" NOSHARES=\"1\" NOENVVAR=\"1\" NOEVERYONE=\"1\"", currentRequest.MsiPath, this.settings.MsiLog ? String.Format("/l*vx \"{0}\"", installLogFilePath) : string.Empty, currentRequest.RootFolder, currentRequest.Instance.Name, currentRequest.Instance.WebSiteInfo.SiteName, currentRequest.Instance.WebSiteInfo.SiteID, currentRequest.Instance.WebSiteInfo.SitePort),
+                        3600000
+                        );
+                OnNotification(new NotificationEventArgs() { Message = "Msi execution successfully terminated..." });
+            }
+            catch (Exception exc)
+            {
+                OnNotification(new NotificationEventArgs() { Message = "Msi execution terminated with errors..." });
+                OnError(new InstallerServiceErrorEventArgs()
+                {
+                    Message="Error installing " + currentRequest.Instance.Name,
+                    Error = exc
+                });
+            }
 
             OnNotification(new NotificationEventArgs() { Message = "Cleaning registry..." });
             this.msiZapper.ZapMsi(currentRequest.MsiPath);
             this.registryService.RemoveInstallationInfoKey(currentRequest.MsiPath);
-            this.registryService.RemoveInstallerFoldersKeys(currentRequest.RootPath, currentRequest.Instance);
+            this.registryService.RemoveInstallerFoldersKeys(currentRequest.RootFolder, currentRequest.Instance);
             OnNotification(new NotificationEventArgs() { Message = "Now the registry is clean" });
 
             OnNotification(new NotificationEventArgs() { Message = "Configuring the application..." });
@@ -437,7 +476,7 @@ namespace Microarea.Mago4Butler.BL
 
         private void SaveServerConnectionConfig(Request currentRequest)
         {
-            var customFolderPath = Path.Combine(currentRequest.RootPath, currentRequest.Instance.Name, "Custom");
+            var customFolderPath = Path.Combine(currentRequest.RootFolder, currentRequest.Instance.Name, "Custom");
             var serverConnectionConfigFilePath = Path.Combine(customFolderPath, "ServerConnection.config");
 
             var customDirInfo = new DirectoryInfo(customFolderPath);

@@ -82,5 +82,17 @@ namespace Microarea.Mago4Butler.BL {
                 this["AlsoDeleteCustom"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool MsiLog {
+            get {
+                return ((bool)(this["MsiLog"]));
+            }
+            set {
+                this["MsiLog"] = value;
+            }
+        }
     }
 }

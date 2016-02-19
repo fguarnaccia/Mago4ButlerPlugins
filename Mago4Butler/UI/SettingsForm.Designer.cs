@@ -37,6 +37,7 @@
             this.lblWebSites = new System.Windows.Forms.Label();
             this.cmbWebSites = new System.Windows.Forms.ComboBox();
             this.ckbAlsoDeleteCustom = new System.Windows.Forms.CheckBox();
+            this.ckbCreateMsiLog = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // txtRootFolder
@@ -134,6 +135,16 @@
             this.ckbAlsoDeleteCustom.Text = "Delete \'Custom\' folder on uninstall";
             this.ckbAlsoDeleteCustom.UseVisualStyleBackColor = true;
             // 
+            // ckbCreateMsiLog
+            // 
+            this.ckbCreateMsiLog.AutoSize = true;
+            this.ckbCreateMsiLog.Location = new System.Drawing.Point(16, 99);
+            this.ckbCreateMsiLog.Name = "ckbCreateMsiLog";
+            this.ckbCreateMsiLog.Size = new System.Drawing.Size(117, 18);
+            this.ckbCreateMsiLog.TabIndex = 6;
+            this.ckbCreateMsiLog.Text = "Create msi log";
+            this.ckbCreateMsiLog.UseVisualStyleBackColor = true;
+            // 
             // SettingsForm
             // 
             this.AcceptButton = this.btnOk;
@@ -142,6 +153,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(544, 256);
+            this.Controls.Add(this.ckbCreateMsiLog);
             this.Controls.Add(this.ckbAlsoDeleteCustom);
             this.Controls.Add(this.cmbWebSites);
             this.Controls.Add(this.lblWebSites);
@@ -173,5 +185,6 @@
         private System.Windows.Forms.Label lblWebSites;
         private System.Windows.Forms.ComboBox cmbWebSites;
         private System.Windows.Forms.CheckBox ckbAlsoDeleteCustom;
+        private System.Windows.Forms.CheckBox ckbCreateMsiLog;
     }
 }

@@ -13,6 +13,7 @@ namespace Microarea.Mago4Butler.BL
         bool IsFirstRun { get; set; }
         bool ShowRootFolderChoice { get; set; }
         bool AlsoDeleteCustom { get; set; }
+        bool MsiLog { get; set; }
 
         void Save();
     }

@@ -119,11 +119,17 @@ namespace Microarea.Mago4Butler
             this.instanceService.Removed += InstanceService_Removed;
             this.instanceService.Updating += InstanceService_Updating;
             this.instanceService.Updated += InstanceService_Updated;
+            this.instanceService.Error += InstanceService_Error;
 
             this.instanceService.Notification += InstanceService_Notification;
 
             Thread.Sleep(1000);
             UpdateUI();
+        }
+
+        private void InstanceService_Error(object sender, InstallerServiceErrorEventArgs e)
+        {
+            ManageException(e.Error);
         }
 
         void UpdateUI()

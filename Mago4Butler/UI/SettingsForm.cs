@@ -48,6 +48,7 @@ namespace Microarea.Mago4Butler
 
             this.txtRootFolder.Text = this.settings.RootFolder;
             this.ckbAlsoDeleteCustom.Checked = this.settings.AlsoDeleteCustom;
+            this.ckbCreateMsiLog.Checked = this.settings.MsiLog;
 
             //var availableWebSites = this.iisService.GetAvailableWebSites();
             //int selectedIdx = -1;
@@ -70,6 +71,7 @@ namespace Microarea.Mago4Butler
             {
                 this.settings.RootFolder = this.txtRootFolder.Text;
                 this.settings.AlsoDeleteCustom = this.ckbAlsoDeleteCustom.Checked;
+                this.settings.MsiLog = this.ckbCreateMsiLog.Checked;
                 //this.settings.SiteName = (this.cmbWebSites.SelectedItem as WebSiteInfo).SiteName;
 
                 this.settings.Save();
