@@ -23,8 +23,11 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <DefineConstants>SourceDir=..\Mago4Butler\bin\$(Platform)\$(Configuration)</DefineConstants>
+    <SuppressPdbOutput>True</SuppressPdbOutput>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Files.wxs" />
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>
@@ -51,6 +54,10 @@
       <Name>WixUtilExtension</Name>
     </WixExtension>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="CollectFiles.bat" />
+    <Content Include="Transform.xslt" />
+  </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.
@@ -72,5 +79,10 @@
   </Target>
   <PropertyGroup>
     <PostBuildEvent>..\..\..\DigitalSignerClient\bin\Release\Microarea.DigitalSignerClient.exe "$(TargetDir)$(TargetFileName)"</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>cd..
+cd..
+$(ProjectDir)CollectFiles.bat $(Configuration) $(SolutionDir)</PreBuildEvent>
   </PropertyGroup>
 </Project>

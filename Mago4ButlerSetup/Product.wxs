@@ -71,45 +71,4 @@
       
       </Directory>
 	</Fragment>
-
-	<Fragment>
-		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
-      <Component Id="MicrosoftWebAdministrationdllComponent" Guid="64EA7548-F4C8-4328-A425-B66739613929" DiskId="1">
-        <File Id="MicrosoftWebAdministrationdllFile" Checksum="yes" Source="$(var.Mago4Butler.TargetDir)\Microsoft.Web.Administration.dll" />
-      </Component>
-      <Component Id="Mago4ButlerexeconfigComponent" Guid="C01DE042-EB02-42A4-9AB6-3841E1482407" DiskId="1">
-        <File Id="Mago4ButlerexeconfigFile" Checksum="yes" Source="$(var.Mago4Butler.TargetDir)\Mago4Butler.exe.config" />
-      </Component>
-      <Component Id="Mago4ButlerexeComponent" Guid="B8C5CC62-8702-4761-8FEF-473E98A75315" DiskId="1">
-        <File Id="Mago4ButlerexeFile" Checksum="yes" Source="$(var.Mago4Butler.TargetDir)\Mago4Butler.exe" />
-      </Component>
-			<Component Id="Mago4ButlerBLdllComponent" Guid="921AB522-287E-4C2A-BC64-83486F695CF6" DiskId="1">
-        <File Id="Mago4ButlerBLdllFile" Checksum="yes" Source="$(var.Mago4Butler.TargetDir)\Mago4Butler.BL.dll" />
-      </Component>
-      <Component Id="ColorfulConsoledllComponent" Guid="7D09A473-1B75-44BD-8C03-790123EB91F0" DiskId="1">
-        <File Id="ColorfulConsoledllFile" Checksum="yes" Source="$(var.Mago4Butler.TargetDir)\Colorful.Console.dll" />
-      </Component>
-      <Component Id="ProvisioningConfiguratordllComponent" Guid="E6CAAE79-EDD7-42CC-8C5C-EF3A9DE1151E" DiskId="1">
-        <File Id="ProvisioningConfiguratordllFile" Checksum="yes" Source="$(var.Mago4Butler.TargetDir)\ProvisioningConfigurator.dll" />
-      </Component>
-      <Component Id="MicroareaTaskBuilderNetCoredllComponent" Guid="73752CE1-9438-4E6F-864A-D12A148E51F6" DiskId="1">
-        <File Id="MicroareaTaskBuilderNetCoredllFile" Checksum="yes" Source="$(var.Mago4Butler.TargetDir)\Microarea.TaskBuilderNet.Core.dll" />
-      </Component>
-      <Component Id="MicroareaTaskBuilderNetDatadllComponent" Guid="56A35CC8-46F9-4E26-934B-5D818D0EC8A4" DiskId="1">
-        <File Id="MicroareaTaskBuilderNetDatadllFile" Checksum="yes" Source="$(var.Mago4Butler.TargetDir)\Microarea.TaskBuilderNet.Data.dll" />
-      </Component>
-      <Component Id="MicroareaTaskBuilderNetInterfacesdllComponent" Guid="BA13325E-A39D-40DD-8E10-C6B38EB72E25" DiskId="1">
-        <File Id="MicroareaTaskBuilderNetInterfacesdllFile" Checksum="yes" Source="$(var.Mago4Butler.TargetDir)\Microarea.TaskBuilderNet.Interfaces.dll" />
-      </Component>
-      <Component Id="YamlDotNetdllComponent" Guid="5DFC9C19-5605-4545-A969-1E48819F40D4" DiskId="1">
-        <File Id="YamlDotNetdllFile" Checksum="yes" Source="$(var.Mago4Butler.TargetDir)\YamlDotNet.dll" />
-      </Component>
-      <Component Id="NustacheCoredllComponent" Guid="95D0E742-11E7-4B3D-A70E-CEC6D1839B69" DiskId="1">
-        <File Id="NustacheCoredllFile" Checksum="yes" Source="$(var.Mago4Butler.TargetDir)\Nustache.Core.dll" />
-      </Component>
-      <Component Id="NinjectdllComponent" Guid="B1C47C6C-61EA-414A-8D61-0F4AA0D76E18" DiskId="1">
-        <File Id="NinjectdllFile" Checksum="yes" Source="$(var.Mago4Butler.TargetDir)\Ninject.dll" />
-      </Component>
-		</ComponentGroup>
-	</Fragment>
 </Wix>
