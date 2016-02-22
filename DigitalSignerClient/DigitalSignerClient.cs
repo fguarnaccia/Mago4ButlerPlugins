@@ -35,6 +35,9 @@ namespace Microarea.DigitalSignerClient
             using (var proxy = new DigitalSignerServer.DigitalSignerSoapClient())
             {
                 (proxy.Endpoint.Binding as BasicHttpBinding).MaxReceivedMessageSize = 5000000;
+# if DEBUG
+                proxy.Endpoint.Address = new EndpointAddress("http://localhost/DigitalSigner/DigitalSigner.asmx");
+#endif
                 var country = GetCountry();
                 var sessionManager = new ClickOnceDeployerSessionManager() { Country = country };
                 var sessionToken = Guid.NewGuid();

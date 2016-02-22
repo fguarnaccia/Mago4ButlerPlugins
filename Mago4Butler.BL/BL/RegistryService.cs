@@ -21,13 +21,20 @@ namespace Microarea.Mago4Butler.BL
         public void RemoveInstallationInfoKey(string msiFullPath)
         {
             string upgradeCode = msiService.GetUpgradeCode(msiFullPath);
-
             if (String.IsNullOrWhiteSpace(upgradeCode))
             {
                 throw new ArgumentException(String.Format("'upgradeCode' from {0} is null or empty", msiFullPath));
             }
 
-            string keyName = @"Software\Microarea\Mago4\";
+            string productName =
+                msiService.GetProductName(msiFullPath)
+                .Replace(".", string.Empty);
+            if (String.IsNullOrWhiteSpace(productName))
+            {
+                throw new ArgumentException(String.Format("'PRODUCTNAME' from {0} is null or empty", msiFullPath));
+            }
+
+            string keyName = String.Format(@"Software\Microarea\{0}\", productName);
             using (RegistryKey key = Registry.LocalMachine.OpenSubKey(keyName, true))
             {
                 if (key != null)

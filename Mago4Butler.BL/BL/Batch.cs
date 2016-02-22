@@ -27,7 +27,15 @@ namespace Microarea.Mago4Butler
         {
             this.model = model;
             companyDBUpdateService = new CompanyDBUpdateService(settings);
-            this.instanceService = new InstallerService(settings, this.msiService, this.companyDBUpdateService);
+            this.instanceService = new InstallerService(
+                settings,
+                this.msiService,
+                this.companyDBUpdateService,
+                new MsiZapper(this.msiService),
+                new RegistryService(this.msiService),
+                new IisService(),
+                new FileSystemService(settings)
+                );
 
             this.instanceService.Started += InstanceService_Started;
             this.instanceService.Starting += InstanceService_Starting;

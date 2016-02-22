@@ -181,7 +181,7 @@ namespace Microarea.Mago4Butler
             }
             catch (Exception exc)
             {
-                this.uiWaiting.AddDetailsText("Database configurator returned the followinf error: " + exc.Message);
+                this.uiWaiting.AddDetailsText("Database configurator returned the following error: " + exc.Message);
             }
         }
 

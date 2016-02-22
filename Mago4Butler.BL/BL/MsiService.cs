@@ -12,6 +12,43 @@ namespace Microarea.Mago4Butler.BL
     {
         static readonly Type InstallerType = Type.GetTypeFromProgID("WindowsInstaller.Installer");
 
+        public string GetProductName(string msiFilePath)
+        {
+            var installer = Activator.CreateInstance(InstallerType) as Installer;
+            var database = installer.OpenDatabase(msiFilePath, MsiOpenDatabaseMode.msiOpenDatabaseModeTransact);
+            var view = database.OpenView("SELECT * from Property WHERE Property = 'PRODUCTNAME'");
+
+            view.Execute(null);
+
+            Record record = null;
+            try
+            {
+                record = view.Fetch();
+                return (record != null) ? record.get_StringData(2) : String.Empty;
+            }
+            finally
+            {
+                if (record != null)
+                {
+                    Marshal.ReleaseComObject(record);
+                }
+
+                if (view != null)
+                {
+                    view.Close();
+                    Marshal.ReleaseComObject(view);
+                }
+                if (database != null)
+                {
+                    Marshal.ReleaseComObject(database);
+                }
+                if (installer != null)
+                {
+                    Marshal.ReleaseComObject(installer);
+                }
+            }
+        }
+
         public string GetProductCode(string msiFilePath)
         {
             var installer = Activator.CreateInstance(InstallerType) as Installer;

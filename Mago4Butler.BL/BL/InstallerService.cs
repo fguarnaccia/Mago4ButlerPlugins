@@ -50,15 +50,23 @@ namespace Microarea.Mago4Butler.BL
             }
         }
 
-        public InstallerService(ISettings settings, MsiService msiService, CompanyDBUpdateService companyDBUpdateService)
+        public InstallerService(
+            ISettings settings,
+            MsiService msiService,
+            CompanyDBUpdateService companyDBUpdateService,
+            MsiZapper msiZapper,
+            RegistryService registryService,
+            IisService iisService,
+            FileSystemService fileSystemService
+            )
         {
             this.settings = settings;
             this.msiService = msiService;
             this.companyDBUpdateService = companyDBUpdateService;
-            this.msiZapper = new MsiZapper(this.msiService);
-            this.registryService = new RegistryService(this.msiService);
-            this.iisService = new IisService();
-            this.fileSystemService = new FileSystemService(settings);
+            this.msiZapper = msiZapper;// new MsiZapper(this.msiService);
+            this.registryService = registryService;// new RegistryService(this.msiService);
+            this.iisService = iisService;// new IisService();
+            this.fileSystemService = fileSystemService;// new FileSystemService(settings);
         }
 
         protected virtual void OnStarting()
