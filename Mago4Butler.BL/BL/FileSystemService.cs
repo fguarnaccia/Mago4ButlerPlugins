@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Microarea.Mago4Butler.BL
 {
-    public class FileSystemService
+    public class FileSystemService : ILogger
     {
         string rootFolder;
         bool alsoDeleteCustom;
@@ -22,13 +22,20 @@ namespace Microarea.Mago4Butler.BL
         {
             var instanceRootFolder = new DirectoryInfo(Path.Combine(this.rootFolder, instance.Name));
 
-            if (this.alsoDeleteCustom)
+            try
             {
-                DeleteDirectory(instanceRootFolder);
+                if (this.alsoDeleteCustom)
+                {
+                    DeleteDirectory(instanceRootFolder);
+                }
+                else
+                {
+                    DeleteDirectory(instanceRootFolder, "Custom", "App_Data");
+                }
             }
-            else
+            catch (Exception exc)
             {
-                DeleteDirectory(instanceRootFolder, "Custom", "App_Data");
+                this.LogError("Error deleting " + instanceRootFolder, exc);
             }
         }
 

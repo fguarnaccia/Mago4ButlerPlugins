@@ -1,4 +1,5 @@
-﻿using Microarea.Mago4Butler.BL;
+﻿using log4net;
+using Microarea.Mago4Butler.BL;
 using Microarea.Mago4Butler.Plugins;
 using Microarea.Tools.ProvisioningConfigurator.ProvisioningConfigurator;
 using System;
@@ -24,8 +25,9 @@ namespace Microarea.Mago4Butler
 
         Model model;
         MsiService msiService;
-        InstallerService instanceService;
+        InstallerService installerService;
         ProvisioningService provisioningService;
+        LoggerService loggerService;
 
         List<IPlugin> plugins = new List<IPlugin>();
 
@@ -34,8 +36,9 @@ namespace Microarea.Mago4Butler
         public MainForm(
             Model model,
             MsiService msiService,
-            InstallerService instanceService,
+            InstallerService installerService,
             ProvisioningService provisioningService,
+            LoggerService loggerService,
             ISettings settings,
             UIEmpty uiEmpty,
             UIWaiting uiWaiting,
@@ -43,6 +46,7 @@ namespace Microarea.Mago4Butler
             UINormalUse uiNormalUse
             )
         {
+            this.loggerService = loggerService;
             this.syncCtx = SynchronizationContext.Current;
             if (this.syncCtx == null)
             {
@@ -55,7 +59,7 @@ namespace Microarea.Mago4Butler
             this.model = model;
 
             this.msiService = msiService;
-            this.instanceService = instanceService;
+            this.installerService = installerService;
             this.provisioningService = provisioningService;
 
             this.settings = settings;
@@ -74,7 +78,7 @@ namespace Microarea.Mago4Butler
         {
             base.OnFormClosing(e);
 
-            if (this.instanceService.IsRunning)
+            if (this.installerService.IsRunning)
             {
                 e.Cancel = true;
             }
@@ -98,9 +102,9 @@ namespace Microarea.Mago4Butler
 
             this.Text = String.Format(System.Globalization.CultureInfo.InvariantCulture, "{0} v. {1}", this.Text, this.GetType().Assembly.GetName().Version.ToString());
 
-            this.model.InstanceAdded += (s, iea) => this.instanceService.Install(this.msiFullFilePath, iea.Instance);
-            this.model.InstanceUpdated += (s, iea) => this.instanceService.Update(this.msiFullFilePath, iea.Instance);
-            this.model.InstanceRemoved += (s, iea) => this.instanceService.Uninstall(iea.Instance);
+            this.model.InstanceAdded += (s, iea) => this.installerService.Install(this.msiFullFilePath, iea.Instance);
+            this.model.InstanceUpdated += (s, iea) => this.installerService.Update(this.msiFullFilePath, iea.Instance);
+            this.model.InstanceRemoved += (s, iea) => this.installerService.Uninstall(iea.Instance);
 
             this.uiEmpty.SelectMsiToInstall += Install;
             this.uiError.Back += UiError_Back;
@@ -108,26 +112,26 @@ namespace Microarea.Mago4Butler
             this.uiNormalUse.UpdateInstance += UiNormalUse_UpdateInstance;
             this.uiNormalUse.RemoveInstance += UiNormalUse_RemoveInstance;
 
-            this.instanceService.Started += InstanceService_Started;
-            this.instanceService.Starting += InstanceService_Starting;
-            this.instanceService.Stopped += InstanceService_Stopped;
-            this.instanceService.Stopping += InstanceService_Stopping;
+            this.installerService.Started += InstallerService_Started;
+            this.installerService.Starting += InstallerService_Starting;
+            this.installerService.Stopped += InstallerService_Stopped;
+            this.installerService.Stopping += InstallerService_Stopping;
 
-            this.instanceService.Installing += InstanceService_Installing;
-            this.instanceService.Installed += InstanceService_Installed;
-            this.instanceService.Removing += InstanceService_Removing;
-            this.instanceService.Removed += InstanceService_Removed;
-            this.instanceService.Updating += InstanceService_Updating;
-            this.instanceService.Updated += InstanceService_Updated;
-            this.instanceService.Error += InstanceService_Error;
+            this.installerService.Installing += InstallerService_Installing;
+            this.installerService.Installed += InstallerService_Installed;
+            this.installerService.Removing += InstallerService_Removing;
+            this.installerService.Removed += InstallerService_Removed;
+            this.installerService.Updating += InstallerService_Updating;
+            this.installerService.Updated += InstallerService_Updated;
+            this.installerService.Error += InstallerService_Error;
 
-            this.instanceService.Notification += InstanceService_Notification;
+            this.installerService.Notification += InstallerService_Notification;
 
             Thread.Sleep(1000);
             UpdateUI();
         }
 
-        private void InstanceService_Error(object sender, InstallerServiceErrorEventArgs e)
+        private void InstallerService_Error(object sender, InstallerServiceErrorEventArgs e)
         {
             ManageException(e.Error);
         }
@@ -144,71 +148,82 @@ namespace Microarea.Mago4Butler
             }
         }
 
-        private void InstanceService_Notification(object sender, NotificationEventArgs e)
+        private void InstallerService_Notification(object sender, NotificationEventArgs e)
         {
+            this.loggerService.LogInfo(e.Message);
             this.uiWaiting.AddDetailsText(e.Message);
         }
 
-        private void InstanceService_Updated(object sender, UpdateInstanceEventArgs e)
+        private void InstallerService_Updated(object sender, UpdateInstanceEventArgs e)
         {
+            this.loggerService.LogInfo(e.Instances[0].Name + " successfully updated");
             this.uiWaiting.SetProgressText(e.Instances[0].Name + " successfully updated");
         }
 
-        private void InstanceService_Updating(object sender, UpdateInstanceEventArgs e)
+        private void InstallerService_Updating(object sender, UpdateInstanceEventArgs e)
         {
+            this.loggerService.LogInfo("Updating " + e.Instances[0].Name + " ...");
             this.uiWaiting.SetProgressText("Updating " + e.Instances[0].Name + " ...");
         }
 
-        private void InstanceService_Removed(object sender, RemoveInstanceEventArgs e)
+        private void InstallerService_Removed(object sender, RemoveInstanceEventArgs e)
         {
+            this.loggerService.LogInfo(e.Instances[0].Name + " successfully removed");
             this.uiWaiting.SetProgressText(e.Instances[0].Name + " successfully removed");
         }
 
-        private void InstanceService_Removing(object sender, RemoveInstanceEventArgs e)
+        private void InstallerService_Removing(object sender, RemoveInstanceEventArgs e)
         {
+            this.loggerService.LogInfo("Removing " + e.Instances[0].Name + " ...");
             this.uiWaiting.SetProgressText("Removing " + e.Instances[0].Name + " ...");
         }
 
-        private void InstanceService_Installed(object sender, InstallInstanceEventArgs e)
+        private void InstallerService_Installed(object sender, InstallInstanceEventArgs e)
         {
+            this.loggerService.LogInfo("Database configuration...");
             this.uiWaiting.SetProgressText("Database configuration...");
 
             this.uiWaiting.AddDetailsText("Database configuration...");
             try
             {
                 this.provisioningService.StartProvisioning(e.Instance);
+                this.loggerService.LogInfo("Database configuration ended");
                 this.uiWaiting.AddDetailsText("Database configuration ended");
             }
             catch (Exception exc)
             {
+                this.loggerService.LogError("Database configurator returned an error", exc);
                 this.uiWaiting.AddDetailsText("Database configurator returned the following error: " + exc.Message);
             }
         }
 
-        private void InstanceService_Installing(object sender, InstallInstanceEventArgs e)
+        private void InstallerService_Installing(object sender, InstallInstanceEventArgs e)
         {
+            this.loggerService.LogInfo("Installing " + e.Instance.Name + " ...");
             this.uiWaiting.SetProgressText("Installing " + e.Instance.Name + " ...");
         }
 
-        private void InstanceService_Stopping(object sender, EventArgs e)
+        private void InstallerService_Stopping(object sender, EventArgs e)
         {
-
+            this.loggerService.LogInfo("Stopping installer service");
         }
 
-        private void InstanceService_Stopped(object sender, EventArgs e)
+        private void InstallerService_Stopped(object sender, EventArgs e)
         {
+            this.loggerService.LogInfo("Installer service stopped");
             var ui = (this.model.Instances.Count() == 0) ? this.uiEmpty as UserControl : this.uiNormalUse as UserControl;
             ShowUI(ui);
             EnableDisableToolStripItem(this.tsbSettings, true);
         }
 
-        private void InstanceService_Starting(object sender, EventArgs e)
+        private void InstallerService_Starting(object sender, EventArgs e)
         {
-            
+            this.loggerService.LogInfo("Starting installer service");
         }
 
-        private void InstanceService_Started(object sender, EventArgs e)
+        private void InstallerService_Started(object sender, EventArgs e)
         {
+            this.loggerService.LogInfo("Installer service started");
             ShowUI(uiWaiting);
             EnableDisableToolStripItem(this.tsbSettings, false);
         }
@@ -228,13 +243,14 @@ namespace Microarea.Mago4Butler
 
         private void ManageException(Exception e)
         {
+            this.loggerService.LogError("Application error", e);
             this.uiError.SetErrorMessage(e.Message);
             ShowUI(this.uiError);
         }
 
         private void UiError_Back(object sender, EventArgs e)
         {
-            if (this.instanceService.IsRunning)
+            if (this.installerService.IsRunning)
             {
                 ShowUI(this.uiWaiting);
                 return;
@@ -366,7 +382,7 @@ namespace Microarea.Mago4Butler
 
         private void tsbViewLogs_Click(object sender, EventArgs e)
         {
-            var logsPath = Path.Combine(this.settings.RootFolder, "Logs");
+            var logsPath = this.settings.LogsFolder;
             if (!Directory.Exists(logsPath))
             {
                 Directory.CreateDirectory(logsPath);

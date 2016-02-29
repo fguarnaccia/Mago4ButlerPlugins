@@ -29,7 +29,7 @@ namespace Microarea.Mago4Butler
             }
 
             var pluginAssembly = AppDomain.CurrentDomain.Load(rawAssembly);
-            var pluginType = pluginAssembly.ExportedTypes.Where(t => t.GetInterface("IPlugin") != null).FirstOrDefault();
+            var pluginType = pluginAssembly.ExportedTypes.Where(t => t.GetInterface("Microarea.Mago4Butler.Plugins.IPlugin") != null).FirstOrDefault();
             IPlugin pluginInstance = null;
             if (pluginType != null)
             {

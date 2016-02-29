@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Microarea.Mago4Butler.BL
 {
-    public class InstallerService
+    public class InstallerService : ILogger
     {
         readonly object lockTicket = new object();
         const string msiexecPath = @"C:\Windows\System32\msiexec.exe";
@@ -349,6 +349,7 @@ namespace Microarea.Mago4Butler.BL
             }
             catch (Exception exc)
             {
+                this.LogError("Error removing " + currentRequest.Instance.Name, exc);
                 OnNotification(new NotificationEventArgs() { Message = "Error removing files: " + exc.Message });
                 OnError(new InstallerServiceErrorEventArgs()
                 {
@@ -377,22 +378,7 @@ namespace Microarea.Mago4Butler.BL
             this.iisService.RemoveApplicationPools(currentRequest.Instance);
             OnNotification(new NotificationEventArgs() { Message = "Application pools removed" });
 
-            var rootDirInfo = new DirectoryInfo(currentRequest.RootFolder);
-            if (!rootDirInfo.Exists)
-            {
-                OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Creating root folder {0}...", currentRequest.RootFolder) });
-                rootDirInfo.Create();
-                OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Root folder {0} created", currentRequest.RootFolder) });
-            }
-
-            string msiFolderPath = Path.GetDirectoryName(currentRequest.MsiPath);
-            string logFilesFolderPath = Path.Combine(currentRequest.RootFolder, "Logs");
-            if (!Directory.Exists(logFilesFolderPath))
-            {
-                OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Creating logs folder {0}...", currentRequest.RootFolder) });
-                Directory.CreateDirectory(logFilesFolderPath);
-                OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Logs folder {0} created", currentRequest.RootFolder) });
-            }
+            string logFilesFolderPath = CreateApplicationFolders(currentRequest);            
 
             OnNotification(new NotificationEventArgs() { Message = "Launching msi..." });
             string installLogFilePath = Path.Combine(logFilesFolderPath, "Mago4_" + currentRequest.Instance.Name + "_UpdateLog_" + DateTime.Now.ToString("yyyyMMddhhmmss", CultureInfo.InvariantCulture) + ".log");
@@ -407,6 +393,7 @@ namespace Microarea.Mago4Butler.BL
             }
             catch (Exception exc)
             {
+                this.LogError("Msi execution terminated with errors...", exc);
                 OnNotification(new NotificationEventArgs() { Message = "Msi execution terminated with errors..." });
                 OnError(new InstallerServiceErrorEventArgs()
                 {
@@ -433,22 +420,7 @@ namespace Microarea.Mago4Butler.BL
             //modo che la mia installazione non le trovi e tenga i parametri che passo io da riga di comando.
             this.registryService.RemoveInstallationInfoKey(currentRequest.MsiPath);
             OnNotification(new NotificationEventArgs() { Message = "Installation info removed" });
-
-            var rootDirInfo = new DirectoryInfo(currentRequest.RootFolder);
-            if (!rootDirInfo.Exists)
-            {
-                OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Creating root folder {0}...", currentRequest.RootFolder) });
-                rootDirInfo.Create();
-                OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Root folder {0} created", currentRequest.RootFolder) });
-            }
-
-            string logFilesFolderPath = Path.Combine(currentRequest.RootFolder, "Logs");
-            if (!Directory.Exists(logFilesFolderPath))
-            {
-                OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Creating logs folder {0}...", currentRequest.RootFolder) });
-                Directory.CreateDirectory(logFilesFolderPath);
-                OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Logs folder {0} created", currentRequest.RootFolder) });
-            }
+            string logFilesFolderPath = CreateApplicationFolders(currentRequest);
 
             OnNotification(new NotificationEventArgs() { Message = "Launching msi..." });
             string installLogFilePath = Path.Combine(logFilesFolderPath, "Mago4_" + currentRequest.Instance.Name + "_InstallLog_" + DateTime.Now.ToString("yyyyMMddhhmmss", CultureInfo.InvariantCulture) + ".log");
@@ -463,10 +435,11 @@ namespace Microarea.Mago4Butler.BL
             }
             catch (Exception exc)
             {
+                this.LogError("Msi execution terminated with errors...", exc);
                 OnNotification(new NotificationEventArgs() { Message = "Msi execution terminated with errors..." });
                 OnError(new InstallerServiceErrorEventArgs()
                 {
-                    Message="Error installing " + currentRequest.Instance.Name,
+                    Message = "Error installing " + currentRequest.Instance.Name,
                     Error = exc
                 });
             }
@@ -480,6 +453,35 @@ namespace Microarea.Mago4Butler.BL
             OnNotification(new NotificationEventArgs() { Message = "Configuring the application..." });
             this.SaveServerConnectionConfig(currentRequest);
             OnNotification(new NotificationEventArgs() { Message = "Application configured" });
+        }
+
+        private string CreateApplicationFolders(Request currentRequest)
+        {
+            string logFilesFolderPath = null;
+            try
+            {
+                var rootDirInfo = new DirectoryInfo(currentRequest.RootFolder);
+                if (!rootDirInfo.Exists)
+                {
+                    OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Creating root folder {0}...", currentRequest.RootFolder) });
+                    rootDirInfo.Create();
+                    OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Root folder {0} created", currentRequest.RootFolder) });
+                }
+
+                logFilesFolderPath = Path.Combine(currentRequest.RootFolder, "Logs");
+                if (!Directory.Exists(logFilesFolderPath))
+                {
+                    OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Creating logs folder {0}...", currentRequest.RootFolder) });
+                    Directory.CreateDirectory(logFilesFolderPath);
+                    OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Logs folder {0} created", currentRequest.RootFolder) });
+                }
+            }
+            catch (Exception exc)
+            {
+                this.LogError("Error creating root folder or log folder", exc);
+            }
+
+            return logFilesFolderPath;
         }
 
         private void SaveServerConnectionConfig(Request currentRequest)

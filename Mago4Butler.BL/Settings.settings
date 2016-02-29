@@ -20,5 +20,8 @@
     <Setting Name="MsiLog" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="LogsFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Microarea\M4\Logs</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

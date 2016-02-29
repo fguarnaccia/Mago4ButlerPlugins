@@ -57,6 +57,12 @@ namespace Microarea.Mago4Butler
                 }
             }
             catch { }
+
+            var settings = IoCContainer.Instance.Get<ISettings>();
+            log4net.GlobalContext.Properties["LogFilePath"] = settings.LogsFolder;
+            log4net.Config.XmlConfigurator.Configure();
+
+
         }
     }
 }

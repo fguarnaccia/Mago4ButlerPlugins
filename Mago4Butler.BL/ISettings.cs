@@ -9,6 +9,7 @@ namespace Microarea.Mago4Butler.BL
     public interface ISettings
     {
         string RootFolder { get; set; }
+        string LogsFolder { get; set; }
         string SiteName { get; set; }
         bool IsFirstRun { get; set; }
         bool ShowRootFolderChoice { get; set; }

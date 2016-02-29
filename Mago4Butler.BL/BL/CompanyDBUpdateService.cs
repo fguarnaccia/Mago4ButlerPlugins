@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Microarea.Mago4Butler.BL
 {
-    public class CompanyDBUpdateService
+    public class CompanyDBUpdateService : ILogger
     {
         string rootFolder;
 
@@ -18,19 +18,29 @@ namespace Microarea.Mago4Butler.BL
 
         public void UpdateCompanyDB(Instance instance)
         {
-            string consoleExePath = Path.Combine(
-                this.rootFolder,
-                instance.Name,
-                "Apps",
-                "Publish",
-                "AdministrationConsoleLite.exe"
-                );
+            try
+            {
+                this.LogInfo("Starting AdministrationConsoleLite.exe with command line parameters /autologin yes /UpgradeAllCompaniesAndExit yes");
+                string consoleExePath = Path.Combine(
+                        this.rootFolder,
+                        instance.Name,
+                        "Apps",
+                        "Publish",
+                        "AdministrationConsoleLite.exe"
+                        );
 
-            this.LaunchProcess(
-                consoleExePath,
-                "/autologin yes /UpgradeAllCompaniesAndExit yes",
-                3600000
-                );
+                this.LaunchProcess(
+                    consoleExePath,
+                    "/autologin yes /UpgradeAllCompaniesAndExit yes",
+                    3600000
+                    );
+                this.LogInfo("AdministrationConsoleLite.exe terminated successfully");
+
+            }
+            catch (Exception exc)
+            {
+                this.LogError("Error executing AdministrationConsoleLite.exe", exc);
+            }
         }
     }
 }

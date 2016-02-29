@@ -94,5 +94,17 @@ namespace Microarea.Mago4Butler.BL {
                 this["MsiLog"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Microarea\\M4\\Logs")]
+        public string LogsFolder {
+            get {
+                return ((string)(this["LogsFolder"]));
+            }
+            set {
+                this["LogsFolder"] = value;
+            }
+        }
     }
 }

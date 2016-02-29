@@ -34,6 +34,7 @@ namespace Microarea.Mago4Butler
                 Bind<IisService>().ToSelf();
                 Bind<MsiZapper>().ToSelf();
                 Bind<RegistryService>().ToSelf();
+                Bind<LoggerService>().ToSelf();
 
                 Bind<ISettings>().ToMethod(context => Settings.Default);
 

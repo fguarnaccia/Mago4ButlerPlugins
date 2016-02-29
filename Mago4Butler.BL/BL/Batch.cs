@@ -8,7 +8,7 @@ using Console = Colorful.Console;
 
 namespace Microarea.Mago4Butler
 {
-    class Batch
+    class Batch : ILogger
     {
         MsiService msiService = new MsiService();
         CompanyDBUpdateService companyDBUpdateService;
@@ -52,17 +52,20 @@ namespace Microarea.Mago4Butler
 
         private void InstanceService_Updated(object sender, UpdateInstanceEventArgs e)
         {
+            this.LogInfo(e.Instances[0].Name + " successfully updated");
             Console.WriteLine("[" + Now + "]: " + e.Instances[0].Name + " successfully updated", Color.Green);
             this.PrintCurrentStatus();
         }
 
         private void InstanceService_Updating(object sender, UpdateInstanceEventArgs e)
         {
+            this.LogInfo("Updating " + e.Instances[0].Name + "...");
             Console.WriteLine("[" + Now + "]: Updating " + e.Instances[0].Name + " ...");
         }
 
         private void InstanceService_Removed(object sender, RemoveInstanceEventArgs e)
         {
+            this.LogInfo(e.Instances[0].Name + " successfully removed");
             Console.WriteLine("[" + Now + "]: " + e.Instances[0].Name + " successfully removed", Color.Green);
             this.model.RemoveInstances(e.Instances);
             this.PrintCurrentStatus();
@@ -70,11 +73,13 @@ namespace Microarea.Mago4Butler
 
         private void InstanceService_Removing(object sender, RemoveInstanceEventArgs e)
         {
+            this.LogInfo("Removing " + e.Instances[0].Name + " ...");
             Console.WriteLine("[" + Now + "]: Removing " + e.Instances[0].Name + " ...");
         }
 
         private void InstanceService_Installed(object sender, InstallInstanceEventArgs e)
         {
+            this.LogInfo("Installation of " + e.Instance.Name + " completed");
             Console.WriteLine("[" + Now + "]: Installation of " + e.Instance.Name + " completed", Color.Green);
             this.model.AddInstance(e.Instance);
             this.PrintCurrentStatus();
@@ -84,13 +89,16 @@ namespace Microarea.Mago4Butler
         {
             if (this.model.Instances.Count() == 0)
             {
+                this.LogInfo("No instances installed");
                 Console.WriteLine("[" + Now + "]: No instances installed");
             }
             else
             {
+                this.LogInfo("Current instances are:");
                 Console.WriteLine("[" + Now + "]: Current instances are:");
                 foreach (var instance in this.model.Instances)
                 {
+                    this.LogInfo("\t" + instance);
                     Console.WriteLine("\t" + instance);
                 }
             }
@@ -98,26 +106,31 @@ namespace Microarea.Mago4Butler
 
         private void InstanceService_Installing(object sender, InstallInstanceEventArgs e)
         {
+            this.LogInfo("Installing " + e.Instance.Name + " ...");
             Console.WriteLine("[" + Now + "]: Installing " + e.Instance.Name + " ...");
         }
 
         private void InstanceService_Stopping(object sender, EventArgs e)
         {
+            this.LogInfo("Stopping install service ...");
             Console.WriteLine("[" + Now + "]: Stopping install service ...");
         }
 
         private void InstanceService_Stopped(object sender, EventArgs e)
         {
+            this.LogInfo("Install service stopped");
             Console.WriteLine("[" + Now + "]: Install service stopped", Color.Green);
         }
 
         private void InstanceService_Starting(object sender, EventArgs e)
         {
+            this.LogInfo("Starting install service ...");
             Console.WriteLine("[" + Now + "]: Starting install service ...");
         }
 
         private void InstanceService_Started(object sender, EventArgs e)
         {
+            this.LogInfo("Install service started");
             Console.WriteLine("[" + Now + "]: Install service started", Color.Green);
         }
 
@@ -132,11 +145,13 @@ namespace Microarea.Mago4Butler
             {
                 if (this.model.ContainsInstance(instance))
                 {
+                    this.LogError(instance.Name + " already exists, I cannot install it");
                     Console.WriteLine("[" + Now + "]: " + instance.Name + " already exists, I cannot install it", Color.Red);
                     continue;
                 }
                 if (!Model.IsInstanceNameValid(instance.Name))
                 {
+                    this.LogError(String.Format("'{0}' is not a valid name for an instance: only letters, digits and '-' are allowed", instance.Name));
                     Console.WriteLine("'{0}' is not a valid name for an instance: only letters, digits and '-' are allowed", instance.Name, Color.Red);
                     continue;
                 }
@@ -160,11 +175,13 @@ namespace Microarea.Mago4Butler
             {
                 if (!this.model.ContainsInstance(instance))
                 {
+                    this.LogError(instance.Name + " does not exist, I cannot update it");
                     Console.WriteLine("[" + Now + "]: " + instance.Name + " does not exist, I cannot update it", Color.Red);
                     continue;
                 }
                 if (!instance.AllowBatchDeletesUpdates)
                 {
+                    this.LogError(instance.Name + " is not updatable via batch, I cannot update it");
                     Console.WriteLine("[" + Now + "]: " + instance.Name + " is not updatable via batch, I cannot update it", Color.Orange);
                     continue;
                 }
@@ -190,11 +207,13 @@ namespace Microarea.Mago4Butler
             {
                 if (!this.model.ContainsInstance(instance))
                 {
+                    this.LogError(instance.Name + " does not exist, I cannot uninstall it");
                     Console.WriteLine("[" + Now + "]: " + instance.Name + " does not exist, I cannot uninstall it", Color.Red);
                     continue;
                 }
                 if (!instance.AllowBatchDeletesUpdates)
                 {
+                    this.LogError(instance.Name + " is not deletable via batch, I cannot delete it");
                     Console.WriteLine("[" + Now + "]: " + instance.Name + " is not deletable via batch, I cannot delete it", Color.Orange);
                     continue;
                 }

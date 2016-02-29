@@ -10,7 +10,7 @@ using WindowsInstaller;
 
 namespace Microarea.Mago4Butler.BL
 {
-    public class RegistryService
+    public class RegistryService : ILogger
     {
         MsiService msiService;
 
@@ -20,51 +20,65 @@ namespace Microarea.Mago4Butler.BL
         }
         public void RemoveInstallationInfoKey(string msiFullPath)
         {
-            string upgradeCode = msiService.GetUpgradeCode(msiFullPath);
-            if (String.IsNullOrWhiteSpace(upgradeCode))
+            try
             {
-                throw new ArgumentException(String.Format("'upgradeCode' from {0} is null or empty", msiFullPath));
-            }
-
-            string productName =
-                msiService.GetProductName(msiFullPath)
-                .Replace(".", string.Empty);
-            if (String.IsNullOrWhiteSpace(productName))
-            {
-                throw new ArgumentException(String.Format("'PRODUCTNAME' from {0} is null or empty", msiFullPath));
-            }
-
-            string keyName = String.Format(@"Software\Microarea\{0}\", productName);
-            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(keyName, true))
-            {
-                if (key != null)
+                string upgradeCode = msiService.GetUpgradeCode(msiFullPath);
+                if (String.IsNullOrWhiteSpace(upgradeCode))
                 {
-                    foreach (var subKeyName in key.GetSubKeyNames())
+                    throw new ArgumentException(String.Format("'upgradeCode' from {0} is null or empty", msiFullPath));
+                }
+
+                string productName =
+                    msiService.GetProductName(msiFullPath)
+                    .Replace(".", string.Empty);
+                if (String.IsNullOrWhiteSpace(productName))
+                {
+                    throw new ArgumentException(String.Format("'PRODUCTNAME' from {0} is null or empty", msiFullPath));
+                }
+
+                string keyName = String.Format(@"Software\Microarea\{0}\", productName);
+                using (RegistryKey key = Registry.LocalMachine.OpenSubKey(keyName, true))
+                {
+                    if (key != null)
                     {
-                        if (String.Compare(subKeyName, upgradeCode, StringComparison.InvariantCultureIgnoreCase) == 0)
+                        foreach (var subKeyName in key.GetSubKeyNames())
                         {
-                            key.DeleteSubKeyTree(upgradeCode);
-                            break;
+                            if (String.Compare(subKeyName, upgradeCode, StringComparison.InvariantCultureIgnoreCase) == 0)
+                            {
+                                key.DeleteSubKeyTree(upgradeCode);
+                                break;
+                            }
                         }
                     }
                 }
+            }
+            catch (Exception exc)
+            {
+                this.LogError("Error removing installation info keys for " + msiFullPath, exc);
             }
         }
 
         public void RemoveInstallerFoldersKeys(string rootPath, Instance instance)
         {
-            var localMachineKey = GetLocalMachine();
-
-            string keyName = @"Software\Microsoft\Windows\CurrentVersion\Installer\Folders";
-            var foldersKey = localMachineKey.OpenSubKey(keyName, true);
-
-            var instanceRootPath = Path.Combine(rootPath, instance.Name);
-            foreach (var keyValue in foldersKey.GetValueNames())
+            try
             {
-                if (keyValue.StartsWith(instanceRootPath, StringComparison.InvariantCultureIgnoreCase))
+                var localMachineKey = GetLocalMachine();
+
+                string keyName = @"Software\Microsoft\Windows\CurrentVersion\Installer\Folders";
+                var foldersKey = localMachineKey.OpenSubKey(keyName, true);
+
+                var instanceRootPath = Path.Combine(rootPath, instance.Name);
+                foreach (var keyValue in foldersKey.GetValueNames())
                 {
-                    foldersKey.DeleteValue(keyValue);
+                    if (keyValue.StartsWith(instanceRootPath, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        foldersKey.DeleteValue(keyValue);
+                    }
                 }
+            }
+            catch (Exception exc)
+            {
+                this.LogError("Error removing installation folder keys for " + instance.Name, exc);
             }
         }
 
