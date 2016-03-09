@@ -20,7 +20,7 @@ namespace Microarea.Mago4Butler
         const string msiFilaFullPathSwitch = "/msi";
 
         List<Instance> instanceToUpdate = new List<Instance>();
-        List<Instance> instanceToInstall = new List<Instance>();
+        Instance instanceToInstall;
         List<Instance> instanceToUninstall = new List<Instance>();
         bool printCurrentStatus;
         bool updateAll;
@@ -74,7 +74,7 @@ namespace Microarea.Mago4Butler
                             {
                                 return false;
                             }
-                            instanceToInstall.AddRange(Parse(args[i + 1]));
+                            instanceToInstall = new Instance() { Name = args[i + 1], WebSiteInfo = WebSiteInfo.DefaultWebSite };
                             break;
                         }
                     case uninstallSwitch:
@@ -118,7 +118,7 @@ namespace Microarea.Mago4Butler
                 Console.WriteLine("/uninstallAll and /uninstall are incompatible", Color.Red);
                 return false;
             }
-            if ((instanceToInstall.Count > 0 || instanceToUpdate.Count > 0))
+            if ((instanceToInstall != null || instanceToUpdate.Count > 0))
             {
                 if (String.IsNullOrWhiteSpace(msiFullFilePath))
                 {
@@ -134,10 +134,9 @@ namespace Microarea.Mago4Butler
 
                 var msiService = IoCContainer.Instance.Get<MsiService>();
                 var version = msiService.GetVersion(msiFullFilePath);
-                foreach (var instance in instanceToInstall)
-                {
-                    instance.Version = version;
-                }
+
+                instanceToInstall.Version = version;
+
                 foreach (var instance in instanceToUpdate)
                 {
                     instance.Version = version;
@@ -176,8 +175,8 @@ namespace Microarea.Mago4Butler
             Console.WriteLine("Mago4Butler.exe " + statusSwitch, Color.White);
             Console.WriteLine("Print installation status for all the instances");
             Console.WriteLine("");
-            Console.WriteLine("Mago4Butler.exe " + installSwitch + " InstanceName1;...;InstanceNameN " + msiFilaFullPathSwitch + " <msi file path>", Color.White);
-            Console.WriteLine("Install all the specified instances using the specified msi file");
+            Console.WriteLine("Mago4Butler.exe " + installSwitch + " InstanceName " + msiFilaFullPathSwitch + " <msi file path>", Color.White);
+            Console.WriteLine("Install the specified instance using the specified msi file");
             Console.WriteLine("");
             Console.WriteLine("Mago4Butler.exe " + updateSwitch + " InstanceName1;...;InstanceNameN " + msiFilaFullPathSwitch + " <msi file path>", Color.White);
             Console.WriteLine("Update all the specified instances using the specified msi file");
@@ -193,7 +192,7 @@ namespace Microarea.Mago4Butler
             Console.WriteLine("");
             Console.WriteLine("");
             Console.WriteLine(installSwitch + ", " + uninstallSwitch + " and " + updateSwitch + " can be used together:");
-            Console.WriteLine("Mago4Butler.exe " + installSwitch + " InstanceName1;...;InstanceNameN " + updateSwitch + " InstanceNameM;...;InstanceNameQ " + uninstallSwitch + " InstanceNameS;...;InstanceNameZ " + msiFilaFullPathSwitch + " <msi file path>", Color.White);
+            Console.WriteLine("Mago4Butler.exe " + installSwitch + " InstanceName1 " + updateSwitch + " InstanceNameM;...;InstanceNameQ " + uninstallSwitch + " InstanceNameS;...;InstanceNameZ " + msiFilaFullPathSwitch + " <msi file path>", Color.White);
         }
 
         public int Run()
@@ -225,7 +224,7 @@ namespace Microarea.Mago4Butler
                         batch.Update(msiFullFilePath, instanceToUpdate.ToArray());
                     }
 
-                    batch.Install(msiFullFilePath, instanceToInstall.ToArray());
+                    batch.Install(msiFullFilePath, instanceToInstall);
                     if (this.uninstallAll)
                     {
                         batch.UninstallAll(msiFullFilePath);
