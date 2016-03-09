@@ -15,6 +15,13 @@ namespace Microarea.Mago4Butler.BL
         bool ShowRootFolderChoice { get; set; }
         bool AlsoDeleteCustom { get; set; }
         bool MsiLog { get; set; }
+        bool UseProxy { get; set; }
+        string ProxyServerUrl { get; set; }
+        int ProxyServerPort { get; set; }
+        bool UseCredentials { get; set; }
+        string DomainName { get; set; }
+        string Username { get; set; }
+        string Password { get; set; }
 
         void Save();
     }

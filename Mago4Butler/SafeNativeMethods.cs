@@ -22,5 +22,9 @@ namespace Microarea.Mago4Butler
 
         internal const int VK_RETURN = 0x0D;
         internal const int WM_KEYDOWN = 0x100;
+        internal const int EM_SETCUEBANNER = 0x1501;
+
+        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
+        internal static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, string lp);
     }
 }

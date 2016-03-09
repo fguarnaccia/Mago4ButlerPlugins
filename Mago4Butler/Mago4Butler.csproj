@@ -137,6 +137,7 @@
     <Compile Include="UI\SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\TextBoxCueDecorator.cs" />
     <Compile Include="UI\UIEmpty.cs">
       <SubType>UserControl</SubType>
     </Compile>
