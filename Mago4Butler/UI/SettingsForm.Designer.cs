@@ -43,20 +43,20 @@
             this.tabPageGeneral = new System.Windows.Forms.TabPage();
             this.tabPageWebSite = new System.Windows.Forms.TabPage();
             this.tabPageProxy = new System.Windows.Forms.TabPage();
-            this.ckbUseProxy = new System.Windows.Forms.CheckBox();
             this.grpProxy = new System.Windows.Forms.GroupBox();
-            this.lblServerUrl = new System.Windows.Forms.Label();
+            this.ckbUseCredentials = new System.Windows.Forms.CheckBox();
+            this.txtProxyPort = new System.Windows.Forms.TextBox();
             this.txtServerUrl = new System.Windows.Forms.TextBox();
             this.lblProxyPort = new System.Windows.Forms.Label();
-            this.txtProxyPort = new System.Windows.Forms.TextBox();
-            this.ckbUseCredentials = new System.Windows.Forms.CheckBox();
+            this.lblServerUrl = new System.Windows.Forms.Label();
+            this.grpCredentials = new System.Windows.Forms.GroupBox();
             this.lblDomain = new System.Windows.Forms.Label();
-            this.txtDomain = new System.Windows.Forms.TextBox();
             this.lblUsername = new System.Windows.Forms.Label();
-            this.txtUsername = new System.Windows.Forms.TextBox();
             this.lblPassword = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
-            this.grpCredentials = new System.Windows.Forms.GroupBox();
+            this.txtDomain = new System.Windows.Forms.TextBox();
+            this.txtUsername = new System.Windows.Forms.TextBox();
+            this.ckbUseProxy = new System.Windows.Forms.CheckBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.tabControl.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
@@ -76,7 +76,7 @@
             this.txtRootFolder.Name = "txtRootFolder";
             this.txtRootFolder.ReadOnly = true;
             this.txtRootFolder.Size = new System.Drawing.Size(362, 22);
-            this.txtRootFolder.TabIndex = 0;
+            this.txtRootFolder.TabIndex = 1;
             // 
             // btnRootFolder
             // 
@@ -86,7 +86,7 @@
             this.btnRootFolder.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnRootFolder.Name = "btnRootFolder";
             this.btnRootFolder.Size = new System.Drawing.Size(37, 22);
-            this.btnRootFolder.TabIndex = 1;
+            this.btnRootFolder.TabIndex = 2;
             this.btnRootFolder.Text = "...";
             this.btnRootFolder.UseVisualStyleBackColor = true;
             this.btnRootFolder.Click += new System.EventHandler(this.btnRootFolder_Click);
@@ -113,7 +113,7 @@
             this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(100, 25);
-            this.btnCancel.TabIndex = 1;
+            this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -125,7 +125,7 @@
             this.lblRootFolder.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblRootFolder.Name = "lblRootFolder";
             this.lblRootFolder.Size = new System.Drawing.Size(81, 14);
-            this.lblRootFolder.TabIndex = 2;
+            this.lblRootFolder.TabIndex = 0;
             this.lblRootFolder.Text = "Root folder:";
             // 
             // lblWebSites
@@ -135,7 +135,7 @@
             this.lblWebSites.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblWebSites.Name = "lblWebSites";
             this.lblWebSites.Size = new System.Drawing.Size(76, 14);
-            this.lblWebSites.TabIndex = 3;
+            this.lblWebSites.TabIndex = 0;
             this.lblWebSites.Text = "Web Sites:";
             this.lblWebSites.Visible = false;
             // 
@@ -148,7 +148,7 @@
             this.cmbWebSites.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cmbWebSites.Name = "cmbWebSites";
             this.cmbWebSites.Size = new System.Drawing.Size(284, 22);
-            this.cmbWebSites.TabIndex = 4;
+            this.cmbWebSites.TabIndex = 1;
             this.cmbWebSites.Visible = false;
             this.cmbWebSites.SelectedIndexChanged += new System.EventHandler(this.cmbWebSites_SelectedIndexChanged);
             // 
@@ -158,7 +158,7 @@
             this.ckbAlsoDeleteCustom.Location = new System.Drawing.Point(7, 65);
             this.ckbAlsoDeleteCustom.Name = "ckbAlsoDeleteCustom";
             this.ckbAlsoDeleteCustom.Size = new System.Drawing.Size(242, 18);
-            this.ckbAlsoDeleteCustom.TabIndex = 5;
+            this.ckbAlsoDeleteCustom.TabIndex = 3;
             this.ckbAlsoDeleteCustom.Text = "Delete \'Custom\' folder on uninstall";
             this.ckbAlsoDeleteCustom.UseVisualStyleBackColor = true;
             // 
@@ -168,7 +168,7 @@
             this.ckbCreateMsiLog.Location = new System.Drawing.Point(7, 89);
             this.ckbCreateMsiLog.Name = "ckbCreateMsiLog";
             this.ckbCreateMsiLog.Size = new System.Drawing.Size(117, 18);
-            this.ckbCreateMsiLog.TabIndex = 6;
+            this.ckbCreateMsiLog.TabIndex = 4;
             this.ckbCreateMsiLog.Text = "Create msi log";
             this.ckbCreateMsiLog.UseVisualStyleBackColor = true;
             // 
@@ -184,7 +184,7 @@
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(429, 355);
-            this.tabControl.TabIndex = 7;
+            this.tabControl.TabIndex = 0;
             // 
             // tabPageGeneral
             // 
@@ -196,7 +196,7 @@
             this.tabPageGeneral.Location = new System.Drawing.Point(4, 23);
             this.tabPageGeneral.Name = "tabPageGeneral";
             this.tabPageGeneral.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageGeneral.Size = new System.Drawing.Size(421, 213);
+            this.tabPageGeneral.Size = new System.Drawing.Size(421, 328);
             this.tabPageGeneral.TabIndex = 0;
             this.tabPageGeneral.Text = "General";
             this.tabPageGeneral.UseVisualStyleBackColor = true;
@@ -208,7 +208,7 @@
             this.tabPageWebSite.Location = new System.Drawing.Point(4, 23);
             this.tabPageWebSite.Name = "tabPageWebSite";
             this.tabPageWebSite.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageWebSite.Size = new System.Drawing.Size(421, 213);
+            this.tabPageWebSite.Size = new System.Drawing.Size(421, 328);
             this.tabPageWebSite.TabIndex = 1;
             this.tabPageWebSite.Text = "WebSite";
             this.tabPageWebSite.UseVisualStyleBackColor = true;
@@ -223,17 +223,6 @@
             this.tabPageProxy.TabIndex = 2;
             this.tabPageProxy.Text = "Proxy configuration";
             this.tabPageProxy.UseVisualStyleBackColor = true;
-            // 
-            // ckbUseProxy
-            // 
-            this.ckbUseProxy.AutoSize = true;
-            this.ckbUseProxy.Location = new System.Drawing.Point(9, 12);
-            this.ckbUseProxy.Name = "ckbUseProxy";
-            this.ckbUseProxy.Size = new System.Drawing.Size(209, 18);
-            this.ckbUseProxy.TabIndex = 0;
-            this.ckbUseProxy.Text = "Configure proxy for web calls";
-            this.ckbUseProxy.UseVisualStyleBackColor = true;
-            this.ckbUseProxy.CheckedChanged += new System.EventHandler(this.ckbUseProxy_CheckedChanged);
             // 
             // grpProxy
             // 
@@ -253,14 +242,25 @@
             this.grpProxy.TabIndex = 1;
             this.grpProxy.TabStop = false;
             // 
-            // lblServerUrl
+            // ckbUseCredentials
             // 
-            this.lblServerUrl.AutoSize = true;
-            this.lblServerUrl.Location = new System.Drawing.Point(7, 22);
-            this.lblServerUrl.Name = "lblServerUrl";
-            this.lblServerUrl.Size = new System.Drawing.Size(106, 14);
-            this.lblServerUrl.TabIndex = 0;
-            this.lblServerUrl.Text = "Proxy server url";
+            this.ckbUseCredentials.AutoSize = true;
+            this.ckbUseCredentials.Location = new System.Drawing.Point(10, 78);
+            this.ckbUseCredentials.Name = "ckbUseCredentials";
+            this.ckbUseCredentials.Size = new System.Drawing.Size(239, 18);
+            this.ckbUseCredentials.TabIndex = 4;
+            this.ckbUseCredentials.Text = "Use credentials for HTTP requests";
+            this.ckbUseCredentials.UseVisualStyleBackColor = true;
+            this.ckbUseCredentials.CheckedChanged += new System.EventHandler(this.ckbUseCredentials_CheckedChanged);
+            // 
+            // txtProxyPort
+            // 
+            this.txtProxyPort.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtProxyPort.Location = new System.Drawing.Point(314, 40);
+            this.txtProxyPort.Name = "txtProxyPort";
+            this.txtProxyPort.Size = new System.Drawing.Size(69, 22);
+            this.txtProxyPort.TabIndex = 3;
             // 
             // txtServerUrl
             // 
@@ -277,83 +277,17 @@
             this.lblProxyPort.Location = new System.Drawing.Point(311, 22);
             this.lblProxyPort.Name = "lblProxyPort";
             this.lblProxyPort.Size = new System.Drawing.Size(72, 14);
-            this.lblProxyPort.TabIndex = 0;
+            this.lblProxyPort.TabIndex = 2;
             this.lblProxyPort.Text = "Proxy port";
             // 
-            // txtProxyPort
+            // lblServerUrl
             // 
-            this.txtProxyPort.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtProxyPort.Location = new System.Drawing.Point(314, 40);
-            this.txtProxyPort.Name = "txtProxyPort";
-            this.txtProxyPort.Size = new System.Drawing.Size(69, 22);
-            this.txtProxyPort.TabIndex = 1;
-            // 
-            // ckbUseCredentials
-            // 
-            this.ckbUseCredentials.AutoSize = true;
-            this.ckbUseCredentials.Location = new System.Drawing.Point(10, 78);
-            this.ckbUseCredentials.Name = "ckbUseCredentials";
-            this.ckbUseCredentials.Size = new System.Drawing.Size(239, 18);
-            this.ckbUseCredentials.TabIndex = 2;
-            this.ckbUseCredentials.Text = "Use credentials for HTTP requests";
-            this.ckbUseCredentials.UseVisualStyleBackColor = true;
-            this.ckbUseCredentials.CheckedChanged += new System.EventHandler(this.ckbUseCredentials_CheckedChanged);
-            // 
-            // lblDomain
-            // 
-            this.lblDomain.AutoSize = true;
-            this.lblDomain.Location = new System.Drawing.Point(6, 18);
-            this.lblDomain.Name = "lblDomain";
-            this.lblDomain.Size = new System.Drawing.Size(54, 14);
-            this.lblDomain.TabIndex = 0;
-            this.lblDomain.Text = "Domain";
-            // 
-            // txtDomain
-            // 
-            this.txtDomain.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDomain.Location = new System.Drawing.Point(9, 36);
-            this.txtDomain.Name = "txtDomain";
-            this.txtDomain.Size = new System.Drawing.Size(364, 22);
-            this.txtDomain.TabIndex = 1;
-            // 
-            // lblUsername
-            // 
-            this.lblUsername.AutoSize = true;
-            this.lblUsername.Location = new System.Drawing.Point(6, 61);
-            this.lblUsername.Name = "lblUsername";
-            this.lblUsername.Size = new System.Drawing.Size(71, 14);
-            this.lblUsername.TabIndex = 0;
-            this.lblUsername.Text = "Username";
-            // 
-            // txtUsername
-            // 
-            this.txtUsername.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtUsername.Location = new System.Drawing.Point(9, 79);
-            this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(364, 22);
-            this.txtUsername.TabIndex = 1;
-            // 
-            // lblPassword
-            // 
-            this.lblPassword.AutoSize = true;
-            this.lblPassword.Location = new System.Drawing.Point(6, 104);
-            this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(69, 14);
-            this.lblPassword.TabIndex = 0;
-            this.lblPassword.Text = "Password";
-            // 
-            // txtPassword
-            // 
-            this.txtPassword.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPassword.Location = new System.Drawing.Point(9, 122);
-            this.txtPassword.Name = "txtPassword";
-            this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(364, 22);
-            this.txtPassword.TabIndex = 1;
+            this.lblServerUrl.AutoSize = true;
+            this.lblServerUrl.Location = new System.Drawing.Point(7, 22);
+            this.lblServerUrl.Name = "lblServerUrl";
+            this.lblServerUrl.Size = new System.Drawing.Size(106, 14);
+            this.lblServerUrl.TabIndex = 0;
+            this.lblServerUrl.Text = "Proxy server url";
             // 
             // grpCredentials
             // 
@@ -368,8 +302,74 @@
             this.grpCredentials.Location = new System.Drawing.Point(10, 92);
             this.grpCredentials.Name = "grpCredentials";
             this.grpCredentials.Size = new System.Drawing.Size(393, 200);
-            this.grpCredentials.TabIndex = 3;
+            this.grpCredentials.TabIndex = 5;
             this.grpCredentials.TabStop = false;
+            // 
+            // lblDomain
+            // 
+            this.lblDomain.AutoSize = true;
+            this.lblDomain.Location = new System.Drawing.Point(6, 18);
+            this.lblDomain.Name = "lblDomain";
+            this.lblDomain.Size = new System.Drawing.Size(54, 14);
+            this.lblDomain.TabIndex = 0;
+            this.lblDomain.Text = "Domain";
+            // 
+            // lblUsername
+            // 
+            this.lblUsername.AutoSize = true;
+            this.lblUsername.Location = new System.Drawing.Point(6, 61);
+            this.lblUsername.Name = "lblUsername";
+            this.lblUsername.Size = new System.Drawing.Size(71, 14);
+            this.lblUsername.TabIndex = 2;
+            this.lblUsername.Text = "Username";
+            // 
+            // lblPassword
+            // 
+            this.lblPassword.AutoSize = true;
+            this.lblPassword.Location = new System.Drawing.Point(6, 104);
+            this.lblPassword.Name = "lblPassword";
+            this.lblPassword.Size = new System.Drawing.Size(69, 14);
+            this.lblPassword.TabIndex = 4;
+            this.lblPassword.Text = "Password";
+            // 
+            // txtPassword
+            // 
+            this.txtPassword.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtPassword.Location = new System.Drawing.Point(9, 122);
+            this.txtPassword.Name = "txtPassword";
+            this.txtPassword.PasswordChar = '*';
+            this.txtPassword.Size = new System.Drawing.Size(364, 22);
+            this.txtPassword.TabIndex = 5;
+            // 
+            // txtDomain
+            // 
+            this.txtDomain.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtDomain.Location = new System.Drawing.Point(9, 36);
+            this.txtDomain.Name = "txtDomain";
+            this.txtDomain.Size = new System.Drawing.Size(364, 22);
+            this.txtDomain.TabIndex = 1;
+            // 
+            // txtUsername
+            // 
+            this.txtUsername.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtUsername.Location = new System.Drawing.Point(9, 79);
+            this.txtUsername.Name = "txtUsername";
+            this.txtUsername.Size = new System.Drawing.Size(364, 22);
+            this.txtUsername.TabIndex = 3;
+            // 
+            // ckbUseProxy
+            // 
+            this.ckbUseProxy.AutoSize = true;
+            this.ckbUseProxy.Location = new System.Drawing.Point(9, 12);
+            this.ckbUseProxy.Name = "ckbUseProxy";
+            this.ckbUseProxy.Size = new System.Drawing.Size(209, 18);
+            this.ckbUseProxy.TabIndex = 0;
+            this.ckbUseProxy.Text = "Configure proxy for web calls";
+            this.ckbUseProxy.UseVisualStyleBackColor = true;
+            this.ckbUseProxy.CheckedChanged += new System.EventHandler(this.ckbUseProxy_CheckedChanged);
             // 
             // errorProvider
             // 
