@@ -14,7 +14,7 @@ namespace Microarea.Mago4Butler.BL
     {
         const string configutationFileName = "Mago4Butler.yml";
 
-        string rootFolder;
+        ISettings settings;
 
         List<Instance> instances = new List<Instance>();
 
@@ -55,7 +55,7 @@ namespace Microarea.Mago4Butler.BL
 
         public Model(ISettings settings)
         {
-            this.rootFolder = settings.RootFolder;
+            this.settings = settings;
         }
 
         public static bool IsInstanceNameValid(string instanceName)
@@ -172,7 +172,7 @@ namespace Microarea.Mago4Butler.BL
         {
             this.instances.Clear();
 
-            var rootFolderDirInfo = new DirectoryInfo(rootFolder);
+            var rootFolderDirInfo = new DirectoryInfo(this.settings.RootFolder);
             if (!rootFolderDirInfo.Exists)
             {
                 rootFolderDirInfo.Create();
@@ -180,7 +180,7 @@ namespace Microarea.Mago4Butler.BL
 
             LoadFromConfigurationFile();
 
-            var rootDirInfo = new DirectoryInfo(rootFolder);
+            var rootDirInfo = new DirectoryInfo(this.settings.RootFolder);
             var instancesOnDisk = new List<Instance>();
             var instanceDirInfos = rootDirInfo.GetDirectories();
             foreach (var instanceDirInfo in instanceDirInfos)
@@ -212,7 +212,7 @@ namespace Microarea.Mago4Butler.BL
 
         private void LoadFromConfigurationFile()
         {
-            var confFileInfo = new FileInfo(Path.Combine(this.rootFolder, configutationFileName));
+            var confFileInfo = new FileInfo(Path.Combine(this.settings.RootFolder, configutationFileName));
             if (!confFileInfo.Exists)
             {
                 return;
@@ -232,7 +232,7 @@ namespace Microarea.Mago4Butler.BL
 
         private void SaveToConfigurationFile()
         {
-            var confFileInfo = new FileInfo(Path.Combine(this.rootFolder, configutationFileName));
+            var confFileInfo = new FileInfo(Path.Combine(this.settings.RootFolder, configutationFileName));
 
             var serializer = new YamlDotNet.Serialization.Serializer(SerializationOptions.DisableAliases | SerializationOptions.EmitDefaults);
             using (var outputStream = File.Create(confFileInfo.FullName))
