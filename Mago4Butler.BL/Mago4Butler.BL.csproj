@@ -129,7 +129,6 @@
     <Compile Include="Settings.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="res\Interop.WindowsInstaller.dll" />
     <EmbeddedResource Include="res\ServerConnectionConfig.template" />

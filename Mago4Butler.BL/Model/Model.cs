@@ -50,7 +50,7 @@ namespace Microarea.Mago4Butler.BL
 
         public Model()
         {
-
+            //needed for serialization/dserialization
         }
 
         public Model(ISettings settings)

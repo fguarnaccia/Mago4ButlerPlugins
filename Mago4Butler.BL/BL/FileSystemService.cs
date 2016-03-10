@@ -9,22 +9,20 @@ namespace Microarea.Mago4Butler.BL
 {
     public class FileSystemService : ILogger
     {
-        string rootFolder;
-        bool alsoDeleteCustom;
+        ISettings settings;
 
         public FileSystemService(ISettings settings)
         {
-            this.rootFolder = settings.RootFolder;
-            this.alsoDeleteCustom = settings.AlsoDeleteCustom;
+            this.settings = settings;
         }
 
         public void RemoveAllFiles(Instance instance)
         {
-            var instanceRootFolder = new DirectoryInfo(Path.Combine(this.rootFolder, instance.Name));
+            var instanceRootFolder = new DirectoryInfo(Path.Combine(this.settings.RootFolder, instance.Name));
 
             try
             {
-                if (this.alsoDeleteCustom)
+                if (this.settings.AlsoDeleteCustom)
                 {
                     DeleteDirectory(instanceRootFolder);
                 }
