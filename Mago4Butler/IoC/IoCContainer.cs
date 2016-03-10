@@ -28,13 +28,19 @@ namespace Microarea.Mago4Butler
 
                 Bind<MsiService>().ToSelf();
                 Bind<InstallerService>().ToSelf();
-                Bind<ProvisioningService>().ToSelf();
                 Bind<CompanyDBUpdateService>().ToSelf();
                 Bind<FileSystemService>().ToSelf();
                 Bind<IisService>().ToSelf();
                 Bind<MsiZapper>().ToSelf();
                 Bind<RegistryService>().ToSelf();
                 Bind<LoggerService>().ToSelf();
+
+                Bind<IProvisioningService>()
+                    .To<Mago4ProvisioningService>()
+                    .Named("mago4");
+                Bind<IProvisioningService>()
+                    .To<MagoNetProvisioningService>()
+                    .Named("mago.net");
 
                 Bind<ISettings>().ToMethod(context => Settings.Default);
 
@@ -107,6 +113,22 @@ namespace Microarea.Mago4Butler
                 }
             }
             return ioc.Get<T>(injectParams.ToArray());
+        }
+        public T Get<T>(string name, params Parameter[] parameters)
+        {
+            if (parameters == null || parameters.Length == 0)
+            {
+                return ioc.Get<T>(name);
+            }
+            var injectParams = new List<Ninject.Parameters.IParameter>();
+            foreach (var parameter in parameters)
+            {
+                if (parameter != null)
+                {
+                    injectParams.Add(new Ninject.Parameters.ConstructorArgument(parameter.Name, parameter.Value));
+                }
+            }
+            return ioc.Get<T>(name, injectParams.ToArray());
         }
     }
 }

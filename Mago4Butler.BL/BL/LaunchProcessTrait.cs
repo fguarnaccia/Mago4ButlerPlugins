@@ -16,7 +16,7 @@ namespace Microarea.Mago4Butler.BL
         {
             LaunchProcess(processFilePath, args, timeoutInMillSecs);
         }
-        public static void LaunchProcess(this ProvisioningService @this, string processFilePath, string args, int timeoutInMillSecs)
+        public static void LaunchProcess(this IProvisioningService @this, string processFilePath, string args, int timeoutInMillSecs)
         {
             LaunchProcess(processFilePath, args, timeoutInMillSecs);
         }

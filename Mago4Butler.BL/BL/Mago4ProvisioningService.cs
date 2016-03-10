@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 
 namespace Microarea.Mago4Butler.BL
 {
-    public class ProvisioningService : ILogger
+    public class Mago4ProvisioningService : ILogger, IProvisioningService
     {
         string rootFolder;
 
-        public ProvisioningService(ISettings settings)
+        public bool ShouldStartProvisioning { get { return true; } }
+
+        public Mago4ProvisioningService(ISettings settings)
         {
             this.rootFolder = settings.RootFolder;
         }

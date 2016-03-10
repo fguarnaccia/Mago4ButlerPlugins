@@ -26,7 +26,6 @@ namespace Microarea.Mago4Butler
         Model model;
         MsiService msiService;
         InstallerService installerService;
-        ProvisioningService provisioningService;
         LoggerService loggerService;
 
         List<IPlugin> plugins = new List<IPlugin>();
@@ -37,7 +36,6 @@ namespace Microarea.Mago4Butler
             Model model,
             MsiService msiService,
             InstallerService installerService,
-            ProvisioningService provisioningService,
             LoggerService loggerService,
             ISettings settings,
             UIEmpty uiEmpty,
@@ -60,7 +58,6 @@ namespace Microarea.Mago4Butler
 
             this.msiService = msiService;
             this.installerService = installerService;
-            this.provisioningService = provisioningService;
 
             this.settings = settings;
 
@@ -186,9 +183,20 @@ namespace Microarea.Mago4Butler
             this.uiWaiting.AddDetailsText("Database configuration...");
             try
             {
-                this.provisioningService.StartProvisioning(e.Instance);
-                this.loggerService.LogInfo("Database configuration ended");
-                this.uiWaiting.AddDetailsText("Database configuration ended");
+                var productName = msiService.GetProductName(this.msiFullFilePath).ToLowerInvariant(); ;
+                var provisioningService = IoCContainer.Instance.Get<IProvisioningService>(productName);
+
+                if (provisioningService.ShouldStartProvisioning)
+                {
+                    provisioningService.StartProvisioning(e.Instance);
+                    this.loggerService.LogInfo("Database configuration ended");
+                    this.uiWaiting.AddDetailsText("Database configuration ended");
+                }
+                else
+                {
+                    this.loggerService.LogInfo(String.Format(System.Globalization.CultureInfo.InvariantCulture, "No database provisioning for {0}, database configuration skipped", e.Instance.Name));
+                    this.uiWaiting.AddDetailsText(String.Format(System.Globalization.CultureInfo.InvariantCulture, "No database provisioning for {0}, database configuration skipped", e.Instance.Name));
+                }
             }
             catch (Exception exc)
             {
@@ -318,17 +326,22 @@ namespace Microarea.Mago4Butler
                 {
                     return;
                 }
+                this.msiFullFilePath = askForParametersDialog.MsiFullPath;
 
                 using (var provisioningForm = new ProvisioningForm(instanceName: askForParametersDialog.InstanceName, preconfigurationMode: true, loadDataFromFile: false))
                 {
-                    diagRes = provisioningForm.ShowDialog();
+                    var productName = msiService.GetProductName(this.msiFullFilePath).ToLowerInvariant();
+                    var provisioningService = IoCContainer.Instance.Get<IProvisioningService>(productName);
 
-                    if (diagRes == DialogResult.Cancel)
+                    if (provisioningService.ShouldStartProvisioning)
                     {
-                        return;
-                    }
+                        diagRes = provisioningForm.ShowDialog();
 
-                    this.msiFullFilePath = askForParametersDialog.MsiFullPath;
+                        if (diagRes == DialogResult.Cancel)
+                        {
+                            return;
+                        }
+                    }
 
                     this.model.AddInstance(new BL.Instance()
                     {

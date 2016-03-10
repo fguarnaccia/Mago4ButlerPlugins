@@ -94,9 +94,11 @@
     <Compile Include="BL\Batch.cs" />
     <Compile Include="BL\CompanyDBUpdateService.cs" />
     <Compile Include="BL\InstallerServiceErrorEventArgs.cs" />
+    <Compile Include="BL\IProvisioningService.cs" />
     <Compile Include="BL\LoggerService.cs" />
+    <Compile Include="BL\MagoNetProvisioningService.cs" />
     <Compile Include="BL\NotificationEventArgs.cs" />
-    <Compile Include="BL\ProvisioningService.cs" />
+    <Compile Include="BL\Mago4ProvisioningService.cs" />
     <Compile Include="BL\ServerManagerTrait.cs" />
     <Compile Include="BL\FileSystemService.cs" />
     <Compile Include="BL\IisService.cs" />
