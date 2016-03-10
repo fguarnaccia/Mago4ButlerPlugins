@@ -49,7 +49,8 @@ namespace Microarea.Mago4Butler.BL
                 UseCredentials = false,
                 DomainName = string.Empty,
                 Username = string.Empty,
-                Password = string.Empty
+                Password = string.Empty,
+                LastFolderOpenedBrowsingForMsi = string.Empty
             };
         }
 
@@ -66,6 +67,7 @@ namespace Microarea.Mago4Butler.BL
         public string DomainName { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
+        public string LastFolderOpenedBrowsingForMsi { get; set; }
 
         public void Save()
         {

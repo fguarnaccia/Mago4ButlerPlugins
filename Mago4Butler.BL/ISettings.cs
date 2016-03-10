@@ -22,6 +22,7 @@ namespace Microarea.Mago4Butler.BL
         string DomainName { get; set; }
         string Username { get; set; }
         string Password { get; set; }
+        string LastFolderOpenedBrowsingForMsi { get; set; }
 
         void Save();
     }

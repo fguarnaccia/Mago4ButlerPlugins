@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -13,12 +14,14 @@ namespace Microarea.Mago4Butler
     public partial class AskForParametersForm : Form
     {
         Model model;
+        ISettings settings;
 
         public string InstanceName { get; set; }
         public string MsiFullPath { get; set; }
 
-        public AskForParametersForm(Model model)
+        public AskForParametersForm(Model model, ISettings settings)
         {
+            this.settings = settings;
             this.model = model;
             InitializeComponent();
             this.txtInstanceName.TextChanged += TxtInstanceName_TextChanged;
@@ -66,7 +69,12 @@ namespace Microarea.Mago4Butler
         {
             using (var ofd = new OpenFileDialog())
             {
-                ofd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+                string lastUsedFolder = this.settings.LastFolderOpenedBrowsingForMsi;
+                if (string.IsNullOrWhiteSpace(lastUsedFolder) || !Directory.Exists(lastUsedFolder))
+                {
+                    lastUsedFolder = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+                }
+                ofd.InitialDirectory = lastUsedFolder;
                 ofd.Multiselect = false;
                 ofd.Title = "Select Mago4 msi file";
                 var res = ofd.ShowDialog(this);
@@ -77,6 +85,8 @@ namespace Microarea.Mago4Butler
                 }
 
                 this.txtMsiFullPath.Text = ofd.FileName;
+                this.settings.LastFolderOpenedBrowsingForMsi = Path.GetDirectoryName(ofd.FileName);
+                this.settings.Save();
             }
         }
 

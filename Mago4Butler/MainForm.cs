@@ -310,7 +310,7 @@ namespace Microarea.Mago4Butler
                 this.settings.ShowRootFolderChoice = false;
                 this.settings.Save();
             }
-            using (var askForParametersDialog = new AskForParametersForm(this.model))
+            using (var askForParametersDialog = new AskForParametersForm(this.model, this.settings))
             {
                 var diagRes = askForParametersDialog.ShowDialog();
 
