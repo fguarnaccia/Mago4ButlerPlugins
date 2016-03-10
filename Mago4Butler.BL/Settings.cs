@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microarea.TaskBuilderNet.Core.Generic;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -79,6 +80,7 @@ namespace Microarea.Mago4Butler.BL
             using (var outputStream = File.Create(settingsFileInfo.FullName))
             using (var streamWriter = new StreamWriter(outputStream))
             {
+                Password = Crypto.Encrypt(Password);
                 serializer.Serialize(streamWriter, this);
             }
         }
@@ -96,7 +98,9 @@ namespace Microarea.Mago4Butler.BL
             using (var inputStream = settingsFileInfo.OpenRead())
             using (var streamReader = new StreamReader(inputStream))
             {
-                return deserializer.Deserialize<Settings>(streamReader);
+                var settings = deserializer.Deserialize<Settings>(streamReader);
+                settings.Password = Crypto.Decrypt(settings.Password);
+                return settings;
             }
         }
     }
