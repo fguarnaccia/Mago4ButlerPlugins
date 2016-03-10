@@ -57,14 +57,20 @@
             this.txtDomain = new System.Windows.Forms.TextBox();
             this.txtUsername = new System.Windows.Forms.TextBox();
             this.ckbUseProxy = new System.Windows.Forms.CheckBox();
-            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.proxyUrlErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.proxyPortErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.domainNameErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.userNameErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.tabControl.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.tabPageWebSite.SuspendLayout();
             this.tabPageProxy.SuspendLayout();
             this.grpProxy.SuspendLayout();
             this.grpCredentials.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.proxyUrlErrorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.proxyPortErrorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.domainNameErrorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.userNameErrorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // txtRootFolder
@@ -261,6 +267,7 @@
             this.txtProxyPort.Name = "txtProxyPort";
             this.txtProxyPort.Size = new System.Drawing.Size(69, 22);
             this.txtProxyPort.TabIndex = 3;
+            this.txtProxyPort.TextChanged += new System.EventHandler(this.ResetErrorProviders);
             // 
             // txtServerUrl
             // 
@@ -270,6 +277,7 @@
             this.txtServerUrl.Name = "txtServerUrl";
             this.txtServerUrl.Size = new System.Drawing.Size(296, 22);
             this.txtServerUrl.TabIndex = 1;
+            this.txtServerUrl.TextChanged += new System.EventHandler(this.ResetErrorProviders);
             // 
             // lblProxyPort
             // 
@@ -341,6 +349,7 @@
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(364, 22);
             this.txtPassword.TabIndex = 5;
+            this.txtPassword.TextChanged += new System.EventHandler(this.ResetErrorProviders);
             // 
             // txtDomain
             // 
@@ -350,6 +359,7 @@
             this.txtDomain.Name = "txtDomain";
             this.txtDomain.Size = new System.Drawing.Size(364, 22);
             this.txtDomain.TabIndex = 1;
+            this.txtDomain.TextChanged += new System.EventHandler(this.ResetErrorProviders);
             // 
             // txtUsername
             // 
@@ -359,6 +369,7 @@
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(364, 22);
             this.txtUsername.TabIndex = 3;
+            this.txtUsername.TextChanged += new System.EventHandler(this.ResetErrorProviders);
             // 
             // ckbUseProxy
             // 
@@ -371,9 +382,21 @@
             this.ckbUseProxy.UseVisualStyleBackColor = true;
             this.ckbUseProxy.CheckedChanged += new System.EventHandler(this.ckbUseProxy_CheckedChanged);
             // 
-            // errorProvider
+            // proxyUrlErrorProvider
             // 
-            this.errorProvider.ContainerControl = this;
+            this.proxyUrlErrorProvider.ContainerControl = this;
+            // 
+            // proxyPortErrorProvider
+            // 
+            this.proxyPortErrorProvider.ContainerControl = this;
+            // 
+            // domainNameErrorProvider
+            // 
+            this.domainNameErrorProvider.ContainerControl = this;
+            // 
+            // userNameErrorProvider
+            // 
+            this.userNameErrorProvider.ContainerControl = this;
             // 
             // SettingsForm
             // 
@@ -405,7 +428,10 @@
             this.grpProxy.PerformLayout();
             this.grpCredentials.ResumeLayout(false);
             this.grpCredentials.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.proxyUrlErrorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.proxyPortErrorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.domainNameErrorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.userNameErrorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -439,6 +465,9 @@
         private System.Windows.Forms.Label lblUsername;
         private System.Windows.Forms.Label lblDomain;
         private System.Windows.Forms.GroupBox grpCredentials;
-        private System.Windows.Forms.ErrorProvider errorProvider;
+        private System.Windows.Forms.ErrorProvider proxyUrlErrorProvider;
+        private System.Windows.Forms.ErrorProvider proxyPortErrorProvider;
+        private System.Windows.Forms.ErrorProvider domainNameErrorProvider;
+        private System.Windows.Forms.ErrorProvider userNameErrorProvider;
     }
 }

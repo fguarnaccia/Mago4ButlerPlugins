@@ -131,6 +131,7 @@
     <Compile Include="UI\ChooseRootFolderForm.Designer.cs">
       <DependentUpon>ChooseRootFolderForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\NumericTextboxBehaviour.cs" />
     <Compile Include="UI\SettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -15,7 +15,8 @@ namespace Microarea.Mago4Butler
     {
         ISettings settings;
         IisService iisService;
-        TextBoxCueDecorator textBoxCueDecorator;
+        TextBoxCueDecorator serverTextBoxCueDecorator;
+        NumericTextboxBehaviour numericTextboxBehaviour;
 
         internal SettingsForm(ISettings settings, IisService iisService)
         {
@@ -24,7 +25,8 @@ namespace Microarea.Mago4Butler
             InitializeComponent();
             this.tabControl.TabPages.Remove(tabPageWebSite);//nascondo le impostazioni per il sito web fino a che non saranno completate
 
-            this.textBoxCueDecorator = new TextBoxCueDecorator(this.txtServerUrl) { CueMessage = "e.g. http://serverurl" };
+            this.serverTextBoxCueDecorator = new TextBoxCueDecorator(this.txtServerUrl) { CueMessage = "e.g. http://serverurl" };
+            this.numericTextboxBehaviour = new NumericTextboxBehaviour(this.txtProxyPort);
         }
 
         private void btnRootFolder_Click(object sender, EventArgs e)
@@ -118,8 +120,58 @@ namespace Microarea.Mago4Butler
 
         private void btnOk_Click(object sender, EventArgs e)
         {
+            if (!ValidateForm())
+            {
+                return;
+            }
             this.DialogResult = DialogResult.OK;
             this.Close();
+        }
+
+        private bool ValidateForm()
+        {
+            bool isFormValid = true;
+
+            if (!this.ckbUseProxy.Checked)
+            {
+                return isFormValid;
+            }
+
+            if (!IsValidProxyUrl())
+            {
+                var c = this.txtServerUrl;
+                this.proxyUrlErrorProvider.SetIconPadding(c, -25);
+                this.proxyUrlErrorProvider.SetError(c, "Invalid proxy url");
+                isFormValid = false;
+
+            }
+            if (!IsValidProxyPort())
+            {
+                var c = this.txtProxyPort;
+                this.proxyPortErrorProvider.SetIconPadding(c, -25);
+                this.proxyPortErrorProvider.SetError(c, "Invalid proxy port");
+                isFormValid = false;
+            }
+            if (!this.ckbUseCredentials.Checked)
+            {
+                return isFormValid;
+            }
+            if (!IsValidDomainName())
+            {
+                var c = this.txtDomain;
+                this.domainNameErrorProvider.SetIconPadding(c, -25);
+                this.domainNameErrorProvider.SetError(c, "Invalid domain name");
+                isFormValid = false;
+            }
+            if (!IsValidUsername())
+            {
+                var c = this.txtUsername;
+                this.userNameErrorProvider.SetIconPadding(c, -25);
+                this.userNameErrorProvider.SetError(c, "Invalid user name");
+                isFormValid = false;
+            }
+
+            return isFormValid;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -137,25 +189,13 @@ namespace Microarea.Mago4Butler
         {
             this.grpProxy.Enabled = this.ckbUseProxy.Checked;
             this.grpCredentials.Enabled = this.ckbUseCredentials.Checked;
+            ResetErrorProviders(sender, e);
         }
 
         private void ckbUseCredentials_CheckedChanged(object sender, EventArgs e)
         {
             this.grpCredentials.Enabled = this.ckbUseCredentials.Checked;
-        }
-
-        private void EnabledisableBtnOk()
-        {
-            this.btnOk.Enabled =
-                !this.ckbUseProxy.Checked ||
-                (
-                    this.ckbUseProxy.Checked && IsValidProxyUrl() && IsValidProxyPort() &&
-                    (
-                        !this.ckbUseCredentials.Checked ||
-                        this.ckbUseCredentials.Checked && IsValidDomainName() && IsValidUsername()
-                    )
-                )
-                ;
+            ResetErrorProviders(sender, e);
         }
 
         private bool IsValidUsername()
@@ -185,6 +225,14 @@ namespace Microarea.Mago4Butler
             {
                 return false;
             }
+        }
+
+        private void ResetErrorProviders(object sender, EventArgs e)
+        {
+            this.proxyUrlErrorProvider.Clear();
+            this.proxyPortErrorProvider.Clear();
+            this.domainNameErrorProvider.Clear();
+            this.userNameErrorProvider.Clear();
         }
     }
 }
