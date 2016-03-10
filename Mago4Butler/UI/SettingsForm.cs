@@ -17,6 +17,7 @@ namespace Microarea.Mago4Butler
         IisService iisService;
         TextBoxCueDecorator serverTextBoxCueDecorator;
         NumericTextboxBehaviour numericTextboxBehaviour;
+        bool rootFolderChanged;
 
         internal SettingsForm(ISettings settings, IisService iisService)
         {
@@ -45,6 +46,7 @@ namespace Microarea.Mago4Butler
                 }
 
                 this.txtRootFolder.Text = fbd.SelectedPath;
+                this.rootFolderChanged = true;
             }
         }
 
@@ -82,7 +84,14 @@ namespace Microarea.Mago4Butler
 
             if (this.DialogResult == DialogResult.OK)
             {
-                this.settings.RootFolder = this.txtRootFolder.Text;
+                if (this.rootFolderChanged)
+                {
+                    this.settings.RootFolder = this.txtRootFolder.Text;
+                    if (this.settings.ShowRootFolderChoice)
+                    {
+                        this.settings.ShowRootFolderChoice = false;
+                    }
+                }
                 this.settings.AlsoDeleteCustom = this.ckbAlsoDeleteCustom.Checked;
                 this.settings.MsiLog = this.ckbCreateMsiLog.Checked;
                 this.settings.UseProxy = this.ckbUseProxy.Checked;
