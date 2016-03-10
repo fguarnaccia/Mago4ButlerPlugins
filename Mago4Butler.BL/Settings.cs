@@ -26,48 +26,27 @@ namespace Microarea.Mago4Butler.BL
                     _settings = Settings.Load();
                     if (_settings == null)
                     {
-                        _settings = CreateDefaultSettings();
+                        _settings = new Settings();
                     }
                 }
                 return _settings;
             }
         }
 
-        private static ISettings CreateDefaultSettings()
-        {
-            return new Settings()
-            {
-                RootFolder = "C:\\Microarea\\M4",
-                LogsFolder = "C:\\Microarea\\M4\\Logs",
-                SiteName = WebSiteInfo.DefaultWebSite.SiteName,
-                ShowRootFolderChoice = true,
-                AlsoDeleteCustom = false,
-                MsiLog = true,
-                UseProxy = false,
-                ProxyServerUrl = string.Empty,
-                ProxyServerPort = 0,
-                UseCredentials = false,
-                DomainName = string.Empty,
-                Username = string.Empty,
-                Password = string.Empty,
-                LastFolderOpenedBrowsingForMsi = string.Empty
-            };
-        }
-
-        public string RootFolder { get; set; }
-        public string LogsFolder { get; set; }
-        public string SiteName { get; set; }
-        public bool ShowRootFolderChoice { get; set; }
+        public string RootFolder { get; set; } = "C:\\Microarea\\M4";
+        public string LogsFolder { get; set; } = "C:\\Microarea\\M4\\Logs";
+        public string SiteName { get; set; } = WebSiteInfo.DefaultWebSite.SiteName;
+        public bool ShowRootFolderChoice { get; set; } = true;
         public bool AlsoDeleteCustom { get; set; }
-        public bool MsiLog { get; set; }
+        public bool MsiLog { get; set; } = true;
         public bool UseProxy { get; set; }
-        public string ProxyServerUrl { get; set; }
+        public string ProxyServerUrl { get; set; } = string.Empty;
         public int ProxyServerPort { get; set; }
         public bool UseCredentials { get; set; }
-        public string DomainName { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string LastFolderOpenedBrowsingForMsi { get; set; }
+        public string DomainName { get; set; } = string.Empty;
+        public string Username { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
+        public string LastFolderOpenedBrowsingForMsi { get; set; } = string.Empty;
 
         public void Save()
         {
