@@ -172,7 +172,7 @@ namespace Microarea.Mago4Butler
                 var handler = item.Tag as ContextMenuItemClickHandler;
                 if (handler != null)
                 {
-                    handler.Instance = new Microarea.Mago4Butler.Plugins.Instance() { Name = instance.Name };
+                    handler.Instance = new Microarea.Mago4Butler.Plugins.Instance() { Name = instance.Name, Version = instance.Version.ToString() };
                 }
             }
         }

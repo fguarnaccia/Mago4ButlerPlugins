@@ -12,5 +12,6 @@ namespace Microarea.Mago4Butler.Plugins
     public class Instance
     {
         public string Name { get; set; }
+        public string Version { get; set; }
     }
 }
