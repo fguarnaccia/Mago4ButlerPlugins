@@ -110,7 +110,7 @@
             A map from ConsoleColor to System.Drawing.Color.
             </summary>
         </member>
-        <member name="M:Colorful.ColorStore.#ctor(System.Collections.Generic.Dictionary{System.Drawing.Color,System.ConsoleColor},System.Collections.Generic.Dictionary{System.ConsoleColor,System.Drawing.Color})">
+        <member name="M:Colorful.ColorStore.#ctor(System.Collections.Concurrent.ConcurrentDictionary{System.Drawing.Color,System.ConsoleColor},System.Collections.Concurrent.ConcurrentDictionary{System.ConsoleColor,System.Drawing.Color})">
             <summary>
             Manages the assignment of System.Drawing.Color objects to ConsoleColor objects.
             </summary>
@@ -325,6 +325,41 @@
             </summary>
             <param name="target">The object to be styled.</param>
             <param name="color">The color to be applied to the target.</param>
+        </member>
+        <member name="T:Colorful.StyledString">
+            <summary>
+            A string encoded with style!
+            </summary>
+        </member>
+        <member name="P:Colorful.StyledString.AbstractValue">
+            <summary>
+            The one-dimensional representation of the StyledString.  Maps 1:1 with System.String.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Colorful.StyledString.ConcreteValue" -->
+        <member name="P:Colorful.StyledString.ColorGeometry">
+            <summary>
+            A matrix of colors that corresponds to each concrete character in the StyledString.
+            Dimensions are [row, column].
+            </summary>
+        </member>
+        <member name="P:Colorful.StyledString.CharacterGeometry">
+            <summary>
+            A matrix of concrete characters that corresponds to each concrete character in the StyledString.
+            In other words, this is a two-dimensional representation of the StyledString.ConcreteValue property.
+            </summary>
+        </member>
+        <member name="P:Colorful.StyledString.CharacterIndexGeometry">
+            <summary>
+            A matrix of abstract character indices that corresponds to each concrete character in the StyledString.
+            Dimensions are [row, column].
+            </summary>
+        </member>
+        <member name="M:Colorful.StyledString.ToString">
+            <summary>
+            Returns the StyledString's concrete representation.
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:Colorful.Styler">
             <summary>

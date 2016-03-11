@@ -148,6 +148,11 @@ namespace Microarea.Mago4Butler
                 ToolStripMenuItem menuItem = new ToolStripMenuItem();
                 menuItem.Name = contextMenuItem.Name;
                 menuItem.Text = contextMenuItem.Text;
+                if (contextMenuItem.ShortcutKeys != Keys.None)
+                {
+                    menuItem.ShortcutKeys =  contextMenuItem.ShortcutKeys;
+                    menuItem.ShowShortcutKeys = true;
+                }
 
                 ContextMenuItemClickHandler handler = new ContextMenuItemClickHandler() { ContextMenuItem = contextMenuItem };
                 menuItem.Click += handler.MenuItem_Click;

@@ -1,6 +1,7 @@
 ﻿using Microarea.Mago4Butler.Plugins;
 using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace PluginExample
 {
@@ -12,6 +13,7 @@ namespace PluginExample
             myItem.Name = "MyItem";
             myItem.Text = "Mt Item...";
             myItem.Command = new Action<Instance>(CommandHandler);
+            myItem.ShortcutKeys = Keys.Alt | Keys.S;
 
             return new ContextMenuItem[] { myItem };
         }
