@@ -349,7 +349,11 @@ namespace Microarea.Mago4Butler
         {
             using (var ofd = new OpenFileDialog())
             {
-                ofd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+                string lastUsedFolder = this.settings.LastFolderOpenedBrowsingForMsi;
+                if (string.IsNullOrWhiteSpace(lastUsedFolder) || !Directory.Exists(lastUsedFolder))
+                {
+                    lastUsedFolder = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+                }
                 ofd.Multiselect = false;
                 ofd.Title = "Select Mago4 msi file";
                 var res = ofd.ShowDialog(this);
