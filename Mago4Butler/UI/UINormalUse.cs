@@ -10,6 +10,7 @@ namespace Microarea.Mago4Butler
     public partial class UINormalUse : UserControl
     {
         Model model;
+        PluginService pluginService;
 
         public event EventHandler<UpdateInstanceEventArgs> UpdateInstance;
         public event EventHandler<RemoveInstanceEventArgs> RemoveInstance;
@@ -40,14 +41,29 @@ namespace Microarea.Mago4Butler
             }
         }
 
-        public UINormalUse(Model model)
+        public UINormalUse(Model model, PluginService pluginService)
         {
             this.model = model;
             this.model.InstanceAdded += Model_InstanceAdded;
             this.model.InstanceRemoved += Model_InstanceRemoved;
             this.model.InstanceUpdated += Model_InstanceUpdated;
 
+            this.pluginService = pluginService;
+
             InitializeComponent();
+            InitContextMenus();
+        }
+
+        private void InitContextMenus()
+        {
+            this.contextMenuStrip.Items.Clear();
+            foreach (var plugin in this.pluginService.Plugins)
+            {
+                if (plugin != null)
+                {
+                    this.AddContextMenuItems(plugin.GetContextMenuItems());
+                }
+            }
         }
 
         private void Model_InstanceUpdated(object sender, InstanceEventArgs e)

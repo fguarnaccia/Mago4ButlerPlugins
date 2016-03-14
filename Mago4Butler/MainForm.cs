@@ -28,8 +28,6 @@ namespace Microarea.Mago4Butler
         InstallerService installerService;
         LoggerService loggerService;
 
-        List<IPlugin> plugins = new List<IPlugin>();
-
         string msiFullFilePath;
 
         public MainForm(
@@ -84,18 +82,6 @@ namespace Microarea.Mago4Butler
         private void Application_Idle(object sender, EventArgs e)
         {
             Application.Idle -= Application_Idle;
-
-            ThreadPool.QueueUserWorkItem((_) =>
-            {
-                foreach (var plugin in new PluginService().LoadAndInitPlugins())
-                {
-                    if (plugin != null)
-                    {
-                        this.plugins.Add(plugin);
-                        this.uiNormalUse.AddContextMenuItems(plugin.GetContextMenuItems());
-                    }
-                }
-            });
 
             this.Text = String.Format(System.Globalization.CultureInfo.InvariantCulture, "{0} v. {1}", this.Text, this.GetType().Assembly.GetName().Version.ToString());
 

@@ -1,24 +1,55 @@
 ﻿using Microarea.Mago4Butler.Plugins;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 
 namespace Microarea.Mago4Butler
 {
-    class PluginService
+    public class PluginService
     {
-        public IEnumerable<IPlugin> LoadAndInitPlugins()
-        {
-            var pluginsPath = Path.GetDirectoryName(this.GetType().Assembly.Location);
+        List<IPlugin> plugins;
+        string pluginsPath;
+        string ipluginTypeName;
 
-            foreach (var dllFileInfo in new DirectoryInfo(pluginsPath).GetFiles("*.dll"))
+        public PluginService()
+        {
+            this.pluginsPath = Path.GetDirectoryName(this.GetType().Assembly.Location);
+            this.ipluginTypeName = typeof(IPlugin).FullName;
+        }
+
+        public IEnumerable<IPlugin> Plugins
+        {
+            get
             {
-                yield return LoadPlugin(dllFileInfo);
+                if (this.plugins == null)
+                {
+                    this.LoadPlugins();
+                }
+                return this.plugins;
             }
         }
 
-        public IPlugin LoadPlugin(FileInfo pluginFileInfo)
+
+        void LoadPlugins()
+        {
+            var plugins = new List<IPlugin>();
+            foreach (var dllFileInfo in new DirectoryInfo(pluginsPath).GetFiles("*.dll"))
+            {
+                var plugin = LoadPlugin(dllFileInfo);
+                if (plugin != null)
+                {
+                    plugins.Add(plugin);
+                }
+            }
+
+
+            this.plugins = new List<IPlugin>(plugins);
+        }
+
+        IPlugin LoadPlugin(FileInfo pluginFileInfo)
         {
             byte[] rawAssembly = null;
             using (var inputStream = pluginFileInfo.OpenRead())
@@ -29,7 +60,7 @@ namespace Microarea.Mago4Butler
             }
 
             var pluginAssembly = AppDomain.CurrentDomain.Load(rawAssembly);
-            var pluginType = pluginAssembly.ExportedTypes.Where(t => t.GetInterface("Microarea.Mago4Butler.Plugins.IPlugin") != null).FirstOrDefault();
+            var pluginType = pluginAssembly.ExportedTypes.Where(t => t.GetInterface(ipluginTypeName) != null).FirstOrDefault();
             IPlugin pluginInstance = null;
             if (pluginType != null)
             {
