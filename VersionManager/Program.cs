@@ -13,6 +13,9 @@ namespace VersionManager
     {
         static void Main(string[] args)
         {
+#if DEBUG
+            return;
+#endif
             string starVersionRegexPattern = "(?<major>[0-9]+)\\.(?<minor>[0-9]+)\\.\\*";
             Regex starVersionRegex = new Regex(starVersionRegexPattern);
 
