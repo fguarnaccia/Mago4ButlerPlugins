@@ -1,4 +1,5 @@
-﻿using Microarea.Mago4Butler.BL;
+﻿using AutoMapper;
+using Microarea.Mago4Butler.BL;
 using Microarea.Mago4Butler.Plugins;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,9 @@ namespace Microarea.Mago4Butler
 {
     public partial class UINormalUse : UserControl, ILogger
     {
+        MapperConfiguration config;
+        IMapper mapper;
+
         Model model;
         PluginService pluginService;
         List<DoubleClickHandler> doubleClickHandlers = new List<DoubleClickHandler>();
@@ -44,6 +48,9 @@ namespace Microarea.Mago4Butler
 
         public UINormalUse(Model model, PluginService pluginService)
         {
+            config = new MapperConfiguration(cfg => cfg.CreateMap<BL.Instance, Plugins.Instance>());
+            mapper = config.CreateMapper();
+
             this.model = model;
             this.model.InstanceAdded += Model_InstanceAdded;
             this.model.InstanceRemoved += Model_InstanceRemoved;
@@ -206,7 +213,7 @@ namespace Microarea.Mago4Butler
                 var handler = item.Tag as ContextMenuItemClickHandler;
                 if (handler != null)
                 {
-                    handler.Instance = new Microarea.Mago4Butler.Plugins.Instance() { Name = instance.Name, Version = instance.Version.ToString() };
+                    handler.Instance = mapper.Map<Plugins.Instance>(instance);
                 }
             }
         }
@@ -221,7 +228,8 @@ namespace Microarea.Mago4Butler
             }
             var instance = lvi.Tag as BL.Instance;
 
-            var pluginInstance = new Plugins.Instance() { Name = instance.Name, Version = instance.Version.ToString() };
+            var pluginInstance = mapper.Map<Plugins.Instance>(instance);
+
             foreach (var dch in this.doubleClickHandlers)
             {
                 try
