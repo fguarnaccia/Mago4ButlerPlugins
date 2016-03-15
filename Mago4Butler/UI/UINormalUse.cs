@@ -7,10 +7,11 @@ using System.Windows.Forms;
 
 namespace Microarea.Mago4Butler
 {
-    public partial class UINormalUse : UserControl
+    public partial class UINormalUse : UserControl, ILogger
     {
         Model model;
         PluginService pluginService;
+        List<DoubleClickHandler> doubleClickHandlers = new List<DoubleClickHandler>();
 
         public event EventHandler<UpdateInstanceEventArgs> UpdateInstance;
         public event EventHandler<RemoveInstanceEventArgs> RemoveInstance;
@@ -52,6 +53,7 @@ namespace Microarea.Mago4Butler
 
             InitializeComponent();
             InitContextMenus();
+            InitDoubleClickHandlers();
         }
 
         private void InitContextMenus()
@@ -62,6 +64,17 @@ namespace Microarea.Mago4Butler
                 if (plugin != null)
                 {
                     this.AddContextMenuItems(plugin.GetContextMenuItems());
+                }
+            }
+        }
+        private void InitDoubleClickHandlers()
+        {
+            this.doubleClickHandlers.Clear();
+            foreach (var plugin in this.pluginService.Plugins)
+            {
+                if (plugin != null)
+                {
+                    this.doubleClickHandlers.Add(plugin.GetDoubleClickHandler());
                 }
             }
         }
@@ -194,6 +207,30 @@ namespace Microarea.Mago4Butler
                 if (handler != null)
                 {
                     handler.Instance = new Microarea.Mago4Butler.Plugins.Instance() { Name = instance.Name, Version = instance.Version.ToString() };
+                }
+            }
+        }
+
+        private void lsvInstances_DoubleClick(object sender, EventArgs e)
+        {
+            var pointClicked = this.lsvInstances.PointToClient(MousePosition);
+            var lvi = this.lsvInstances.GetItemAt(pointClicked.X, pointClicked.Y);
+            if (lvi == null)
+            {
+                return;
+            }
+            var instance = lvi.Tag as BL.Instance;
+
+            var pluginInstance = new Plugins.Instance() { Name = instance.Name, Version = instance.Version.ToString() };
+            foreach (var dch in this.doubleClickHandlers)
+            {
+                try
+                {
+                    dch.Command(pluginInstance);
+                }
+                catch (Exception exc)
+                {
+                    this.LogError(String.Concat("Error managing double click on instances for ", dch.Name), exc);
                 }
             }
         }

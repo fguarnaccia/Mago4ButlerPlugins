@@ -23,5 +23,13 @@ namespace PluginExample
             var settings = App.Instance.Settings;
             System.Windows.Forms.MessageBox.Show("MyButlerPlugin: " + instance.Name + ", in " + settings.RootFolder);
         }
+
+        public DoubleClickHandler GetDoubleClickHandler()
+        {
+            var dch = new DoubleClickHandler() { Name = "MyButlerPlugin.DoubleClick" };
+            dch.Command = (instance) => { MessageBox.Show("MyButlerPlugin: double click on" + instance.Name); };
+
+            return dch;
+        }
     }
 }

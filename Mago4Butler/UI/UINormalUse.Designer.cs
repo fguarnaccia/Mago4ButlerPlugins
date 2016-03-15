@@ -79,11 +79,12 @@
             this.lsvInstances.UseCompatibleStateImageBehavior = false;
             this.lsvInstances.View = System.Windows.Forms.View.List;
             this.lsvInstances.SelectedIndexChanged += new System.EventHandler(this.lsvInstances_SelectedIndexChanged);
+            this.lsvInstances.DoubleClick += new System.EventHandler(this.lsvInstances_DoubleClick);
             // 
             // contextMenuStrip
             // 
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(153, 26);
+            this.contextMenuStrip.Size = new System.Drawing.Size(61, 4);
             this.contextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip_Opening);
             // 
             // btnRemove

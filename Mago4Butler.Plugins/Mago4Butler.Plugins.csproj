@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="ContextMenuItem.cs" />
+    <Compile Include="DoubleClickHandler.cs" />
     <Compile Include="Instance.cs" />
     <Compile Include="IPlugin.cs" />
     <Compile Include="ContextMenuItemClickHandler.cs" />

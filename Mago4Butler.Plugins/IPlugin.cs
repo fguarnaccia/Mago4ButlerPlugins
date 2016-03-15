@@ -10,5 +10,6 @@ namespace Microarea.Mago4Butler.Plugins
     public interface IPlugin
     {
         IEnumerable<ContextMenuItem> GetContextMenuItems();
+        DoubleClickHandler GetDoubleClickHandler();
     }
 }
