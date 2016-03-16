@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -14,11 +15,26 @@ namespace Microarea.Mago4Butler.BL
 
         public string GetProductName(string msiFilePath)
         {
+            var productName = GetProductNameInternal(msiFilePath, "PRODUCTNAME");//Mago4
+            if (String.IsNullOrWhiteSpace(productName))
+            {
+                productName = GetProductNameInternal(msiFilePath, "ProductName");//Mago4 1.0.2.123
+                if (!String.IsNullOrWhiteSpace(productName))
+                {
+                    productName = productName.Substring(0, productName.IndexOf(' '));
+                }
+            }
+
+            return productName;
+        }
+
+        private string GetProductNameInternal(string msiFilePath, string propertyToSearchFor)
+        {
             try
             {
                 var installer = Activator.CreateInstance(InstallerType) as Installer;
                 var database = installer.OpenDatabase(msiFilePath, MsiOpenDatabaseMode.msiOpenDatabaseModeTransact);
-                var view = database.OpenView("SELECT * from Property WHERE Property = 'PRODUCTNAME'");
+                var view = database.OpenView(String.Format(CultureInfo.InvariantCulture, "SELECT * from Property WHERE Property = '{0}'", propertyToSearchFor));
 
                 view.Execute(null);
 
