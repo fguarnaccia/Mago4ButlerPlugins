@@ -11,5 +11,7 @@ namespace Microarea.Mago4Butler.Plugins
     {
         IEnumerable<ContextMenuItem> GetContextMenuItems();
         DoubleClickHandler GetDoubleClickHandler();
+        void OnUpdating(CmdLineInfo cmdLineInfo);
+        void OnInstalling(CmdLineInfo cmdLineInfo);
     }
 }

@@ -1,4 +1,5 @@
-﻿using log4net;
+﻿using AutoMapper;
+using log4net;
 using Microarea.Mago4Butler.BL;
 using Microarea.Mago4Butler.Plugins;
 using Microarea.Tools.ProvisioningConfigurator.ProvisioningConfigurator;
@@ -14,6 +15,11 @@ namespace Microarea.Mago4Butler
 {
     public partial class MainForm : Form
     {
+        MapperConfiguration config;
+        MapperConfiguration reverseConfig;
+        IMapper mapper;
+        IMapper reverseMapper;
+
         SynchronizationContext syncCtx;
 
         UIEmpty uiEmpty;
@@ -27,6 +33,7 @@ namespace Microarea.Mago4Butler
         MsiService msiService;
         InstallerService installerService;
         LoggerService loggerService;
+        PluginService pluginService;
 
         string msiFullFilePath;
 
@@ -35,6 +42,7 @@ namespace Microarea.Mago4Butler
             MsiService msiService,
             InstallerService installerService,
             LoggerService loggerService,
+            PluginService pluginService,
             ISettings settings,
             UIEmpty uiEmpty,
             UIWaiting uiWaiting,
@@ -42,7 +50,14 @@ namespace Microarea.Mago4Butler
             UINormalUse uiNormalUse
             )
         {
+            config = new MapperConfiguration(cfg => cfg.CreateMap<BL.CmdLineInfo, Plugins.CmdLineInfo>());
+            mapper = config.CreateMapper();
+
+            reverseConfig = new MapperConfiguration(cfg => cfg.CreateMap<Plugins.CmdLineInfo, BL.CmdLineInfo>());
+            reverseMapper = reverseConfig.CreateMapper();
+
             this.loggerService = loggerService;
+            this.pluginService = pluginService;
             this.syncCtx = SynchronizationContext.Current;
             if (this.syncCtx == null)
             {
@@ -147,6 +162,13 @@ namespace Microarea.Mago4Butler
         {
             this.loggerService.LogInfo("Updating " + e.Instances[0].Name + " ...");
             this.uiWaiting.SetProgressText("Updating " + e.Instances[0].Name + " ...");
+
+            foreach (var plugin in this.pluginService.Plugins)
+            {
+                var pluginCmdLineInfo = mapper.Map<Plugins.CmdLineInfo>(e.CmdLineInfo);
+                plugin.OnUpdating(pluginCmdLineInfo);
+                reverseMapper.Map(pluginCmdLineInfo, e.CmdLineInfo, typeof(Plugins.CmdLineInfo), typeof(BL.CmdLineInfo));
+            }
         }
 
         private void InstallerService_Removed(object sender, RemoveInstanceEventArgs e)
@@ -195,6 +217,13 @@ namespace Microarea.Mago4Butler
         {
             this.loggerService.LogInfo("Installing " + e.Instance.Name + " ...");
             this.uiWaiting.SetProgressText("Installing " + e.Instance.Name + " ...");
+
+            foreach (var plugin in this.pluginService.Plugins)
+            {
+                var pluginCmdLineInfo = mapper.Map<Plugins.CmdLineInfo>(e.CmdLineInfo);
+                plugin.OnInstalling(pluginCmdLineInfo);
+                reverseMapper.Map(pluginCmdLineInfo, e.CmdLineInfo, typeof(Plugins.CmdLineInfo), typeof(BL.CmdLineInfo));
+            }
         }
 
         private void InstallerService_Stopping(object sender, EventArgs e)

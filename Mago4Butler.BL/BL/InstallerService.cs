@@ -290,8 +290,24 @@ namespace Microarea.Mago4Butler.BL
                 {
                     case RequestType.Install:
                         {
-                            this.OnInstalling(new InstallInstanceEventArgs() { Instance = currentRequest.Instance });
-                            this.Install(currentRequest);
+                            var cmdLineInfo = new CmdLineInfo()
+                            {
+                                SkipClickOnceDeployer = true,
+                                NoShortcuts = true,
+                                NoShares = true,
+                                NoEnvVar = true,
+                                NoEveryone = true,
+                                ClassicApplicationPoolPipeline = true,
+                                ProxySettingsSet = this.settings.UseProxy,
+                                ProxyUrl = this.settings.ProxyServerUrl,
+                                ProxyPort = this.settings.ProxyServerPort,
+                                ProxyUserSet = this.settings.UseCredentials,
+                                ProxyDomain = this.settings.DomainName,
+                                ProxyUsername = this.settings.Username,
+                                ProxyPassword = this.settings.Password
+                            };
+                            this.OnInstalling(new InstallInstanceEventArgs() { Instance = currentRequest.Instance, CmdLineInfo = cmdLineInfo });
+                            this.Install(currentRequest, cmdLineInfo);
 
                             this.OnInstalled(new InstallInstanceEventArgs() { Instance = currentRequest.Instance });
 
@@ -299,8 +315,24 @@ namespace Microarea.Mago4Butler.BL
                         }
                     case RequestType.Update:
                         {
-                            this.OnUpdating(new UpdateInstanceEventArgs() { Instances = new List<Instance>() { currentRequest.Instance } });
-                            this.Update(currentRequest);
+                            var cmdLineInfo = new CmdLineInfo()
+                            {
+                                SkipClickOnceDeployer = true,
+                                NoShortcuts = true,
+                                NoShares = true,
+                                NoEnvVar = true,
+                                NoEveryone = true,
+                                ClassicApplicationPoolPipeline = true,
+                                ProxySettingsSet = this.settings.UseProxy,
+                                ProxyUrl = this.settings.ProxyServerUrl,
+                                ProxyPort = this.settings.ProxyServerPort,
+                                ProxyUserSet = this.settings.UseCredentials,
+                                ProxyDomain = this.settings.DomainName,
+                                ProxyUsername = this.settings.Username,
+                                ProxyPassword = this.settings.Password
+                            };
+                            this.OnUpdating(new UpdateInstanceEventArgs() { Instances = new List<Instance>() { currentRequest.Instance } , CmdLineInfo = cmdLineInfo });
+                            this.Update(currentRequest, cmdLineInfo);
 
                             this.OnUpdated(new UpdateInstanceEventArgs() { Instances = new List<Instance>() { currentRequest.Instance } });
 
@@ -359,7 +391,7 @@ namespace Microarea.Mago4Butler.BL
             }
         }
 
-        private void Update(Request currentRequest)
+        private void Update(Request currentRequest, CmdLineInfo cmdLineInfo)
         {
             OnNotification(new NotificationEventArgs() { Message = "Removing installation info..." });
             //Rimuovo le informazioni di installazione dal registry se presenti in
@@ -381,13 +413,14 @@ namespace Microarea.Mago4Butler.BL
             string logFilesFolderPath = CreateApplicationFolders(currentRequest);            
 
             OnNotification(new NotificationEventArgs() { Message = "Launching msi..." });
+            this.LogInfo("Launching msi with command line " + cmdLineInfo.ToString());
             string installLogFilePath = Path.Combine(logFilesFolderPath, "Mago4_" + currentRequest.Instance.Name + "_UpdateLog_" + DateTime.Now.ToString("yyyyMMddhhmmss", CultureInfo.InvariantCulture) + ".log");
-            string proxyCmdLine = GerProxyCmdLine();
+
             try
             {
                 this.LaunchProcess(
                         msiexecPath,
-                        String.Format("/i \"{0}\" /qn /norestart {1} UICULTURE=\"it-IT\" INSTALLLOCATION=\"{2}\" INSTANCENAME=\"{3}\" DEFAULTWEBSITENAME=\"{4}\" DEFAULTWEBSITEID={5} DEFAULTWEBSITEPORT={6} SKIPCLICKONCEDEPLOYER=\"1\" NOSHORTCUTS=\"1\" NOSHARES=\"1\" NOENVVAR=\"1\" NOEVERYONE=\"1\" CLASSICPIPELINE=\"1\" {7}", currentRequest.MsiPath, this.settings.MsiLog ? String.Format("/l*vx \"{0}\"", installLogFilePath) : string.Empty, currentRequest.RootFolder, currentRequest.Instance.Name, currentRequest.Instance.WebSiteInfo.SiteName, currentRequest.Instance.WebSiteInfo.SiteID, currentRequest.Instance.WebSiteInfo.SitePort, proxyCmdLine),
+                        String.Format("/i \"{0}\" /qn /norestart {1} UICULTURE=\"it-IT\" INSTALLLOCATION=\"{2}\" INSTANCENAME=\"{3}\" DEFAULTWEBSITENAME=\"{4}\" DEFAULTWEBSITEID={5} DEFAULTWEBSITEPORT={6} {7}", currentRequest.MsiPath, this.settings.MsiLog ? String.Format("/l*vx \"{0}\"", installLogFilePath) : string.Empty, currentRequest.RootFolder, currentRequest.Instance.Name, currentRequest.Instance.WebSiteInfo.SiteName, currentRequest.Instance.WebSiteInfo.SiteID, currentRequest.Instance.WebSiteInfo.SitePort, cmdLineInfo.ToString()),
                         3600000
                         );
                 OnNotification(new NotificationEventArgs() { Message = "Msi execution successfully terminated..." });
@@ -414,7 +447,7 @@ namespace Microarea.Mago4Butler.BL
             OnNotification(new NotificationEventArgs() { Message = "Company databsae updated successfully" });
         }
 
-        private void Install(Request currentRequest)
+        private void Install(Request currentRequest, CmdLineInfo cmdLineInfo)
         {
             OnNotification(new NotificationEventArgs() { Message = "Removing installation info..." });
             //Rimuovo le informazioni di installazione dal registry se presenti in
@@ -424,13 +457,14 @@ namespace Microarea.Mago4Butler.BL
             string logFilesFolderPath = CreateApplicationFolders(currentRequest);
 
             OnNotification(new NotificationEventArgs() { Message = "Launching msi..." });
+            this.LogInfo("Launching msi with command line " + cmdLineInfo.ToString());
             string installLogFilePath = Path.Combine(logFilesFolderPath, "Mago4_" + currentRequest.Instance.Name + "_InstallLog_" + DateTime.Now.ToString("yyyyMMddhhmmss", CultureInfo.InvariantCulture) + ".log");
-            string proxyCmdLine = GerProxyCmdLine();
+
             try
             {
                 this.LaunchProcess(
                         msiexecPath,
-                        String.Format("/i \"{0}\" /qn /norestart {1} UICULTURE=\"it-IT\" INSTALLLOCATION=\"{2}\" INSTANCENAME=\"{3}\" DEFAULTWEBSITENAME=\"{4}\" DEFAULTWEBSITEID={5} DEFAULTWEBSITEPORT={6} SKIPCLICKONCEDEPLOYER=\"1\" NOSHORTCUTS=\"1\" NOSHARES=\"1\" NOENVVAR=\"1\" NOEVERYONE=\"1\" CLASSICPIPELINE=\"1\" {7}", currentRequest.MsiPath, this.settings.MsiLog ? String.Format("/l*vx \"{0}\"", installLogFilePath) : string.Empty, currentRequest.RootFolder, currentRequest.Instance.Name, currentRequest.Instance.WebSiteInfo.SiteName, currentRequest.Instance.WebSiteInfo.SiteID, currentRequest.Instance.WebSiteInfo.SitePort, proxyCmdLine),
+                        String.Format("/i \"{0}\" /qn /norestart {1} UICULTURE=\"it-IT\" INSTALLLOCATION=\"{2}\" INSTANCENAME=\"{3}\" DEFAULTWEBSITENAME=\"{4}\" DEFAULTWEBSITEID={5} DEFAULTWEBSITEPORT={6} {7}", currentRequest.MsiPath, this.settings.MsiLog ? String.Format("/l*vx \"{0}\"", installLogFilePath) : string.Empty, currentRequest.RootFolder, currentRequest.Instance.Name, currentRequest.Instance.WebSiteInfo.SiteName, currentRequest.Instance.WebSiteInfo.SiteID, currentRequest.Instance.WebSiteInfo.SitePort, cmdLineInfo.ToString()),
                         3600000
                         );
                 OnNotification(new NotificationEventArgs() { Message = "Msi execution successfully terminated..." });
@@ -455,34 +489,6 @@ namespace Microarea.Mago4Butler.BL
             OnNotification(new NotificationEventArgs() { Message = "Configuring the application..." });
             this.SaveServerConnectionConfig(currentRequest);
             OnNotification(new NotificationEventArgs() { Message = "Application configured" });
-        }
-
-        private string GerProxyCmdLine()
-        {
-            if (!this.settings.UseProxy)
-            {
-                return string.Empty;
-            }
-            var cmdLineBld = new StringBuilder();
-            cmdLineBld
-                .Append("PROXYSETTINGSSET=\"1\" PROXYURL=\"")
-                .Append(this.settings.ProxyServerUrl).Append("\" PROXYPORT=\"")
-                .Append(this.settings.ProxyServerPort).Append("\"")
-                ;
-
-            if (!this.settings.UseCredentials)
-            {
-                return cmdLineBld.ToString();
-            }
-
-            cmdLineBld
-                .Append(" PROXYUSERSET=\"1\" PROXYDOMAIN=\"")
-                .Append(this.settings.DomainName).Append("\" PROXYUSERNAME=\"")
-                .Append(this.settings.Username).Append("\" PROXYPASSWORD=\"")
-                .Append(this.settings.Password).Append("\"")
-                ;
-
-            return cmdLineBld.ToString();
         }
 
         private string CreateApplicationFolders(Request currentRequest)

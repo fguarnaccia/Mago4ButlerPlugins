@@ -31,5 +31,15 @@ namespace PluginExample
 
             return dch;
         }
+
+        public void OnUpdating(CmdLineInfo cmdLineInfo)
+        {
+            cmdLineInfo.ClassicApplicationPoolPipeline = false;
+        }
+
+        public void OnInstalling(CmdLineInfo cmdLineInfo)
+        {
+            cmdLineInfo.ClassicApplicationPoolPipeline = false;
+        }
     }
 }

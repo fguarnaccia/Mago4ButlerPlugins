@@ -121,6 +121,7 @@
     <Compile Include="ISettings.cs" />
     <Compile Include="LocalAssemblyInfo.cs" />
     <Compile Include="LoggerTrait.cs" />
+    <Compile Include="Model\CmdLineInfo.cs" />
     <Compile Include="Model\Instance.cs" />
     <Compile Include="Model\InstanceEventArgs.cs" />
     <Compile Include="Model\Model.cs" />
@@ -134,7 +135,9 @@
     <Compile Include="Settings.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="res\Interop.WindowsInstaller.dll" />
     <EmbeddedResource Include="res\ServerConnectionConfig.template" />
   </ItemGroup>
