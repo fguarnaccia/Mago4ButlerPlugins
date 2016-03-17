@@ -244,6 +244,9 @@
       <Name>Mago4Butler.Plugins</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="HowToGenerateMsi.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>..\..\..\..\VersionManager\bin\$(ConfigurationName)\VersionManager.exe</PreBuildEvent>
