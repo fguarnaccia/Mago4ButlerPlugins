@@ -77,6 +77,7 @@ namespace Microarea.Mago4Butler
                 ofd.InitialDirectory = lastUsedFolder;
                 ofd.Multiselect = false;
                 ofd.Title = "Select Mago4 msi file";
+                ofd.Filter = "Msi Files (*.msi)|*.msi";
                 var res = ofd.ShowDialog(this);
 
                 if (res != DialogResult.OK)
