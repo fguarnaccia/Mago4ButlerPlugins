@@ -12,9 +12,7 @@ namespace MagoRunnerPlugin
     {
         string root = string.Empty;
         string instance = string.Empty;
-
-    
-
+       
         //string IPlugin.Root
         //{
         //    set
@@ -49,6 +47,7 @@ namespace MagoRunnerPlugin
 
         public IEnumerable<ContextMenuItem> GetContextMenuItems()
         {
+
             var cmis = new List<ContextMenuItem>();
 
             ContextMenuItem cmi = new ContextMenuItem();
@@ -168,13 +167,21 @@ namespace MagoRunnerPlugin
             //return CreateMenu();
         }
 
-     
+        
 
+        public DoubleClickHandler GetDoubleClickHandler()
+        {
 
+            var dch = new DoubleClickHandler() { Name = "MagoRunnerPlugin.Doubleclick" };
+            dch.Command = (instance) => RunMago(instance);
+            return dch;
+                 
+        }
 
         private List<ContextMenuItem> CreateMenu()
         {
 
+         
             var cmis = new List<ContextMenuItem>();
             ContextMenuItem cmi = new ContextMenuItem();
 
@@ -419,9 +426,16 @@ namespace MagoRunnerPlugin
 
             }
 
-
-
+        public void OnUpdating(CmdLineInfo cmdLineInfo)
+        {
+            cmdLineInfo.ClassicApplicationPoolPipeline = false;
         }
+
+        public void OnInstalling(CmdLineInfo cmdLineInfo)
+        {
+            cmdLineInfo.ClassicApplicationPoolPipeline = false;
+        }
+    }
     }
 
 
