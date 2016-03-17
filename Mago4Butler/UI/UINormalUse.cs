@@ -136,6 +136,22 @@ namespace Microarea.Mago4Butler
             this.btnRemove.Enabled =
                 this.btnUpdate.Enabled =
                 this.lsvInstances.SelectedIndices != null && this.lsvInstances.SelectedIndices.Count > 0;
+
+            var selectedItems = this.lsvInstances.SelectedItems;
+            if (selectedItems == null || selectedItems.Count == 0)
+            {
+                return;
+            }
+            var instance = selectedItems[0].Tag as BL.Instance;
+
+            foreach (ToolStripMenuItem item in this.contextMenuStrip.Items)
+            {
+                var handler = item.Tag as ContextMenuItemClickHandler;
+                if (handler != null)
+                {
+                    handler.Instance = mapper.Map<Plugins.Instance>(instance);
+                }
+            }
         }
 
         private void btnAddInstance_Click(object sender, EventArgs e)
@@ -195,26 +211,6 @@ namespace Microarea.Mago4Butler
                 menuItem.Tag = handler;
 
                 this.contextMenuStrip.Items.Add(menuItem);
-            }
-        }
-
-        private void contextMenuStrip_Opening(object sender, CancelEventArgs e)
-        {
-            var pointClicked = this.lsvInstances.PointToClient(MousePosition);
-            var lvi = this.lsvInstances.GetItemAt(pointClicked.X, pointClicked.Y);
-            if (lvi == null)
-            {
-                return;
-            }
-            var instance = lvi.Tag as BL.Instance;
-
-            foreach (ToolStripMenuItem item in this.contextMenuStrip.Items)
-            {
-                var handler = item.Tag as ContextMenuItemClickHandler;
-                if (handler != null)
-                {
-                    handler.Instance = mapper.Map<Plugins.Instance>(instance);
-                }
             }
         }
 
