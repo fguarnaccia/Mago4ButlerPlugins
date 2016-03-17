@@ -1,4 +1,5 @@
-﻿using Microarea.Mago4Butler.Plugins;
+﻿using Microarea.Mago4Butler.BL;
+using Microarea.Mago4Butler.Plugins;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -8,11 +9,21 @@ using System.Reflection;
 
 namespace Microarea.Mago4Butler
 {
-    public class PluginService
+    public class PluginService : ILogger
     {
         List<IPlugin> plugins;
         string pluginsPath;
         string ipluginTypeName;
+
+        public event EventHandler<PluginErrorEventArgs> ErrorLoadingPlugins;
+        protected virtual void OnErrorLoadingPlugins(PluginErrorEventArgs e)
+        {
+            var handler = ErrorLoadingPlugins;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
 
         public PluginService()
         {
@@ -36,15 +47,29 @@ namespace Microarea.Mago4Butler
         void LoadPlugins()
         {
             var plugins = new List<IPlugin>();
+            IPlugin plugin = null;
+            List<string> pluginsFailedToLoad = new List<string>();
             foreach (var dllFileInfo in new DirectoryInfo(pluginsPath).GetFiles("*.dll"))
             {
-                var plugin = LoadPlugin(dllFileInfo);
+                try
+                {
+                    plugin = LoadPlugin(dllFileInfo);
+                }
+                catch (Exception exc)
+                {
+                    pluginsFailedToLoad.Add(dllFileInfo.Name);
+                    this.LogError("Error loading plugin from " + dllFileInfo.FullName, exc);
+                }
                 if (plugin != null)
                 {
                     plugins.Add(plugin);
                 }
             }
 
+            if (pluginsFailedToLoad.Count > 0)
+            {
+                this.OnErrorLoadingPlugins(new PluginErrorEventArgs() { PluginsFailedToLoad = pluginsFailedToLoad });
+            }
 
             this.plugins = new List<IPlugin>(plugins);
         }

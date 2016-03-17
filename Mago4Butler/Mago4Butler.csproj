@@ -110,6 +110,7 @@
     <Compile Include="IForrest.cs" />
     <Compile Include="IoC\IoCContainer.cs" />
     <Compile Include="IoC\Parameter.cs" />
+    <Compile Include="PluginErrorEventArgs.cs" />
     <Compile Include="PluginService.cs" />
     <Compile Include="SafeNativeMethods.cs" />
     <Compile Include="UIRunner.cs" />

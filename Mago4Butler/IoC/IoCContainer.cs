@@ -34,7 +34,9 @@ namespace Microarea.Mago4Butler
                 Bind<MsiZapper>().ToSelf();
                 Bind<RegistryService>().ToSelf();
                 Bind<LoggerService>().ToSelf();
-                Bind<PluginService>().ToSelf();
+                Bind<PluginService>()
+                    .ToSelf()
+                    .InSingletonScope();
 
                 Bind<IProvisioningService>()
                     .To<Mago4ProvisioningService>()
