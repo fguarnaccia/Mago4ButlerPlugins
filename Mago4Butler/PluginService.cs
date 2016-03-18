@@ -24,6 +24,16 @@ namespace Microarea.Mago4Butler
                 handler(this, e);
             }
         }
+        public event EventHandler<EventArgs> PluginsLoaded;
+        protected virtual void OnPluginsLoaded()
+        {
+            var handler = PluginsLoaded;
+            if (handler != null)
+            {
+                handler(this, EventArgs.Empty);
+            }
+        }
+
 
         public PluginService()
         {
@@ -38,6 +48,10 @@ namespace Microarea.Mago4Butler
                 if (this.plugins == null)
                 {
                     this.LoadPlugins();
+                    if (this.plugins.Count > 0)
+                    {
+                        OnPluginsLoaded();
+                    }
                 }
                 return this.plugins;
             }
