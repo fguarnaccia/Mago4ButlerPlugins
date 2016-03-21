@@ -343,7 +343,7 @@ namespace Microarea.Mago4Butler
                 }
                 this.msiFullFilePath = askForParametersDialog.MsiFullPath;
 
-                using (var provisioningForm = new ProvisioningForm(instanceName: askForParametersDialog.InstanceName, preconfigurationMode: true, loadDataFromFile: false))
+                using (var provisioningForm = new ProvisioningFormLITE(instanceName: askForParametersDialog.InstanceName, preconfigurationMode: true, loadDataFromFile: false))
                 {
                     var productName = msiService.GetProductName(this.msiFullFilePath).ToLowerInvariant();
                     var provisioningService = IoCContainer.Instance.Get<IProvisioningService>(productName);

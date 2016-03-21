@@ -53,7 +53,7 @@ namespace Microarea.Mago4Butler.BL
             if (this.ProxySettingsSet)
             {
                 cmdLineBld
-                    .Append("PROXYSETTINGSSET=\"1\" PROXYURL=\"")
+                    .Append(" PROXYSETTINGSSET=\"1\" PROXYURL=\"")
                     .Append(this.ProxyUrl).Append("\" PROXYPORT=\"")
                     .Append(this.ProxyPort).Append("\"");
 
