@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 
+
 namespace MagoRunnerPlugin
 {
     public class MagoRunner : IPlugin     
@@ -13,38 +14,7 @@ namespace MagoRunnerPlugin
         string root = string.Empty;
         string instance = string.Empty;
        
-        //string IPlugin.Root
-        //{
-        //    set
-        //    {
-        //        root = value;
-        //    }
-        //    get
-        //    { return root; }
-        //}
-
-        //string IPlugin.Instance
-        //{
-        //    set
-        //    {
-        //        instance = value;
-        //    }
-        //    get
-        //    { return instance; }
-        //}
-
-        //void IPlugin.RunCompo(string Compo)
-        //{
-        //    Process process = new Process();
-
-        //    if (Compo == "ac")
-        //    {
-        //        process.StartInfo.FileName = root + instance + @"\Apps\Publish\" + "AdministrationConsole.exe";
-        //        process.Start();
-        //    }
-            
-        //}
-
+  
         public IEnumerable<ContextMenuItem> GetContextMenuItems()
         {
 
@@ -163,11 +133,37 @@ namespace MagoRunnerPlugin
                 );
             cmis.Add(cmi);
 
+
+            cmi = new ContextMenuItem();
+            cmi.Name = "setingline";
+            cmi.Text = "--- Settings ---";
+            cmi.Command = new Action<Instance>(
+               (instance)
+               =>
+               RunNothing(instance)
+               );
+            cmis.Add(cmi);
+            cmi = new ContextMenuItem();
+
+            cmi.Name = "setIdentity";
+            cmi.Text = "ClassicApplicationPoolPipeline=" + MagoRunnerPlugin.Properties.Settings.Default.ClassicApplicationPoolPipeline.ToString();
+            //cmi.ShortcutKeys = Keys.Control | Keys.W;
+            cmi.Command = new Action<Instance>(
+                (instance)
+                =>
+                SetIdentity(instance)
+                );
+            cmis.Add(cmi);
+
+
             return cmis;
             //return CreateMenu();
         }
 
-        
+        private void RunNothing(Instance instance)
+        {
+            return;
+        }
 
         public DoubleClickHandler GetDoubleClickHandler()
         {
@@ -178,100 +174,114 @@ namespace MagoRunnerPlugin
                  
         }
 
-        private List<ContextMenuItem> CreateMenu()
-        {
+        //private List<ContextMenuItem> CreateMenu()
+        //{
 
-         
-            var cmis = new List<ContextMenuItem>();
-            ContextMenuItem cmi = new ContextMenuItem();
+        
+        //    var cmis = new List<ContextMenuItem>();
+        //    ContextMenuItem cmi = new ContextMenuItem();
 
-            cmi.Name = "runRoot";
-            cmi.Text = "ROOT";
-            cmi.ShortcutKeys = Keys.Control | Keys.R;
-            cmi.Command = new Action<Instance>(
-                (instance)
-                =>
-                RunRoot(instance)
-                );
+        //    cmi.Name = "runRoot";
+        //    cmi.Text = "ROOT";
+        //    cmi.ShortcutKeys = Keys.Control | Keys.R;
+        //    cmi.Command = new Action<Instance>(
+        //        (instance)
+        //        =>
+        //        RunRoot(instance)
+        //        );
 
-            cmis.Add(cmi);
+        //    cmis.Add(cmi);
 
-            cmi = new ContextMenuItem();
+        //    cmi = new ContextMenuItem();
 
-            cmi.Name = "runMago";
-            cmi.Text = "Mago";
-            cmi.ShortcutKeys = Keys.F9;
-            cmi.Command = new Action<Instance>(
-                (instance)
-                =>
-                RunMago(instance)
-                );
+        //    cmi.Name = "runMago";
+        //    cmi.Text = "Mago";
+        //    cmi.ShortcutKeys = Keys.F9;
+        //    cmi.Command = new Action<Instance>(
+        //        (instance)
+        //        =>
+        //        RunMago(instance)
+        //        );
 
-            cmis.Add(cmi);
+        //    cmis.Add(cmi);
 
-            cmi = new ContextMenuItem();
+        //    cmi = new ContextMenuItem();
 
-            cmi.Name = "runConsole";
-            cmi.Text = "Admin Console";
-            cmi.ShortcutKeys = Keys.Control | Keys.A;
-            cmi.Command = new Action<Instance>(
-                (instance)
-                =>
-                RunConsole(instance)
-                );
+        //    cmi.Name = "runConsole";
+        //    cmi.Text = "Admin Console";
+        //    cmi.ShortcutKeys = Keys.Control | Keys.A;
+        //    cmi.Command = new Action<Instance>(
+        //        (instance)
+        //        =>
+        //        RunConsole(instance)
+        //        );
 
-            cmis.Add(cmi);
+        //    cmis.Add(cmi);
 
-            cmi = new ContextMenuItem();
+        //    cmi = new ContextMenuItem();
 
-            cmi.Name = "runCustom";
-            cmi.Text = "Custom";
-            cmi.ShortcutKeys = Keys.Control | Keys.C;
-            cmi.Command = new Action<Instance>(
-                (instance)
-                =>
-                RunCustom(instance)
-                );
-            cmis.Add(cmi);
+        //    cmi.Name = "runCustom";
+        //    cmi.Text = "Custom";
+        //    cmi.ShortcutKeys = Keys.Control | Keys.C;
+        //    cmi.Command = new Action<Instance>(
+        //        (instance)
+        //        =>
+        //        RunCustom(instance)
+        //        );
+        //    cmis.Add(cmi);
 
-            cmi = new ContextMenuItem();
+        //    cmi = new ContextMenuItem();
 
-            cmi.Name = "runPublish";
-            cmi.Text = "Publish";
-            cmi.ShortcutKeys = Keys.Control | Keys.P;
-            cmi.Command = new Action<Instance>(
-                (instance)
-                =>
-                RunPublish(instance)
-                );
-            cmis.Add(cmi);
+        //    cmi.Name = "runPublish";
+        //    cmi.Text = "Publish";
+        //    cmi.ShortcutKeys = Keys.Control | Keys.P;
+        //    cmi.Command = new Action<Instance>(
+        //        (instance)
+        //        =>
+        //        RunPublish(instance)
+        //        );
+        //    cmis.Add(cmi);
 
-            cmi = new ContextMenuItem();
+        //    cmi = new ContextMenuItem();
 
-            cmi.Name = "runStandard";
-            cmi.Text = "Standard";
-            cmi.ShortcutKeys = Keys.Control | Keys.S;
-            cmi.Command = new Action<Instance>(
-                (instance)
-                =>
-                RunStandard(instance)
-                );
-            cmis.Add(cmi);
+        //    cmi.Name = "runStandard";
+        //    cmi.Text = "Standard";
+        //    cmi.ShortcutKeys = Keys.Control | Keys.S;
+        //    cmi.Command = new Action<Instance>(
+        //        (instance)
+        //        =>
+        //        RunStandard(instance)
+        //        );
+        //    cmis.Add(cmi);
 
-            cmi = new ContextMenuItem();
+        //    cmi = new ContextMenuItem();
 
-            cmi.Name = "runMagoWeb";
-            cmi.Text = "Easylook/MagoWeb";
-            cmi.ShortcutKeys = Keys.Control | Keys.W;
-            cmi.Command = new Action<Instance>(
-                (instance)
-                =>
-                RunMagoWeb(instance)
-                );
-            cmis.Add(cmi);
+        //    cmi.Name = "runMagoWeb";
+        //    cmi.Text = "Easylook/MagoWeb";
+        //    cmi.ShortcutKeys = Keys.Control | Keys.W;
+        //    cmi.Command = new Action<Instance>(
+        //        (instance)
+        //        =>
+        //        RunMagoWeb(instance)
+        //        );
+        //    cmis.Add(cmi);
 
-            return cmis;
-        }
+        //    cmi = new ContextMenuItem();
+
+        //    cmi.Name = "setIdentity";
+        //    cmi.Text = "Identity=" + MagoRunnerPlugin.Properties.Settings.Default.AppPoolIdentity;
+        //    //cmi.ShortcutKeys = Keys.Control | Keys.W;
+        //    cmi.Command = new Action<Instance>(
+        //        (instance)
+        //        =>
+        //        SetIdentity(instance)
+        //        );
+        //    cmis.Add(cmi);
+
+        //    return cmis;
+        //}
+
+
 
         void RunRoot(Instance istanza)
         {
@@ -426,17 +436,28 @@ namespace MagoRunnerPlugin
 
             }
 
+        #region ApplicationPoolIdentity
+          private void SetIdentity(Instance instance)
+        {
+
+            MagoRunnerPlugin.Properties.Settings.Default.ClassicApplicationPoolPipeline = !MagoRunnerPlugin.Properties.Settings.Default.ClassicApplicationPoolPipeline;
+            MagoRunnerPlugin.Properties.Settings.Default.Save();
+        }
+
         public void OnUpdating(CmdLineInfo cmdLineInfo)
         {
-            cmdLineInfo.ClassicApplicationPoolPipeline = false;
+            cmdLineInfo.ClassicApplicationPoolPipeline = MagoRunnerPlugin.Properties.Settings.Default.ClassicApplicationPoolPipeline;
         }
 
         public void OnInstalling(CmdLineInfo cmdLineInfo)
         {
-            cmdLineInfo.ClassicApplicationPoolPipeline = false;
+            cmdLineInfo.ClassicApplicationPoolPipeline = MagoRunnerPlugin.Properties.Settings.Default.ClassicApplicationPoolPipeline;
         }
+
+        #endregion
+
     }
-    }
+}
 
 
 
