@@ -28,11 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UIWaiting));
             this.lblPleaseWait = new System.Windows.Forms.Label();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.lblProgressText = new System.Windows.Forms.Label();
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.txtDetails = new System.Windows.Forms.TextBox();
+            this.btnBack = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -55,7 +57,7 @@
             this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.progressBar.ForeColor = System.Drawing.Color.CornflowerBlue;
-            this.progressBar.Location = new System.Drawing.Point(7, 224);
+            this.progressBar.Location = new System.Drawing.Point(7, 180);
             this.progressBar.MarqueeAnimationSpeed = 20;
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(369, 23);
@@ -66,7 +68,7 @@
             // 
             this.lblProgressText.AutoSize = true;
             this.lblProgressText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProgressText.Location = new System.Drawing.Point(3, 197);
+            this.lblProgressText.Location = new System.Drawing.Point(3, 153);
             this.lblProgressText.Name = "lblProgressText";
             this.lblProgressText.Size = new System.Drawing.Size(86, 16);
             this.lblProgressText.TabIndex = 7;
@@ -88,7 +90,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDetails.BackColor = System.Drawing.Color.White;
             this.txtDetails.Font = new System.Drawing.Font("Verdana", 8.25F);
-            this.txtDetails.Location = new System.Drawing.Point(7, 253);
+            this.txtDetails.Location = new System.Drawing.Point(7, 209);
             this.txtDetails.Multiline = true;
             this.txtDetails.Name = "txtDetails";
             this.txtDetails.ReadOnly = true;
@@ -96,11 +98,23 @@
             this.txtDetails.Size = new System.Drawing.Size(369, 133);
             this.txtDetails.TabIndex = 9;
             // 
+            // btnBack
+            // 
+            this.btnBack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBack.Image = ((System.Drawing.Image)(resources.GetObject("btnBack.Image")));
+            this.btnBack.Location = new System.Drawing.Point(7, 348);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(35, 35);
+            this.btnBack.TabIndex = 11;
+            this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+            // 
             // UIWaiting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
+            this.Controls.Add(this.btnBack);
             this.Controls.Add(this.txtDetails);
             this.Controls.Add(this.pictureBox);
             this.Controls.Add(this.lblProgressText);
@@ -123,5 +137,6 @@
         private System.Windows.Forms.Label lblProgressText;
         private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.TextBox txtDetails;
+        private System.Windows.Forms.Button btnBack;
     }
 }

@@ -172,6 +172,12 @@
     <Compile Include="UI\UIWaiting.Designer.cs">
       <DependentUpon>UIWaiting.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\UIWaitingMinimized.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\UIWaitingMinimized.Designer.cs">
+      <DependentUpon>UIWaitingMinimized.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="UI\AskConfirmationForUninstallForm.resx">
       <DependentUpon>AskConfirmationForUninstallForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -208,6 +214,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\UIWaiting.resx">
       <DependentUpon>UIWaiting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\UIWaitingMinimized.resx">
+      <DependentUpon>UIWaitingMinimized.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.manifest" />
     <None Include="packages.config" />

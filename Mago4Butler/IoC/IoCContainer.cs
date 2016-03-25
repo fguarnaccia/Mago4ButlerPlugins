@@ -50,6 +50,7 @@ namespace Microarea.Mago4Butler
                 Bind<MainForm>().ToSelf();
                 Bind<UIEmpty>().ToSelf();
                 Bind<UIWaiting>().ToSelf();
+                Bind<UIWaitingMinimized>().ToSelf();
                 Bind<UINormalUse>().ToSelf();
                 Bind<UIError>().ToSelf();
 

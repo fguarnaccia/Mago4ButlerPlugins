@@ -25,19 +25,46 @@ namespace Microarea.Mago4Butler
             InitializeComponent();
         }
 
-        protected override void OnVisibleChanged(EventArgs e)
+        public event EventHandler<EventArgs> ProgressTextChanged;
+        public event EventHandler<EventArgs> Back;
+        protected virtual void OnBack(EventArgs e)
         {
-            base.OnVisibleChanged(e);
-
-            if (this.Visible)
+            var handler = Back;
+            if (handler != null)
             {
-                this.txtDetails.Clear();
+                handler(this, e);
             }
+        }
+        protected virtual void OnProgressTextChanged(EventArgs e)
+        {
+            var handler = ProgressTextChanged;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+
+        internal void ClearDetails()
+        {
+            this.txtDetails.Clear();
         }
 
         public void SetProgressText(string message)
         {
-            this.syncCtx.Post(new SendOrPostCallback((obj) => this.lblProgressText.Text = message), null);
+            this.syncCtx.Post(new SendOrPostCallback(
+                (obj)
+                =>
+                {
+                    this.lblProgressText.Text = message;
+                    this.OnProgressTextChanged(EventArgs.Empty);
+                }
+                ), null);
+        }
+        public string GetProgressText()
+        {
+            string progressText = null;
+            this.syncCtx.Send(new SendOrPostCallback((obj) => progressText = this.lblProgressText.Text), null);
+            return progressText;
         }
 
         public void AddDetailsText(string message)
@@ -49,6 +76,11 @@ namespace Microarea.Mago4Butler
                 this.txtDetails.ScrollToCaret();
             }),
             null);
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            this.OnBack(e);
         }
     }
 }

@@ -24,6 +24,7 @@ namespace Microarea.Mago4Butler
 
         UIEmpty uiEmpty;
         UIWaiting uiWaiting;
+        UIWaitingMinimized uiWaitingMinimized;
         UIError uiError;
         UINormalUse uiNormalUse;
 
@@ -46,6 +47,7 @@ namespace Microarea.Mago4Butler
             ISettings settings,
             UIEmpty uiEmpty,
             UIWaiting uiWaiting,
+            UIWaitingMinimized uiWaitingMinimized,
             UIError uiError,
             UINormalUse uiNormalUse
             )
@@ -79,6 +81,7 @@ namespace Microarea.Mago4Butler
             this.uiNormalUse = uiNormalUse;
             this.uiEmpty = uiEmpty;
             this.uiWaiting = uiWaiting;
+            this.uiWaitingMinimized = uiWaitingMinimized;
             this.uiError = uiError;
 
             Application.Idle += Application_Idle;
@@ -109,6 +112,11 @@ namespace Microarea.Mago4Butler
             this.uiNormalUse.InstallNewInstance += Install;
             this.uiNormalUse.UpdateInstance += UiNormalUse_UpdateInstance;
             this.uiNormalUse.RemoveInstance += UiNormalUse_RemoveInstance;
+            this.uiWaiting.Back += UiWaiting_Back;
+            this.uiWaitingMinimized.Click += UiWaitingMinimized_Click;
+            this.uiWaitingMinimized.AttachToMainUI(this);
+            this.uiWaitingMinimized.AttachToMainUiWaiting(this.uiWaiting);
+
 
             this.installerService.Started += InstallerService_Started;
             this.installerService.Starting += InstallerService_Starting;
@@ -127,6 +135,19 @@ namespace Microarea.Mago4Butler
 
             Thread.Sleep(1000);
             UpdateUI();
+        }
+
+        private void UiWaitingMinimized_Click(object sender, EventArgs e)
+        {
+            this.uiWaitingMinimized.Hide();
+            ShowUI(this.uiWaiting);
+        }
+
+        private void UiWaiting_Back(object sender, EventArgs e)
+        {
+            var ui = (this.model.Instances.Count() == 0) ? this.uiEmpty as UserControl : this.uiNormalUse as UserControl;
+            this.uiWaitingMinimized.Show(this);
+            ShowUI(ui);
         }
 
         private void InstallerService_Error(object sender, InstallerServiceErrorEventArgs e)
@@ -234,8 +255,21 @@ namespace Microarea.Mago4Butler
         private void InstallerService_Stopped(object sender, EventArgs e)
         {
             this.loggerService.LogInfo("Installer service stopped");
-            var ui = (this.model.Instances.Count() == 0) ? this.uiEmpty as UserControl : this.uiNormalUse as UserControl;
-            ShowUI(ui);
+
+            if (this.uiWaitingMinimized.Visible)
+            {
+                this.syncCtx.Post(new SendOrPostCallback((obj) =>
+                {
+                    this.uiWaitingMinimized.Hide();
+                })
+                , null);
+            }
+            else
+            {
+                var ui = (this.model.Instances.Count() == 0) ? this.uiEmpty as UserControl : this.uiNormalUse as UserControl;
+                ShowUI(ui);
+            }
+
             EnableDisableToolStripItem(this.tsbSettings, true);
         }
 
@@ -247,6 +281,7 @@ namespace Microarea.Mago4Butler
         private void InstallerService_Started(object sender, EventArgs e)
         {
             this.loggerService.LogInfo("Installer service started");
+            uiWaiting.ClearDetails();
             ShowUI(uiWaiting);
             EnableDisableToolStripItem(this.tsbSettings, false);
         }
