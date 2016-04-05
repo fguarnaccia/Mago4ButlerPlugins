@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -91,6 +92,7 @@ namespace Microarea.Mago4Butler
                     {
                         this.settings.ShowRootFolderChoice = false;
                     }
+                    this.settings.LogsFolder = Path.Combine(this.settings.RootFolder, new DirectoryInfo(this.settings.LogsFolder).Name);
                 }
                 this.settings.AlsoDeleteCustom = this.ckbAlsoDeleteCustom.Checked;
                 this.settings.MsiLog = this.ckbCreateMsiLog.Checked;
