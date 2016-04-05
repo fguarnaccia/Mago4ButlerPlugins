@@ -4,6 +4,7 @@ using Microarea.Mago4Butler.Plugins;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Microarea.Mago4Butler
@@ -70,7 +71,11 @@ namespace Microarea.Mago4Butler
             {
                 if (plugin != null)
                 {
-                    this.AddContextMenuItems(plugin.GetContextMenuItems());
+                    var contextMenuItems = plugin.GetContextMenuItems();
+                    if (contextMenuItems != null && contextMenuItems.Count() > 0)
+                    {
+                        this.AddContextMenuItems(contextMenuItems); 
+                    }
                 }
             }
         }
