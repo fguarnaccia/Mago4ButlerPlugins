@@ -450,12 +450,13 @@ namespace Microarea.Mago4Butler
 
         private void tsbViewLogs_Click(object sender, EventArgs e)
         {
-            var logsPath = this.settings.LogsFolder;
-            if (!Directory.Exists(logsPath))
+            var logFileFullPath = Path.Combine(this.settings.LogsFolder, Program.LogFileName);
+            if (!File.Exists(logFileFullPath))
             {
-                Directory.CreateDirectory(logsPath);
+                MessageBox.Show(this, "No log file found", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
             }
-            Process.Start(logsPath);
+            Process.Start(logFileFullPath);
         }
     }
 }

@@ -17,6 +17,7 @@ namespace Microarea.Mago4Butler
 {
     static class Program
     {
+        internal const string LogFileName = "Mago4BulterLog.txt";
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -36,10 +37,8 @@ namespace Microarea.Mago4Butler
         static Program()
         {
             var settings = IoCContainer.Instance.Get<ISettings>();
-            log4net.GlobalContext.Properties["LogFilePath"] = settings.LogsFolder;
+            log4net.GlobalContext.Properties["LogFilePath"] = Path.Combine(settings.LogsFolder, LogFileName);
             log4net.Config.XmlConfigurator.Configure();
-
-
         }
     }
 }
