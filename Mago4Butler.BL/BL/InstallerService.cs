@@ -444,7 +444,7 @@ namespace Microarea.Mago4Butler.BL
 
             OnNotification(new NotificationEventArgs() { Message = "Updating company database..." });
             this.companyDBUpdateService.UpdateCompanyDB(currentRequest.Instance);
-            OnNotification(new NotificationEventArgs() { Message = "Company databsae updated successfully" });
+            OnNotification(new NotificationEventArgs() { Message = "Company database successfully updated" });
         }
 
         private void Install(Request currentRequest, CmdLineInfo cmdLineInfo)

@@ -18,7 +18,6 @@ namespace Microarea.Mago4Butler
         IisService iisService;
         TextBoxCueDecorator serverTextBoxCueDecorator;
         NumericTextboxBehaviour numericTextboxBehaviour;
-        bool rootFolderChanged;
 
         internal SettingsForm(ISettings settings, IisService iisService)
         {
@@ -29,26 +28,6 @@ namespace Microarea.Mago4Butler
 
             this.serverTextBoxCueDecorator = new TextBoxCueDecorator(this.txtServerUrl) { CueMessage = "e.g. http://serverurl" };
             this.numericTextboxBehaviour = new NumericTextboxBehaviour(this.txtProxyPort);
-        }
-
-        private void btnRootFolder_Click(object sender, EventArgs e)
-        {
-            using (var fbd = new FolderBrowserDialog())
-            {
-                fbd.RootFolder = Environment.SpecialFolder.MyComputer;
-                fbd.Description = "Select the path where all Mago4 installations will live";
-                fbd.ShowNewFolderButton = true;
-
-                var res = fbd.ShowDialog(this);
-
-                if (res != DialogResult.OK)
-                {
-                    return;
-                }
-
-                this.txtRootFolder.Text = fbd.SelectedPath;
-                this.rootFolderChanged = true;
-            }
         }
 
         protected override void OnLoad(EventArgs e)
@@ -79,21 +58,45 @@ namespace Microarea.Mago4Butler
             //}
         }
 
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            if (this.DialogResult != DialogResult.OK)
+            {
+                return;
+            }
+
+            var c = this.txtRootFolder;
+            try
+            {
+                var rootFolderDirInfo = new DirectoryInfo(c.Text);
+                if (!rootFolderDirInfo.Exists)
+                {
+                    throw new Exception("Path does not exist");
+                }
+            }
+            catch (Exception exc)
+            {
+                this.rootFolderErrorProvider.SetIconPadding(c, -25);
+                this.rootFolderErrorProvider.SetError(c, exc.Message);
+                e.Cancel = true;
+            }
+        }
+
         protected override void OnFormClosed(FormClosedEventArgs e)
         {
             base.OnFormClosed(e);
 
             if (this.DialogResult == DialogResult.OK)
             {
-                if (this.rootFolderChanged)
+                this.settings.RootFolder = this.txtRootFolder.Text;
+                if (this.settings.ShowRootFolderChoice)
                 {
-                    this.settings.RootFolder = this.txtRootFolder.Text;
-                    if (this.settings.ShowRootFolderChoice)
-                    {
-                        this.settings.ShowRootFolderChoice = false;
-                    }
-                    this.settings.LogsFolder = Path.Combine(this.settings.RootFolder, new DirectoryInfo(this.settings.LogsFolder).Name);
+                    this.settings.ShowRootFolderChoice = false;
                 }
+                this.settings.LogsFolder = Path.Combine(this.settings.RootFolder, new DirectoryInfo(this.settings.LogsFolder).Name);
+
                 this.settings.AlsoDeleteCustom = this.ckbAlsoDeleteCustom.Checked;
                 this.settings.MsiLog = this.ckbCreateMsiLog.Checked;
                 this.settings.UseProxy = this.ckbUseProxy.Checked;
@@ -244,6 +247,12 @@ namespace Microarea.Mago4Butler
             this.proxyPortErrorProvider.Clear();
             this.domainNameErrorProvider.Clear();
             this.userNameErrorProvider.Clear();
+            this.rootFolderErrorProvider.Clear();
+        }
+
+        private void txtRootFolder_TextChanged(object sender, EventArgs e)
+        {
+            this.ResetErrorProviders(this, EventArgs.Empty);
         }
     }
 }

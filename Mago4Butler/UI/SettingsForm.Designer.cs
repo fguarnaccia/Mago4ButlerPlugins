@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             this.txtRootFolder = new System.Windows.Forms.TextBox();
-            this.btnRootFolder = new System.Windows.Forms.Button();
             this.btnOk = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.lblRootFolder = new System.Windows.Forms.Label();
@@ -61,6 +60,7 @@
             this.proxyPortErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.domainNameErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.userNameErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.rootFolderErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.tabControl.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.tabPageWebSite.SuspendLayout();
@@ -71,6 +71,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.proxyPortErrorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.domainNameErrorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userNameErrorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rootFolderErrorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // txtRootFolder
@@ -80,22 +81,9 @@
             this.txtRootFolder.Location = new System.Drawing.Point(7, 23);
             this.txtRootFolder.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtRootFolder.Name = "txtRootFolder";
-            this.txtRootFolder.ReadOnly = true;
-            this.txtRootFolder.Size = new System.Drawing.Size(362, 22);
+            this.txtRootFolder.Size = new System.Drawing.Size(407, 22);
             this.txtRootFolder.TabIndex = 1;
-            // 
-            // btnRootFolder
-            // 
-            this.btnRootFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRootFolder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRootFolder.Location = new System.Drawing.Point(377, 23);
-            this.btnRootFolder.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.btnRootFolder.Name = "btnRootFolder";
-            this.btnRootFolder.Size = new System.Drawing.Size(37, 22);
-            this.btnRootFolder.TabIndex = 2;
-            this.btnRootFolder.Text = "...";
-            this.btnRootFolder.UseVisualStyleBackColor = true;
-            this.btnRootFolder.Click += new System.EventHandler(this.btnRootFolder_Click);
+            this.txtRootFolder.TextChanged += new System.EventHandler(this.txtRootFolder_TextChanged);
             // 
             // btnOk
             // 
@@ -198,7 +186,6 @@
             this.tabPageGeneral.Controls.Add(this.ckbCreateMsiLog);
             this.tabPageGeneral.Controls.Add(this.txtRootFolder);
             this.tabPageGeneral.Controls.Add(this.ckbAlsoDeleteCustom);
-            this.tabPageGeneral.Controls.Add(this.btnRootFolder);
             this.tabPageGeneral.Location = new System.Drawing.Point(4, 23);
             this.tabPageGeneral.Name = "tabPageGeneral";
             this.tabPageGeneral.Padding = new System.Windows.Forms.Padding(3);
@@ -398,6 +385,10 @@
             // 
             this.userNameErrorProvider.ContainerControl = this;
             // 
+            // rootFolderErrorProvider
+            // 
+            this.rootFolderErrorProvider.ContainerControl = this;
+            // 
             // SettingsForm
             // 
             this.AcceptButton = this.btnOk;
@@ -432,6 +423,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.proxyPortErrorProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.domainNameErrorProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.userNameErrorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rootFolderErrorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -439,7 +431,6 @@
         #endregion
 
         private System.Windows.Forms.TextBox txtRootFolder;
-        private System.Windows.Forms.Button btnRootFolder;
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Label lblRootFolder;
@@ -469,5 +460,6 @@
         private System.Windows.Forms.ErrorProvider proxyPortErrorProvider;
         private System.Windows.Forms.ErrorProvider domainNameErrorProvider;
         private System.Windows.Forms.ErrorProvider userNameErrorProvider;
+        private System.Windows.Forms.ErrorProvider rootFolderErrorProvider;
     }
 }
