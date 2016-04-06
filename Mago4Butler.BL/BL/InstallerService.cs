@@ -442,10 +442,6 @@ namespace Microarea.Mago4Butler.BL
             this.registryService.RemoveInstallerFoldersKeys(currentRequest.RootFolder, currentRequest.Instance);
             OnNotification(new NotificationEventArgs() { Message = "Now the registry is clean" });
 
-            OnNotification(new NotificationEventArgs() { Message = "Configuring the application..." });
-            this.SaveServerConnectionConfig(currentRequest);
-            OnNotification(new NotificationEventArgs() { Message = "Application configured" });
-
             OnNotification(new NotificationEventArgs() { Message = "Updating company database..." });
             this.companyDBUpdateService.UpdateCompanyDB(currentRequest.Instance);
             OnNotification(new NotificationEventArgs() { Message = "Company databsae updated successfully" });
