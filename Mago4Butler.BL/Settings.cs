@@ -34,6 +34,8 @@ namespace Microarea.Mago4Butler.BL
         }
 
         public string RootFolder { get; set; } = "C:\\Microarea\\M4";
+
+        public string MsiFolder { get; set; } = "C:\\Microarea\\M4\\Msi";
         public string LogsFolder { get; set; } = "C:\\Microarea\\M4\\Logs";
         public string SiteName { get; set; } = WebSiteInfo.DefaultWebSite.SiteName;
         public bool ShowRootFolderChoice { get; set; } = true;

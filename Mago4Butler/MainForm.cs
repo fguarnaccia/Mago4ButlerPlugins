@@ -368,6 +368,24 @@ namespace Microarea.Mago4Butler
                 this.settings.ShowRootFolderChoice = false;
                 this.settings.Save();
             }
+
+            var msiDirInfo = new DirectoryInfo(this.settings.MsiFolder);
+            if (!msiDirInfo.Exists)
+            {
+                throw new Exception(this.settings.MsiFolder + " does not exist");
+            }
+
+            var msiFileInfos = from FileInfo f in msiDirInfo.GetFiles("Mago4*.msi")
+                               orderby f.LastWriteTime descending
+                               select f;
+
+            if (msiFileInfos.Count() == 0)
+            {
+                throw new Exception("No msi files found in " + this.settings.MsiFolder);
+            }
+
+            this.msiFullFilePath = msiFileInfos.First().FullName;
+
             using (var askForParametersDialog = new AskForParametersForm(this.model, this.settings))
             {
                 var diagRes = askForParametersDialog.ShowDialog();
@@ -376,7 +394,6 @@ namespace Microarea.Mago4Butler
                 {
                     return;
                 }
-                this.msiFullFilePath = askForParametersDialog.MsiFullPath;
 
                 using (var provisioningForm = new ProvisioningFormLITE(instanceName: askForParametersDialog.InstanceName, preconfigurationMode: true, loadDataFromFile: false))
                 {

@@ -35,6 +35,7 @@ namespace Microarea.Mago4Butler
             base.OnLoad(e);
 
             this.txtRootFolder.Text = this.settings.RootFolder;
+            this.txtMsi.Text = this.settings.MsiFolder;
             this.ckbAlsoDeleteCustom.Checked = this.settings.AlsoDeleteCustom;
             this.ckbCreateMsiLog.Checked = this.settings.MsiLog;
             this.ckbUseProxy.Checked = this.settings.UseProxy;
@@ -67,6 +68,7 @@ namespace Microarea.Mago4Butler
                 return;
             }
 
+            bool ok = true;
             var c = this.txtRootFolder;
             try
             {
@@ -80,6 +82,27 @@ namespace Microarea.Mago4Butler
             {
                 this.rootFolderErrorProvider.SetIconPadding(c, -25);
                 this.rootFolderErrorProvider.SetError(c, exc.Message);
+                ok = false;
+            }
+
+            c = this.txtMsi;
+            try
+            {
+                var msiFolderDirInfo = new DirectoryInfo(c.Text);
+                if (!msiFolderDirInfo.Exists)
+                {
+                    throw new Exception("Path does not exist");
+                }
+            }
+            catch (Exception exc)
+            {
+                this.msiErrorProvider.SetIconPadding(c, -25);
+                this.msiErrorProvider.SetError(c, exc.Message);
+                ok = false;
+            }
+
+            if (!ok)
+            {
                 e.Cancel = true;
             }
         }
@@ -96,6 +119,8 @@ namespace Microarea.Mago4Butler
                     this.settings.ShowRootFolderChoice = false;
                 }
                 this.settings.LogsFolder = Path.Combine(this.settings.RootFolder, new DirectoryInfo(this.settings.LogsFolder).Name);
+
+                this.settings.MsiFolder = this.txtMsi.Text;
 
                 this.settings.AlsoDeleteCustom = this.ckbAlsoDeleteCustom.Checked;
                 this.settings.MsiLog = this.ckbCreateMsiLog.Checked;

@@ -47,12 +47,10 @@ namespace Microarea.Mago4Butler
             if (this.DialogResult == DialogResult.OK)
             {
                 this.InstanceName = this.txtInstanceName.Text;
-                this.MsiFullPath = this.txtMsiFullPath.Text;
             }
             else
             {
                 this.InstanceName = String.Empty;
-                this.MsiFullPath = String.Empty;
             }
         }
 
@@ -60,35 +58,8 @@ namespace Microarea.Mago4Butler
         {
             string candiateInstanceName = "";
             this.btnOK.Enabled =
-                this.txtMsiFullPath.Text.Trim().Length > 0 &&
                 (candiateInstanceName = this.txtInstanceName.Text.Trim()).Length > 0 &&
                 !this.model.ContainsInstance(candiateInstanceName);
-        }
-
-        private void btnOpenFileDialog_Click(object sender, EventArgs e)
-        {
-            using (var ofd = new OpenFileDialog())
-            {
-                string lastUsedFolder = this.settings.LastFolderOpenedBrowsingForMsi;
-                if (string.IsNullOrWhiteSpace(lastUsedFolder) || !Directory.Exists(lastUsedFolder))
-                {
-                    lastUsedFolder = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-                }
-                ofd.InitialDirectory = lastUsedFolder;
-                ofd.Multiselect = false;
-                ofd.Title = "Select Mago4 msi file";
-                ofd.Filter = "Msi Files (*.msi)|*.msi";
-                var res = ofd.ShowDialog(this);
-
-                if (res != DialogResult.OK)
-                {
-                    return;
-                }
-
-                this.txtMsiFullPath.Text = ofd.FileName;
-                this.settings.LastFolderOpenedBrowsingForMsi = Path.GetDirectoryName(ofd.FileName);
-                this.settings.Save();
-            }
         }
 
         private void btnOK_Click(object sender, EventArgs e)

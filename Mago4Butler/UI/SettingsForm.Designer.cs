@@ -61,6 +61,9 @@
             this.domainNameErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.userNameErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.rootFolderErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.txtMsi = new System.Windows.Forms.TextBox();
+            this.lblMsiPath = new System.Windows.Forms.Label();
+            this.msiErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.tabControl.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.tabPageWebSite.SuspendLayout();
@@ -72,6 +75,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.domainNameErrorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userNameErrorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rootFolderErrorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.msiErrorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // txtRootFolder
@@ -149,7 +153,7 @@
             // ckbAlsoDeleteCustom
             // 
             this.ckbAlsoDeleteCustom.AutoSize = true;
-            this.ckbAlsoDeleteCustom.Location = new System.Drawing.Point(7, 65);
+            this.ckbAlsoDeleteCustom.Location = new System.Drawing.Point(7, 116);
             this.ckbAlsoDeleteCustom.Name = "ckbAlsoDeleteCustom";
             this.ckbAlsoDeleteCustom.Size = new System.Drawing.Size(242, 18);
             this.ckbAlsoDeleteCustom.TabIndex = 3;
@@ -159,7 +163,7 @@
             // ckbCreateMsiLog
             // 
             this.ckbCreateMsiLog.AutoSize = true;
-            this.ckbCreateMsiLog.Location = new System.Drawing.Point(7, 89);
+            this.ckbCreateMsiLog.Location = new System.Drawing.Point(7, 140);
             this.ckbCreateMsiLog.Name = "ckbCreateMsiLog";
             this.ckbCreateMsiLog.Size = new System.Drawing.Size(117, 18);
             this.ckbCreateMsiLog.TabIndex = 4;
@@ -182,8 +186,10 @@
             // 
             // tabPageGeneral
             // 
+            this.tabPageGeneral.Controls.Add(this.lblMsiPath);
             this.tabPageGeneral.Controls.Add(this.lblRootFolder);
             this.tabPageGeneral.Controls.Add(this.ckbCreateMsiLog);
+            this.tabPageGeneral.Controls.Add(this.txtMsi);
             this.tabPageGeneral.Controls.Add(this.txtRootFolder);
             this.tabPageGeneral.Controls.Add(this.ckbAlsoDeleteCustom);
             this.tabPageGeneral.Location = new System.Drawing.Point(4, 23);
@@ -389,6 +395,30 @@
             // 
             this.rootFolderErrorProvider.ContainerControl = this;
             // 
+            // txtMsi
+            // 
+            this.txtMsi.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtMsi.Location = new System.Drawing.Point(7, 71);
+            this.txtMsi.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtMsi.Name = "txtMsi";
+            this.txtMsi.Size = new System.Drawing.Size(407, 22);
+            this.txtMsi.TabIndex = 1;
+            // 
+            // lblMsiPath
+            // 
+            this.lblMsiPath.AutoSize = true;
+            this.lblMsiPath.Location = new System.Drawing.Point(7, 51);
+            this.lblMsiPath.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblMsiPath.Name = "lblMsiPath";
+            this.lblMsiPath.Size = new System.Drawing.Size(72, 14);
+            this.lblMsiPath.TabIndex = 0;
+            this.lblMsiPath.Text = "Msi folder:";
+            // 
+            // msiErrorProvider
+            // 
+            this.msiErrorProvider.ContainerControl = this;
+            // 
             // SettingsForm
             // 
             this.AcceptButton = this.btnOk;
@@ -424,6 +454,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.domainNameErrorProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.userNameErrorProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rootFolderErrorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.msiErrorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -461,5 +492,8 @@
         private System.Windows.Forms.ErrorProvider domainNameErrorProvider;
         private System.Windows.Forms.ErrorProvider userNameErrorProvider;
         private System.Windows.Forms.ErrorProvider rootFolderErrorProvider;
+        private System.Windows.Forms.Label lblMsiPath;
+        private System.Windows.Forms.TextBox txtMsi;
+        private System.Windows.Forms.ErrorProvider msiErrorProvider;
     }
 }

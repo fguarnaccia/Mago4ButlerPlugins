@@ -10,6 +10,7 @@ namespace Microarea.Mago4Butler.BL
     {
         string RootFolder { get; set; }
         string LogsFolder { get; set; }
+        string MsiFolder { get; set; }
         string SiteName { get; set; }
         bool ShowRootFolderChoice { get; set; }
         bool AlsoDeleteCustom { get; set; }
