@@ -119,6 +119,7 @@ namespace Microarea.Mago4Butler
         private void InstanceService_Stopped(object sender, EventArgs e)
         {
             this.LogInfo("Install service stopped");
+            this.LogInfo("--------------------------------------------------------------------------------");
             Console.WriteLine("[" + Now + "]: Install service stopped", Color.Green);
         }
 
@@ -130,6 +131,7 @@ namespace Microarea.Mago4Butler
 
         private void InstanceService_Started(object sender, EventArgs e)
         {
+            this.LogInfo("--------------------------------------------------------------------------------");
             this.LogInfo("Install service started");
             Console.WriteLine("[" + Now + "]: Install service started", Color.Green);
         }
