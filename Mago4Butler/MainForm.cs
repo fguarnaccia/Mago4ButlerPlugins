@@ -255,6 +255,7 @@ namespace Microarea.Mago4Butler
         private void InstallerService_Stopped(object sender, EventArgs e)
         {
             this.loggerService.LogInfo("Installer service stopped");
+            this.loggerService.LogInfo("--------------------------------------------------------------------------------");
 
             if (this.uiWaitingMinimized.Visible)
             {
@@ -280,6 +281,7 @@ namespace Microarea.Mago4Butler
 
         private void InstallerService_Started(object sender, EventArgs e)
         {
+            this.loggerService.LogInfo("--------------------------------------------------------------------------------");
             this.loggerService.LogInfo("Installer service started");
             uiWaiting.ClearDetails();
             ShowUI(uiWaiting);
