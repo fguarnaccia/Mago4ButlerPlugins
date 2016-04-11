@@ -377,7 +377,7 @@ namespace Microarea.Mago4Butler
                 throw new Exception(this.settings.MsiFolder + " does not exist");
             }
 
-            var msiFileInfos = from FileInfo f in msiDirInfo.GetFiles("Mago4*.msi")
+            var msiFileInfos = from FileInfo f in msiDirInfo.GetFiles("Mago*.msi")
                                orderby f.LastWriteTime descending
                                select f;
 
