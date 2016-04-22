@@ -157,15 +157,7 @@ namespace Microarea.Mago4Butler.BL
 
         public bool ContainsInstance(Instance toSearchFor)
         {
-            foreach (var instance in this.instances)
-            {
-                if (String.Compare(instance.Name, toSearchFor.Name, StringComparison.InvariantCultureIgnoreCase) == 0)
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            return this.ContainsInstance(toSearchFor.Name);
         }
 
         public void Init()
