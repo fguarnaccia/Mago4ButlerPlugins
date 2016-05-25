@@ -132,9 +132,14 @@ namespace Microarea.Mago4Butler.AutmaticUpdates
         private IDictionary<string, UpdateDescriptor> CheckForUpdates()
         {
             var remoteVersions = new Dictionary<string, UpdateDescriptor>();
+            var updatesManifestPath = Path.Combine(updatesUri, updatesManifestFileName);
+            if (!File.Exists(updatesManifestPath))
+            {
+                return remoteVersions;
+            }
             try
             {
-                using (var sr = new StreamReader(Path.Combine(updatesUri, updatesManifestFileName)))
+                using (var sr = new StreamReader(updatesManifestPath))
                 {
                     string remoteVersionStr;
                     while ((remoteVersionStr = sr.ReadLine()) != null)
