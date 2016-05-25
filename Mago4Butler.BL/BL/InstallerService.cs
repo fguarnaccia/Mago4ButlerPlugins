@@ -306,7 +306,14 @@ namespace Microarea.Mago4Butler.BL
                                 ProxyUsername = this.settings.Username,
                                 ProxyPassword = this.settings.Password
                             };
-                            this.OnInstalling(new InstallInstanceEventArgs() { Instance = currentRequest.Instance, CmdLineInfo = cmdLineInfo });
+                            try
+                            {
+                                this.OnInstalling(new InstallInstanceEventArgs() { Instance = currentRequest.Instance, CmdLineInfo = cmdLineInfo });
+                            }
+                            catch (Exception exc)
+                            {
+                                this.LogError("Command line paremeters request failed, skipping plugin", exc);
+                            }
                             this.Install(currentRequest, cmdLineInfo);
 
                             this.OnInstalled(new InstallInstanceEventArgs() { Instance = currentRequest.Instance });
@@ -331,7 +338,15 @@ namespace Microarea.Mago4Butler.BL
                                 ProxyUsername = this.settings.Username,
                                 ProxyPassword = this.settings.Password
                             };
-                            this.OnUpdating(new UpdateInstanceEventArgs() { Instances = new List<Instance>() { currentRequest.Instance } , CmdLineInfo = cmdLineInfo });
+                            try
+                            {
+                                this.OnUpdating(new UpdateInstanceEventArgs() { Instances = new List<Instance>() { currentRequest.Instance }, CmdLineInfo = cmdLineInfo });
+
+                            }
+                            catch (Exception exc)
+                            {
+                                this.LogError("Command line paremeters request failed, skipping plugin", exc);
+                            }
                             this.Update(currentRequest, cmdLineInfo);
 
                             this.OnUpdated(new UpdateInstanceEventArgs() { Instances = new List<Instance>() { currentRequest.Instance } });
