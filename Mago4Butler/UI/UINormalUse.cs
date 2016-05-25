@@ -86,7 +86,11 @@ namespace Microarea.Mago4Butler
             {
                 if (plugin != null)
                 {
-                    this.doubleClickHandlers.Add(plugin.GetDoubleClickHandler());
+                    var doubleClickHandler = plugin.GetDoubleClickHandler();
+                    if (doubleClickHandler != null)
+                    {
+                        this.doubleClickHandlers.Add(doubleClickHandler);
+                    }
                 }
             }
         }

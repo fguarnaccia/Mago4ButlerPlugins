@@ -135,6 +135,26 @@ namespace Microarea.Mago4Butler
 
             Thread.Sleep(1000);
             UpdateUI();
+
+            OnApplicationStarted();
+        }
+
+        private void OnApplicationStarted()
+        {
+            foreach (var plugin in this.pluginService.Plugins)
+            {
+                if (plugin != null)
+                {
+                    try
+                    {
+                        plugin.OnApplicationStarted();
+                    }
+                    catch (Exception exc)
+                    {
+                        this.loggerService.LogError("Error notifing plugins about the application started event.", exc);
+                    }
+                }
+            }
         }
 
         private void UiWaitingMinimized_Click(object sender, EventArgs e)
@@ -286,6 +306,21 @@ namespace Microarea.Mago4Butler
             }
 
             EnableDisableToolStripItem(this.tsbSettings, true);
+
+            foreach (var plugin in this.pluginService.Plugins)
+            {
+                if (plugin != null)
+                {
+                    try
+                    {
+                        plugin.OnInstallerServiceStopped();
+                    }
+                    catch (Exception exc)
+                    {
+                        this.loggerService.LogError("Error notifing plugins about the installed service stopped event.", exc);
+                    }
+                }
+            }
         }
 
         private void InstallerService_Starting(object sender, EventArgs e)
@@ -300,6 +335,21 @@ namespace Microarea.Mago4Butler
             uiWaiting.ClearDetails();
             ShowUI(uiWaiting);
             EnableDisableToolStripItem(this.tsbSettings, false);
+
+            foreach (var plugin in this.pluginService.Plugins)
+            {
+                if (plugin != null)
+                {
+                    try
+                    {
+                        plugin.OnInstallerServiceStarted();
+                    }
+                    catch (Exception exc)
+                    {
+                        this.loggerService.LogError("Error notifing plugins about the installed service started event.", exc);
+                    }
+                }
+            }
         }
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)

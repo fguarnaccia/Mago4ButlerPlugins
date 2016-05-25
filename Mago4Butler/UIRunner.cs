@@ -3,24 +3,50 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Text;
+using System.Threading;
+using System.IO.Pipes;
+using System.IO;
+using Microarea.Mago4Butler.BL;
+using Microarea.Mago4Butler.Plugins;
 
 namespace Microarea.Mago4Butler
 {
-    internal class UIRunner : IForrest
+    internal class UIRunner : IForrest, ILogger
     {
+        AppAutomationServer appAutomationServer = new AppAutomationServer();
+
         public int Run()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            var pluginService = IoCContainer.Instance.Get<PluginService>();
-            pluginService.ErrorLoadingPlugins += PluginService_ErrorLoadingPlugins;
+            try
+            {
+                var pluginService = IoCContainer.Instance.Get<PluginService>();
+                pluginService.ErrorLoadingPlugins += PluginService_ErrorLoadingPlugins;
+                pluginService.PluginsLoaded += PluginService_PluginsLoaded;
 
-            var mainForm = IoCContainer.Instance.Get<MainForm>();
+                var mainForm = IoCContainer.Instance.Get<MainForm>();
 
-            Application.Run(mainForm);
+                Application.Run(mainForm);
+            }
+            catch (Exception exc)
+            {
+                this.LogError("Error running the application.", exc);
+                return 1;
+            }
+            finally
+            {
+                App.Instance.Dispose();
+                appAutomationServer.Dispose();
+            }
 
             return 0;
+        }
+
+        private void PluginService_PluginsLoaded(object sender, EventArgs e)
+        {
+            ThreadPool.QueueUserWorkItem((_) => appAutomationServer.Start());
         }
 
         private void PluginService_ErrorLoadingPlugins(object sender, PluginErrorEventArgs e)

@@ -96,6 +96,7 @@
     <Compile Include="..\Mago4Butler\Properties\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Automation\AppAutomationClient.cs" />
     <Compile Include="BL\Batch.cs" />
     <Compile Include="BL\CompanyDBUpdateService.cs" />
     <Compile Include="BL\InstallerServiceErrorEventArgs.cs" />

@@ -13,5 +13,19 @@ namespace Microarea.Mago4Butler.Plugins
         DoubleClickHandler GetDoubleClickHandler();
         void OnUpdating(CmdLineInfo cmdLineInfo);
         void OnInstalling(CmdLineInfo cmdLineInfo);
+
+        void OnApplicationStarted();
+
+        System.Version Version
+        {
+            get;
+        }
+        string Name
+        {
+            get;
+        }
+
+        void OnInstallerServiceStopped();
+        void OnInstallerServiceStarted();
     }
 }

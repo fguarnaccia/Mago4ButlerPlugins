@@ -7,6 +7,22 @@ namespace PluginExample
 {
     public class MyButlerPlugin : IPlugin
     {
+        public Version Version
+        {
+            get
+            {
+                return this.GetType().Assembly.GetName().Version;
+            }
+        }
+
+        public string Name
+        {
+            get
+            {
+                return "PluginExample.MyButlerPlugin";
+            }
+        }
+
         public IEnumerable<ContextMenuItem> GetContextMenuItems()
         {
             ContextMenuItem myItem = new ContextMenuItem();
@@ -22,6 +38,8 @@ namespace PluginExample
         {
             var settings = App.Instance.Settings;
             System.Windows.Forms.MessageBox.Show("MyButlerPlugin: " + instance.Name + ", in " + settings.RootFolder);
+
+            App.Instance.ShutdownApplication();
         }
 
         public DoubleClickHandler GetDoubleClickHandler()
@@ -40,6 +58,21 @@ namespace PluginExample
         public void OnInstalling(CmdLineInfo cmdLineInfo)
         {
             cmdLineInfo.ClassicApplicationPoolPipeline = false;
+        }
+
+        public void OnApplicationStarted()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void OnInstallerServiceStopped()
+        {
+            
+        }
+
+        public void OnInstallerServiceStarted()
+        {
+          
         }
     }
 }
