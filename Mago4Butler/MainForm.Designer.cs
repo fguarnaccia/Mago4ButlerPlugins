@@ -58,8 +58,8 @@
             this.tsbViewLogs.Image = ((System.Drawing.Image)(resources.GetObject("tsbViewLogs.Image")));
             this.tsbViewLogs.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbViewLogs.Name = "tsbViewLogs";
-            this.tsbViewLogs.Size = new System.Drawing.Size(75, 18);
-            this.tsbViewLogs.Text = "View Logs";
+            this.tsbViewLogs.Size = new System.Drawing.Size(68, 18);
+            this.tsbViewLogs.Text = "View Log";
             this.tsbViewLogs.Click += new System.EventHandler(this.tsbViewLogs_Click);
             // 
             // tsbSettings
