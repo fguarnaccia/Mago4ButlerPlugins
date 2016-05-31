@@ -24,6 +24,14 @@ namespace Microarea.Mago4Butler.Plugins
         AppAutomationClient appAutomation;
         protected App()
         {
+            
+        }
+        public void Init()
+        {
+            if (this.appAutomation != null)
+            {
+                Dispose();
+            }
             this.appAutomation = new AppAutomationClient();
         }
 

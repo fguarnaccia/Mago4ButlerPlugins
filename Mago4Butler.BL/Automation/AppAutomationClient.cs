@@ -22,9 +22,16 @@ namespace Microarea.Mago4Butler.BL
         public AppAutomationClient()
         {
             client = new NamedPipeClientStream(AppAutomationClient.ChannelName);
-            client.Connect();
-            reader = new StreamReader(client);
-            writer = new StreamWriter(client);
+            try
+            {
+                client.Connect(2000);
+                reader = new StreamReader(client);
+                writer = new StreamWriter(client);
+            }
+            catch (Exception exc)
+            {
+                this.LogError("AppAutomation client cannot connect to the server", exc);
+            }
         }
 
         public void Dispose()

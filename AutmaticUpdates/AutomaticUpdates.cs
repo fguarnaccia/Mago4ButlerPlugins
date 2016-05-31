@@ -49,51 +49,57 @@ namespace Microarea.Mago4Butler.AutmaticUpdates
 
         private void InstallAvailableUpdates()
         {
-            Thread.Sleep(5000);
-
-            var remoteVersions = CheckForUpdates();
-            var updates = DownloadUpdates(remoteVersions);
-
-            if (updates == null || !updates.UpdatesAvailable)
-            {
-                return;
-            }
-
-            while (!canUpdate)
+            try
             {
                 Thread.Sleep(5000);
-            }
 
-            if (updates.RestartRequired)
-            {
-                var dr = App.Instance.ShowModalForm(typeof(AskForUpdate));
-                if (dr != System.Windows.Forms.DialogResult.Yes)
+                var remoteVersions = CheckForUpdates();
+                var updates = DownloadUpdates(remoteVersions);
+
+                if (updates == null || !updates.UpdatesAvailable)
                 {
                     return;
                 }
-            }
 
-            string pluginsFolderPath = App.Instance.GetPluginFolderPath();
-            string msiUpdateFileFullPath = null;
-            foreach (var update in updates.Updates)
-            {
-                if (update.FileName.EndsWith("dll"))
+                while (!canUpdate)
                 {
-                    File.Copy(update.DownloadedFilePath, Path.Combine(pluginsFolderPath, update.FileName), true);
+                    Thread.Sleep(5000);
                 }
-                else if (update.FileName.EndsWith("msi"))
+
+                if (updates.RestartRequired)
                 {
-                    msiUpdateFileFullPath = Path.Combine(localCacheForUpdates, update.FileName);
+                    var dr = App.Instance.ShowModalForm(typeof(AskForUpdate));
+                    if (dr != System.Windows.Forms.DialogResult.Yes)
+                    {
+                        return;
+                    }
+                }
+
+                string pluginsFolderPath = App.Instance.GetPluginFolderPath();
+                string msiUpdateFileFullPath = null;
+                foreach (var update in updates.Updates)
+                {
+                    if (update.FileName.EndsWith("dll"))
+                    {
+                        File.Copy(update.DownloadedFilePath, Path.Combine(pluginsFolderPath, update.FileName), true);
+                    }
+                    else if (update.FileName.EndsWith("msi"))
+                    {
+                        msiUpdateFileFullPath = Path.Combine(localCacheForUpdates, update.FileName);
+                    }
+                }
+
+                if (msiUpdateFileFullPath != null)
+                {
+                    ThreadPool.QueueUserWorkItem((_) => Process.Start(msiUpdateFileFullPath));
+
+                    Thread.Sleep(500);
+
+                    App.Instance.ShutdownApplication();
                 }
             }
-
-            if (msiUpdateFileFullPath != null)
+            catch
             {
-                ThreadPool.QueueUserWorkItem((_) => Process.Start(msiUpdateFileFullPath));
-
-                Thread.Sleep(500);
-
-                App.Instance.ShutdownApplication();
             }
         }
 
