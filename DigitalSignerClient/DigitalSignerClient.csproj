@@ -70,16 +70,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Standard\TaskBuilder_MIA\TaskBuilderNet\Microarea.TaskBuilderNet.Licence\Microarea.TaskBuilderNet.Licence.csproj">
-      <Project>{042804b4-7d3b-490b-864d-efe3f7ac3462}</Project>
-      <Name>Microarea.TaskBuilderNet.Licence</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Standard\TaskBuilder_MIA\TaskBuilderNet\Microarea.TaskBuilderNet.ParametersManager\Microarea.TaskBuilderNet.ParametersManager.csproj">
-      <Project>{befdb95f-5504-4c27-993b-094c069cb8bf}</Project>
-      <Name>Microarea.TaskBuilderNet.ParametersManager</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
@@ -99,6 +89,12 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Standard\TaskBuilder\TaskBuilderNet\Microarea.TaskBuilderNet.ParametersManager\Microarea.TaskBuilderNet.ParametersManager.csproj">
+      <Project>{befdb95f-5504-4c27-993b-094c069cb8bf}</Project>
+      <Name>Microarea.TaskBuilderNet.ParametersManager</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

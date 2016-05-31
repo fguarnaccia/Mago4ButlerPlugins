@@ -14,22 +14,38 @@
     </xsl:copy>
   </xsl:template>
   <xsl:output method="xml" indent="yes" />
+  
   <xsl:key name="pdb-search" match="wix:Component[contains(wix:File/@Source, '.pdb')]" use="@Id" />
   <xsl:template match="wix:Component[key('pdb-search', @Id)]" />
   <xsl:template match="wix:ComponentRef[key('pdb-search', @Id)]" />
+  
   <xsl:key name="xml-search" match="wix:Component[contains(wix:File/@Source, '.xml')]" use="@Id" />
   <xsl:template match="wix:Component[key('xml-search', @Id)]" />
   <xsl:template match="wix:ComponentRef[key('xml-search', @Id)]" />
+  
   <xsl:key name="locked-search" match="wix:Component[contains(wix:File/@Source, '.locked')]" use="@Id" />
   <xsl:template match="wix:Component[key('locked-search', @Id)]" />
   <xsl:template match="wix:ComponentRef[key('locked-search', @Id)]" />
+  
   <xsl:key name="vshost-search" match="wix:Component[contains(wix:File/@Source, '.vshost.')]" use="@Id" />
   <xsl:template match="wix:Component[key('vshost-search', @Id)]" />
   <xsl:template match="wix:ComponentRef[key('vshost-search', @Id)]" />
   
-  <xsl:key name="resources-search" match="wix:Component[contains(wix:File/@Source, '.resources.')]" use="@Id" />
-  <xsl:template match="wix:Component[key('resources-search', @Id)]" />
-  <xsl:template match="wix:ComponentRef[key('resources-search', @Id)]" />
+  <xsl:key name="AutmaticUpdates-search" match="wix:Component[contains(wix:File/@Source, 'Microarea.Mago4Butler.AutmaticUpdates')]" use="@Id" />
+  <xsl:template match="wix:Component[key('AutmaticUpdates-search', @Id)]" />
+  <xsl:template match="wix:ComponentRef[key('AutmaticUpdates-search', @Id)]" />
+
+  <xsl:key name="AutmaticUpdates-search" match="wix:Component[contains(wix:File/@Source, 'Microarea.Mago4Butler.AutmaticUpdates')]" use="@Id" />
+  <xsl:template match="wix:Component[key('AutmaticUpdates-search', @Id)]" />
+  <xsl:template match="wix:ComponentRef[key('AutmaticUpdates-search', @Id)]" />
+
+  <xsl:key name="Plugins-search" match="wix:Component[contains(wix:File/@Source, 'Mago4Butler.Plugins')]" use="@Id" />
+  <xsl:template match="wix:Component[key('Plugins-search', @Id)]" />
+  <xsl:template match="wix:ComponentRef[key('Plugins-search', @Id)]" />
+
+  <xsl:key name="PluginExample-search" match="wix:Component[contains(wix:File/@Source, 'PluginExample')]" use="@Id" />
+  <xsl:template match="wix:Component[key('PluginExample-search', @Id)]" />
+  <xsl:template match="wix:ComponentRef[key('PluginExample-search', @Id)]" />
   
   <xsl:template match='wix:Component'>
     <xsl:copy>

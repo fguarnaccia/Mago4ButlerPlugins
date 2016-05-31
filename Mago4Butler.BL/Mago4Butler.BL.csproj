@@ -33,6 +33,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -155,11 +156,11 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Standard\TaskBuilder_MIA\TaskBuilderNet\Microarea.TaskBuilderNet.Core\Microarea.TaskBuilderNet.Core.csproj">
+    <ProjectReference Include="..\..\..\Standard\TaskBuilder\TaskBuilderNet\Microarea.TaskBuilderNet.Core\Microarea.TaskBuilderNet.Core.csproj">
       <Project>{dca1dc48-522c-41fa-9e43-3dcce3ed0fe3}</Project>
       <Name>Microarea.TaskBuilderNet.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Standard\TaskBuilder_MIA\TaskBuilderNet\Microarea.TaskBuilderNet.Interfaces\Microarea.TaskBuilderNet.Interfaces.csproj">
+    <ProjectReference Include="..\..\..\Standard\TaskBuilder\TaskBuilderNet\Microarea.TaskBuilderNet.Interfaces\Microarea.TaskBuilderNet.Interfaces.csproj">
       <Project>{d21fd41d-0c68-40ef-a65a-ccfa47a05f3e}</Project>
       <Name>Microarea.TaskBuilderNet.Interfaces</Name>
     </ProjectReference>

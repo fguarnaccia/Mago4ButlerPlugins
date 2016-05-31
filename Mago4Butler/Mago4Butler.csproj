@@ -30,7 +30,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -241,9 +241,13 @@
     <None Include="img\Add.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Standard\TaskBuilder_MIA\Tools\ProvisioningConfigurator\ProvisioningConfigurator\ProvisioningConfigurator.csproj">
+    <ProjectReference Include="..\..\..\Standard\TaskBuilder\Tools\ProvisioningConfigurator\ProvisioningConfigurator\ProvisioningConfigurator.csproj">
       <Project>{a84f78ee-5ede-4c7c-a042-36e0806bacf5}</Project>
       <Name>ProvisioningConfigurator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AutmaticUpdates\AutmaticUpdates.csproj">
+      <Project>{7852b045-f57a-458e-b718-89f9fa26e8a0}</Project>
+      <Name>AutmaticUpdates</Name>
     </ProjectReference>
     <ProjectReference Include="..\Mago4Butler.BL\Mago4Butler.BL.csproj">
       <Project>{cf1bef3b-3042-4192-b6c4-cdc0ed25336d}</Project>
@@ -259,7 +263,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>..\..\..\..\VersionManager\bin\$(ConfigurationName)\VersionManager.exe</PreBuildEvent>
+    <PreBuildEvent>$(SolutionDir)VersionManager\bin\$(ConfigurationName)\VersionManager.exe $(ProjectDir)Properties\AssemblyInfo.cs</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

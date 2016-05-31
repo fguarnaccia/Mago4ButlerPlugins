@@ -22,7 +22,7 @@ namespace VersionManager
             string versionRegexPattern = "[0-9]+\\.[0-9]+\\.[0-9\\.]+\\.[0-9\\.]";
             Regex versionRegex = new Regex(versionRegexPattern);
 
-            string path = "..\\..\\..\\Properties\\AssemblyInfo.cs";
+            string path = args[0];
 
             string content = null;
             using (StreamReader sr = new StreamReader(path))
