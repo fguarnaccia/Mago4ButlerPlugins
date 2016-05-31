@@ -83,6 +83,6 @@
   <PropertyGroup>
     <PreBuildEvent>cd..
 cd..
-$(ProjectDir)CollectFiles.bat $(Configuration) $(SolutionDir) $(PlatformName)</PreBuildEvent>
+$(ProjectDir)CollectFiles.bat $(Configuration) $(SolutionDir) $(PlatformName) $(ProjectName)</PreBuildEvent>
   </PropertyGroup>
 </Project>

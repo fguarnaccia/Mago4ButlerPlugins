@@ -54,11 +54,6 @@
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <PropertyGroup>
-    <PreBuildEvent>cd..
-cd..
-$(ProjectDir)CollectFiles.bat $(Configuration) $(SolutionDir) $(PlatformName)</PreBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup>
     <PostBuildEvent>..\..\..\DigitalSignerClient\bin\Release\Microarea.DigitalSignerClient.exe "$(TargetDir)$(TargetFileName)"</PostBuildEvent>
   </PropertyGroup>
   <Target Name="BeforeBuild">
@@ -71,4 +66,9 @@ $(ProjectDir)CollectFiles.bat $(Configuration) $(SolutionDir) $(PlatformName)</P
       <Output TaskParameter="Value" PropertyName="DefineConstants" />
     </CreateProperty>
   </Target>
+  <PropertyGroup>
+    <PreBuildEvent>cd..
+cd..
+$(ProjectDir)CollectFiles.bat $(Configuration) $(SolutionDir) $(PlatformName) $(ProjectName)</PreBuildEvent>
+  </PropertyGroup>
 </Project>

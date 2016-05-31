@@ -46,6 +46,7 @@ namespace Microarea.Mago4Butler
 
         private void PluginService_PluginsLoaded(object sender, EventArgs e)
         {
+#warning Background thread, verificare perche` non termina l'exe.
             ThreadPool.QueueUserWorkItem((_) => appAutomationServer.Start());
         }
 
