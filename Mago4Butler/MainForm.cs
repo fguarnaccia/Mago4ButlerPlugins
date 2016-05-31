@@ -332,7 +332,13 @@ namespace Microarea.Mago4Butler
         {
             this.loggerService.LogInfo("--------------------------------------------------------------------------------");
             this.loggerService.LogInfo("Installer service started");
-            uiWaiting.ClearDetails();
+
+            this.syncCtx.Post(new SendOrPostCallback((obj) =>
+            {
+                uiWaiting.ClearDetails();
+            })
+            , null);
+
             ShowUI(uiWaiting);
             EnableDisableToolStripItem(this.tsbSettings, false);
 
@@ -425,15 +431,10 @@ namespace Microarea.Mago4Butler
 
         private void Install(object sender, InstallInstanceEventArgs e)
         {
-            if (this.settings.ShowRootFolderChoice)
+            var rootFolder = new DirectoryInfo(this.settings.RootFolder);
+            if (!rootFolder.Exists)
             {
-                using (var chooseRootFolderDialog = new ChooseRootFolderForm(this.settings))
-                {
-#warning Eliminare ShowDialog
-                    chooseRootFolderDialog.ShowDialog();
-                }
-                this.settings.ShowRootFolderChoice = false;
-                this.settings.Save();
+                rootFolder.Create();
             }
 
             this.msiFullFilePath = CalculateMsiFullFilePath(this.settings);

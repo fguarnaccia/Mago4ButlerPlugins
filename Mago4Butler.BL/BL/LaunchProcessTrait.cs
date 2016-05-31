@@ -26,7 +26,7 @@ namespace Microarea.Mago4Butler.BL
         }
         private static void LaunchProcess(string processFilePath, string args, int timeoutInMillSecs)
         {
-#if !DEBUG
+//#if !DEBUG
             ProcessStartInfo psi = new ProcessStartInfo(processFilePath, args);
             psi.RedirectStandardError = true;
             psi.RedirectStandardOutput = true;
@@ -41,7 +41,7 @@ namespace Microarea.Mago4Butler.BL
             {
                 throw new Exception(String.Format("Process '{0}' returned following errors: {1}, {2}", processFilePath, output, error));
             }
-#endif
+//#endif
         }
     }
 }

@@ -114,10 +114,7 @@ namespace Microarea.Mago4Butler
             if (this.DialogResult == DialogResult.OK)
             {
                 this.settings.RootFolder = this.txtRootFolder.Text;
-                if (this.settings.ShowRootFolderChoice)
-                {
-                    this.settings.ShowRootFolderChoice = false;
-                }
+
                 this.settings.LogsFolder = Path.Combine(this.settings.RootFolder, new DirectoryInfo(this.settings.LogsFolder).Name);
 
                 this.settings.MsiFolder = this.txtMsi.Text;
