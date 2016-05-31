@@ -1,0 +1,33 @@
+
+UpdateDeployment:
+UpdateDeployment /root \"[INSTALLLOCATION]Apps\" /installation \"[INSTANCENAME]\" /version release /uiCulture \"[UICULTURE]\" /webServicesPort [DEFAULTWEBSITEPORT]
+
+Deploy:
+Deploy /root \"[INSTALLLOCATION]Apps\" /installation \"[INSTANCENAME]\" /version release /uiCulture \"[UICULTURE]\" /webServicesPort [DEFAULTWEBSITEPORT]
+
+
+Parametri:
+•         INSTALLLOCATION e INSTANCENAME sono autoesplicativi.
+•         UICULTURE la puoi leggere dal serverconnection.config, mi sembra di ricordare che sia il valore del nodo <ApplicationLanguage>
+•         DEFAULTWEBSITEPORT idem la puoi leggere dal serverconnection.config, e` il valore del nodo < WebServicesPort>
+
+
+namespace Microarea.Mago4Butler.BL
+{
+    public static class LaunchProcessTrait
+
+
+                    ProcessStartInfo psi = new ProcessStartInfo(processFilePath, args);
+            psi.RedirectStandardError = true;
+            psi.RedirectStandardOutput = true;
+            psi.UseShellExecute = false;
+            psi.CreateNoWindow = true;
+            Process p = Process.Start(psi);
+            string output = p.StandardOutput.ReadToEnd();
+            string error = p.StandardError.ReadToEnd();
+
+            p.WaitForExit(timeoutInMillSecs);
+            if (p.ExitCode != 0)
+            {
+                throw new Exception(String.Format("Process '{0}' returned following errors: {1}, {2}", processFilePath, output, error));
+            }
