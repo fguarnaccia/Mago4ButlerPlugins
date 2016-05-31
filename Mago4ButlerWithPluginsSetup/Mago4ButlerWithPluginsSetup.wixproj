@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>3.10</ProductVersion>
+    <ProjectGuid>30cc3935-a7c5-441e-9a26-a6c94bfdec69</ProjectGuid>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputName>Mago4ButlerWithPluginsSetup</OutputName>
+    <OutputType>Package</OutputType>
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <DefineConstants>Debug;SourceDir=..\Mago4Butler\bin\$(PlatformName)\$(Configuration)</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <DefineConstants>M4BSourceDir=..\Mago4Butler\bin\$(Platform)\$(Configuration)</DefineConstants>
+    <SuppressPdbOutput>True</SuppressPdbOutput>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Files.wxs" />
+    <Compile Include="Product.wxs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CollectFiles.bat" />
+    <Content Include="Transform.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DigitalSignerClient\DigitalSignerClient.csproj">
+      <Name>DigitalSignerClient</Name>
+      <Project>{00545d6c-42b4-4f42-b8f3-5e7282e03dbe}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\Mago4Butler\Mago4Butler.csproj">
+      <Name>Mago4Butler</Name>
+      <Project>{74895131-51fe-4fe9-baeb-8d8e192e27cf}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(WixTargetsPath)" />
+  <PropertyGroup>
+    <PreBuildEvent>cd..
+cd..
+$(ProjectDir)CollectFiles.bat $(Configuration) $(SolutionDir) $(PlatformName)</PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>..\..\..\DigitalSignerClient\bin\Release\Microarea.DigitalSignerClient.exe "$(TargetDir)$(TargetFileName)"</PostBuildEvent>
+  </PropertyGroup>
+  <Target Name="BeforeBuild">
+    <!-- Get the programs assembly version from the .exe file -->
+    <GetAssemblyIdentity AssemblyFiles="..\Mago4Butler\bin\$(platform)\$(Configuration)\Mago4Butler.exe">
+      <Output TaskParameter="Assemblies" ItemName="AsmInfo" />
+    </GetAssemblyIdentity>
+    <!-- Store the assembly version number in ProductVersion preprocessor variable -->
+    <CreateProperty Value="$(DefineConstants);ProductVersion=%(AsmInfo.Version)">
+      <Output TaskParameter="Value" PropertyName="DefineConstants" />
+    </CreateProperty>
+  </Target>
+</Project>

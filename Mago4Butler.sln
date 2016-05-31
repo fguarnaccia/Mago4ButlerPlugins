@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microarea.TaskBuilderNet.Pa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProvisioningConfigurator", "..\..\Standard\TaskBuilder\Tools\ProvisioningConfigurator\ProvisioningConfigurator\ProvisioningConfigurator.csproj", "{A84F78EE-5EDE-4C7C-A042-36E0806BACF5}"
 EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Mago4ButlerWithPluginsSetup", "Mago4ButlerWithPluginsSetup\Mago4ButlerWithPluginsSetup.wixproj", "{30CC3935-A7C5-441E-9A26-A6C94BFDEC69}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -150,6 +152,11 @@ Global
 		{A84F78EE-5EDE-4C7C-A042-36E0806BACF5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A84F78EE-5EDE-4C7C-A042-36E0806BACF5}.Release|x86.ActiveCfg = Release|Any CPU
 		{A84F78EE-5EDE-4C7C-A042-36E0806BACF5}.Release|x86.Build.0 = Release|Any CPU
+		{30CC3935-A7C5-441E-9A26-A6C94BFDEC69}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{30CC3935-A7C5-441E-9A26-A6C94BFDEC69}.Debug|x86.ActiveCfg = Debug|x86
+		{30CC3935-A7C5-441E-9A26-A6C94BFDEC69}.Release|Any CPU.ActiveCfg = Release|x86
+		{30CC3935-A7C5-441E-9A26-A6C94BFDEC69}.Release|x86.ActiveCfg = Release|x86
+		{30CC3935-A7C5-441E-9A26-A6C94BFDEC69}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -164,9 +171,10 @@ Global
 		{042804B4-7D3B-490B-864D-EFE3F7AC3462} = {8F83B0E7-0A95-4AA3-94B0-F06D90888795}
 		{BEFDB95F-5504-4C27-993B-094C069CB8BF} = {8F83B0E7-0A95-4AA3-94B0-F06D90888795}
 		{A84F78EE-5EDE-4C7C-A042-36E0806BACF5} = {8F83B0E7-0A95-4AA3-94B0-F06D90888795}
+		{30CC3935-A7C5-441E-9A26-A6C94BFDEC69} = {807CBFB5-AB06-4AD2-BD86-9083B92B7504}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 15
+		SccNumberOfProjects = 16
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = http://tfs:8080/tfs/microarea
 		SccLocalPath0 = .
@@ -221,5 +229,9 @@ Global
 		SccProjectTopLevelParentUniqueName14 = Mago4Butler.sln
 		SccProjectName14 = ../../TaskBuilder_1_x/Tools/ProvisioningConfigurator/ProvisioningConfigurator
 		SccLocalPath14 = ..\\..\\Standard\\TaskBuilder\\Tools\\ProvisioningConfigurator\\ProvisioningConfigurator
+		SccProjectUniqueName15 = Mago4ButlerWithPluginsSetup\\Mago4ButlerWithPluginsSetup.wixproj
+		SccProjectTopLevelParentUniqueName15 = Mago4Butler.sln
+		SccProjectName15 = Mago4ButlerWithPluginsSetup
+		SccLocalPath15 = Mago4ButlerWithPluginsSetup
 	EndGlobalSection
 EndGlobal
