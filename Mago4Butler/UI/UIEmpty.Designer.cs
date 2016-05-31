@@ -40,13 +40,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lnkSelectMsi.AutoSize = true;
             this.lnkSelectMsi.Font = new System.Drawing.Font("Verdana", 12F);
-            this.lnkSelectMsi.Location = new System.Drawing.Point(103, 174);
+            this.lnkSelectMsi.Location = new System.Drawing.Point(127, 172);
             this.lnkSelectMsi.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lnkSelectMsi.Name = "lnkSelectMsi";
-            this.lnkSelectMsi.Size = new System.Drawing.Size(190, 18);
+            this.lnkSelectMsi.Size = new System.Drawing.Size(120, 18);
             this.lnkSelectMsi.TabIndex = 5;
             this.lnkSelectMsi.TabStop = true;
-            this.lnkSelectMsi.Text = "Select a MSI to install";
+            this.lnkSelectMsi.Text = "Install Mago4";
             this.lnkSelectMsi.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lnkSelectMsi.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkSelectMsi_LinkClicked);
             // 
