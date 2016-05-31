@@ -429,28 +429,14 @@ namespace Microarea.Mago4Butler
             {
                 using (var chooseRootFolderDialog = new ChooseRootFolderForm(this.settings))
                 {
+#warning Eliminare ShowDialog
                     chooseRootFolderDialog.ShowDialog();
                 }
                 this.settings.ShowRootFolderChoice = false;
                 this.settings.Save();
             }
 
-            var msiDirInfo = new DirectoryInfo(this.settings.MsiFolder);
-            if (!msiDirInfo.Exists)
-            {
-                throw new Exception(this.settings.MsiFolder + " does not exist");
-            }
-
-            var msiFileInfos = from FileInfo f in msiDirInfo.GetFiles("Mago*.msi")
-                               orderby f.LastWriteTime descending
-                               select f;
-
-            if (msiFileInfos.Count() == 0)
-            {
-                throw new Exception("No msi files found in " + this.settings.MsiFolder);
-            }
-
-            this.msiFullFilePath = msiFileInfos.First().FullName;
+            this.msiFullFilePath = CalculateMsiFullFilePath(this.settings);
 
             using (var askForParametersDialog = new AskForParametersForm(this.model, this.settings))
             {
@@ -494,27 +480,28 @@ namespace Microarea.Mago4Butler
 
         private void UiNormalUse_UpdateInstance(object sender, UpdateInstanceEventArgs e)
         {
-            using (var ofd = new OpenFileDialog())
+            this.msiFullFilePath = CalculateMsiFullFilePath(this.settings);
+            this.model.UpdateInstances(e.Instances);
+        }
+
+        private static string CalculateMsiFullFilePath(ISettings settings)
+        {
+            var msiDirInfo = new DirectoryInfo(settings.MsiFolder);
+            if (!msiDirInfo.Exists)
             {
-                string lastUsedFolder = this.settings.LastFolderOpenedBrowsingForMsi;
-                if (string.IsNullOrWhiteSpace(lastUsedFolder) || !Directory.Exists(lastUsedFolder))
-                {
-                    lastUsedFolder = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-                }
-                ofd.InitialDirectory = lastUsedFolder;
-                ofd.Multiselect = false;
-                ofd.Title = "Select Mago4 msi file";
-                var res = ofd.ShowDialog(this);
-
-                if (res != DialogResult.OK)
-                {
-                    return;
-                }
-
-                this.msiFullFilePath = ofd.FileName;
+                throw new Exception(settings.MsiFolder + " does not exist");
             }
 
-            this.model.UpdateInstances(e.Instances);
+            var msiFileInfos = from FileInfo f in msiDirInfo.GetFiles("Mago*.msi")
+                               orderby f.LastWriteTime descending
+                               select f;
+
+            if (msiFileInfos.Count() == 0)
+            {
+                throw new Exception("No msi files found in " + settings.MsiFolder);
+            }
+
+            return msiFileInfos.First().FullName;
         }
 
         private void tsbSettings_Click(object sender, EventArgs e)

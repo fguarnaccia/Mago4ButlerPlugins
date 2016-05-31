@@ -57,12 +57,6 @@ namespace Microarea.Mago4Butler
         {
             this.syncCtx.Post(new SendOrPostCallback((obj) => this.lblProgressText.Text = message), null);
         }
-        public string GetProgressText()
-        {
-            string progressText = null;
-            this.syncCtx.Send(new SendOrPostCallback((obj) => progressText = this.lblProgressText.Text), null);
-            return progressText;
-        }
 
         private void MainForm_LocationChanged(object sender, EventArgs e)
         {
