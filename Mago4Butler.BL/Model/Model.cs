@@ -135,8 +135,6 @@ namespace Microarea.Mago4Butler.BL
 
             Debug.Assert(oldInstance != null);
 
-            oldInstance.Version = instance.Version;
-
             this.OnInstanceUpdated(new InstanceEventArgs() { Instance = oldInstance });
 
             SaveToConfigurationFile();

@@ -481,6 +481,13 @@ namespace Microarea.Mago4Butler
         private void UiNormalUse_UpdateInstance(object sender, UpdateInstanceEventArgs e)
         {
             this.msiFullFilePath = CalculateMsiFullFilePath(this.settings);
+
+            var version = this.msiService.GetVersion(msiFullFilePath);
+
+            foreach (var instance in e.Instances)
+            {
+                instance.Version = version;
+            }
             this.model.UpdateInstances(e.Instances);
         }
 
