@@ -21,7 +21,6 @@ namespace MagoRunnerPlugin
             var cmis = new List<ContextMenuItem>();
 
             ContextMenuItem cmi = new ContextMenuItem();
-
             cmi.Name = "runRoot";
             cmi.Text = "RootFolder";
             cmi.ShortcutKeys = Keys.Control | Keys.R;
@@ -30,37 +29,33 @@ namespace MagoRunnerPlugin
                 =>
                 RunRoot(instance)
                 );
-
             cmis.Add(cmi);
 
-            cmi = new ContextMenuItem();
+            //cmi = new ContextMenuItem();
+            //cmi.Name = "runMadico";
+            //cmi.Text = "check Instance";
+            //cmi.ShortcutKeys = Keys.Control | Keys.M;
+            //cmi.Command = new Action<Instance>(
+            //    (instance)
+            //    =>
+            //    RunMadico(instance)
+            //    );
+            //cmis.Add(cmi);
 
-            cmi.Name = "runMadico";
-            cmi.Text = "check Instance";
-            cmi.ShortcutKeys = Keys.Control | Keys.M;
-            cmi.Command = new Action<Instance>(
-                (instance)
-                =>
-                RunMadico(instance)
-                );
+            //cmi = new ContextMenuItem();
 
-            cmis.Add(cmi);
+            //cmi.Name = "runCOD";
+            //cmi.Text = "ClickOnceDeployer";
+            //cmi.ShortcutKeys = Keys.Control | Keys.O;
+            //cmi.Command = new Action<Instance>(
+            //    (instance)
+            //    =>
+            //    RunCOD(instance)
+            //    );
 
-            cmi = new ContextMenuItem();
-
-            cmi.Name = "runCOD";
-            cmi.Text = "ClickOnceDeployer";
-            cmi.ShortcutKeys = Keys.Control | Keys.O;
-            cmi.Command = new Action<Instance>(
-                (instance)
-                =>
-                RunCOD(instance)
-                );
-
-            cmis.Add(cmi);
+            //cmis.Add(cmi);
 
             cmi = new ContextMenuItem();
-
             cmi.Name = "runMago";
             cmi.Text = "Mago";
             cmi.ShortcutKeys = Keys.F9;
@@ -73,7 +68,6 @@ namespace MagoRunnerPlugin
             cmis.Add(cmi);
 
             cmi = new ContextMenuItem();
-
             cmi.Name = "runConsole";
             cmi.Text = "Admin Console";
             cmi.ShortcutKeys = Keys.Control | Keys.A;
@@ -82,11 +76,9 @@ namespace MagoRunnerPlugin
                 =>
                 RunConsole(instance)
                 );
-
             cmis.Add(cmi);
 
             cmi = new ContextMenuItem();
-
             cmi.Name = "runCustom";
             cmi.Text = "Custom";
             cmi.ShortcutKeys = Keys.Control | Keys.C;
@@ -122,7 +114,6 @@ namespace MagoRunnerPlugin
             cmis.Add(cmi);
 
             cmi = new ContextMenuItem();
-
             cmi.Name = "runMagoWeb";
             cmi.Text = "Easylook/MagoWeb";
             cmi.ShortcutKeys = Keys.Control | Keys.W;
@@ -143,8 +134,8 @@ namespace MagoRunnerPlugin
                RunNothing(instance)
                );
             cmis.Add(cmi);
-            cmi = new ContextMenuItem();
 
+            cmi = new ContextMenuItem();
             cmi.Name = "setIdentity";
             cmi.Text = "ClassicApplicationPoolPipeline=" + MagoRunnerPlugin.Properties.Settings.Default.ClassicApplicationPoolPipeline.ToString();
             //cmi.ShortcutKeys = Keys.Control | Keys.W;
@@ -292,24 +283,24 @@ namespace MagoRunnerPlugin
             Process.Start(FileName);
 
         }
-        private void RunMadico(Instance istanza)
-        {
+        //private void RunMadico(Instance istanza)
+        //{
 
-            string fileName = string.Empty;
-            string executable = "Madico.msc";
+        //    string fileName = string.Empty;
+        //    string executable = "Madico.msc";
 
-            fileName = Path.Combine(App.Instance.Settings.RootFolder, istanza.Name, @"Apps\Microarea Diagnostics\", executable);
-            Process.Start(fileName, "ui");
-        }
+        //    fileName = Path.Combine(App.Instance.Settings.RootFolder, istanza.Name, @"Apps\Microarea Diagnostics\", executable);
+        //    Process.Start(fileName, "ui");
+        //}
 
-        private void RunCOD(Instance istanza)
-        {
-            string fileName = string.Empty;
-            string executable = "ClickOnceDeployer.exe";
+        //private void RunCOD(Instance istanza)
+        //{
+        //    string fileName = string.Empty;
+        //    string executable = "ClickOnceDeployer.exe";
 
-            fileName = Path.Combine(App.Instance.Settings.RootFolder, istanza.Name, @"Apps\ClickOnceDeployer\", executable);
-            Process.Start(fileName, "ui");
-        }
+        //    fileName = Path.Combine(App.Instance.Settings.RootFolder, istanza.Name, @"Apps\ClickOnceDeployer\", executable);
+        //    Process.Start(fileName, "ui");
+        //}
         void RunMago(Instance istanza)
         {
 
