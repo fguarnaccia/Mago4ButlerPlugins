@@ -212,5 +212,52 @@ namespace Microarea.Mago4Butler.BL
                 throw;
             }
         }
+
+        public IList<string> GetFeatureNames(string msiFilePath)
+        {
+            List<string> featureNames = new List<string>();
+            try
+            {
+                var installer = Activator.CreateInstance(InstallerType) as Installer;
+                var database = installer.OpenDatabase(msiFilePath, MsiOpenDatabaseMode.msiOpenDatabaseModeTransact);
+                var view = database.OpenView("SELECT * from Feature");
+
+                view.Execute(null);
+
+                Record record = null;
+                try
+                {
+                    record = view.Fetch();
+                    while (record != null)
+                    {
+                        featureNames.Add(record.get_StringData(1));
+                        Marshal.ReleaseComObject(record);
+                        record = view.Fetch();
+                    }
+                }
+                finally
+                {
+                    if (view != null)
+                    {
+                        view.Close();
+                        Marshal.ReleaseComObject(view);
+                    }
+                    if (database != null)
+                    {
+                        Marshal.ReleaseComObject(database);
+                    }
+                    if (installer != null)
+                    {
+                        Marshal.ReleaseComObject(installer);
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                this.LogError("Error getting feature names from " + msiFilePath, exc);
+                throw;
+            }
+            return featureNames;
+        }
     }
 }

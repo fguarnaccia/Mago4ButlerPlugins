@@ -304,7 +304,8 @@ namespace Microarea.Mago4Butler.BL
                                 ProxyUserSet = this.settings.UseCredentials,
                                 ProxyDomain = this.settings.DomainName,
                                 ProxyUsername = this.settings.Username,
-                                ProxyPassword = this.settings.Password
+                                ProxyPassword = this.settings.Password,
+                                Features = this.msiService.GetFeatureNames(currentRequest.MsiPath)
                             };
                             try
                             {
@@ -336,7 +337,8 @@ namespace Microarea.Mago4Butler.BL
                                 ProxyUserSet = this.settings.UseCredentials,
                                 ProxyDomain = this.settings.DomainName,
                                 ProxyUsername = this.settings.Username,
-                                ProxyPassword = this.settings.Password
+                                ProxyPassword = this.settings.Password,
+                                Features = this.msiService.GetFeatureNames(currentRequest.MsiPath)
                             };
                             try
                             {

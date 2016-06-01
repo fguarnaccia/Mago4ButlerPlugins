@@ -21,6 +21,7 @@ namespace Microarea.Mago4Butler.BL
         public string ProxyDomain { get; set; }
         public string ProxyUsername { get; set; }
         public string ProxyPassword { get; set; }
+        public IList<string> Features { get; set; }
 
         public override string ToString()
         {
@@ -66,6 +67,10 @@ namespace Microarea.Mago4Butler.BL
                         .Append(this.ProxyPassword).Append("\"");
                 }
             }
+
+            cmdLineBld.Append(" ADDLOCAL=\"")
+                .Append(string.Join(",", Features))
+                .Append("\"");
 
             return cmdLineBld.ToString();
         }
