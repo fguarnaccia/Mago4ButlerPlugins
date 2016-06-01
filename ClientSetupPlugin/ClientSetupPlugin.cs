@@ -9,15 +9,18 @@ using System.Diagnostics;
 using System.Xml;
 using System.Windows.Forms;
 
+
 namespace ClientSetupPlugin
 {
     public class ClientSetup : IPlugin
     {
 
+        //return this.GetType().Assembly.GetName().Version;
         string instance = string.Empty;
         string customshare = "share {0}_Custom={1}";
         string standardshare = "share {0}_Standard={1}";
         string applicationpath = string.Empty;
+        string linkUrl = "http://{0}/{1}/Index.htm";
 
         string CODargs = @" /root ""{0}\Apps"" /installation {1} /version release /uiCulture ""it-IT"" /webServicesPort {2}";
         //Deploy /root \"[INSTALLLOCATION]Apps\" /installation \"[INSTANCENAME]\" /version release /uiCulture \"[UICULTURE]\" /webServicesPort [DEFAULTWEBSITEPORT]
@@ -124,17 +127,15 @@ namespace ClientSetupPlugin
             LaunchProcess(CODpath, cstdeploy + CODargs, 1000);
             LaunchProcess(CODpath, cstupdatedeployment + CODargs, 1000);
 
-            //crea shortcut
-            string linkUrl =  "http://usr-guarnaccia/{0}/Index.htm" ;
-            
+            //crea shortcut           
             using (StreamWriter writer = new StreamWriter(custompath  + "\\" + cstlinkName + ".url"))
             {
                 writer.WriteLine("[InternetShortcut]");
-                writer.WriteLine("URL=" + string.Format(linkUrl, istanza.Name));
+                writer.WriteLine("URL=" + string.Format(linkUrl, System.Environment.MachineName, istanza.Name));
                 writer.Flush();
             }
 
-            MessageBox.Show("Fine Clientsetup");
+            MessageBox.Show("Fine Preparazione Client Setup","GS ClientSetupPlugin");
 
             return;
         }
@@ -161,13 +162,7 @@ namespace ClientSetupPlugin
 
         }
 
-        void RunDeploy()
-        { }
-
-        void RunUpdateDeployment()
-        { }
-
-        string GetSitePort(Instance istanza)
+           string GetSitePort(Instance istanza)
         {
             string tcpport = "80";
             string xmlfile = string.Empty;
