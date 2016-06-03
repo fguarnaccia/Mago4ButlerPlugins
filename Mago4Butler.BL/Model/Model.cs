@@ -208,7 +208,7 @@ namespace Microarea.Mago4Butler.BL
                 return;
             }
 
-            var deserializer = new YamlDotNet.Serialization.Deserializer(null, new PascalCaseNamingConvention());
+            var deserializer = new YamlDotNet.Serialization.Deserializer(null, new PascalCaseNamingConvention(), ignoreUnmatched: true);
             using (var inputStream = confFileInfo.OpenRead())
             using (var streamReader = new StreamReader(inputStream))
             {
