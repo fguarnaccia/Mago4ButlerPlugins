@@ -76,7 +76,7 @@ namespace Microarea.Mago4Butler.BL
                 return null;
             }
 
-            var deserializer = new Deserializer(null, new PascalCaseNamingConvention());
+            var deserializer = new Deserializer(null, new PascalCaseNamingConvention(), ignoreUnmatched: true);
             using (var inputStream = settingsFileInfo.OpenRead())
             using (var streamReader = new StreamReader(inputStream))
             {
