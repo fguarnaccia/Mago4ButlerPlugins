@@ -418,15 +418,10 @@ namespace Microarea.Mago4Butler
 
         private void bntAbout_Click(object sender, EventArgs e)
         {
-            var version = GetType().Assembly.GetName().Version.ToString();
-            MessageBox.Show(
-                this,
-                "The logo and the icon are built upon Jenkins logo (https://wiki.jenkins-ci.org/display/JENKINS/Logo) and are distributed under the 'Attribution - ShareAlike 3.0 Unported(CC BY - SA 3.0)' license (http://creativecommons.org/licenses/by-sa/3.0/)",
-                String.Format("Mago4 Butler v. {0}", version),
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information,
-                MessageBoxDefaultButton.Button1
-                );
+            using (var aboutForm = new AboutForm(pluginService))
+            {
+                aboutForm.ShowDialog(this);
+            }
         }
 
         private void Install(object sender, InstallInstanceEventArgs e)
