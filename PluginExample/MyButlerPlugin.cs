@@ -7,22 +7,6 @@ namespace PluginExample
 {
     public class MyButlerPlugin : IPlugin
     {
-        public Version Version
-        {
-            get
-            {
-                return this.GetType().Assembly.GetName().Version;
-            }
-        }
-
-        public string Name
-        {
-            get
-            {
-                return "PluginExample.MyButlerPlugin";
-            }
-        }
-
         public IEnumerable<ContextMenuItem> GetContextMenuItems()
         {
             ContextMenuItem myItem = new ContextMenuItem();

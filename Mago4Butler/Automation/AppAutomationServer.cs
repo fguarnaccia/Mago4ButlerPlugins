@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Microarea.Mago4Butler.BL;
+using Microarea.Mago4Butler.Plugins;
+using System;
 using System.IO;
 using System.IO.Pipes;
 
-namespace Microarea.Mago4Butler.BL
+namespace Microarea.Mago4Butler
 {
     class AppAutomationServer : ILogger, IDisposable
     {
@@ -62,10 +64,10 @@ namespace Microarea.Mago4Butler.BL
                             bool found = false;
                             foreach (var plugin in IoCContainer.Instance.Get<PluginService>().Plugins)
                             {
-                                if (plugin.Name == args)
+                                if (plugin.GetName() == args)
                                 {
                                     found = true;
-                                    writer.WriteLine(plugin.Version.ToString());
+                                    writer.WriteLine(plugin.GetVersion().ToString());
                                     writer.Flush();
                                     break;
                                 }

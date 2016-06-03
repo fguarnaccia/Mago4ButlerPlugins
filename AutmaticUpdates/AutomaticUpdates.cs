@@ -16,22 +16,6 @@ namespace Microarea.Mago4Butler.AutmaticUpdates
 
         bool canUpdate;
 
-        public Version Version
-        {
-            get
-            {
-                return this.GetType().Assembly.GetName().Version;
-            }
-        }
-
-        public string Name
-        {
-            get
-            {
-                return "Microarea.Mago4Butler.AutmaticUpdates";
-            }
-        }
-
         public IEnumerable<ContextMenuItem> GetContextMenuItems()
         {
             return null;

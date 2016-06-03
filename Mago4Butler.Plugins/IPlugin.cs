@@ -16,15 +16,6 @@ namespace Microarea.Mago4Butler.Plugins
 
         void OnApplicationStarted();
 
-        System.Version Version
-        {
-            get;
-        }
-        string Name
-        {
-            get;
-        }
-
         void OnInstallerServiceStopped();
         void OnInstallerServiceStarted();
     }
