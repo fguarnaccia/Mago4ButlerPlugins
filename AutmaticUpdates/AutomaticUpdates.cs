@@ -28,6 +28,7 @@ namespace Microarea.Mago4Butler.AutmaticUpdates
 
         public void OnApplicationStarted()
         {
+            canUpdate = true;
             var thread = new Thread(() => InstallAvailableUpdates());
             thread.IsBackground = true;
             thread.Start();
