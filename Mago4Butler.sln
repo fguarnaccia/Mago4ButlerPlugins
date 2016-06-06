@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PluginExample", "PluginExam
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VersionManager", "VersionManager\VersionManager.csproj", "{0FF997AA-E75E-48B6-ABEE-3BEE0D69852C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutmaticUpdates", "AutmaticUpdates\AutmaticUpdates.csproj", "{7852B045-F57A-458E-B718-89F9FA26E8A0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomaticUpdates", "AutmaticUpdates\AutomaticUpdates.csproj", "{7852B045-F57A-458E-B718-89F9FA26E8A0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TaskBuilderNet", "TaskBuilderNet", "{8F83B0E7-0A95-4AA3-94B0-F06D90888795}"
 EndProject
@@ -210,39 +210,39 @@ Global
 		SccProjectTopLevelParentUniqueName7 = Mago4Butler.sln
 		SccProjectName7 = VersionManager
 		SccLocalPath7 = VersionManager
-		SccProjectUniqueName8 = AutmaticUpdates\\AutmaticUpdates.csproj
-		SccProjectName8 = AutmaticUpdates
-		SccLocalPath8 = AutmaticUpdates
-		SccProjectUniqueName9 = ..\\..\\Standard\\TaskBuilder\\TaskBuilderNet\\Microarea.TaskBuilderNet.Interfaces\\Microarea.TaskBuilderNet.Interfaces.csproj
+		SccProjectUniqueName8 = ..\\..\\Standard\\TaskBuilder\\TaskBuilderNet\\Microarea.TaskBuilderNet.Interfaces\\Microarea.TaskBuilderNet.Interfaces.csproj
+		SccProjectTopLevelParentUniqueName8 = Mago4Butler.sln
+		SccProjectName8 = ../../TaskBuilder_1_x/TaskBuilderNet/Microarea.TaskBuilderNet.Interfaces
+		SccLocalPath8 = ..\\..\\Standard\\TaskBuilder\\TaskBuilderNet\\Microarea.TaskBuilderNet.Interfaces
+		SccProjectUniqueName9 = ..\\..\\Standard\\TaskBuilder\\TaskBuilderNet\\Microarea.TaskBuilderNet.Core\\Microarea.TaskBuilderNet.Core.csproj
 		SccProjectTopLevelParentUniqueName9 = Mago4Butler.sln
-		SccProjectName9 = ../../TaskBuilder_1_x/TaskBuilderNet/Microarea.TaskBuilderNet.Interfaces
-		SccLocalPath9 = ..\\..\\Standard\\TaskBuilder\\TaskBuilderNet\\Microarea.TaskBuilderNet.Interfaces
-		SccProjectUniqueName10 = ..\\..\\Standard\\TaskBuilder\\TaskBuilderNet\\Microarea.TaskBuilderNet.Core\\Microarea.TaskBuilderNet.Core.csproj
+		SccProjectName9 = ../../TaskBuilder_1_x/TaskBuilderNet/Microarea.TaskBuilderNet.Core
+		SccLocalPath9 = ..\\..\\Standard\\TaskBuilder\\TaskBuilderNet\\Microarea.TaskBuilderNet.Core
+		SccProjectUniqueName10 = ..\\..\\Standard\\TaskBuilder\\TaskBuilderNet\\Microarea.TaskBuilderNet.Data\\Microarea.TaskBuilderNet.Data.csproj
 		SccProjectTopLevelParentUniqueName10 = Mago4Butler.sln
-		SccProjectName10 = ../../TaskBuilder_1_x/TaskBuilderNet/Microarea.TaskBuilderNet.Core
-		SccLocalPath10 = ..\\..\\Standard\\TaskBuilder\\TaskBuilderNet\\Microarea.TaskBuilderNet.Core
-		SccProjectUniqueName11 = ..\\..\\Standard\\TaskBuilder\\TaskBuilderNet\\Microarea.TaskBuilderNet.Data\\Microarea.TaskBuilderNet.Data.csproj
+		SccProjectName10 = ../../TaskBuilder_1_x/TaskBuilderNet/Microarea.TaskBuilderNet.Data
+		SccLocalPath10 = ..\\..\\Standard\\TaskBuilder\\TaskBuilderNet\\Microarea.TaskBuilderNet.Data
+		SccProjectUniqueName11 = ..\\..\\Standard\\TaskBuilder\\TaskBuilderNet\\Microarea.TaskBuilderNet.Licence\\Microarea.TaskBuilderNet.Licence.csproj
 		SccProjectTopLevelParentUniqueName11 = Mago4Butler.sln
-		SccProjectName11 = ../../TaskBuilder_1_x/TaskBuilderNet/Microarea.TaskBuilderNet.Data
-		SccLocalPath11 = ..\\..\\Standard\\TaskBuilder\\TaskBuilderNet\\Microarea.TaskBuilderNet.Data
-		SccProjectUniqueName12 = ..\\..\\Standard\\TaskBuilder\\TaskBuilderNet\\Microarea.TaskBuilderNet.Licence\\Microarea.TaskBuilderNet.Licence.csproj
+		SccProjectName11 = ../../TaskBuilder_1_x/TaskBuilderNet/Microarea.TaskBuilderNet.Licence
+		SccLocalPath11 = ..\\..\\Standard\\TaskBuilder\\TaskBuilderNet\\Microarea.TaskBuilderNet.Licence
+		SccProjectUniqueName12 = ..\\..\\Standard\\TaskBuilder\\TaskBuilderNet\\Microarea.TaskBuilderNet.ParametersManager\\Microarea.TaskBuilderNet.ParametersManager.csproj
 		SccProjectTopLevelParentUniqueName12 = Mago4Butler.sln
-		SccProjectName12 = ../../TaskBuilder_1_x/TaskBuilderNet/Microarea.TaskBuilderNet.Licence
-		SccLocalPath12 = ..\\..\\Standard\\TaskBuilder\\TaskBuilderNet\\Microarea.TaskBuilderNet.Licence
-		SccProjectUniqueName13 = ..\\..\\Standard\\TaskBuilder\\TaskBuilderNet\\Microarea.TaskBuilderNet.ParametersManager\\Microarea.TaskBuilderNet.ParametersManager.csproj
+		SccProjectName12 = ../../TaskBuilder_1_x/TaskBuilderNet/Microarea.TaskBuilderNet.ParametersManager
+		SccLocalPath12 = ..\\..\\Standard\\TaskBuilder\\TaskBuilderNet\\Microarea.TaskBuilderNet.ParametersManager
+		SccProjectUniqueName13 = ..\\..\\Standard\\TaskBuilder\\Tools\\ProvisioningConfigurator\\ProvisioningConfigurator\\ProvisioningConfigurator.csproj
 		SccProjectTopLevelParentUniqueName13 = Mago4Butler.sln
-		SccProjectName13 = ../../TaskBuilder_1_x/TaskBuilderNet/Microarea.TaskBuilderNet.ParametersManager
-		SccLocalPath13 = ..\\..\\Standard\\TaskBuilder\\TaskBuilderNet\\Microarea.TaskBuilderNet.ParametersManager
-		SccProjectUniqueName14 = ..\\..\\Standard\\TaskBuilder\\Tools\\ProvisioningConfigurator\\ProvisioningConfigurator\\ProvisioningConfigurator.csproj
+		SccProjectName13 = ../../TaskBuilder_1_x/Tools/ProvisioningConfigurator/ProvisioningConfigurator
+		SccLocalPath13 = ..\\..\\Standard\\TaskBuilder\\Tools\\ProvisioningConfigurator\\ProvisioningConfigurator
+		SccProjectUniqueName14 = Mago4ButlerWithPluginsSetup\\Mago4ButlerWithPluginsSetup.wixproj
 		SccProjectTopLevelParentUniqueName14 = Mago4Butler.sln
-		SccProjectName14 = ../../TaskBuilder_1_x/Tools/ProvisioningConfigurator/ProvisioningConfigurator
-		SccLocalPath14 = ..\\..\\Standard\\TaskBuilder\\Tools\\ProvisioningConfigurator\\ProvisioningConfigurator
-		SccProjectUniqueName15 = Mago4ButlerWithPluginsSetup\\Mago4ButlerWithPluginsSetup.wixproj
-		SccProjectTopLevelParentUniqueName15 = Mago4Butler.sln
-		SccProjectName15 = Mago4ButlerWithPluginsSetup
-		SccLocalPath15 = Mago4ButlerWithPluginsSetup
-		SccProjectUniqueName16 = Updates\\Updates.csproj
-		SccProjectName16 = Updates
-		SccLocalPath16 = Updates
+		SccProjectName14 = Mago4ButlerWithPluginsSetup
+		SccLocalPath14 = Mago4ButlerWithPluginsSetup
+		SccProjectUniqueName15 = Updates\\Updates.csproj
+		SccProjectName15 = Updates
+		SccLocalPath15 = Updates
+		SccProjectUniqueName16 = AutmaticUpdates\\AutomaticUpdates.csproj
+		SccProjectName16 = AutmaticUpdates
+		SccLocalPath16 = AutmaticUpdates
 	EndGlobalSection
 EndGlobal

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Microarea.Mago4Butler.AutmaticUpdates
+namespace Microarea.Mago4Butler.AutomaticUpdates
 {
     public partial class AskForUpdate : Form
     {

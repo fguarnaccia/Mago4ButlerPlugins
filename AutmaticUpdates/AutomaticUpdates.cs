@@ -6,7 +6,7 @@ using System;
 using System.IO;
 using System.Linq;
 
-namespace Microarea.Mago4Butler.AutmaticUpdates
+namespace Microarea.Mago4Butler.AutomaticUpdates
 {
     public class AutomaticUpdates : IPlugin
     {

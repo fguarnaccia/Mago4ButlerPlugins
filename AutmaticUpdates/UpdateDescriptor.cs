@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Microarea.Mago4Butler.AutmaticUpdates
+namespace Microarea.Mago4Butler.AutomaticUpdates
 {
     class UpdateDescriptor
     {

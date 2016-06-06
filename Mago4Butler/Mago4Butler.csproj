@@ -255,9 +255,9 @@
       <Project>{a84f78ee-5ede-4c7c-a042-36e0806bacf5}</Project>
       <Name>ProvisioningConfigurator</Name>
     </ProjectReference>
-    <ProjectReference Include="..\AutmaticUpdates\AutmaticUpdates.csproj">
+    <ProjectReference Include="..\AutmaticUpdates\AutomaticUpdates.csproj">
       <Project>{7852b045-f57a-458e-b718-89f9fa26e8a0}</Project>
-      <Name>AutmaticUpdates</Name>
+      <Name>AutomaticUpdates</Name>
     </ProjectReference>
     <ProjectReference Include="..\Mago4Butler.BL\Mago4Butler.BL.csproj">
       <Project>{cf1bef3b-3042-4192-b6c4-cdc0ed25336d}</Project>

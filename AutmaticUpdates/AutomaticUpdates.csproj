@@ -7,8 +7,8 @@
     <ProjectGuid>{7852B045-F57A-458E-B718-89F9FA26E8A0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Microarea.Mago4Butler.AutmaticUpdates</RootNamespace>
-    <AssemblyName>Microarea.Mago4Butler.AutmaticUpdates</AssemblyName>
+    <RootNamespace>Microarea.Mago4Butler.AutomaticUpdates</RootNamespace>
+    <AssemblyName>Microarea.Mago4Butler.AutomaticUpdates</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>

@@ -1,4 +1,4 @@
-﻿namespace Microarea.Mago4Butler.AutmaticUpdates
+﻿namespace Microarea.Mago4Butler.AutomaticUpdates
 {
     partial class AskForUpdate
     {

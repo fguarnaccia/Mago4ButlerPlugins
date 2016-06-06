@@ -1,2 +1,2 @@
 Mago4Butler Mago4ButlerWithPluginsSetup.msi 1.0.5951.18522
-Microarea.Mago4Butler.AutomaticUpdates.AutomaticUpdates Microarea.Mago4Butler.AutmaticUpdates.dll 1.0.6011.18651
+Microarea.Mago4Butler.AutomaticUpdates.AutomaticUpdates Microarea.Mago4Butler.AutomaticUpdates.dll 1.0.6011.18651
