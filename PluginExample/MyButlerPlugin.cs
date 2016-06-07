@@ -5,9 +5,9 @@ using System.Windows.Forms;
 
 namespace PluginExample
 {
-    public class MyButlerPlugin : IPlugin
+    public class MyButlerPlugin : Mago4ButlerPlugin
     {
-        public IEnumerable<ContextMenuItem> GetContextMenuItems()
+        public override IEnumerable<ContextMenuItem> GetContextMenuItems()
         {
             ContextMenuItem myItem = new ContextMenuItem();
             myItem.Name = "MyItem";
@@ -26,7 +26,7 @@ namespace PluginExample
             App.Instance.ShutdownApplication();
         }
 
-        public DoubleClickHandler GetDoubleClickHandler()
+        public override DoubleClickHandler GetDoubleClickHandler()
         {
             var dch = new DoubleClickHandler() { Name = "MyButlerPlugin.DoubleClick" };
             dch.Command = (instance) => { MessageBox.Show("MyButlerPlugin: double click on" + instance.Name); };
@@ -34,32 +34,32 @@ namespace PluginExample
             return dch;
         }
 
-        public void OnUpdating(CmdLineInfo cmdLineInfo)
+        public override void OnUpdating(CmdLineInfo cmdLineInfo)
         {
             cmdLineInfo.ClassicApplicationPoolPipeline = false;
         }
 
-        public void OnInstalling(CmdLineInfo cmdLineInfo)
+        public override void OnInstalling(CmdLineInfo cmdLineInfo)
         {
             cmdLineInfo.ClassicApplicationPoolPipeline = false;
         }
 
-        public void OnApplicationStarted()
+        public override void OnApplicationStarted()
         {
             throw new NotImplementedException();
         }
 
-        public void OnInstallerServiceStopped()
+        public override void OnInstallerServiceStopped()
         {
             
         }
 
-        public void OnInstallerServiceStarted()
+        public override void OnInstallerServiceStarted()
         {
           
         }
 
-        public void OnRemoving(Instance[] instances)
+        public override void OnRemoving(Instance[] instances)
         {
             
         }

@@ -61,6 +61,7 @@
     <Compile Include="Instance.cs" />
     <Compile Include="IPlugin.cs" />
     <Compile Include="ContextMenuItemClickHandler.cs" />
+    <Compile Include="Mago4ButlerPlugin.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">

@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Microarea.Mago4Butler.AutomaticUpdates
 {
-    public class AutomaticUpdates : IPlugin
+    public class AutomaticUpdates : Mago4ButlerPlugin
     {
         readonly string localCacheForUpdates = Path.GetTempPath();
         const string updatesUri = @"\\srv-bks\Download\Tools Microarea\Mago4ButlerUpdates";
@@ -16,17 +16,7 @@ namespace Microarea.Mago4Butler.AutomaticUpdates
 
         bool canUpdate;
 
-        public IEnumerable<ContextMenuItem> GetContextMenuItems()
-        {
-            return null;
-        }
-
-        public DoubleClickHandler GetDoubleClickHandler()
-        {
-            return null;
-        }
-
-        public void OnApplicationStarted()
+        public override void OnApplicationStarted()
         {
             canUpdate = true;
             var thread = new Thread(() => InstallAvailableUpdates());
@@ -165,29 +155,14 @@ namespace Microarea.Mago4Butler.AutomaticUpdates
             return remoteVersions;
         }
 
-        public void OnInstalling(CmdLineInfo cmdLineInfo)
-        {
-            
-        }
-
-        public void OnUpdating(CmdLineInfo cmdLineInfo)
-        {
-            
-        }
-
-        public void OnInstallerServiceStopped()
+        public override void OnInstallerServiceStopped()
         {
             canUpdate = true;
         }
 
-        public void OnInstallerServiceStarted()
+        public override void OnInstallerServiceStarted()
         {
             canUpdate = false;
-        }
-
-        public void OnRemoving(Instance[] instances)
-        {
-
         }
     }
 }
