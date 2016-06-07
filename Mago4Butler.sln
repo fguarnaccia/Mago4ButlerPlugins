@@ -37,8 +37,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProvisioningConfigurator", 
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Mago4ButlerWithPluginsSetup", "Mago4ButlerWithPluginsSetup\Mago4ButlerWithPluginsSetup.wixproj", "{30CC3935-A7C5-441E-9A26-A6C94BFDEC69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Updates", "Updates\Updates.csproj", "{E4B26333-9BA0-4093-A794-926D33C01A10}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -159,12 +157,6 @@ Global
 		{30CC3935-A7C5-441E-9A26-A6C94BFDEC69}.Release|Any CPU.ActiveCfg = Release|x86
 		{30CC3935-A7C5-441E-9A26-A6C94BFDEC69}.Release|x86.ActiveCfg = Release|x86
 		{30CC3935-A7C5-441E-9A26-A6C94BFDEC69}.Release|x86.Build.0 = Release|x86
-		{E4B26333-9BA0-4093-A794-926D33C01A10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E4B26333-9BA0-4093-A794-926D33C01A10}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E4B26333-9BA0-4093-A794-926D33C01A10}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{E4B26333-9BA0-4093-A794-926D33C01A10}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E4B26333-9BA0-4093-A794-926D33C01A10}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E4B26333-9BA0-4093-A794-926D33C01A10}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -182,7 +174,7 @@ Global
 		{30CC3935-A7C5-441E-9A26-A6C94BFDEC69} = {807CBFB5-AB06-4AD2-BD86-9083B92B7504}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 17
+		SccNumberOfProjects = 16
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = http://tfs:8080/tfs/microarea
 		SccLocalPath0 = .
@@ -238,11 +230,8 @@ Global
 		SccProjectTopLevelParentUniqueName14 = Mago4Butler.sln
 		SccProjectName14 = Mago4ButlerWithPluginsSetup
 		SccLocalPath14 = Mago4ButlerWithPluginsSetup
-		SccProjectUniqueName15 = Updates\\Updates.csproj
-		SccProjectName15 = Updates
-		SccLocalPath15 = Updates
-		SccProjectUniqueName16 = AutmaticUpdates\\AutomaticUpdates.csproj
-		SccProjectName16 = AutmaticUpdates
-		SccLocalPath16 = AutmaticUpdates
+		SccProjectUniqueName15 = AutmaticUpdates\\AutomaticUpdates.csproj
+		SccProjectName15 = AutmaticUpdates
+		SccLocalPath15 = AutmaticUpdates
 	EndGlobalSection
 EndGlobal
