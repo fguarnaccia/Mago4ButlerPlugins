@@ -14,6 +14,8 @@ namespace Microarea.Mago4Butler.Plugins
         void OnUpdating(CmdLineInfo cmdLineInfo);
         void OnInstalling(CmdLineInfo cmdLineInfo);
 
+        void OnRemoving(Instance[] instances);
+
         void OnApplicationStarted();
 
         void OnInstallerServiceStopped();

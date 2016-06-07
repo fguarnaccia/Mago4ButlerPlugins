@@ -58,5 +58,10 @@ namespace PluginExample
         {
           
         }
+
+        public void OnRemoving(Instance[] instances)
+        {
+            
+        }
     }
 }

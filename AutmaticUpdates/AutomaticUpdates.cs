@@ -184,5 +184,10 @@ namespace Microarea.Mago4Butler.AutomaticUpdates
         {
             canUpdate = false;
         }
+
+        public void OnRemoving(Instance[] instances)
+        {
+
+        }
     }
 }

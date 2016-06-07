@@ -15,10 +15,12 @@ namespace Microarea.Mago4Butler
 {
     public partial class MainForm : Form
     {
-        MapperConfiguration config;
-        MapperConfiguration reverseConfig;
-        IMapper mapper;
-        IMapper reverseMapper;
+        MapperConfiguration cmdLineMapperConfig;
+        MapperConfiguration cmdLineReverseMapperConfig;
+        MapperConfiguration instanceMapperConfig;
+        IMapper cmdLineMapper;
+        IMapper cmdLineReverseMapper;
+        IMapper instanceMapper;
 
         SynchronizationContext syncCtx;
 
@@ -52,11 +54,14 @@ namespace Microarea.Mago4Butler
             UINormalUse uiNormalUse
             )
         {
-            config = new MapperConfiguration(cfg => cfg.CreateMap<BL.CmdLineInfo, Plugins.CmdLineInfo>());
-            mapper = config.CreateMapper();
+            cmdLineMapperConfig = new MapperConfiguration(cfg => cfg.CreateMap<BL.CmdLineInfo, Plugins.CmdLineInfo>());
+            cmdLineMapper = cmdLineMapperConfig.CreateMapper();
 
-            reverseConfig = new MapperConfiguration(cfg => cfg.CreateMap<Plugins.CmdLineInfo, BL.CmdLineInfo>());
-            reverseMapper = reverseConfig.CreateMapper();
+            cmdLineReverseMapperConfig = new MapperConfiguration(cfg => cfg.CreateMap<Plugins.CmdLineInfo, BL.CmdLineInfo>());
+            cmdLineReverseMapper = cmdLineReverseMapperConfig.CreateMapper();
+
+            instanceMapperConfig = new MapperConfiguration(cfg => cfg.CreateMap<BL.Instance, Plugins.Instance>());
+            instanceMapper = instanceMapperConfig.CreateMapper();
 
             this.loggerService = loggerService;
             this.pluginService = pluginService;
@@ -206,15 +211,15 @@ namespace Microarea.Mago4Butler
 
             foreach (var plugin in this.pluginService.Plugins)
             {
-                var pluginCmdLineInfo = mapper.Map<Plugins.CmdLineInfo>(e.CmdLineInfo);
+                var pluginCmdLineInfo = cmdLineMapper.Map<Plugins.CmdLineInfo>(e.CmdLineInfo);
                 try
                 {
                     plugin.OnUpdating(pluginCmdLineInfo);
-                    reverseMapper.Map(pluginCmdLineInfo, e.CmdLineInfo, typeof(Plugins.CmdLineInfo), typeof(BL.CmdLineInfo));
+                    cmdLineReverseMapper.Map(pluginCmdLineInfo, e.CmdLineInfo, typeof(Plugins.CmdLineInfo), typeof(BL.CmdLineInfo));
                 }
                 catch (Exception exc)
                 {
-                    this.loggerService.LogError("Command line paremeters request failed, skipping plugin", exc);
+                    this.loggerService.LogError("Command line paremeters request failed, skipping plugin " + plugin.GetName(), exc);
                 }
             }
         }
@@ -229,6 +234,23 @@ namespace Microarea.Mago4Butler
         {
             this.loggerService.LogInfo("Removing " + e.Instances[0].Name + " ...");
             this.uiWaiting.SetProgressText("Removing " + e.Instances[0].Name + " ...");
+
+            var instances = new List<Plugins.Instance>(e.Instances.Count);
+            foreach (var instance in e.Instances)
+            {
+                instances.Add(instanceMapper.Map<Plugins.Instance>(instance));
+            }
+            foreach (var plugin in this.pluginService.Plugins)
+            {
+                try
+                {
+                    plugin.OnRemoving(instances.ToArray());
+                }
+                catch (Exception exc)
+                {
+                    this.loggerService.LogError("'OnRemoving' event failed, skipping plugin " + plugin.GetName(), exc);
+                }
+            }
         }
 
         private void InstallerService_Installed(object sender, InstallInstanceEventArgs e)
@@ -268,16 +290,16 @@ namespace Microarea.Mago4Butler
 
             foreach (var plugin in this.pluginService.Plugins)
             {
-                var pluginCmdLineInfo = mapper.Map<Plugins.CmdLineInfo>(e.CmdLineInfo);
+                var pluginCmdLineInfo = cmdLineMapper.Map<Plugins.CmdLineInfo>(e.CmdLineInfo);
                 try
                 {
                     plugin.OnInstalling(pluginCmdLineInfo);
                 }
                 catch (Exception exc)
                 {
-                    this.loggerService.LogError("Command line paremeters request failed, skipping plugin", exc);
+                    this.loggerService.LogError("Command line paremeters request failed, skipping plugin " + plugin.GetName(), exc);
                 }
-                reverseMapper.Map(pluginCmdLineInfo, e.CmdLineInfo, typeof(Plugins.CmdLineInfo), typeof(BL.CmdLineInfo));
+                cmdLineReverseMapper.Map(pluginCmdLineInfo, e.CmdLineInfo, typeof(Plugins.CmdLineInfo), typeof(BL.CmdLineInfo));
             }
         }
 
