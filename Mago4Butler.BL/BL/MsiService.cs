@@ -225,12 +225,13 @@ namespace Microarea.Mago4Butler.BL
                 view.Execute(null);
 
                 Record record = null;
+                int columnIdx = 3;
                 try
                 {
                     record = view.Fetch();
                     while (record != null)
                     {
-                        featureNames.Add(record.get_StringData(1));
+                        featureNames.Add(record.get_StringData(columnIdx));
                         Marshal.ReleaseComObject(record);
                         record = view.Fetch();
                     }

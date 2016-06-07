@@ -42,6 +42,7 @@ namespace PluginExample
         public override void OnInstalling(CmdLineInfo cmdLineInfo)
         {
             cmdLineInfo.ClassicApplicationPoolPipeline = false;
+            cmdLineInfo.Features.Clear();
         }
 
         public override void OnApplicationStarted()
