@@ -54,10 +54,20 @@ namespace Microarea.Mago4Butler
             UINormalUse uiNormalUse
             )
         {
-            cmdLineMapperConfig = new MapperConfiguration(cfg => cfg.CreateMap<BL.CmdLineInfo, Plugins.CmdLineInfo>());
+            cmdLineMapperConfig = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<BL.CmdLineInfo, Plugins.CmdLineInfo>();
+                cfg.CreateMap<BL.Feature, Plugins.Feature>();
+            });
+
             cmdLineMapper = cmdLineMapperConfig.CreateMapper();
 
-            cmdLineReverseMapperConfig = new MapperConfiguration(cfg => cfg.CreateMap<Plugins.CmdLineInfo, BL.CmdLineInfo>());
+            cmdLineReverseMapperConfig = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Plugins.CmdLineInfo, BL.CmdLineInfo>();
+                cfg.CreateMap<Plugins.Feature, BL.Feature>();
+            });
+
             cmdLineReverseMapper = cmdLineReverseMapperConfig.CreateMapper();
 
             instanceMapperConfig = new MapperConfiguration(cfg => cfg.CreateMap<BL.Instance, Plugins.Instance>());

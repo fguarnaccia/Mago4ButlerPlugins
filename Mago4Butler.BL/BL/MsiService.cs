@@ -213,9 +213,9 @@ namespace Microarea.Mago4Butler.BL
             }
         }
 
-        public IList<string> GetFeatureNames(string msiFilePath)
+        public IList<Feature> GetFeatureNames(string msiFilePath)
         {
-            List<string> featureNames = new List<string>();
+            List<Feature> features = new List<Feature>();
             try
             {
                 var installer = Activator.CreateInstance(InstallerType) as Installer;
@@ -225,13 +225,19 @@ namespace Microarea.Mago4Butler.BL
                 view.Execute(null);
 
                 Record record = null;
-                int columnIdx = 3;
+                int nameColIdx = 1;
+                int descriptionColIdx = 3;
                 try
                 {
                     record = view.Fetch();
                     while (record != null)
                     {
-                        featureNames.Add(record.get_StringData(columnIdx));
+                        features.Add(
+                            new Feature()
+                            {
+                                Name = record.get_StringData(nameColIdx),
+                                Description = record.get_StringData(descriptionColIdx)
+                            });
                         Marshal.ReleaseComObject(record);
                         record = view.Fetch();
                     }
@@ -258,7 +264,7 @@ namespace Microarea.Mago4Butler.BL
                 this.LogError("Error getting feature names from " + msiFilePath, exc);
                 throw;
             }
-            return featureNames;
+            return features;
         }
     }
 }

@@ -21,6 +21,6 @@ namespace Microarea.Mago4Butler.Plugins
         public string ProxyDomain { get; set; }
         public string ProxyUsername { get; set; }
         public string ProxyPassword { get; set; }
-        public IList<string> Features { get; set; }
+        public IList<Feature> Features { get; set; }
     }
 }

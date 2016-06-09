@@ -58,6 +58,7 @@
     <Compile Include="CmdLineInfo.cs" />
     <Compile Include="ContextMenuItem.cs" />
     <Compile Include="DoubleClickHandler.cs" />
+    <Compile Include="Feature.cs" />
     <Compile Include="Instance.cs" />
     <Compile Include="IPlugin.cs" />
     <Compile Include="ContextMenuItemClickHandler.cs" />
