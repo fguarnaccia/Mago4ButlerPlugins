@@ -30,14 +30,18 @@ namespace Microarea.Mago4Butler
         private void TxtInstanceName_TextChanged(object sender, EventArgs e)
         {
             this.errorProviderInstanceName.Clear();
+            bool error = false;
             if (this.model.ContainsInstance(this.txtInstanceName.Text.Trim()))
             {
                 this.errorProviderInstanceName.SetError(this.txtInstanceName, "An instance with the given name already exists");
+                error = true;
             }
             if (!Model.IsInstanceNameValid(this.txtInstanceName.Text))
             {
                 this.errorProviderInstanceName.SetError(this.txtInstanceName, "Only letters, digits and '-' are allowed");
+                error = true;
             }
+            this.btnOK.Enabled = !error;
         }
 
         protected override void OnFormClosed(FormClosedEventArgs e)
@@ -52,14 +56,6 @@ namespace Microarea.Mago4Butler
             {
                 this.InstanceName = String.Empty;
             }
-        }
-
-        private void TextBox_TextChanged(object sender, EventArgs e)
-        {
-            string candiateInstanceName = "";
-            this.btnOK.Enabled =
-                (candiateInstanceName = this.txtInstanceName.Text.Trim()).Length > 0 &&
-                !this.model.ContainsInstance(candiateInstanceName);
         }
 
         private void btnOK_Click(object sender, EventArgs e)

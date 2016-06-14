@@ -47,7 +47,6 @@
             this.txtInstanceName.Name = "txtInstanceName";
             this.txtInstanceName.Size = new System.Drawing.Size(383, 22);
             this.txtInstanceName.TabIndex = 1;
-            this.txtInstanceName.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             // 
             // lblInstanceName
             // 
