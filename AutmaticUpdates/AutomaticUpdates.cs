@@ -12,7 +12,7 @@ namespace Microarea.Mago4Butler.AutomaticUpdates
     {
         readonly string localCacheForUpdates = Path.GetTempPath();
         const string updatesUri = @"\\srv-bks\Download\Tools Microarea\Mago4ButlerUpdates";
-        const string updatesManifestFileName = "Updates.txt";
+        const string updatesManifestFileName = "Updates.xml";
 
         bool canUpdate;
 
