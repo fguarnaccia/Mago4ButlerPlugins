@@ -56,13 +56,20 @@ namespace Microarea.Mago4Butler.AutomaticUpdates
                 string msiUpdateFileFullPath = null;
                 foreach (var update in updates.Updates)
                 {
-                    if (update.FileName.EndsWith("dll"))
+                    if (update.Type == type.dll)
                     {
-                        File.Copy(update.DownloadedFilePath, Path.Combine(pluginsFolderPath, update.FileName), true);
+                        foreach (var file in update.FileNames)
+                        {
+                            File.Copy(Path.Combine(localCacheForUpdates, file), Path.Combine(pluginsFolderPath, file), true);
+                        }
                     }
-                    else if (update.FileName.EndsWith("msi"))
+                    else if (update.Type == type.msi)
                     {
-                        msiUpdateFileFullPath = Path.Combine(localCacheForUpdates, update.FileName);
+                        foreach (var file in update.FileNames)
+                        {
+                            //Lo so lo so....ma un update con msi e` costituito da un solo file...per adesso
+                            msiUpdateFileFullPath = Path.Combine(localCacheForUpdates, file);
+                        }
                     }
                 }
 
@@ -80,8 +87,6 @@ namespace Microarea.Mago4Butler.AutomaticUpdates
             }
         }
 
-        //Mago4Butler Mago4ButlerSetup.msi 1.0.5930.18522
-        //PluginExample.MyButlerPlugin PluginExample.dll 1.1.5931.18522
         private UpdatesInfo DownloadUpdates(IDictionary<string, UpdateDescriptor> updateDescriptorsCache)
         {
             var updates = new UpdatesInfo();
@@ -94,11 +99,13 @@ namespace Microarea.Mago4Butler.AutomaticUpdates
                     updates.Updates.Add(updateDescriptor);
                     try
                     {
-                        updateDescriptor.DownloadedFilePath = Path.Combine(localCacheForUpdates, updateDescriptor.FileName);
-                        File.Copy(Path.Combine(updatesUri, updateDescriptor.FileName), updateDescriptor.DownloadedFilePath, overwrite: true);
-                        if (updateDescriptor.FileName.EndsWith("msi"))
+                        foreach (var file in updateDescriptor.FileNames)
                         {
-                            updates.RestartRequired = true;
+                            File.Copy(Path.Combine(updatesUri, file), Path.Combine(localCacheForUpdates, file), overwrite: true);
+                            if (updateDescriptor.Type == type.msi)
+                            {
+                                updates.RestartRequired = true;
+                            }
                         }
                     }
                     catch (Exception exc)
@@ -122,29 +129,15 @@ namespace Microarea.Mago4Butler.AutomaticUpdates
             }
             try
             {
-                using (var sr = new StreamReader(updatesManifestPath))
+                var upds = updates.Load(updatesManifestPath);
+                if (upds == null)
                 {
-                    string remoteVersionStr;
-                    while ((remoteVersionStr = sr.ReadLine()) != null)
-                    {
-                        var entries = remoteVersionStr.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                        foreach (var entry in entries)
-                        {
-                            var tokens = entry.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-                            if (tokens.Length != 3)
-                            {
-                                App.Instance.Error("Invalid entry in " + updatesManifestFileName + " file: " + remoteVersionStr);
-                                continue;
-                            }
-                            var remoteVer = new System.Version(0, 0, 0, 0);
-                            if (!System.Version.TryParse(tokens[2], out remoteVer))
-                            {
-                                App.Instance.Error("Unable to parse remote version: " + tokens[1]);
-                                continue;
-                            }
-                            remoteVersions.Add(tokens[0], new UpdateDescriptor() { Name = tokens[0], FileName = tokens[1], Version = remoteVer });
-                        }
-                    }
+                    App.Instance.Error("Unable to load updates file from: " + updatesManifestPath);
+                    return remoteVersions;
+                }
+                foreach (var upd in upds.Items)
+                {
+                    remoteVersions.Add(upd.name, UpdateDescriptor.From(upd));
                 }
             }
             catch (Exception exc)

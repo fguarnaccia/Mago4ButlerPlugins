@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://schemas.microarea.it/butler"
+           xmlns="http://schemas.microarea.it/butler">
+
+  <xs:annotation>
+    <xs:documentation>
+      Copyright (c) Microarea S.p.A.  All rights reserved.
+    </xs:documentation>
+  </xs:annotation>
+  <xs:element name="updates">
+    <xs:annotation>
+      <xs:documentation>
+        Root element of updates definition xml file
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="update">
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="update">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="fileNames" minOccurs="1" maxOccurs="1">
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="name" type="xs:string" use="required" />
+      <xs:attribute name="type" type="type" use="required" />
+      <xs:attribute name="version" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="fileNames">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="fileName" minOccurs="1" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="fileName">
+    <xs:complexType>
+      <xs:attribute name="name" type="xs:string" use="required" />
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name="type">
+    <xs:restriction base='xs:NMTOKEN'>
+      <xs:enumeration value="msi"/>
+      <xs:enumeration value="dll"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+</xs:schema>
