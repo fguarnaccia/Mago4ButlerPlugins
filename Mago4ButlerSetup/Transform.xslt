@@ -31,7 +31,7 @@
   <xsl:template match="wix:Component[key('vshost-search', @Id)]" />
   <xsl:template match="wix:ComponentRef[key('vshost-search', @Id)]" />
   
-  <xsl:key name="AutmaticUpdates-search" match="wix:Component[contains(wix:File/@Source, 'Microarea.Mago4Butler.AutmaticUpdates')]" use="@Id" />
+  <xsl:key name="AutmaticUpdates-search" match="wix:Component[contains(wix:File/@Source, 'Microarea.Mago4Butler.AutomaticUpdates')]" use="@Id" />
   <xsl:template match="wix:Component[key('AutmaticUpdates-search', @Id)]" />
   <xsl:template match="wix:ComponentRef[key('AutmaticUpdates-search', @Id)]" />
 
