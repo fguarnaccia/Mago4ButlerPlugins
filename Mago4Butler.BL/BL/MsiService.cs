@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -12,6 +13,12 @@ namespace Microarea.Mago4Butler.BL
     public class MsiService : ILogger
     {
         static readonly Type InstallerType = Type.GetTypeFromProgID("WindowsInstaller.Installer");
+        ISettings settings;
+
+        public MsiService(ISettings settings)
+        {
+            this.settings = settings;
+        }
 
         public string GetProductName(string msiFilePath)
         {
@@ -265,6 +272,26 @@ namespace Microarea.Mago4Butler.BL
                 throw;
             }
             return features;
+        }
+
+        public string CalculateMsiFullFilePath()
+        {
+            var msiDirInfo = new DirectoryInfo(settings.MsiFolder);
+            if (!msiDirInfo.Exists)
+            {
+                throw new Exception(settings.MsiFolder + " does not exist");
+            }
+
+            var msiFileInfos = from FileInfo f in msiDirInfo.GetFiles("Mago*.msi")
+                               orderby f.LastWriteTime descending
+                               select f;
+
+            if (msiFileInfos.Count() == 0)
+            {
+                throw new Exception("No msi files found in " + settings.MsiFolder);
+            }
+
+            return msiFileInfos.First().FullName;
         }
     }
 }

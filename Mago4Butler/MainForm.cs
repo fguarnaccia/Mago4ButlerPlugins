@@ -464,7 +464,7 @@ namespace Microarea.Mago4Butler
                 rootFolder.Create();
             }
 
-            this.msiFullFilePath = CalculateMsiFullFilePath(this.settings);
+            this.msiFullFilePath = this.msiService.CalculateMsiFullFilePath();
 
             using (var askForParametersDialog = new AskForParametersForm(this.model, this.settings))
             {
@@ -508,7 +508,7 @@ namespace Microarea.Mago4Butler
 
         private void UiNormalUse_UpdateInstance(object sender, UpdateInstanceEventArgs e)
         {
-            this.msiFullFilePath = CalculateMsiFullFilePath(this.settings);
+            this.msiFullFilePath = this.msiService.CalculateMsiFullFilePath();
 
             var version = this.msiService.GetVersion(msiFullFilePath);
 
@@ -517,26 +517,6 @@ namespace Microarea.Mago4Butler
                 instance.Version = version;
             }
             this.model.UpdateInstances(e.Instances);
-        }
-
-        private static string CalculateMsiFullFilePath(ISettings settings)
-        {
-            var msiDirInfo = new DirectoryInfo(settings.MsiFolder);
-            if (!msiDirInfo.Exists)
-            {
-                throw new Exception(settings.MsiFolder + " does not exist");
-            }
-
-            var msiFileInfos = from FileInfo f in msiDirInfo.GetFiles("Mago*.msi")
-                               orderby f.LastWriteTime descending
-                               select f;
-
-            if (msiFileInfos.Count() == 0)
-            {
-                throw new Exception("No msi files found in " + settings.MsiFolder);
-            }
-
-            return msiFileInfos.First().FullName;
         }
 
         private void tsbSettings_Click(object sender, EventArgs e)

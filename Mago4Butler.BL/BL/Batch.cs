@@ -10,7 +10,6 @@ namespace Microarea.Mago4Butler
 {
     class Batch : ILogger
     {
-        MsiService msiService = new MsiService();
         CompanyDBUpdateService companyDBUpdateService;
         InstallerService instanceService;
         Model model;
@@ -27,12 +26,13 @@ namespace Microarea.Mago4Butler
         {
             this.model = model;
             companyDBUpdateService = new CompanyDBUpdateService(settings);
+            var msiService = new MsiService(settings);
             this.instanceService = new InstallerService(
                 settings,
-                this.msiService,
+                msiService,
                 this.companyDBUpdateService,
-                new MsiZapper(this.msiService),
-                new RegistryService(this.msiService),
+                new MsiZapper(msiService),
+                new RegistryService(msiService),
                 new IisService(),
                 new FileSystemService(settings)
                 );
