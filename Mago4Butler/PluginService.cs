@@ -75,6 +75,7 @@ namespace Microarea.Mago4Butler
                 if (plugin != null)
                 {
                     plugins.Add(plugin);
+                    plugin = null;
                 }
             }
 

@@ -42,8 +42,11 @@ namespace Microarea.Mago4Butler
                     .To<Mago4ProvisioningService>()
                     .Named("mago4");
                 Bind<IProvisioningService>()
-                    .To<MagoNetProvisioningService>()
+                    .To<NoProvisioningService>()
                     .Named("mago.net");
+                Bind<IProvisioningService>()
+                    .To<NoProvisioningService>()
+                    .Named(string.Empty);
 
                 Bind<ISettings>().ToMethod(context => Settings.Default);
 
@@ -133,6 +136,43 @@ namespace Microarea.Mago4Butler
                 }
             }
             return ioc.Get<T>(name, injectParams.ToArray());
+        }
+
+        public IProvisioningService GetProvisioningService(string productName)
+        {
+            IProvisioningService provisioningService = null;
+            if (this.ShouldUseProvisioning())
+            {
+                provisioningService = IoCContainer.Instance.Get<IProvisioningService>(productName);
+            }
+            else
+            {
+                provisioningService = IoCContainer.Instance.Get<IProvisioningService>(string.Empty);
+            }
+
+            return provisioningService;
+        }
+
+        private bool ShouldUseProvisioning()
+        {
+            bool shouldUseProvisioning = true;
+            var pluginService = this.Get<PluginService>();
+            foreach (var plugin in pluginService.Plugins)
+            {
+                if (plugin != null)
+                {
+                    try
+                    {
+                        shouldUseProvisioning &= plugin.ShouldUseProvisioning();
+                    }
+                    catch (Exception exc)
+                    {
+                        var loggerService = this.Get<LoggerService>();
+                        loggerService.LogError("Error asking plugins if provisioning procedure should be started", exc);
+                    }
+                }
+            }
+            return shouldUseProvisioning;
         }
     }
 }

@@ -103,7 +103,7 @@
     <Compile Include="BL\InstallerServiceErrorEventArgs.cs" />
     <Compile Include="BL\IProvisioningService.cs" />
     <Compile Include="BL\LoggerService.cs" />
-    <Compile Include="BL\MagoNetProvisioningService.cs" />
+    <Compile Include="BL\NoProvisioningService.cs" />
     <Compile Include="BL\NotificationEventArgs.cs" />
     <Compile Include="BL\Mago4ProvisioningService.cs" />
     <Compile Include="BL\ServerManagerTrait.cs" />

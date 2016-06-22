@@ -166,7 +166,7 @@ namespace Microarea.Mago4Butler
                     }
                     catch (Exception exc)
                     {
-                        this.loggerService.LogError("Error notifing plugins about the application started event.", exc);
+                        this.loggerService.LogError("Error notifying plugins about the application started event.", exc);
                     }
                 }
             }
@@ -271,8 +271,8 @@ namespace Microarea.Mago4Butler
             this.uiWaiting.AddDetailsText("Database configuration...");
             try
             {
-                var productName = msiService.GetProductName(this.msiFullFilePath).ToLowerInvariant(); ;
-                var provisioningService = IoCContainer.Instance.Get<IProvisioningService>(productName);
+                var productName = msiService.GetProductName(this.msiFullFilePath).ToLowerInvariant();
+                var provisioningService = IoCContainer.Instance.GetProvisioningService(productName);
 
                 if (provisioningService.ShouldStartProvisioning)
                 {
@@ -475,12 +475,13 @@ namespace Microarea.Mago4Butler
                     return;
                 }
 
-                using (var provisioningForm = new ProvisioningFormLITE(instanceName: askForParametersDialog.InstanceName, preconfigurationMode: true, loadDataFromFile: false))
-                {
-                    var productName = msiService.GetProductName(this.msiFullFilePath).ToLowerInvariant();
-                    var provisioningService = IoCContainer.Instance.Get<IProvisioningService>(productName);
+                var provisioningCommandLine = string.Empty;
+                var productName = msiService.GetProductName(this.msiFullFilePath).ToLowerInvariant();
+                IProvisioningService provisioningService = IoCContainer.Instance.GetProvisioningService(productName);
 
-                    if (provisioningService.ShouldStartProvisioning)
+                if (provisioningService.ShouldStartProvisioning)
+                {
+                    using (var provisioningForm = new ProvisioningFormLITE(instanceName: askForParametersDialog.InstanceName, preconfigurationMode: true, loadDataFromFile: false))
                     {
                         diagRes = provisioningForm.ShowDialog();
 
@@ -488,16 +489,17 @@ namespace Microarea.Mago4Butler
                         {
                             return;
                         }
+                        provisioningCommandLine = provisioningForm.PreconfigurationCommandLine;
                     }
-
-                    this.model.AddInstance(new BL.Instance()
-                    {
-                        Name = askForParametersDialog.InstanceName,
-                        Version = msiService.GetVersion(this.msiFullFilePath),
-                        WebSiteInfo = WebSiteInfo.DefaultWebSite,
-                        ProvisioningCommandLine = provisioningForm.PreconfigurationCommandLine
-                    });
                 }
+
+                this.model.AddInstance(new BL.Instance()
+                {
+                    Name = askForParametersDialog.InstanceName,
+                    Version = msiService.GetVersion(this.msiFullFilePath),
+                    WebSiteInfo = WebSiteInfo.DefaultWebSite,
+                    ProvisioningCommandLine = provisioningCommandLine
+                });
             }
         }
 

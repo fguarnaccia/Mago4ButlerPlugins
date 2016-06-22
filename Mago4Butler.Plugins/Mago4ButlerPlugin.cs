@@ -47,5 +47,10 @@ namespace Microarea.Mago4Butler.Plugins
         {
             
         }
+
+        public virtual bool ShouldUseProvisioning()
+        {
+            return true;
+        }
     }
 }

@@ -47,7 +47,7 @@ namespace PluginExample
 
         public override void OnApplicationStarted()
         {
-            throw new NotImplementedException();
+        
         }
 
         public override void OnInstallerServiceStopped()
@@ -63,6 +63,11 @@ namespace PluginExample
         public override void OnRemoving(Instance[] instances)
         {
             
+        }
+
+        public override bool ShouldUseProvisioning()
+        {
+            return false;
         }
     }
 }

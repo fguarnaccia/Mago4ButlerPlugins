@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Microarea.Mago4Butler.BL
 {
-    public class MagoNetProvisioningService : IProvisioningService
+    public class NoProvisioningService : IProvisioningService
     {
         public bool ShouldStartProvisioning { get { return false; } }
         public void StartProvisioning(Instance instance)
