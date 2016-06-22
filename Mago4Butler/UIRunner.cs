@@ -23,7 +23,7 @@ namespace Microarea.Mago4Butler
             try
             {
                 var pluginService = IoCContainer.Instance.Get<PluginService>();
-                pluginService.ErrorLoadingPlugins += PluginService_ErrorLoadingPlugins;
+                //pluginService.ErrorLoadingPlugins += PluginService_ErrorLoadingPlugins;
                 pluginService.PluginsLoaded += PluginService_PluginsLoaded;
 
                 var mainForm = IoCContainer.Instance.Get<MainForm>();

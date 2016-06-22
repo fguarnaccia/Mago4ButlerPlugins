@@ -71,6 +71,7 @@ namespace Microarea.Mago4Butler
                 {
                     pluginsFailedToLoad.Add(dllFileInfo.Name);
                     this.LogError("Error loading plugin from " + dllFileInfo.FullName, exc);
+                    File.Move(dllFileInfo.FullName, Path.ChangeExtension(dllFileInfo.FullName, "disabled"));
                 }
                 if (plugin != null)
                 {
