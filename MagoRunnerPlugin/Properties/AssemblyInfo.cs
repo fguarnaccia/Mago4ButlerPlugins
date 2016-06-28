@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("MagoRunnerPlugin")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microarea S.p.A.")]
+[assembly: AssemblyCompany("Microarea")]
 [assembly: AssemblyProduct("MagoRunnerPlugin")]
 [assembly: AssemblyCopyright("Copyright © Microarea S.p.A. 2016")]
 [assembly: AssemblyTrademark("")]

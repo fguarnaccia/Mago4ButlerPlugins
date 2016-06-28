@@ -9,13 +9,13 @@ using System.Windows.Forms;
 
 namespace MagoRunnerPlugin
 {
-    public class MagoRunner : IPlugin     
+    public class MagoRunner : Mago4ButlerPlugin
     {
         string root = string.Empty;
         string instance = string.Empty;
        
   
-        public IEnumerable<ContextMenuItem> GetContextMenuItems()
+        public override IEnumerable<ContextMenuItem> GetContextMenuItems()
         {
 
             var cmis = new List<ContextMenuItem>();
@@ -31,29 +31,28 @@ namespace MagoRunnerPlugin
                 );
             cmis.Add(cmi);
 
-            //cmi = new ContextMenuItem();
-            //cmi.Name = "runMadico";
-            //cmi.Text = "check Instance";
-            //cmi.ShortcutKeys = Keys.Control | Keys.M;
-            //cmi.Command = new Action<Instance>(
-            //    (instance)
-            //    =>
-            //    RunMadico(instance)
-            //    );
-            //cmis.Add(cmi);
+            cmi = new ContextMenuItem();
+            cmi.Name = "runMadico";
+            cmi.Text = "check Instance";
+            cmi.ShortcutKeys = Keys.Control | Keys.M;
+            cmi.Command = new Action<Instance>(
+                (instance)
+                =>
+                RunMadico(instance)
+                );
+            cmis.Add(cmi);
 
-            //cmi = new ContextMenuItem();
+            cmi = new ContextMenuItem();
+            cmi.Name = "runCOD";
+            cmi.Text = "ClickOnceDeployer";
+            cmi.ShortcutKeys = Keys.Control | Keys.O;
+            cmi.Command = new Action<Instance>(
+                (instance)
+                =>
+                RunCOD(instance)
+                );
 
-            //cmi.Name = "runCOD";
-            //cmi.Text = "ClickOnceDeployer";
-            //cmi.ShortcutKeys = Keys.Control | Keys.O;
-            //cmi.Command = new Action<Instance>(
-            //    (instance)
-            //    =>
-            //    RunCOD(instance)
-            //    );
-
-            //cmis.Add(cmi);
+            cmis.Add(cmi);
 
             cmi = new ContextMenuItem();
             cmi.Name = "runMago";
@@ -64,7 +63,6 @@ namespace MagoRunnerPlugin
                 =>
                 RunMago(instance)
                 );
-
             cmis.Add(cmi);
 
             cmi = new ContextMenuItem();
@@ -124,27 +122,26 @@ namespace MagoRunnerPlugin
                 );
             cmis.Add(cmi);
 
+            //cmi = new ContextMenuItem();
+            //cmi.Name = "setingline";
+            //cmi.Text = "--- Settings ---";
+            //cmi.Command = new Action<Instance>(
+            //   (instance)
+            //   =>
+            //   RunNothing(instance)
+            //   );
+            //cmis.Add(cmi);
 
-            cmi = new ContextMenuItem();
-            cmi.Name = "setingline";
-            cmi.Text = "--- Settings ---";
-            cmi.Command = new Action<Instance>(
-               (instance)
-               =>
-               RunNothing(instance)
-               );
-            cmis.Add(cmi);
-
-            cmi = new ContextMenuItem();
-            cmi.Name = "setIdentity";
-            cmi.Text = "ClassicApplicationPoolPipeline=" + MagoRunnerPlugin.Properties.Settings.Default.ClassicApplicationPoolPipeline.ToString();
-            //cmi.ShortcutKeys = Keys.Control | Keys.W;
-            cmi.Command = new Action<Instance>(
-                (instance)
-                =>
-                SetIdentity(instance)
-                );
-            cmis.Add(cmi);
+            //cmi = new ContextMenuItem();
+            //cmi.Name = "setIdentity";
+            //cmi.Text = "ClassicApplicationPoolPipeline=" + MagoRunnerPlugin.Properties.Settings.Default.ClassicApplicationPoolPipeline.ToString();
+            ////cmi.ShortcutKeys = Keys.Control | Keys.W;
+            //cmi.Command = new Action<Instance>(
+            //    (instance)
+            //    =>
+            //    SetIdentity(instance)
+            //    );
+            //cmis.Add(cmi);
 
 
             return cmis;
@@ -156,7 +153,7 @@ namespace MagoRunnerPlugin
             return;
         }
 
-        public DoubleClickHandler GetDoubleClickHandler()
+        public override DoubleClickHandler GetDoubleClickHandler()
         {
 
             var dch = new DoubleClickHandler() { Name = "MagoRunnerPlugin.Doubleclick" };
@@ -164,115 +161,6 @@ namespace MagoRunnerPlugin
             return dch;
                  
         }
-
-        //private List<ContextMenuItem> CreateMenu()
-        //{
-
-        
-        //    var cmis = new List<ContextMenuItem>();
-        //    ContextMenuItem cmi = new ContextMenuItem();
-
-        //    cmi.Name = "runRoot";
-        //    cmi.Text = "ROOT";
-        //    cmi.ShortcutKeys = Keys.Control | Keys.R;
-        //    cmi.Command = new Action<Instance>(
-        //        (instance)
-        //        =>
-        //        RunRoot(instance)
-        //        );
-
-        //    cmis.Add(cmi);
-
-        //    cmi = new ContextMenuItem();
-
-        //    cmi.Name = "runMago";
-        //    cmi.Text = "Mago";
-        //    cmi.ShortcutKeys = Keys.F9;
-        //    cmi.Command = new Action<Instance>(
-        //        (instance)
-        //        =>
-        //        RunMago(instance)
-        //        );
-
-        //    cmis.Add(cmi);
-
-        //    cmi = new ContextMenuItem();
-
-        //    cmi.Name = "runConsole";
-        //    cmi.Text = "Admin Console";
-        //    cmi.ShortcutKeys = Keys.Control | Keys.A;
-        //    cmi.Command = new Action<Instance>(
-        //        (instance)
-        //        =>
-        //        RunConsole(instance)
-        //        );
-
-        //    cmis.Add(cmi);
-
-        //    cmi = new ContextMenuItem();
-
-        //    cmi.Name = "runCustom";
-        //    cmi.Text = "Custom";
-        //    cmi.ShortcutKeys = Keys.Control | Keys.C;
-        //    cmi.Command = new Action<Instance>(
-        //        (instance)
-        //        =>
-        //        RunCustom(instance)
-        //        );
-        //    cmis.Add(cmi);
-
-        //    cmi = new ContextMenuItem();
-
-        //    cmi.Name = "runPublish";
-        //    cmi.Text = "Publish";
-        //    cmi.ShortcutKeys = Keys.Control | Keys.P;
-        //    cmi.Command = new Action<Instance>(
-        //        (instance)
-        //        =>
-        //        RunPublish(instance)
-        //        );
-        //    cmis.Add(cmi);
-
-        //    cmi = new ContextMenuItem();
-
-        //    cmi.Name = "runStandard";
-        //    cmi.Text = "Standard";
-        //    cmi.ShortcutKeys = Keys.Control | Keys.S;
-        //    cmi.Command = new Action<Instance>(
-        //        (instance)
-        //        =>
-        //        RunStandard(instance)
-        //        );
-        //    cmis.Add(cmi);
-
-        //    cmi = new ContextMenuItem();
-
-        //    cmi.Name = "runMagoWeb";
-        //    cmi.Text = "Easylook/MagoWeb";
-        //    cmi.ShortcutKeys = Keys.Control | Keys.W;
-        //    cmi.Command = new Action<Instance>(
-        //        (instance)
-        //        =>
-        //        RunMagoWeb(instance)
-        //        );
-        //    cmis.Add(cmi);
-
-        //    cmi = new ContextMenuItem();
-
-        //    cmi.Name = "setIdentity";
-        //    cmi.Text = "Identity=" + MagoRunnerPlugin.Properties.Settings.Default.AppPoolIdentity;
-        //    //cmi.ShortcutKeys = Keys.Control | Keys.W;
-        //    cmi.Command = new Action<Instance>(
-        //        (instance)
-        //        =>
-        //        SetIdentity(instance)
-        //        );
-        //    cmis.Add(cmi);
-
-        //    return cmis;
-        //}
-
-
 
         void RunRoot(Instance istanza)
         {
@@ -283,24 +171,7 @@ namespace MagoRunnerPlugin
             Process.Start(FileName);
 
         }
-        //private void RunMadico(Instance istanza)
-        //{
-
-        //    string fileName = string.Empty;
-        //    string executable = "Madico.msc";
-
-        //    fileName = Path.Combine(App.Instance.Settings.RootFolder, istanza.Name, @"Apps\Microarea Diagnostics\", executable);
-        //    Process.Start(fileName, "ui");
-        //}
-
-        //private void RunCOD(Instance istanza)
-        //{
-        //    string fileName = string.Empty;
-        //    string executable = "ClickOnceDeployer.exe";
-
-        //    fileName = Path.Combine(App.Instance.Settings.RootFolder, istanza.Name, @"Apps\ClickOnceDeployer\", executable);
-        //    Process.Start(fileName, "ui");
-        //}
+     
         void RunMago(Instance istanza)
         {
 
@@ -397,7 +268,24 @@ namespace MagoRunnerPlugin
             Process.Start(FileName);
 
         }
+        void RunMadico(Instance istanza)
+        {
 
+            string fileName = string.Empty;
+            string executable = "Madico.msc";
+
+            fileName = Path.Combine(App.Instance.Settings.RootFolder, istanza.Name, @"Apps\Microarea Diagnostics\", executable);
+            Process.Start(fileName, "ui");
+        }
+
+        void RunCOD(Instance istanza)
+        {
+            string fileName = string.Empty;
+            string executable = "ClickOnceDeployer.exe";
+
+            fileName = Path.Combine(App.Instance.Settings.RootFolder, istanza.Name, @"Apps\ClickOnceDeployer\", executable);
+            Process.Start(fileName, "ui");
+        }
         bool IsMago4(string version)
         {
 
@@ -427,26 +315,7 @@ namespace MagoRunnerPlugin
 
             }
 
-        #region ApplicationPoolIdentity
-          private void SetIdentity(Instance instance)
-        {
-
-            MagoRunnerPlugin.Properties.Settings.Default.ClassicApplicationPoolPipeline = !MagoRunnerPlugin.Properties.Settings.Default.ClassicApplicationPoolPipeline;
-            MagoRunnerPlugin.Properties.Settings.Default.Save();
-        }
-
-        public void OnUpdating(CmdLineInfo cmdLineInfo)
-        {
-            cmdLineInfo.ClassicApplicationPoolPipeline = MagoRunnerPlugin.Properties.Settings.Default.ClassicApplicationPoolPipeline;
-        }
-
-        public void OnInstalling(CmdLineInfo cmdLineInfo)
-        {
-            cmdLineInfo.ClassicApplicationPoolPipeline = MagoRunnerPlugin.Properties.Settings.Default.ClassicApplicationPoolPipeline;
-        }
-
-        #endregion
-
+ 
     }
 }
 
