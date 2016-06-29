@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,7 @@ namespace Microarea.Mago4Butler.BL
         public bool AllowBatchDeletesUpdates { get; set; } = true;
         [YamlDotNet.Serialization.YamlIgnore]
         public string ProvisioningCommandLine { get; set; }
+        public DateTime InstalledOn { get; set; } = DateTime.Now.Date;
 
         public static Instance FromStandardDirectoryInfo(DirectoryInfo standardDirInfo)
         {
@@ -48,7 +50,13 @@ namespace Microarea.Mago4Butler.BL
 
         public override string ToString()
         {
-            return String.Format("{0}, v.{1}", this.Name, this.Version.ToString());
+            return String.Format(
+                CultureInfo.InvariantCulture,
+                "{0}, v.{1} (installed on {2})",
+                this.Name,
+                this.Version.ToString(),
+                this.InstalledOn.ToString("d MMM yyyy")
+                );
         }
 
         public override bool Equals(object obj)
