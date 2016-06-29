@@ -304,12 +304,12 @@ namespace Microarea.Mago4Butler
                 try
                 {
                     plugin.OnInstalling(pluginCmdLineInfo);
+                    e.CmdLineInfo = cmdLineReverseMapper.Map(pluginCmdLineInfo, typeof(Plugins.CmdLineInfo), typeof(BL.CmdLineInfo)) as BL.CmdLineInfo;
                 }
                 catch (Exception exc)
                 {
                     this.loggerService.LogError("Command line paremeters request failed, skipping plugin " + plugin.GetName(), exc);
                 }
-                e.CmdLineInfo = cmdLineReverseMapper.Map(pluginCmdLineInfo, typeof(Plugins.CmdLineInfo), typeof(BL.CmdLineInfo)) as BL.CmdLineInfo;
             }
         }
 
