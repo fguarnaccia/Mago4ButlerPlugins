@@ -309,7 +309,7 @@ namespace Microarea.Mago4Butler
                 {
                     this.loggerService.LogError("Command line paremeters request failed, skipping plugin " + plugin.GetName(), exc);
                 }
-                cmdLineReverseMapper.Map(pluginCmdLineInfo, e.CmdLineInfo, typeof(Plugins.CmdLineInfo), typeof(BL.CmdLineInfo));
+                e.CmdLineInfo = cmdLineReverseMapper.Map(pluginCmdLineInfo, typeof(Plugins.CmdLineInfo), typeof(BL.CmdLineInfo)) as BL.CmdLineInfo;
             }
         }
 
