@@ -513,12 +513,7 @@ namespace Microarea.Mago4Butler
             this.msiFullFilePath = this.msiService.CalculateMsiFullFilePath();
 
             var version = this.msiService.GetVersion(msiFullFilePath);
-
-            foreach (var instance in e.Instances)
-            {
-                instance.Version = version;
-            }
-            this.model.UpdateInstances(e.Instances);
+            this.model.UpdateInstances(e.Instances, version);
         }
 
         private void tsbSettings_Click(object sender, EventArgs e)

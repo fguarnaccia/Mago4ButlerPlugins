@@ -115,18 +115,18 @@ namespace Microarea.Mago4Butler.BL
             SaveToConfigurationFile();
         }
 
-        public void UpdateInstances(ICollection<Instance> instances)
+        public void UpdateInstances(ICollection<Instance> instances, Version version)
         {
             if (instances != null)
             {
                 foreach (var instance in instances)
                 {
-                    this.UpdateInstance(instance);
+                    this.UpdateInstance(instance, version);
                 }
             }
         }
 
-        public void UpdateInstance(Instance instance)
+        public void UpdateInstance(Instance instance, Version version)
         {
             Debug.Assert(instance != null);
             Debug.Assert(!String.IsNullOrWhiteSpace(instance.Name));
@@ -135,9 +135,14 @@ namespace Microarea.Mago4Butler.BL
 
             Debug.Assert(oldInstance != null);
 
-            this.OnInstanceUpdated(new InstanceEventArgs() { Instance = oldInstance });
+            if (oldInstance.Version < version)
+            {
+                oldInstance.Version = version;
 
-            SaveToConfigurationFile();
+                this.OnInstanceUpdated(new InstanceEventArgs() { Instance = oldInstance });
+
+                SaveToConfigurationFile();
+            }
         }
 
         public bool ContainsInstance(string instanceName)
@@ -193,9 +198,16 @@ namespace Microarea.Mago4Butler.BL
 
             for (int i = this.instances.Count - 1; i >= 0; i--)
             {
-                if (!instancesOnDisk.Contains(this.instances[i]))
+                var instanceOnDisk = instancesOnDisk
+                    .Where((instance) => instance.Equals(this.instances[i]))
+                    .FirstOrDefault();
+                if (instanceOnDisk == null)
                 {
                     this.instances.RemoveAt(i);
+                }
+                else
+                {
+                    this.instances[i].Version = instanceOnDisk.Version;
                 }
             }
         }

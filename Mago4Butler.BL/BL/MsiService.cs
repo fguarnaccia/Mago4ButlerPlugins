@@ -176,20 +176,16 @@ namespace Microarea.Mago4Butler.BL
             {
                 var installer = Activator.CreateInstance(InstallerType) as Installer;
                 var database = installer.OpenDatabase(msiFilePath, MsiOpenDatabaseMode.msiOpenDatabaseModeTransact);
-                var view = database.OpenView("SELECT * from Property WHERE Property = 'ProductVersion'");
+                var view = database.OpenView("SELECT * from Property WHERE Property = 'ProductName'");
 
                 view.Execute(null);
 
                 Record record = null;
+                string productName;
                 try
                 {
                     record = view.Fetch();
-                    var strVersion = (record != null) ? record.get_StringData(2) : String.Empty;
-                    if (String.IsNullOrWhiteSpace(strVersion))
-                    {
-                        return new Version();
-                    }
-                    return Version.Parse(strVersion);
+                    productName = (record != null) ? record.get_StringData(2) : String.Empty;
                 }
                 finally
                 {
@@ -212,6 +208,12 @@ namespace Microarea.Mago4Butler.BL
                         Marshal.ReleaseComObject(installer);
                     }
                 }
+
+                if (String.IsNullOrWhiteSpace(productName))
+                {
+                    return new Version();
+                }
+                return Version.Parse(productName.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[1]);
             }
             catch (Exception exc)
             {

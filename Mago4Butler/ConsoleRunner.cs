@@ -115,7 +115,7 @@ namespace Microarea.Mago4Butler
                 Console.WriteLine("/uninstallAll and /uninstall are incompatible", Color.Red);
                 return false;
             }
-            if ((instanceToInstall != null || instanceToUpdate.Count > 0))
+            if (instanceToInstall != null || instanceToUpdate.Count > 0 || this.updateAll)
             {
                 try
                 {
@@ -142,7 +142,10 @@ namespace Microarea.Mago4Butler
 
                 var version = msiService.GetVersion(msiFullFilePath);
 
-                instanceToInstall.Version = version;
+                if (instanceToInstall != null)
+                {
+                    instanceToInstall.Version = version;
+                }
 
                 foreach (var instance in instanceToUpdate)
                 {
@@ -236,7 +239,11 @@ namespace Microarea.Mago4Butler
                         batch.Update(msiFullFilePath, instanceToUpdate.ToArray());
                     }
 
-                    batch.Install(msiFullFilePath, instanceToInstall);
+                    if (instanceToInstall != null)
+                    {
+                        batch.Install(msiFullFilePath, instanceToInstall);
+                    }
+
                     if (this.uninstallAll)
                     {
                         batch.UninstallAll(msiFullFilePath);

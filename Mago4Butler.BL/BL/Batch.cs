@@ -10,9 +10,10 @@ namespace Microarea.Mago4Butler
 {
     class Batch : ILogger
     {
-        CompanyDBUpdateService companyDBUpdateService;
-        InstallerService instanceService;
+        InstallerService installerService;
         Model model;
+        MsiService msiService;
+        string msiFullFilePath;
 
         public string Now
         {
@@ -22,32 +23,27 @@ namespace Microarea.Mago4Butler
             }
         }
 
-        public Batch(Model model, ISettings settings)
+        public Batch(Model model, MsiService msiService, InstallerService installerService)
         {
             this.model = model;
-            companyDBUpdateService = new CompanyDBUpdateService(settings);
-            var msiService = new MsiService(settings);
-            this.instanceService = new InstallerService(
-                settings,
-                msiService,
-                this.companyDBUpdateService,
-                new MsiZapper(msiService),
-                new RegistryService(msiService),
-                new IisService(),
-                new FileSystemService(settings)
-                );
+            this.msiService = msiService;
+            this.installerService = installerService;
 
-            this.instanceService.Started += InstanceService_Started;
-            this.instanceService.Starting += InstanceService_Starting;
-            this.instanceService.Stopped += InstanceService_Stopped;
-            this.instanceService.Stopping += InstanceService_Stopping;
+            this.model.InstanceAdded += (s, iea) => this.installerService.Install(this.msiFullFilePath, iea.Instance);
+            this.model.InstanceUpdated += (s, iea) => this.installerService.Update(this.msiFullFilePath, iea.Instance);
+            this.model.InstanceRemoved += (s, iea) => this.installerService.Uninstall(iea.Instance);
 
-            this.instanceService.Installing += InstanceService_Installing;
-            this.instanceService.Installed += InstanceService_Installed;
-            this.instanceService.Removing += InstanceService_Removing;
-            this.instanceService.Removed += InstanceService_Removed;
-            this.instanceService.Updating += InstanceService_Updating;
-            this.instanceService.Updated += InstanceService_Updated;
+            this.installerService.Started += InstanceService_Started;
+            this.installerService.Starting += InstanceService_Starting;
+            this.installerService.Stopped += InstanceService_Stopped;
+            this.installerService.Stopping += InstanceService_Stopping;
+
+            this.installerService.Installing += InstanceService_Installing;
+            this.installerService.Installed += InstanceService_Installed;
+            this.installerService.Removing += InstanceService_Removing;
+            this.installerService.Removed += InstanceService_Removed;
+            this.installerService.Updating += InstanceService_Updating;
+            this.installerService.Updated += InstanceService_Updated;
         }
 
         private void InstanceService_Updated(object sender, UpdateInstanceEventArgs e)
@@ -142,8 +138,10 @@ namespace Microarea.Mago4Butler
             {
                 return;
             }
-            var workingInstances = new List<Instance>();
-            foreach (var instance in instances)
+
+            this.msiFullFilePath = this.msiService.CalculateMsiFullFilePath();
+
+            foreach (var instance in instances.Where(i => i != null))
             {
                 if (this.model.ContainsInstance(instance))
                 {
@@ -157,12 +155,7 @@ namespace Microarea.Mago4Butler
                     Console.WriteLine("'{0}' is not a valid name for an instance: only letters, digits and '-' are allowed", instance.Name, Color.Red);
                     continue;
                 }
-                workingInstances.Add(instance);
-            }
-
-            foreach (var instanceName in workingInstances)
-            {
-                this.instanceService.Install(msiFullfilePath, instanceName);
+                this.model.AddInstance(instance);
             }
         }
 
@@ -172,7 +165,9 @@ namespace Microarea.Mago4Butler
             {
                 return;
             }
-            var workingInstances = new List<Instance>();
+            this.msiFullFilePath = this.msiService.CalculateMsiFullFilePath();
+            var version = this.msiService.GetVersion(msiFullfilePath);
+
             foreach (var instance in instances)
             {
                 if (!this.model.ContainsInstance(instance))
@@ -187,10 +182,14 @@ namespace Microarea.Mago4Butler
                     Console.WriteLine("[" + Now + "]: " + instance.Name + " is not updatable via batch, I cannot update it", Color.Orange);
                     continue;
                 }
-                workingInstances.Add(instance);
+                if (instance.Version >= version)
+                {
+                    this.LogError(instance.Name + " version is " + instance.Version + ", instance not to be updated");
+                    Console.WriteLine("[" + Now + "]: " + instance.Name + " version is " + instance.Version + ", instance not to be updated", Color.Orange);
+                    continue;
+                }
+                this.model.UpdateInstance(instance, version);
             }
-            
-            this.instanceService.Update(msiFullfilePath, workingInstances);
         }
 
         public void UpdateAll(string msiFullfilePath)
@@ -204,7 +203,6 @@ namespace Microarea.Mago4Butler
             {
                 return;
             }
-            var workingInstances = new List<Instance>();
             foreach (var instance in instances)
             {
                 if (!this.model.ContainsInstance(instance))
@@ -219,10 +217,8 @@ namespace Microarea.Mago4Butler
                     Console.WriteLine("[" + Now + "]: " + instance.Name + " is not deletable via batch, I cannot delete it", Color.Orange);
                     continue;
                 }
-                workingInstances.Add(instance);
+                this.model.RemoveInstance(instance);
             }
-
-            this.instanceService.Uninstall(workingInstances);
         }
 
         public void UninstallAll(string msiFullFilePath)
@@ -232,7 +228,7 @@ namespace Microarea.Mago4Butler
 
         public void WaitingForGodot()
         {
-            this.instanceService.Join();
+            this.installerService.Join();
         }
     }
 }
