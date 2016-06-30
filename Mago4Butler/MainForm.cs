@@ -18,9 +18,13 @@ namespace Microarea.Mago4Butler
         MapperConfiguration cmdLineMapperConfig;
         MapperConfiguration cmdLineReverseMapperConfig;
         MapperConfiguration instanceMapperConfig;
+        MapperConfiguration parametersBagMapperConfig;
+        MapperConfiguration parametersBagReverseMapperConfig;
         IMapper cmdLineMapper;
         IMapper cmdLineReverseMapper;
         IMapper instanceMapper;
+        IMapper parametersBagMapper;
+        IMapper parametersBagReverseMapper;
 
         SynchronizationContext syncCtx;
 
@@ -72,6 +76,12 @@ namespace Microarea.Mago4Butler
 
             instanceMapperConfig = new MapperConfiguration(cfg => cfg.CreateMap<BL.Instance, Plugins.Instance>());
             instanceMapper = instanceMapperConfig.CreateMapper();
+
+            parametersBagMapperConfig = new MapperConfiguration(cfg => cfg.CreateMap<AskForParametersBag, Plugins.AskForParametersBag>());
+            parametersBagMapper = parametersBagMapperConfig.CreateMapper();
+
+            parametersBagReverseMapperConfig = new MapperConfiguration(cfg => cfg.CreateMap<Plugins.AskForParametersBag, AskForParametersBag>());
+            parametersBagReverseMapper = parametersBagReverseMapperConfig.CreateMapper();
 
             this.loggerService = loggerService;
             this.pluginService = pluginService;
@@ -225,7 +235,7 @@ namespace Microarea.Mago4Butler
                 try
                 {
                     plugin.OnUpdating(pluginCmdLineInfo);
-                    cmdLineReverseMapper.Map(pluginCmdLineInfo, e.CmdLineInfo, typeof(Plugins.CmdLineInfo), typeof(BL.CmdLineInfo));
+                    e.CmdLineInfo = cmdLineReverseMapper.Map(pluginCmdLineInfo, typeof(Plugins.CmdLineInfo), typeof(BL.CmdLineInfo)) as BL.CmdLineInfo;
                 }
                 catch (Exception exc)
                 {
@@ -464,42 +474,96 @@ namespace Microarea.Mago4Butler
                 rootFolder.Create();
             }
 
-            this.msiFullFilePath = this.msiService.CalculateMsiFullFilePath();
+            var instanceName = string.Empty;
+            var provisioningCommandLine = string.Empty;
+            this.msiFullFilePath = null;
 
-            using (var askForParametersDialog = new AskForParametersForm(this.model, this.settings))
+            var bag = new AskForParametersBag() { InstanceName = instanceName, MsiFullFilePath = this.msiFullFilePath };
+            OnAskForParametersForInstall(bag);
+
+            if (string.IsNullOrWhiteSpace(bag.InstanceName) || string.IsNullOrWhiteSpace(bag.MsiFullFilePath))
             {
-                var diagRes = askForParametersDialog.ShowDialog();
-
-                if (diagRes != DialogResult.OK)
+                this.msiFullFilePath = this.msiService.CalculateMsiFullFilePath();
+                using (var askForParametersDialog = new AskForParametersForm(this.model, this.settings))
                 {
-                    return;
-                }
+                    var diagRes = askForParametersDialog.ShowDialog();
 
-                var provisioningCommandLine = string.Empty;
-                var productName = msiService.GetProductName(this.msiFullFilePath).ToLowerInvariant();
-                IProvisioningService provisioningService = IoCContainer.Instance.GetProvisioningService(productName);
-
-                if (provisioningService.ShouldStartProvisioning)
-                {
-                    using (var provisioningForm = new ProvisioningFormLITE(instanceName: askForParametersDialog.InstanceName, preconfigurationMode: true, loadDataFromFile: false))
+                    if (diagRes != DialogResult.OK)
                     {
-                        diagRes = provisioningForm.ShowDialog();
+                        return;
+                    }
+                    instanceName = askForParametersDialog.InstanceName;
 
-                        if (diagRes == DialogResult.Cancel)
+                    var productName = msiService.GetProductName(this.msiFullFilePath).ToLowerInvariant();
+                    IProvisioningService provisioningService = IoCContainer.Instance.GetProvisioningService(productName);
+
+                    if (provisioningService.ShouldStartProvisioning)
+                    {
+                        using (var provisioningForm = new ProvisioningFormLITE(instanceName: askForParametersDialog.InstanceName, preconfigurationMode: true, loadDataFromFile: false))
                         {
-                            return;
+                            diagRes = provisioningForm.ShowDialog();
+
+                            if (diagRes == DialogResult.Cancel)
+                            {
+                                return;
+                            }
+                            provisioningCommandLine = provisioningForm.PreconfigurationCommandLine;
                         }
-                        provisioningCommandLine = provisioningForm.PreconfigurationCommandLine;
                     }
                 }
+            }
+            else
+            {
+                this.msiFullFilePath = bag.MsiFullFilePath;
+                instanceName = bag.InstanceName;
+            }
 
-                this.model.AddInstance(new BL.Instance()
+            this.model.AddInstance(new BL.Instance()
+            {
+                Name = instanceName,
+                Version = msiService.GetVersion(this.msiFullFilePath),
+                WebSiteInfo = WebSiteInfo.DefaultWebSite,
+                ProvisioningCommandLine = provisioningCommandLine
+            });
+        }
+
+        private void OnAskForParametersForInstall(AskForParametersBag bag)
+        {
+            foreach (var plugin in this.pluginService.Plugins)
+            {
+                var mappedBag = parametersBagMapper.Map<Plugins.AskForParametersBag>(bag);
+                if (plugin != null)
                 {
-                    Name = askForParametersDialog.InstanceName,
-                    Version = msiService.GetVersion(this.msiFullFilePath),
-                    WebSiteInfo = WebSiteInfo.DefaultWebSite,
-                    ProvisioningCommandLine = provisioningCommandLine
-                });
+                    try
+                    {
+                        plugin.OnAskForParametersForInstall(mappedBag);
+                        bag = parametersBagReverseMapper.Map(mappedBag, bag, typeof(Plugins.AskForParametersBag), typeof(AskForParametersBag)) as AskForParametersBag;
+                    }
+                    catch (Exception exc)
+                    {
+                        this.loggerService.LogError("Error asking the plugin " + plugin.GetName() + " for parameters on installation.", exc);
+                    }
+                }
+            }
+        }
+
+        private void OnAskForParametersForUpdate(AskForParametersBag bag)
+        {
+            foreach (var plugin in this.pluginService.Plugins)
+            {
+                var mappedBag = parametersBagMapper.Map<Plugins.AskForParametersBag>(bag);
+                if (plugin != null)
+                {
+                    try
+                    {
+                        plugin.OnAskForParametersForUpdate(mappedBag);
+                        bag = parametersBagReverseMapper.Map(mappedBag, bag, typeof(Plugins.AskForParametersBag), typeof(AskForParametersBag)) as AskForParametersBag;
+                    }
+                    catch (Exception exc)
+                    {
+                        this.loggerService.LogError("Error asking the plugin " + plugin.GetName() + " for parameters on update.", exc);
+                    }
+                }
             }
         }
 
@@ -510,9 +574,20 @@ namespace Microarea.Mago4Butler
 
         private void UiNormalUse_UpdateInstance(object sender, UpdateInstanceEventArgs e)
         {
-            this.msiFullFilePath = this.msiService.CalculateMsiFullFilePath();
+            this.msiFullFilePath = null;
+            var bag = new AskForParametersBag() { MsiFullFilePath = this.msiFullFilePath };
+            OnAskForParametersForUpdate(bag);
 
-            var version = this.msiService.GetVersion(msiFullFilePath);
+            if (!string.IsNullOrWhiteSpace(bag.MsiFullFilePath))
+            {
+                this.msiFullFilePath = bag.MsiFullFilePath;
+            }
+            else
+            {
+                this.msiFullFilePath = this.msiService.CalculateMsiFullFilePath();
+            }
+
+            var version = this.msiService.GetVersion(this.msiFullFilePath);
             this.model.UpdateInstances(e.Instances, version);
         }
 

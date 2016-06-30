@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="AskForParametersBag.cs" />
     <Compile Include="CmdLineInfo.cs" />
     <Compile Include="ContextMenuItem.cs" />
     <Compile Include="DoubleClickHandler.cs" />

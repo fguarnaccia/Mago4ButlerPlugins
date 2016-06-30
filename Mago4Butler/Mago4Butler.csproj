@@ -105,6 +105,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AskForParametersBag.cs" />
     <Compile Include="Automation\AppAutomationServer.cs" />
     <Compile Include="ConsoleRunner.cs" />
     <Compile Include="ConsoleWrapper.cs" />

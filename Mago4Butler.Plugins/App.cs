@@ -3,6 +3,7 @@ using System.IO;
 using System.IO.Pipes;
 using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace Microarea.Mago4Butler.Plugins
 {
@@ -48,12 +49,12 @@ namespace Microarea.Mago4Butler.Plugins
             this.appAutomation.ShutdownApplication();
         }
 
-        public System.Windows.Forms.DialogResult ShowModalForm(Type formType)
+        public DialogResult ShowModalForm(Form modalForm)
         {
-            System.Windows.Forms.Form activeForm = System.Windows.Forms.Form.ActiveForm;
+            var activeForm = Form.ActiveForm;
             if (activeForm == null)
             {
-                foreach (System.Windows.Forms.Form form in System.Windows.Forms.Application.OpenForms)
+                foreach (Form form in Application.OpenForms)
                 {
                     activeForm = form;
                     if (activeForm != null)
@@ -63,15 +64,12 @@ namespace Microarea.Mago4Butler.Plugins
                 }
             }
 
-            System.Windows.Forms.DialogResult res = System.Windows.Forms.DialogResult.None;
+            DialogResult res = DialogResult.None;
             activeForm.Invoke(new Action(
                 ()
                 =>
                 {
-                    using (var modalForm = Activator.CreateInstance(formType) as System.Windows.Forms.Form)
-                    {
-                        res = modalForm.ShowDialog(activeForm);
-                    }
+                    res = modalForm.ShowDialog(activeForm);
                 }
                 ));
 

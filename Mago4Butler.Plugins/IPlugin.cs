@@ -21,5 +21,7 @@ namespace Microarea.Mago4Butler.Plugins
         void OnInstallerServiceStopped();
         void OnInstallerServiceStarted();
         bool ShouldUseProvisioning();
+        void OnAskForParametersForInstall(AskForParametersBag bag);
+        void OnAskForParametersForUpdate(AskForParametersBag bag);
     }
 }

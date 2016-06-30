@@ -45,10 +45,13 @@ namespace Microarea.Mago4Butler.AutomaticUpdates
 
                 if (updates.RestartRequired)
                 {
-                    var dr = App.Instance.ShowModalForm(typeof(AskForUpdate));
-                    if (dr != System.Windows.Forms.DialogResult.Yes)
+                    using (var modalForm = new AskForUpdate())
                     {
-                        return;
+                        var dr = App.Instance.ShowModalForm(modalForm);
+                        if (dr != System.Windows.Forms.DialogResult.Yes)
+                        {
+                            return;
+                        }
                     }
                 }
 
