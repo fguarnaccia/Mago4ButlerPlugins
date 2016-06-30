@@ -307,15 +307,16 @@ namespace Microarea.Mago4Butler.BL
                                 ProxyPassword = this.settings.Password,
                                 Features = this.msiService.GetFeatureNames(currentRequest.MsiPath)
                             };
+                            var args = new InstallInstanceEventArgs() { Instance = currentRequest.Instance, CmdLineInfo = cmdLineInfo };
                             try
                             {
-                                this.OnInstalling(new InstallInstanceEventArgs() { Instance = currentRequest.Instance, CmdLineInfo = cmdLineInfo });
+                                this.OnInstalling(args);
                             }
                             catch (Exception exc)
                             {
                                 this.LogError("Command line paremeters request failed, skipping plugin", exc);
                             }
-                            this.Install(currentRequest, cmdLineInfo);
+                            this.Install(currentRequest, args.CmdLineInfo);
 
                             this.OnInstalled(new InstallInstanceEventArgs() { Instance = currentRequest.Instance });
 
@@ -340,16 +341,17 @@ namespace Microarea.Mago4Butler.BL
                                 ProxyPassword = this.settings.Password,
                                 Features = this.msiService.GetFeatureNames(currentRequest.MsiPath)
                             };
+                            var args = new UpdateInstanceEventArgs() { Instances = new List<Instance>() { currentRequest.Instance }, CmdLineInfo = cmdLineInfo };
                             try
                             {
-                                this.OnUpdating(new UpdateInstanceEventArgs() { Instances = new List<Instance>() { currentRequest.Instance }, CmdLineInfo = cmdLineInfo });
+                                this.OnUpdating(args);
 
                             }
                             catch (Exception exc)
                             {
                                 this.LogError("Command line paremeters request failed, skipping plugin", exc);
                             }
-                            this.Update(currentRequest, cmdLineInfo);
+                            this.Update(currentRequest, args.CmdLineInfo);
 
                             this.OnUpdated(new UpdateInstanceEventArgs() { Instances = new List<Instance>() { currentRequest.Instance } });
 
