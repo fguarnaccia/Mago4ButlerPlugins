@@ -174,18 +174,53 @@ namespace Microarea.Mago4Butler.BL
         {
             try
             {
+                string productName = GetProductNameInternal(msiFilePath, "ProductName");
+
+                if (!String.IsNullOrWhiteSpace(productName))
+                {
+                    try
+                    {
+                        return Version.Parse(
+                                productName.Split(
+                                    new char[] { ' ' },
+                                    StringSplitOptions.RemoveEmptyEntries
+                                    )[1]
+                                );
+                    }
+                    catch (Exception exc)
+                    {
+                        this.LogError("Error getting version from 'ProductName' property for " + msiFilePath + ", retrying from 'ProductVersion' property ...", exc);
+                    }
+                }
+                return GetProductVersion(msiFilePath);
+            }
+            catch (Exception exc)
+            {
+                this.LogError("Error getting version from " + msiFilePath, exc);
+                throw;
+            }
+        }
+
+        private Version GetProductVersion(string msiFilePath)
+        {
+            try
+            {
                 var installer = Activator.CreateInstance(InstallerType) as Installer;
                 var database = installer.OpenDatabase(msiFilePath, MsiOpenDatabaseMode.msiOpenDatabaseModeTransact);
-                var view = database.OpenView("SELECT * from Property WHERE Property = 'ProductName'");
+                var view = database.OpenView("SELECT * from Property WHERE Property = 'ProductVersion'");
 
                 view.Execute(null);
 
                 Record record = null;
-                string productName;
                 try
                 {
                     record = view.Fetch();
-                    productName = (record != null) ? record.get_StringData(2) : String.Empty;
+                    var strVersion = (record != null) ? record.get_StringData(2) : String.Empty;
+                    if (String.IsNullOrWhiteSpace(strVersion))
+                    {
+                        return new Version();
+                    }
+                    return Version.Parse(strVersion);
                 }
                 finally
                 {
@@ -208,12 +243,6 @@ namespace Microarea.Mago4Butler.BL
                         Marshal.ReleaseComObject(installer);
                     }
                 }
-
-                if (String.IsNullOrWhiteSpace(productName))
-                {
-                    return new Version();
-                }
-                return Version.Parse(productName.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[1]);
             }
             catch (Exception exc)
             {
