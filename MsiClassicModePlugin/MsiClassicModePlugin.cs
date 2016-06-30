@@ -22,7 +22,6 @@ namespace MsiClassicModePlugin
             SetClassicModeParameter(cmdLineInfo);
         }
 
-
         private void SetClassicModeParameter(CmdLineInfo cmdLineInfo)
         {
             cmdLineInfo.ClassicApplicationPoolPipeline = Properties.Settings.Default.ClassicApplicationPoolPipeline;
@@ -32,33 +31,32 @@ namespace MsiClassicModePlugin
             cmdLineInfo.SkipClickOnceDeployer = Properties.Settings.Default.SkipClickOnceDeployer;
             cmdLineInfo.NoEnvVar = Properties.Settings.Default.NoEnvVar;
 
+            //foreach (var description in Properties.Settings.Default.KeepFeatures)
+            //{
+            //    var feature = cmdLineInfo
+            //        .Features
+            //        .Where(f => String.Compare(f.Description, description, StringComparison.InvariantCultureIgnoreCase) == 0)
+            //        .FirstOrDefault();
+            //    if (feature == null )
+            //    {
+            //        cmdLineInfo.Features.Remove(feature);
+            //    }
+            //}
 
-
-            foreach (var description in Properties.Settings.Default.KeepFeatures)
+            if (IsMago4Setup())
             {
-                var feature = cmdLineInfo
-                    .Features
-                    .Where(f => String.Compare(f.Description, description, StringComparison.InvariantCultureIgnoreCase) == 0)
-                    .FirstOrDefault();
-                if (feature == null)
+                var clonedCollection = new List<Feature>(cmdLineInfo.Features);
+
+                foreach (Feature feature in clonedCollection)
                 {
-                    cmdLineInfo.Features.Remove(feature);
+                    if (!Properties.Settings.Default.KeepFeatures.Contains(feature.Description))
+                    {
+                        cmdLineInfo.Features.Remove(feature);
+                    }
                 }
             }
 
-
-            //foreach (Feature feature in cmdLineInfo.Features)
-            //{
-            
-
-            //    if (!Properties.Settings.Default.KeepFeatures.Contains(feature.Description))
-            //        {
-            //        cmdLineInfo.Features.Remove(feature);
-            //        }
-
-            //}
-      
-        }
+        }  
 
         void StopSharedFolder(Instance istanza)
         {
@@ -67,14 +65,17 @@ namespace MsiClassicModePlugin
             string standardshare = "share {0}_Standard {1}";
 
 
-
             customshare = string.Format(customshare, istanza.Name, "/Delete");
             standardshare = string.Format(standardshare, istanza.Name, "/Delete");
             DeleteShare(customshare);
             DeleteShare(standardshare);
 
 
+        }
+        bool IsMago4Setup()
+        {
 
+            return true;
         }
 
 
