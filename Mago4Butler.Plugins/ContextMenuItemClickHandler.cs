@@ -9,7 +9,10 @@ namespace Microarea.Mago4Butler.Plugins
 
         public void MenuItem_Click(object sender, EventArgs e)
         {
-            ContextMenuItem.Command(Instance);
+            if (Instance != null)
+            {
+                ContextMenuItem.Command(Instance);
+            }
         }
     }
 }

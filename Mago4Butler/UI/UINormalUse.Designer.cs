@@ -32,6 +32,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UINormalUse));
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.lsvInstances = new System.Windows.Forms.ListView();
+            this.instanceColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.versionColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.installedOnColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.btnRemove = new System.Windows.Forms.Button();
             this.btnAddInstance = new System.Windows.Forms.Button();
@@ -68,18 +71,39 @@
             // 
             // lsvInstances
             // 
+            this.lsvInstances.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.instanceColumnHeader,
+            this.versionColumnHeader,
+            this.installedOnColumnHeader});
             this.lsvInstances.ContextMenuStrip = this.contextMenuStrip;
             this.lsvInstances.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lsvInstances.FullRowSelect = true;
+            this.lsvInstances.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lsvInstances.Location = new System.Drawing.Point(0, 0);
             this.lsvInstances.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.lsvInstances.Name = "lsvInstances";
             this.lsvInstances.Size = new System.Drawing.Size(400, 345);
+            this.lsvInstances.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.lsvInstances.TabIndex = 0;
             this.lsvInstances.UseCompatibleStateImageBehavior = false;
-            this.lsvInstances.View = System.Windows.Forms.View.List;
+            this.lsvInstances.View = System.Windows.Forms.View.Details;
             this.lsvInstances.SelectedIndexChanged += new System.EventHandler(this.lsvInstances_SelectedIndexChanged);
             this.lsvInstances.DoubleClick += new System.EventHandler(this.lsvInstances_DoubleClick);
+            // 
+            // instanceColumnHeader
+            // 
+            this.instanceColumnHeader.Text = "Instance";
+            this.instanceColumnHeader.Width = 200;
+            // 
+            // versionColumnHeader
+            // 
+            this.versionColumnHeader.Text = "Version";
+            this.versionColumnHeader.Width = 95;
+            // 
+            // installedOnColumnHeader
+            // 
+            this.installedOnColumnHeader.Text = "Installed on";
+            this.installedOnColumnHeader.Width = 95;
             // 
             // contextMenuStrip
             // 
@@ -159,5 +183,8 @@
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.Button btnAddInstance;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
+        private System.Windows.Forms.ColumnHeader instanceColumnHeader;
+        private System.Windows.Forms.ColumnHeader versionColumnHeader;
+        private System.Windows.Forms.ColumnHeader installedOnColumnHeader;
     }
 }

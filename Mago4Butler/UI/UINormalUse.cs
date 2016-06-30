@@ -125,8 +125,12 @@ namespace Microarea.Mago4Butler
 
         private void AddInstanceToListView(BL.Instance instance)
         {
-            var listViewItem = this.lsvInstances.Items.Add(instance.Name, instance.ToString(), -1);
-            listViewItem.Tag = instance;
+            ListViewItem item = new ListViewItem(instance.Name);
+            item.SubItems.Add(instance.Version.ToString());
+            item.SubItems.Add(instance.InstalledOn.ToString("d MMM yyyy"));
+            item.Tag = instance;
+
+            var listViewItem = this.lsvInstances.Items.Add(item);
         }
 
         protected override void OnLoad(EventArgs e)
