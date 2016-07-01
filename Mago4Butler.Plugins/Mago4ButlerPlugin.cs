@@ -23,12 +23,12 @@ namespace Microarea.Mago4Butler.Plugins
             
         }
 
-        public void OnAskForParametersForInstall(AskForParametersBag bag)
+        public virtual void OnAskForParametersForInstall(AskForParametersBag bag)
         {
 
         }
 
-        public void OnAskForParametersForUpdate(AskForParametersBag bag)
+        public virtual void OnAskForParametersForUpdate(AskForParametersBag bag)
         {
             
         }
