@@ -28,6 +28,7 @@ namespace Microarea.Mago4Butler.BL
 
         public event EventHandler<NotificationEventArgs> Notification;
 
+        WcfService wcfService;
         MsiZapper msiZapper;
         RegistryService registryService;
         MsiService msiService;
@@ -57,16 +58,18 @@ namespace Microarea.Mago4Butler.BL
             MsiZapper msiZapper,
             RegistryService registryService,
             IisService iisService,
-            FileSystemService fileSystemService
+            FileSystemService fileSystemService,
+            WcfService wcfService
             )
         {
             this.settings = settings;
             this.msiService = msiService;
             this.companyDBUpdateService = companyDBUpdateService;
-            this.msiZapper = msiZapper;// new MsiZapper(this.msiService);
-            this.registryService = registryService;// new RegistryService(this.msiService);
-            this.iisService = iisService;// new IisService();
-            this.fileSystemService = fileSystemService;// new FileSystemService(settings);
+            this.msiZapper = msiZapper;
+            this.registryService = registryService;
+            this.iisService = iisService;
+            this.fileSystemService = fileSystemService;
+            this.wcfService = wcfService;
         }
 
         protected virtual void OnStarting()
@@ -461,6 +464,14 @@ namespace Microarea.Mago4Butler.BL
             this.registryService.RemoveInstallerFoldersKeys(currentRequest.RootFolder, currentRequest.Instance);
             OnNotification(new NotificationEventArgs() { Message = "Now the registry is clean" });
 
+            //OnNotification(new NotificationEventArgs() { Message = "Registering wcf namespaces..." });
+            //this.wcfService.RegisterWcf(currentRequest.Instance.WcfStartPort, currentRequest.Instance.Name);
+            //OnNotification(new NotificationEventArgs() { Message = "Wcf namespaces registered" });
+
+            //OnNotification(new NotificationEventArgs() { Message = "Creating settings.config file with wcf starting port..." });
+            //this.wcfService.CreateSettingsConfigFile(currentRequest.Instance.Name, currentRequest.Instance.WcfStartPort);
+            //OnNotification(new NotificationEventArgs() { Message = "settings.config file created" });
+
             OnNotification(new NotificationEventArgs() { Message = "Updating company database..." });
             this.companyDBUpdateService.UpdateCompanyDB(currentRequest.Instance);
             OnNotification(new NotificationEventArgs() { Message = "Company database successfully updated" });
@@ -508,6 +519,14 @@ namespace Microarea.Mago4Butler.BL
             OnNotification(new NotificationEventArgs() { Message = "Configuring the application..." });
             this.SaveServerConnectionConfig(currentRequest);
             OnNotification(new NotificationEventArgs() { Message = "Application configured" });
+
+            OnNotification(new NotificationEventArgs() { Message = "Creating settings.config file with wcf starting port..." });
+            this.wcfService.CreateSettingsConfigFile(currentRequest.Instance.Name, currentRequest.Instance.WcfStartPort);
+            OnNotification(new NotificationEventArgs() { Message = "settings.config file created" });
+
+            OnNotification(new NotificationEventArgs() { Message = "Registering wcf namespaces..." });
+            this.wcfService.RegisterWcf(currentRequest.Instance.WcfStartPort, currentRequest.Instance.Name);
+            OnNotification(new NotificationEventArgs() { Message = "Wcf namespaces registered" });
         }
 
         private string CreateApplicationFolders(Request currentRequest)

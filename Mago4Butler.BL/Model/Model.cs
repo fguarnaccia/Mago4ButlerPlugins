@@ -109,10 +109,27 @@ namespace Microarea.Mago4Butler.BL
             Debug.Assert(!String.IsNullOrWhiteSpace(instance.Name));
             Debug.Assert(instance.Version != null);
 
+            instance.WcfStartPort = GetAvailableWcfStartPort();
+
             this.instances.Add(instance);
             this.OnInstanceAdded(new InstanceEventArgs() { Instance = instance });
 
             SaveToConfigurationFile();
+        }
+
+        private int GetAvailableWcfStartPort()
+        {
+            int maxWcfStartPortFound = 9990;
+
+            foreach (var instance in this.instances)
+            {
+                if (maxWcfStartPortFound <= instance.WcfStartPort )
+                {
+                    maxWcfStartPortFound = instance.WcfStartPort;
+                }
+            }
+
+            return maxWcfStartPortFound + 10;
         }
 
         public void UpdateInstances(ICollection<Instance> instances, Version version)

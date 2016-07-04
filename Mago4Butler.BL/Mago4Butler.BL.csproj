@@ -119,6 +119,7 @@
     <Compile Include="BL\Request.cs" />
     <Compile Include="BL\RequestType.cs" />
     <Compile Include="BL\UpdateInstanceEventArgs.cs" />
+    <Compile Include="BL\WcfService.cs" />
     <Compile Include="ILogger.cs" />
     <Compile Include="ISettings.cs" />
     <Compile Include="LocalAssemblyInfo.cs" />
@@ -143,6 +144,7 @@
     </None>
     <None Include="res\Interop.WindowsInstaller.dll" />
     <EmbeddedResource Include="res\ServerConnectionConfig.template" />
+    <EmbeddedResource Include="res\SettingsConfig.template" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\MsiZap.exe" />

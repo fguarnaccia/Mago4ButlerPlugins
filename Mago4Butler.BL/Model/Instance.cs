@@ -19,6 +19,7 @@ namespace Microarea.Mago4Butler.BL
         [YamlDotNet.Serialization.YamlIgnore]
         public string ProvisioningCommandLine { get; set; }
         public DateTime InstalledOn { get; set; } = DateTime.Now.Date;
+        public int WcfStartPort { get; set; }
 
         public static Instance FromStandardDirectoryInfo(DirectoryInfo standardDirInfo)
         {

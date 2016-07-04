@@ -8,6 +8,10 @@ namespace Microarea.Mago4Butler.BL
 {
     public static class LaunchProcessTrait
     {
+        public static void LaunchProcess(this WcfService @this, string processFilePath, string args, int timeoutInMillSecs)
+        {
+            LaunchProcess(processFilePath, args, timeoutInMillSecs);
+        }
         public static void LaunchProcess(this MsiZapper @this, string processFilePath, string args, int timeoutInMillSecs)
         {
             LaunchProcess(processFilePath, args, timeoutInMillSecs);
@@ -33,8 +37,10 @@ namespace Microarea.Mago4Butler.BL
             psi.UseShellExecute = false;
             psi.CreateNoWindow = true;
             Process p = Process.Start(psi);
-            string output = p.StandardOutput.ReadToEnd();
-            string error = p.StandardError.ReadToEnd();
+            string output = p.StandardOutput.ReadToEnd()
+                .Replace("\0", string.Empty);
+            string error = p.StandardError.ReadToEnd()
+                .Replace("\0", string.Empty);
 
             p.WaitForExit(timeoutInMillSecs);
             if (p.ExitCode != 0)
