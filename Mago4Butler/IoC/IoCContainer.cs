@@ -26,6 +26,8 @@ namespace Microarea.Mago4Butler
                     })
                     .InSingletonScope();
 
+                Bind<HttpService>().ToSelf();
+                Bind<UpdatesDownloaderService>().ToSelf();
                 Bind<MsiService>().ToSelf();
                 Bind<WcfService>().ToSelf();
                 Bind<InstallerService>().ToSelf();

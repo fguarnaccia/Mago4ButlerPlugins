@@ -48,6 +48,7 @@ namespace Microarea.Mago4Butler.BL
         public string Username { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public string LastFolderOpenedBrowsingForMsi { get; set; } = string.Empty;
+        public string UpdatesUri { get; set; } = "http://www.microarea.it/PAASUpdates/UpdatesService.asmx";
 
         public void Save()
         {

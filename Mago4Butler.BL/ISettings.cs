@@ -24,6 +24,8 @@ namespace Microarea.Mago4Butler.BL
         string Password { get; set; }
         string LastFolderOpenedBrowsingForMsi { get; set; }
 
+        string UpdatesUri { get; set; }
+
         void Save();
     }
 }

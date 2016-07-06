@@ -17,6 +17,7 @@ namespace Microarea.Mago4Butler
         const string installSwitch = "/install";
         const string uninstallSwitch = "/uninstall";
         const string uninstallAllSwitch = "/uninstallall";
+        const string downloadUpdatedMsiSwitch = "/downloadupdatedmsi";
 
         List<Instance> instanceToUpdate = new List<Instance>();
         Instance instanceToInstall;
@@ -25,6 +26,7 @@ namespace Microarea.Mago4Butler
         bool printHelp;
         bool updateAll;
         bool uninstallAll;
+        bool downloadUpdatedMsi;
 
         string msiFullFilePath;
         string[] args;
@@ -94,6 +96,11 @@ namespace Microarea.Mago4Butler
                     case helpSwitch:
                         {
                             printHelp = true;
+                            break;
+                        }
+                    case downloadUpdatedMsiSwitch:
+                        {
+                            this.downloadUpdatedMsi = true;
                             break;
                         }
                     default:
@@ -215,6 +222,22 @@ namespace Microarea.Mago4Butler
                     {
                         PrintHelp();
                         return 1;
+                    }
+
+                    if (this.downloadUpdatedMsi)
+                    {
+                        var updatesDownloader = IoCContainer.Instance.Get<UpdatesDownloaderService>();
+
+                        try
+                        {
+                            updatesDownloader.DownloadUpdatedMsiIfAny();
+                            return 0;
+                        }
+                        catch (Exception exc)
+                        {
+                            Console.WriteLine("Error downloading updated msi file: " + exc.ToString(), Color.Red);
+                            return 1;
+                        }
                     }
 
                     var batch = IoCContainer.Instance.Get<Batch>();
