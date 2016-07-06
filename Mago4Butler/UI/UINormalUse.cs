@@ -114,7 +114,21 @@ namespace Microarea.Mago4Butler
 
         private void Model_InstanceRemoved(object sender, InstanceEventArgs e)
         {
-            this.lsvInstances.Items.RemoveByKey(e.Instance.Name);
+            bool found = false;
+            int idx = -1;
+            for (int i = 0; i < this.lsvInstances.Items.Count; i++)
+            {
+                if (string.Compare(this.lsvInstances.Items[i].Text, e.Instance.Name, StringComparison.InvariantCultureIgnoreCase) == 0)
+                {
+                    idx = i;
+                    found = true;
+                    break;
+                }
+            }
+            if (found)
+            {
+                this.lsvInstances.Items.RemoveAt(idx);
+            }
         }
 
         private void Model_InstanceAdded(object sender, InstanceEventArgs e)
