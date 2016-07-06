@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -21,7 +22,26 @@ namespace Microarea.Mago4Butler.BL
         }
         public void DownloadFile(string address, string filePath)
         {
-            using (var httpClient = new HttpClient())
+            var cookies = new CookieContainer();
+
+            var handler = new HttpClientHandler
+            {
+                CookieContainer = cookies,
+                UseCookies = true
+            };
+            if (this.settings.UseProxy)
+            {
+                var proxyUrl = string.Format("{0}:{1}", this.settings.ProxyServerUrl, this.settings.ProxyServerPort);
+                handler.Proxy = new WebProxy(proxyUrl, false);
+                handler.UseProxy = true;
+
+                if (this.settings.UseCredentials)
+                {
+                    handler.Credentials = new NetworkCredential(this.settings.Username, this.settings.Password);
+                }
+            }
+
+            using (var httpClient = new HttpClient(handler, true))
             {
                 httpClient.DefaultRequestHeaders.Host = "www.microarea.it";
                 httpClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:47.0) Gecko/20100101 Firefox/47.0");
@@ -44,7 +64,7 @@ namespace Microarea.Mago4Butler.BL
 
                 var responseTask = httpClient.PostAsync(loginAddress, content);
                 responseTask.Wait();
-                //login effettuata, scarico l'msi...
+                //login effettuata, ora posso scaricare l'msi...
 
                 responseTask = httpClient.GetAsync(address);
                 responseTask.Wait();
