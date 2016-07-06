@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microarea.TaskBuilderNet.Core.NameSolver;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -569,25 +570,43 @@ namespace Microarea.Mago4Butler.BL
                 customDirInfo.Create();
             }
 
-            string serverConnectionConfigTemplateContent;
-            using (var sr = new StreamReader(this.GetType().Assembly.GetManifestResourceStream("Microarea.Mago4Butler.BL.res.ServerConnectionConfig.template")))
-            {
-                serverConnectionConfigTemplateContent = sr.ReadToEnd();
-            }
-
-            var data = new {
-                PreferredLanguage = "it-IT",
-                ApplicationLanguage = "it-IT",
-                WebServicesPort = currentRequest.Instance.WebSiteInfo.SitePort
-            };
-
             var serverConnectionConfigFileInfo = new FileInfo(serverConnectionConfigFilePath);
+            bool serverConnectionConfigUpdated = false;
             if (serverConnectionConfigFileInfo.Exists)
             {
-                serverConnectionConfigFileInfo.Delete();
+                try
+                {
+                    var serverConnectionConfig = new ServerConnectionInfo();
+                    serverConnectionConfig.Parse(serverConnectionConfigFilePath);
+                    serverConnectionConfig.PreferredLanguage = "it-IT";
+                    serverConnectionConfig.ApplicationLanguage = "it-IT";
+                    serverConnectionConfig.WebServicesPort = currentRequest.Instance.WebSiteInfo.SitePort;
+                    serverConnectionConfig.UnParse(serverConnectionConfigFilePath);
+                    serverConnectionConfigUpdated = true;
+                }
+                catch (Exception exc)
+                {
+                    this.LogError("Error loading exsting serverconnection.config file, I'll create a brand new file...", exc);
+                    serverConnectionConfigFileInfo.Delete();
+                }
             }
+            if (!serverConnectionConfigUpdated)
+            {
+                string serverConnectionConfigTemplateContent;
+                using (var sr = new StreamReader(this.GetType().Assembly.GetManifestResourceStream("Microarea.Mago4Butler.BL.res.ServerConnectionConfig.template")))
+                {
+                    serverConnectionConfigTemplateContent = sr.ReadToEnd();
+                }
 
-            Nustache.Core.Render.StringToFile(serverConnectionConfigTemplateContent, data, serverConnectionConfigFilePath);
+                var data = new
+                {
+                    PreferredLanguage = "it-IT",
+                    ApplicationLanguage = "it-IT",
+                    WebServicesPort = currentRequest.Instance.WebSiteInfo.SitePort
+                };
+
+                Nustache.Core.Render.StringToFile(serverConnectionConfigTemplateContent, data, serverConnectionConfigFilePath);
+            }
         }
     }
 }
