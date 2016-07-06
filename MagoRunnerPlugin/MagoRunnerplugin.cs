@@ -22,7 +22,7 @@ namespace MagoRunnerPlugin
 
             ContextMenuItem cmi = new ContextMenuItem();
             cmi.Name = "runRoot";
-            cmi.Text = "RootFolder";
+            cmi.Text = "ROOT";
             cmi.ShortcutKeys = Keys.Control | Keys.R;
             cmi.Command = new Action<Instance>(
                 (instance)
@@ -33,7 +33,7 @@ namespace MagoRunnerPlugin
 
             cmi = new ContextMenuItem();
             cmi.Name = "runMadico";
-            cmi.Text = "check Instance";
+            cmi.Text = "...Check Instance";
             cmi.ShortcutKeys = Keys.Control | Keys.M;
             cmi.Command = new Action<Instance>(
                 (instance)
@@ -44,7 +44,7 @@ namespace MagoRunnerPlugin
 
             cmi = new ContextMenuItem();
             cmi.Name = "runCOD";
-            cmi.Text = "ClickOnceDeployer";
+            cmi.Text = "...ClickOnceDeployer";
             cmi.ShortcutKeys = Keys.Control | Keys.O;
             cmi.Command = new Action<Instance>(
                 (instance)
@@ -56,7 +56,7 @@ namespace MagoRunnerPlugin
 
             cmi = new ContextMenuItem();
             cmi.Name = "runMago";
-            cmi.Text = "Mago";
+            cmi.Text = "...Mago";
             cmi.ShortcutKeys = Keys.F9;
             cmi.Command = new Action<Instance>(
                 (instance)
@@ -67,7 +67,7 @@ namespace MagoRunnerPlugin
 
             cmi = new ContextMenuItem();
             cmi.Name = "runConsole";
-            cmi.Text = "Admin Console";
+            cmi.Text = "...Admin Console";
             cmi.ShortcutKeys = Keys.Control | Keys.A;
             cmi.Command = new Action<Instance>(
                 (instance)
@@ -78,7 +78,7 @@ namespace MagoRunnerPlugin
 
             cmi = new ContextMenuItem();
             cmi.Name = "runCustom";
-            cmi.Text = "Custom";
+            cmi.Text = "...Custom";
             cmi.ShortcutKeys = Keys.Control | Keys.C;
             cmi.Command = new Action<Instance>(
                 (instance)
@@ -90,7 +90,7 @@ namespace MagoRunnerPlugin
             cmi = new ContextMenuItem();
 
             cmi.Name = "runPublish";
-            cmi.Text = "Publish";
+            cmi.Text = "...Publish";
             cmi.ShortcutKeys = Keys.Control | Keys.P;
             cmi.Command = new Action<Instance>(
                 (instance)
@@ -102,7 +102,7 @@ namespace MagoRunnerPlugin
             cmi = new ContextMenuItem();
 
             cmi.Name = "runStandard";
-            cmi.Text = "Standard";
+            cmi.Text = "...Standard";
             cmi.ShortcutKeys = Keys.Control | Keys.S;
             cmi.Command = new Action<Instance>(
                 (instance)
@@ -113,7 +113,7 @@ namespace MagoRunnerPlugin
 
             cmi = new ContextMenuItem();
             cmi.Name = "runMagoWeb";
-            cmi.Text = "Easylook/MagoWeb";
+            cmi.Text = "...Easylook/MagoWeb";
             cmi.ShortcutKeys = Keys.Control | Keys.W;
             cmi.Command = new Action<Instance>(
                 (instance)
@@ -122,30 +122,8 @@ namespace MagoRunnerPlugin
                 );
             cmis.Add(cmi);
 
-            //cmi = new ContextMenuItem();
-            //cmi.Name = "setingline";
-            //cmi.Text = "--- Settings ---";
-            //cmi.Command = new Action<Instance>(
-            //   (instance)
-            //   =>
-            //   RunNothing(instance)
-            //   );
-            //cmis.Add(cmi);
-
-            //cmi = new ContextMenuItem();
-            //cmi.Name = "setIdentity";
-            //cmi.Text = "ClassicApplicationPoolPipeline=" + MagoRunnerPlugin.Properties.Settings.Default.ClassicApplicationPoolPipeline.ToString();
-            ////cmi.ShortcutKeys = Keys.Control | Keys.W;
-            //cmi.Command = new Action<Instance>(
-            //    (instance)
-            //    =>
-            //    SetIdentity(instance)
-            //    );
-            //cmis.Add(cmi);
-
-
             return cmis;
-            //return CreateMenu();
+        
         }
 
         private void RunNothing(Instance instance)
@@ -166,7 +144,7 @@ namespace MagoRunnerPlugin
         {
 
             string FileName = string.Empty;
-            FileName = Path.Combine(App.Instance.Settings.RootFolder);
+            FileName = Path.Combine(App.Instance.Settings.RootFolder,istanza.Name);
 
             Process.Start(FileName);
 

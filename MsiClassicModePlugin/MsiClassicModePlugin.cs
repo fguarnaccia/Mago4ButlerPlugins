@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microarea.Mago4Butler.Plugins;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 
 namespace MsiClassicModePlugin
 {
     public class MsiClassicMode : Mago4ButlerPlugin
     {
-
+        
         public override void OnInstalling(CmdLineInfo cmdLineInfo)
         {
 
@@ -31,17 +28,11 @@ namespace MsiClassicModePlugin
             cmdLineInfo.SkipClickOnceDeployer = Properties.Settings.Default.SkipClickOnceDeployer;
             cmdLineInfo.NoEnvVar = Properties.Settings.Default.NoEnvVar;
 
-            //foreach (var description in Properties.Settings.Default.KeepFeatures)
-            //{
             //    var feature = cmdLineInfo
             //        .Features
             //        .Where(f => String.Compare(f.Description, description, StringComparison.InvariantCultureIgnoreCase) == 0)
             //        .FirstOrDefault();
-            //    if (feature == null )
-            //    {
-            //        cmdLineInfo.Features.Remove(feature);
-            //    }
-            //}
+     
 
             if (IsMago4Setup())
             {
@@ -51,6 +42,7 @@ namespace MsiClassicModePlugin
                 {
                     if (!Properties.Settings.Default.KeepFeatures.Contains(feature.Description))
                     {
+
                         cmdLineInfo.Features.Remove(feature);
                     }
                 }
@@ -101,12 +93,24 @@ namespace MsiClassicModePlugin
             }
         }
 
-             public override bool ShouldUseProvisioning()
+        public override bool ShouldUseProvisioning()
         {
             return false;
         }
-    }
+        public override void OnAskForParametersForInstall(AskForParametersBag bag)
+        {
+            frmMsiClassicMode frm = new frmMsiClassicMode(true);
+            //frm.IsUpdating = false;
+            frm.ShowDialog();
+
+            bag.InstanceName = frm.txtInstanceName.Text;
+            bag.MsiFullFilePath = frm.txtboxFileMsi.Text;
+            return;
+
+
+        }
 
 
     }
+}
 

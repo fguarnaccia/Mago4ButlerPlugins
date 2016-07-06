@@ -97,10 +97,13 @@ namespace MsiClassicModePlugin.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
-            "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\r\n  <s" +
-            "tring>Italian (Italy)</string>\r\n  <string>TaskBuilder Studio</string>\r\n</ArrayOf" +
-            "String>")]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>Italian (Italy)</string>
+  <string>TaskBuilder Framework</string>
+  <string>TaskBuilder Studio</string>
+  <string>Mago4</string>
+</ArrayOfString>")]
         public global::System.Collections.Specialized.StringCollection KeepFeatures {
             get {
                 return ((global::System.Collections.Specialized.StringCollection)(this["KeepFeatures"]));
