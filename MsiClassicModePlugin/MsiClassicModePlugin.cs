@@ -6,17 +6,20 @@ namespace MsiClassicModePlugin
 {
     public class MsiClassicMode : Mago4ButlerPlugin
     {
-        
+
+        public CmdLineInfo listfeature ;
+
         public override void OnInstalling(CmdLineInfo cmdLineInfo)
         {
 
             SetClassicModeParameter(cmdLineInfo);
-
+            
         }
 
         public override void OnUpdating(CmdLineInfo cmdLineInfo)
         {
             SetClassicModeParameter(cmdLineInfo);
+
         }
 
         private void SetClassicModeParameter(CmdLineInfo cmdLineInfo)
@@ -47,7 +50,7 @@ namespace MsiClassicModePlugin
                     }
                 }
             }
-
+            //listfeature.Features = cmdLineInfo.Features;
         }  
 
         void StopSharedFolder(Instance istanza)
@@ -55,7 +58,6 @@ namespace MsiClassicModePlugin
           
             string customshare = "share {0}_Custom {1}";
             string standardshare = "share {0}_Standard {1}";
-
 
             customshare = string.Format(customshare, istanza.Name, "/Delete");
             standardshare = string.Format(standardshare, istanza.Name, "/Delete");
@@ -99,18 +101,34 @@ namespace MsiClassicModePlugin
         }
         public override void OnAskForParametersForInstall(AskForParametersBag bag)
         {
-            frmMsiClassicMode frm = new frmMsiClassicMode(true);
-            //frm.IsUpdating = false;
+            frmMsiClassicMode frm = new frmMsiClassicMode(false);
+           
             frm.ShowDialog();
 
-            bag.InstanceName = frm.txtInstanceName.Text;
-            bag.MsiFullFilePath = frm.txtboxFileMsi.Text;
-            return;
+            if (frm.DialogResult != System.Windows.Forms.DialogResult.OK)
+            {
+                bag.InstanceName = frm.txtInstanceName.Text;
+                bag.MsiFullFilePath = frm.txtboxFileMsi.Text;
+
+            }
 
 
         }
 
+        public override void OnAskForParametersForUpdate(AskForParametersBag bag)
+        {
+            frmMsiClassicMode frm = new frmMsiClassicMode(true);
+      
+            frm.txtInstanceName.Text = "don't worry" ;
 
+            frm.ShowDialog();
+            if (frm.DialogResult == System.Windows.Forms.DialogResult.OK)
+            {
+               
+                bag.MsiFullFilePath = frm.txtboxFileMsi.Text;
+                return;
+            }
+        }
     }
 }
 
