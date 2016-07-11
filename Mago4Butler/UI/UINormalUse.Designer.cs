@@ -13,9 +13,18 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
+            if (disposing)
             {
-                components.Dispose();
+                if (this.listViewSortManager != null)
+                {
+                    this.listViewSortManager.Dispose();
+                    this.listViewSortManager = null;
+                }
+                if (components != null)
+                {
+                    components.Dispose();
+                    components = null;
+                }
             }
             base.Dispose(disposing);
         }
@@ -78,12 +87,10 @@
             this.lsvInstances.ContextMenuStrip = this.contextMenuStrip;
             this.lsvInstances.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lsvInstances.FullRowSelect = true;
-            this.lsvInstances.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lsvInstances.Location = new System.Drawing.Point(0, 0);
             this.lsvInstances.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.lsvInstances.Name = "lsvInstances";
             this.lsvInstances.Size = new System.Drawing.Size(400, 345);
-            this.lsvInstances.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.lsvInstances.TabIndex = 0;
             this.lsvInstances.UseCompatibleStateImageBehavior = false;
             this.lsvInstances.View = System.Windows.Forms.View.Details;

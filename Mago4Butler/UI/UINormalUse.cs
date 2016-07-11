@@ -3,7 +3,6 @@ using Microarea.Mago4Butler.BL;
 using Microarea.Mago4Butler.Plugins;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -17,6 +16,7 @@ namespace Microarea.Mago4Butler
         Model model;
         PluginService pluginService;
         List<DoubleClickHandler> doubleClickHandlers = new List<DoubleClickHandler>();
+        ListViewSortManager listViewSortManager;
 
         public event EventHandler<UpdateInstanceEventArgs> UpdateInstance;
         public event EventHandler<RemoveInstanceEventArgs> RemoveInstance;
@@ -62,6 +62,8 @@ namespace Microarea.Mago4Butler
             InitializeComponent();
             InitContextMenus();
             InitDoubleClickHandlers();
+
+            listViewSortManager = new ListViewSortManager(this.lsvInstances);
         }
 
         private void InitContextMenus()
