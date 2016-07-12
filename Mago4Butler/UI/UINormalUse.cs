@@ -126,7 +126,7 @@ namespace Microarea.Mago4Butler
 
             var instanceDirInfo = new DirectoryInfo(Path.Combine(this.settings.RootFolder, instance.Name, "Standard"));
             instance.Version = BL.Instance.FromStandardDirectoryInfo(instanceDirInfo).Version;
-            item.Text = instance.Name;
+            item.SubItems[1].Text = instance.Version.ToString();
         }
 
         private void InitContextMenus()
