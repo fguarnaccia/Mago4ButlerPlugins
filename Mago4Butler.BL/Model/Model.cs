@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microarea.TaskBuilderNet.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -200,7 +201,7 @@ namespace Microarea.Mago4Butler.BL
                 var subDirInfos = instanceDirInfo.GetDirectories();
                 foreach (var subDirInfo in subDirInfos)
                 {
-                    if (String.Compare("Standard", subDirInfo.Name, StringComparison.InvariantCultureIgnoreCase) == 0)
+                    if (String.Compare(NameSolverStrings.Standard, subDirInfo.Name, StringComparison.InvariantCultureIgnoreCase) == 0)
                     {
                         var instance = Instance.FromStandardDirectoryInfo(subDirInfo);
                         if (instance != null)

@@ -18,7 +18,7 @@ namespace Microarea.Mago4Butler.BL
         public bool AllowBatchDeletesUpdates { get; set; } = true;
         [YamlDotNet.Serialization.YamlIgnore]
         public string ProvisioningCommandLine { get; set; }
-        public DateTime InstalledOn { get; set; } = DateTime.Now.Date;
+        public DateTime InstalledOn { get; set; } = DateTime.Now;
         public int WcfStartPort { get; set; }
 
         public static Instance FromStandardDirectoryInfo(DirectoryInfo standardDirInfo)
@@ -56,7 +56,7 @@ namespace Microarea.Mago4Butler.BL
                 "{0}, v.{1} (installed on {2})",
                 this.Name,
                 this.Version.ToString(),
-                this.InstalledOn.ToString("d MMM yyyy")
+                this.InstalledOn.ToString("d MMM yyyy HH:mm")
                 );
         }
 

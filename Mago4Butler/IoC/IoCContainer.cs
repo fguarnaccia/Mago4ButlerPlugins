@@ -30,7 +30,6 @@ namespace Microarea.Mago4Butler
                 Bind<UpdatesDownloaderService>().ToSelf();
                 Bind<MsiService>().ToSelf();
                 Bind<WcfService>().ToSelf();
-                Bind<InstallerService>().ToSelf();
                 Bind<CompanyDBUpdateService>().ToSelf();
                 Bind<FileSystemService>().ToSelf();
                 Bind<IisService>().ToSelf();
@@ -38,6 +37,9 @@ namespace Microarea.Mago4Butler
                 Bind<RegistryService>().ToSelf();
                 Bind<LoggerService>().ToSelf();
                 Bind<PluginService>()
+                    .ToSelf()
+                    .InSingletonScope();
+                Bind<InstallerService>()
                     .ToSelf()
                     .InSingletonScope();
 

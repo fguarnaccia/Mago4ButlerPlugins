@@ -3,7 +3,9 @@ using Microarea.Mago4Butler.BL;
 using Microarea.Mago4Butler.Plugins;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Microarea.Mago4Butler
@@ -15,8 +17,13 @@ namespace Microarea.Mago4Butler
 
         Model model;
         PluginService pluginService;
+        InstallerService installerService;
         List<DoubleClickHandler> doubleClickHandlers = new List<DoubleClickHandler>();
         ListViewSortManager listViewSortManager;
+
+        ISettings settings;
+
+        SynchronizationContext syncCtx;
 
         public event EventHandler<UpdateInstanceEventArgs> UpdateInstance;
         public event EventHandler<RemoveInstanceEventArgs> RemoveInstance;
@@ -47,8 +54,14 @@ namespace Microarea.Mago4Butler
             }
         }
 
-        public UINormalUse(Model model, PluginService pluginService)
+        public UINormalUse(Model model, PluginService pluginService, InstallerService installerService, ISettings settings)
         {
+            this.syncCtx = SynchronizationContext.Current;
+            if (this.syncCtx == null)
+            {
+                this.syncCtx = new WindowsFormsSynchronizationContext();
+            }
+
             config = new MapperConfiguration(cfg => cfg.CreateMap<BL.Instance, Plugins.Instance>());
             mapper = config.CreateMapper();
 
@@ -58,12 +71,62 @@ namespace Microarea.Mago4Butler
             this.model.InstanceUpdated += Model_InstanceUpdated;
 
             this.pluginService = pluginService;
+            this.installerService = installerService;
+            this.installerService.Installed += InstallerService_Installed;
+
+            this.settings = settings;
 
             InitializeComponent();
             InitContextMenus();
             InitDoubleClickHandlers();
 
             listViewSortManager = new ListViewSortManager(this.lsvInstances);
+        }
+
+        private void InstallerService_Installed(object sender, InstallInstanceEventArgs e)
+        {
+            this.syncCtx.Post(new SendOrPostCallback((obj) =>
+            {
+                try
+                {
+                    this.UpdateVersion(e.Instance);
+                }
+                catch
+                {}
+            })
+            , null);
+        }
+
+        private int FindInstanceIdx(BL.Instance instance)
+        {
+            int idx = -1;
+            for (int i = 0; i < this.lsvInstances.Items.Count; i++)
+            {
+                if (string.Compare(this.lsvInstances.Items[i].Text, instance.Name, StringComparison.InvariantCultureIgnoreCase) == 0)
+                {
+                    idx = i;
+                    break;
+                }
+            }
+            return idx;
+        }
+
+        private void UpdateVersion(BL.Instance instance)
+        {
+            var idx = this.lsvInstances.Items.IndexOf(instance);
+            if (idx < 0)
+            {
+                return;
+            }
+            var item = this.lsvInstances.Items[idx];
+            if (item == null)
+            {
+                return;
+            }
+
+            var instanceDirInfo = new DirectoryInfo(Path.Combine(this.settings.RootFolder, instance.Name, "Standard"));
+            instance.Version = BL.Instance.FromStandardDirectoryInfo(instanceDirInfo).Version;
+            item.Text = instance.Name;
         }
 
         private void InitContextMenus()
@@ -99,7 +162,7 @@ namespace Microarea.Mago4Butler
 
         private void Model_InstanceUpdated(object sender, InstanceEventArgs e)
         {
-            var idx = this.lsvInstances.Items.IndexOfKey(e.Instance.Name);
+            var idx = this.lsvInstances.Items.IndexOf(e.Instance);
             if (idx < 0)
             {
                 return;
@@ -110,24 +173,14 @@ namespace Microarea.Mago4Butler
             {
                 return;
             }
-            item.Text = e.Instance.ToString();
+            item.Text = e.Instance.Name;
             item.Tag = e.Instance;
         }
 
         private void Model_InstanceRemoved(object sender, InstanceEventArgs e)
         {
-            bool found = false;
-            int idx = -1;
-            for (int i = 0; i < this.lsvInstances.Items.Count; i++)
-            {
-                if (string.Compare(this.lsvInstances.Items[i].Text, e.Instance.Name, StringComparison.InvariantCultureIgnoreCase) == 0)
-                {
-                    idx = i;
-                    found = true;
-                    break;
-                }
-            }
-            if (found)
+            int idx = this.lsvInstances.Items.IndexOf(e.Instance);
+            if (idx > -1)
             {
                 this.lsvInstances.Items.RemoveAt(idx);
             }
@@ -143,7 +196,7 @@ namespace Microarea.Mago4Butler
         {
             ListViewItem item = new ListViewItem(instance.Name);
             item.SubItems.Add(instance.Version.ToString());
-            item.SubItems.Add(instance.InstalledOn.ToString("d MMM yyyy"));
+            item.SubItems.Add(instance.InstalledOn.ToString("d MMM yyyy HH:mm"));
             item.Tag = instance;
 
             var listViewItem = this.lsvInstances.Items.Add(item);
@@ -266,6 +319,23 @@ namespace Microarea.Mago4Butler
                     this.LogError(String.Concat("Error managing double click on instances for ", dch.Name), exc);
                 }
             }
+        }
+    }
+
+    internal static class ListViewItemCollectionExt
+    {
+        public static int IndexOf(this ListView.ListViewItemCollection @this, BL.Instance instance)
+        {
+            int idx = -1;
+            for (int i = 0; i < @this.Count; i++)
+            {
+                if (string.Compare(@this[i].Text, instance.Name, StringComparison.InvariantCultureIgnoreCase) == 0)
+                {
+                    idx = i;
+                    break;
+                }
+            }
+            return idx;
         }
     }
 }

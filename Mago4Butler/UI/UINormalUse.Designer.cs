@@ -100,7 +100,7 @@
             // instanceColumnHeader
             // 
             this.instanceColumnHeader.Text = "Instance";
-            this.instanceColumnHeader.Width = 200;
+            this.instanceColumnHeader.Width = 160;
             // 
             // versionColumnHeader
             // 
@@ -110,7 +110,7 @@
             // installedOnColumnHeader
             // 
             this.installedOnColumnHeader.Text = "Installed on";
-            this.installedOnColumnHeader.Width = 95;
+            this.installedOnColumnHeader.Width = 141;
             // 
             // contextMenuStrip
             // 
