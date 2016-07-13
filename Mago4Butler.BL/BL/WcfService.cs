@@ -63,7 +63,8 @@ namespace Microarea.Mago4Butler.BL
 
             var data = new
             {
-                WcfSoapPort = port.ToString(CultureInfo.InvariantCulture)
+                WcfSoapPort = port.ToString(CultureInfo.InvariantCulture),
+                TcpPort = (port + 1).ToString(CultureInfo.InvariantCulture)
             };
 
             var settingsConfigFileInfo = new FileInfo(settingsConfigFilePath);
