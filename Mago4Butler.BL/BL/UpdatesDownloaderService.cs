@@ -27,10 +27,17 @@ namespace Microarea.Mago4Butler.BL
 
             //Estraggo la versione dall'msi corrente...
             var msiFolder = this.settings.MsiFolder;
-            var msiFiles = Directory.GetFiles(msiFolder);
+            var msiFiles = Directory.GetFiles(msiFolder, "*.msi");
             foreach (var msiFile in msiFiles)
             {
-                versions.Add(this.msiService.GetVersion(msiFile));
+                try
+                {
+                    versions.Add(this.msiService.GetVersion(msiFile));
+                }
+                catch (Exception exc)
+                {
+                    this.LogError("Error reading version from " + msiFile, exc);
+                }
             }
             var version = new Version();
             if (versions.Count > 0)
@@ -72,20 +79,21 @@ namespace Microarea.Mago4Butler.BL
             }
 
             //...cancello i vecchi...
-            this.LogInfo("I'm going to delete old msi files");
+            this.LogInfo("I'm going to back up old msi files");
             foreach (var msiFile in msiFiles)
             {
                 try
                 {
-                    File.Delete(msiFile);
+                    var bakFileName = string.Concat(msiFile, ".bak");
+                    File.Move(msiFile, bakFileName);
                 }
                 catch (Exception exc)
                 {
-                    this.LogError("Error deleting msi file " + msiFile, exc);
+                    this.LogError("Error backing up msi file " + msiFile, exc);
                     throw;
                 }
             }
-            this.LogInfo("Old msi files deleted");
+            this.LogInfo("Old msi files backed up");
 
             //...e sposto il nuovo appena scaricato nella cartella MSI
             var destinationPath = Path.Combine(msiFolder, response.MsiFileName);
