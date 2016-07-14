@@ -481,6 +481,11 @@ namespace Microarea.Mago4Butler
             var bag = new AskForParametersBag() { InstanceName = instanceName, MsiFullFilePath = this.msiFullFilePath };
             OnAskForParametersForInstall(bag);
 
+            if (bag.Cancel)
+            {
+                return;
+            }
+
             if (string.IsNullOrWhiteSpace(bag.InstanceName) || string.IsNullOrWhiteSpace(bag.MsiFullFilePath))
             {
                 this.msiFullFilePath = this.msiService.CalculateMsiFullFilePath();
