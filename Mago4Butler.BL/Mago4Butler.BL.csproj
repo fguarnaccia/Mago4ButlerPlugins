@@ -129,6 +129,7 @@
     <Compile Include="LocalAssemblyInfo.cs" />
     <Compile Include="LoggerTrait.cs" />
     <Compile Include="Model\CmdLineInfo.cs" />
+    <Compile Include="Model\Edition.cs" />
     <Compile Include="Model\Feature.cs" />
     <Compile Include="Model\Instance.cs" />
     <Compile Include="Model\InstanceEventArgs.cs" />

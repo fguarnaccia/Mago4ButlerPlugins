@@ -20,12 +20,15 @@ namespace Microarea.Mago4Butler.BL
         public string ProvisioningCommandLine { get; set; }
         public DateTime InstalledOn { get; set; } = DateTime.Now;
         public int WcfStartPort { get; set; }
+        [YamlDotNet.Serialization.YamlIgnore]
+        public Edition Edition { get; set; }
 
         public static Instance FromStandardDirectoryInfo(DirectoryInfo standardDirInfo)
         {
             var parentDirInfo = standardDirInfo.Parent;
             var installationVerFileInfo = new FileInfo(Path.Combine(standardDirInfo.FullName, "Installation.ver"));
 
+            Instance instance = null;
             if (installationVerFileInfo.Exists)
             {
                 string content = null;
@@ -40,13 +43,42 @@ namespace Microarea.Mago4Butler.BL
                     var group = match.Groups["version"];
                     if (group != null)
                     {
-                        return new Instance() { Name = parentDirInfo.Name, Version = Version.Parse(group.Value), WebSiteInfo = WebSiteInfo.DefaultWebSite };
+                        instance = new Instance() { Name = parentDirInfo.Name, Version = Version.Parse(group.Value), WebSiteInfo = WebSiteInfo.DefaultWebSite };
                     }
                 }
             }
 
-            Debug.Assert(false);
-            return null;
+            if (instance != null)
+            {
+                var appDataDirInfo = new DirectoryInfo(Path.Combine(standardDirInfo.FullName, "TaskBuilder", "WebFramework", "LoginManager", "App_Data"));
+                if (appDataDirInfo.Exists)
+                {
+                    var magoLicensedFileInfos = appDataDirInfo.GetFiles("Mago*.Licensed.config");
+                    if (magoLicensedFileInfos.Length == 1)
+                    {
+                        var fileNameWOExt = Path.GetFileNameWithoutExtension(magoLicensedFileInfos[0].FullName);
+                        var tokens = fileNameWOExt.Split('-');
+                        if (tokens.Length == 2)
+                        {
+                            if (tokens[1].StartsWith("ent", StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                instance.Edition = Edition.Enterprise;
+                            }
+                            else if (tokens[1].StartsWith("pro", StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                instance.Edition = Edition.Professional;
+                            }
+                            else if (tokens[1].StartsWith("std", StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                instance.Edition = Edition.Standard;
+                            }
+                        }
+                    }
+                }
+            }
+
+            Debug.Assert(instance != null);
+            return instance;
         }
 
         public override string ToString()

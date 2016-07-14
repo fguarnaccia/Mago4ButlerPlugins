@@ -89,7 +89,7 @@ namespace Microarea.Mago4Butler
             {
                 try
                 {
-                    this.UpdateVersion(e.Instance);
+                    this.UpdateVersionAndTooltip(e.Instance);
                 }
                 catch
                 {}
@@ -97,21 +97,7 @@ namespace Microarea.Mago4Butler
             , null);
         }
 
-        private int FindInstanceIdx(BL.Instance instance)
-        {
-            int idx = -1;
-            for (int i = 0; i < this.lsvInstances.Items.Count; i++)
-            {
-                if (string.Compare(this.lsvInstances.Items[i].Text, instance.Name, StringComparison.InvariantCultureIgnoreCase) == 0)
-                {
-                    idx = i;
-                    break;
-                }
-            }
-            return idx;
-        }
-
-        private void UpdateVersion(BL.Instance instance)
+        private void UpdateVersionAndTooltip(BL.Instance instance)
         {
             var idx = this.lsvInstances.Items.IndexOf(instance);
             if (idx < 0)
@@ -127,6 +113,11 @@ namespace Microarea.Mago4Butler
             var instanceDirInfo = new DirectoryInfo(Path.Combine(this.settings.RootFolder, instance.Name, "Standard"));
             instance.Version = BL.Instance.FromStandardDirectoryInfo(instanceDirInfo).Version;
             item.SubItems[1].Text = instance.Version.ToString();
+
+            if (instance.Edition != Edition.None)
+            {
+                item.ToolTipText = string.Concat(instance.Edition.ToString(), " Edition");
+            }
         }
 
         private void InitContextMenus()
@@ -198,6 +189,11 @@ namespace Microarea.Mago4Butler
             item.SubItems.Add(instance.Version.ToString());
             item.SubItems.Add(instance.InstalledOn.ToString("d MMM yyyy HH:mm"));
             item.Tag = instance;
+
+            if (instance.Edition != Edition.None)
+            {
+                item.ToolTipText = string.Concat(instance.Edition.ToString(), " Edition");
+            }
 
             var listViewItem = this.lsvInstances.Items.Add(item);
         }

@@ -226,6 +226,7 @@ namespace Microarea.Mago4Butler.BL
                 else
                 {
                     this.instances[i].Version = instanceOnDisk.Version;
+                    this.instances[i].Edition = instanceOnDisk.Edition;
                 }
             }
         }

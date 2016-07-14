@@ -90,6 +90,7 @@
             this.lsvInstances.Location = new System.Drawing.Point(0, 0);
             this.lsvInstances.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.lsvInstances.Name = "lsvInstances";
+            this.lsvInstances.ShowItemToolTips = true;
             this.lsvInstances.Size = new System.Drawing.Size(400, 345);
             this.lsvInstances.TabIndex = 0;
             this.lsvInstances.UseCompatibleStateImageBehavior = false;
