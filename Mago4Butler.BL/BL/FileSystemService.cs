@@ -22,14 +22,7 @@ namespace Microarea.Mago4Butler.BL
 
             try
             {
-                if (this.settings.AlsoDeleteCustom)
-                {
-                    DeleteDirectory(instanceRootFolder);
-                }
-                else
-                {
-                    DeleteDirectory(instanceRootFolder, "Custom", "App_Data");
-                }
+                DeleteDirectory(instanceRootFolder, "Custom", "App_Data");
             }
             catch (Exception exc)
             {

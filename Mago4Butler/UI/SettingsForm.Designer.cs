@@ -36,10 +36,11 @@
             this.lblRootFolder = new System.Windows.Forms.Label();
             this.lblWebSites = new System.Windows.Forms.Label();
             this.cmbWebSites = new System.Windows.Forms.ComboBox();
-            this.ckbAlsoDeleteCustom = new System.Windows.Forms.CheckBox();
             this.ckbCreateMsiLog = new System.Windows.Forms.CheckBox();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageGeneral = new System.Windows.Forms.TabPage();
+            this.lblMsiPath = new System.Windows.Forms.Label();
+            this.txtMsi = new System.Windows.Forms.TextBox();
             this.tabPageWebSite = new System.Windows.Forms.TabPage();
             this.tabPageProxy = new System.Windows.Forms.TabPage();
             this.grpProxy = new System.Windows.Forms.GroupBox();
@@ -61,8 +62,6 @@
             this.domainNameErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.userNameErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.rootFolderErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.txtMsi = new System.Windows.Forms.TextBox();
-            this.lblMsiPath = new System.Windows.Forms.Label();
             this.msiErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.tabControl.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
@@ -150,16 +149,6 @@
             this.cmbWebSites.Visible = false;
             this.cmbWebSites.SelectedIndexChanged += new System.EventHandler(this.cmbWebSites_SelectedIndexChanged);
             // 
-            // ckbAlsoDeleteCustom
-            // 
-            this.ckbAlsoDeleteCustom.AutoSize = true;
-            this.ckbAlsoDeleteCustom.Location = new System.Drawing.Point(7, 116);
-            this.ckbAlsoDeleteCustom.Name = "ckbAlsoDeleteCustom";
-            this.ckbAlsoDeleteCustom.Size = new System.Drawing.Size(242, 18);
-            this.ckbAlsoDeleteCustom.TabIndex = 3;
-            this.ckbAlsoDeleteCustom.Text = "Delete \'Custom\' folder on uninstall";
-            this.ckbAlsoDeleteCustom.UseVisualStyleBackColor = true;
-            // 
             // ckbCreateMsiLog
             // 
             this.ckbCreateMsiLog.AutoSize = true;
@@ -191,7 +180,6 @@
             this.tabPageGeneral.Controls.Add(this.ckbCreateMsiLog);
             this.tabPageGeneral.Controls.Add(this.txtMsi);
             this.tabPageGeneral.Controls.Add(this.txtRootFolder);
-            this.tabPageGeneral.Controls.Add(this.ckbAlsoDeleteCustom);
             this.tabPageGeneral.Location = new System.Drawing.Point(4, 23);
             this.tabPageGeneral.Name = "tabPageGeneral";
             this.tabPageGeneral.Padding = new System.Windows.Forms.Padding(3);
@@ -199,6 +187,26 @@
             this.tabPageGeneral.TabIndex = 0;
             this.tabPageGeneral.Text = "General";
             this.tabPageGeneral.UseVisualStyleBackColor = true;
+            // 
+            // lblMsiPath
+            // 
+            this.lblMsiPath.AutoSize = true;
+            this.lblMsiPath.Location = new System.Drawing.Point(7, 51);
+            this.lblMsiPath.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblMsiPath.Name = "lblMsiPath";
+            this.lblMsiPath.Size = new System.Drawing.Size(72, 14);
+            this.lblMsiPath.TabIndex = 0;
+            this.lblMsiPath.Text = "Msi folder:";
+            // 
+            // txtMsi
+            // 
+            this.txtMsi.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtMsi.Location = new System.Drawing.Point(7, 71);
+            this.txtMsi.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.txtMsi.Name = "txtMsi";
+            this.txtMsi.Size = new System.Drawing.Size(407, 22);
+            this.txtMsi.TabIndex = 1;
             // 
             // tabPageWebSite
             // 
@@ -395,26 +403,6 @@
             // 
             this.rootFolderErrorProvider.ContainerControl = this;
             // 
-            // txtMsi
-            // 
-            this.txtMsi.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtMsi.Location = new System.Drawing.Point(7, 71);
-            this.txtMsi.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.txtMsi.Name = "txtMsi";
-            this.txtMsi.Size = new System.Drawing.Size(407, 22);
-            this.txtMsi.TabIndex = 1;
-            // 
-            // lblMsiPath
-            // 
-            this.lblMsiPath.AutoSize = true;
-            this.lblMsiPath.Location = new System.Drawing.Point(7, 51);
-            this.lblMsiPath.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblMsiPath.Name = "lblMsiPath";
-            this.lblMsiPath.Size = new System.Drawing.Size(72, 14);
-            this.lblMsiPath.TabIndex = 0;
-            this.lblMsiPath.Text = "Msi folder:";
-            // 
             // msiErrorProvider
             // 
             this.msiErrorProvider.ContainerControl = this;
@@ -467,7 +455,6 @@
         private System.Windows.Forms.Label lblRootFolder;
         private System.Windows.Forms.Label lblWebSites;
         private System.Windows.Forms.ComboBox cmbWebSites;
-        private System.Windows.Forms.CheckBox ckbAlsoDeleteCustom;
         private System.Windows.Forms.CheckBox ckbCreateMsiLog;
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabPageGeneral;

@@ -12,7 +12,6 @@ namespace Microarea.Mago4Butler.BL
         string LogsFolder { get; set; }
         string MsiFolder { get; set; }
         string SiteName { get; set; }
-        bool AlsoDeleteCustom { get; set; }
         bool MsiLog { get; set; }
         bool UseProxy { get; set; }
 

@@ -36,7 +36,6 @@ namespace Microarea.Mago4Butler
 
             this.txtRootFolder.Text = this.settings.RootFolder;
             this.txtMsi.Text = this.settings.MsiFolder;
-            this.ckbAlsoDeleteCustom.Checked = this.settings.AlsoDeleteCustom;
             this.ckbCreateMsiLog.Checked = this.settings.MsiLog;
             this.ckbUseProxy.Checked = this.settings.UseProxy;
             this.txtServerUrl.Text = this.settings.ProxyServerUrl;
@@ -119,7 +118,6 @@ namespace Microarea.Mago4Butler
 
                 this.settings.MsiFolder = this.txtMsi.Text;
 
-                this.settings.AlsoDeleteCustom = this.ckbAlsoDeleteCustom.Checked;
                 this.settings.MsiLog = this.ckbCreateMsiLog.Checked;
                 this.settings.UseProxy = this.ckbUseProxy.Checked;
                 if (this.settings.UseProxy)

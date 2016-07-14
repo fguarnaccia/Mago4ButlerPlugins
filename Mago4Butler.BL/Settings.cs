@@ -38,7 +38,6 @@ namespace Microarea.Mago4Butler.BL
         public string MsiFolder { get; set; } = "C:\\Microarea\\M4\\Msi";
         public string LogsFolder { get; set; } = "C:\\Microarea\\M4\\Logs";
         public string SiteName { get; set; } = WebSiteInfo.DefaultWebSite.SiteName;
-        public bool AlsoDeleteCustom { get; set; }
         public bool MsiLog { get; set; } = true;
         public bool UseProxy { get; set; }
         public string ProxyServerUrl { get; set; } = string.Empty;
