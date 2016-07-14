@@ -57,7 +57,7 @@ namespace Microarea.Mago4Butler.BL
                 httpClient.DefaultRequestHeaders.ExpectContinue = false;
 
                 var content = new StringContent(
-                    "__LASTFOCUS=&__EVENTTARGET=&__EVENTARGUMENT=&__VIEWSTATE=%2FwEPDwUJMTkzODUxNzI3D2QWAmYPZBYCZg9kFgICAQ8WBB4IeG1sOmxhbmcFAml0HgRsYW5nBQJpdBYCAgMQZGQWCAILD2QWAgIBDxYCHgtwbGFjZWhvbGRlcgUFQ2VyY2FkAhEPZBYCAgMPZBYEAgUPZBYCZg8PZBYCHgVzdHlsZQUUdmlzaWJpbGl0eTogdmlzaWJsZTsWBAITDxAPFgIeBFRleHQFHFJpY29yZGFtaSBzdSBxdWVzdG8gY29tcHV0ZXJkZGRkAhcPDxYCHgdWaXNpYmxlaGRkAgcPDxYCHwVoZGQCFQ9kFgICAQ8WAh8FZ2QCGw9kFgQCAQ8PFgIfBWhkZAIFDw8WAh8FaGRkGAEFHl9fQ29udHJvbHNSZXF1aXJlUG9zdEJhY2tLZXlfXxYBBU5jdGwwMCRjdGwwMCRNaWRkbGVQbGFjZUhvbGRlciRQYWdlTWFpbkNvbnRlbnRIb2xkZXIkTXlQYW5lbExvZ2luJGNoa1JlbWVtYmVyTWXoEFZ1jLbyNuvzS1GqxwozlmyPbA%3D%3D&__VIEWSTATEGENERATOR=CC3D53C2&__EVENTVALIDATION=%2FwEdAAoAK6gk9kHh14kq1SdkRmUsDjFkuAnytIfcLnFtbaXa9vrcGtP%2FE%2FClssnRmFceMynDDU%2BRV%2FjOi%2BvSugvNJrSXHVyaFPRXvCovL8JjX7o2SCZiBC%2BeMyJZj63%2BpSPS5nBzY%2BlcHchuSZ0StYDF%2B7HDWxwVx6LwHQX4%2BKm8WbBL4ENjjpGhxieh0HXKnH19o%2BEaqT21mDu9wAin9C3bkMWVYKIq0020w03z4u9BoBjLLUbZ9gk%3D&ctl00%24ctl00%24txtSearch2=&ctl00%24ctl00%24txtSearch=&ctl00%24ctl00%24MiddlePlaceHolder%24PageMainContentHolder%24MyPanelLogin%24txtUserName=mcanessa&ctl00%24ctl00%24MiddlePlaceHolder%24PageMainContentHolder%24MyPanelLogin%24pwdUserPass=Lunedi06Elisa&ctl00%24ctl00%24MiddlePlaceHolder%24PageMainContentHolder%24MyPanelLogin%24ImageButtonLogin=Accedi",
+                    "__LASTFOCUS=&__EVENTTARGET=&__EVENTARGUMENT=&__VIEWSTATE=%2FwEPDwUJMTkzODUxNzI3D2QWAmYPZBYCZg9kFgICAQ8WBB4IeG1sOmxhbmcFAml0HgRsYW5nBQJpdBYCAgMQZGQWCAILD2QWAgIBDxYCHgtwbGFjZWhvbGRlcgUFQ2VyY2FkAhEPZBYCAgMPZBYEAgUPZBYCZg8PZBYCHgVzdHlsZQUUdmlzaWJpbGl0eTogdmlzaWJsZTsWBAITDxAPFgIeBFRleHQFHFJpY29yZGFtaSBzdSBxdWVzdG8gY29tcHV0ZXJkZGRkAhcPDxYCHgdWaXNpYmxlaGRkAgcPDxYCHwVoZGQCFQ9kFgICAQ8WAh8FZ2QCGw9kFgQCAQ8PFgIfBWhkZAIFDw8WAh8FaGRkGAEFHl9fQ29udHJvbHNSZXF1aXJlUG9zdEJhY2tLZXlfXxYBBU5jdGwwMCRjdGwwMCRNaWRkbGVQbGFjZUhvbGRlciRQYWdlTWFpbkNvbnRlbnRIb2xkZXIkTXlQYW5lbExvZ2luJGNoa1JlbWVtYmVyTWXoEFZ1jLbyNuvzS1GqxwozlmyPbA%3D%3D&__VIEWSTATEGENERATOR=CC3D53C2&__EVENTVALIDATION=%2FwEdAAoAK6gk9kHh14kq1SdkRmUsDjFkuAnytIfcLnFtbaXa9vrcGtP%2FE%2FClssnRmFceMynDDU%2BRV%2FjOi%2BvSugvNJrSXHVyaFPRXvCovL8JjX7o2SCZiBC%2BeMyJZj63%2BpSPS5nBzY%2BlcHchuSZ0StYDF%2B7HDWxwVx6LwHQX4%2BKm8WbBL4ENjjpGhxieh0HXKnH19o%2BEaqT21mDu9wAin9C3bkMWVYKIq0020w03z4u9BoBjLLUbZ9gk%3D&ctl00%24ctl00%24txtSearch2=&ctl00%24ctl00%24txtSearch=&ctl00%24ctl00%24MiddlePlaceHolder%24PageMainContentHolder%24MyPanelLogin%24txtUserName=M4ButlerPAAS&ctl00%24ctl00%24MiddlePlaceHolder%24PageMainContentHolder%24MyPanelLogin%24pwdUserPass=Microarea.&ctl00%24ctl00%24MiddlePlaceHolder%24PageMainContentHolder%24MyPanelLogin%24ImageButtonLogin=Accedi",
                     Encoding.ASCII,
                     "application/x-www-form-urlencoded"
                     );
@@ -70,6 +70,11 @@ namespace Microarea.Mago4Butler.BL
                 responseTask.Wait();
                 var contentTask = responseTask.Result.Content.ReadAsByteArrayAsync();
                 contentTask.Wait();
+
+                if (contentTask.Result.Length < 1000000)//1MB
+                {
+                    throw new Exception("I cannot download the msi file, maybe the login is not correct?");
+                }
                 using (var outputStream = File.Create(filePath))
                 {
                     outputStream.Write(contentTask.Result, 0, contentTask.Result.Length);

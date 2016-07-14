@@ -85,6 +85,10 @@ namespace Microarea.Mago4Butler.BL
                 try
                 {
                     var bakFileName = string.Concat(msiFile, ".bak");
+                    if (File.Exists(bakFileName))
+                    {
+                        File.Delete(bakFileName);
+                    }
                     File.Move(msiFile, bakFileName);
                 }
                 catch (Exception exc)
