@@ -67,7 +67,7 @@ namespace Microarea.Mago4Butler.BL
                 //login effettuata, ora posso scaricare l'msi...
 
                 responseTask = httpClient.GetAsync(address);
-                responseTask.Wait();
+                responseTask.Wait(600000);//10 minuti di timeout per lo scaricamento
                 var contentTask = responseTask.Result.Content.ReadAsByteArrayAsync();
                 contentTask.Wait();
 
