@@ -44,7 +44,7 @@ namespace Microarea.Mago4Butler.BL
             using (var httpClient = new HttpClient(handler, true))
             {
                 var loginPageRequest = httpClient.GetAsync(new Uri("http://www.microarea.it/common/Login.aspx"));
-                loginPageRequest.Wait();
+                loginPageRequest.Wait(600000);
 
                 httpClient.DefaultRequestHeaders.Host = "www.microarea.it";
                 httpClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:47.0) Gecko/20100101 Firefox/47.0");
@@ -66,7 +66,7 @@ namespace Microarea.Mago4Butler.BL
                     );
 
                 var responseTask = httpClient.PostAsync(loginAddress, content);
-                responseTask.Wait();
+                responseTask.Wait(600000);
                 //login effettuata, ora posso scaricare l'msi...
 
                 responseTask = httpClient.GetAsync(address);
