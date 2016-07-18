@@ -72,7 +72,7 @@ namespace Microarea.Mago4Butler.BL
                 responseTask = httpClient.GetAsync(address);
                 responseTask.Wait(600000);//10 minuti di timeout per lo scaricamento
                 var contentTask = responseTask.Result.Content.ReadAsByteArrayAsync();
-                contentTask.Wait();
+                contentTask.Wait(600000);
 
                 if (contentTask.Result.Length < 1000000)//1MB
                 {
