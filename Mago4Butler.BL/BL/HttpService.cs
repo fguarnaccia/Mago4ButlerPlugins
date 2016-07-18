@@ -43,8 +43,12 @@ namespace Microarea.Mago4Butler.BL
 
             using (var httpClient = new HttpClient(handler, true))
             {
+                httpClient.Timeout = new TimeSpan(0, 15, 0);
+                int timeoutMillSecs = httpClient.Timeout.Milliseconds;
+
+                //Richiedo in get la pagina di login per non allarmare il firewall
                 var loginPageRequest = httpClient.GetAsync(new Uri("http://www.microarea.it/common/Login.aspx"));
-                loginPageRequest.Wait(600000);
+                loginPageRequest.Wait(timeoutMillSecs);
 
                 httpClient.DefaultRequestHeaders.Host = "www.microarea.it";
                 httpClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:47.0) Gecko/20100101 Firefox/47.0");
@@ -65,14 +69,15 @@ namespace Microarea.Mago4Butler.BL
                     "application/x-www-form-urlencoded"
                     );
 
+                //Post per effettuare login
                 var responseTask = httpClient.PostAsync(loginAddress, content);
-                responseTask.Wait(600000);
+                responseTask.Wait(timeoutMillSecs);
+                
                 //login effettuata, ora posso scaricare l'msi...
-
                 responseTask = httpClient.GetAsync(address);
-                responseTask.Wait(600000);//10 minuti di timeout per lo scaricamento
+                responseTask.Wait(timeoutMillSecs);//10 minuti di timeout per lo scaricamento
                 var contentTask = responseTask.Result.Content.ReadAsByteArrayAsync();
-                contentTask.Wait(600000);
+                contentTask.Wait(timeoutMillSecs);
 
                 if (contentTask.Result.Length < 1000000)//1MB
                 {
