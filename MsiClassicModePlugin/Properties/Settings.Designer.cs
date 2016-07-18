@@ -7,7 +7,7 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+using System.ComponentModel;
 namespace MsiClassicModePlugin.Properties {
     
     
@@ -26,6 +26,7 @@ namespace MsiClassicModePlugin.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [CategoryAttribute("Advanced options")]
         public bool ClassicApplicationPoolPipeline {
             get {
                 return ((bool)(this["ClassicApplicationPoolPipeline"]));
@@ -38,6 +39,7 @@ namespace MsiClassicModePlugin.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [CategoryAttribute("Advanced options")]
         public bool NoEveryone {
             get {
                 return ((bool)(this["NoEveryone"]));
@@ -50,6 +52,7 @@ namespace MsiClassicModePlugin.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [CategoryAttribute("Advanced options")]
         public bool NoShares {
             get {
                 return ((bool)(this["NoShares"]));
@@ -62,6 +65,7 @@ namespace MsiClassicModePlugin.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [CategoryAttribute("Advanced options")]
         public bool NoShortcuts {
             get {
                 return ((bool)(this["NoShortcuts"]));
@@ -74,6 +78,7 @@ namespace MsiClassicModePlugin.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [CategoryAttribute("Advanced options")]
         public bool SkipClickOnceDeployer {
             get {
                 return ((bool)(this["SkipClickOnceDeployer"]));
@@ -86,6 +91,7 @@ namespace MsiClassicModePlugin.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [CategoryAttribute("Advanced options")]
         public bool NoEnvVar {
             get {
                 return ((bool)(this["NoEnvVar"]));
@@ -104,6 +110,8 @@ namespace MsiClassicModePlugin.Properties {
   <string>TaskBuilder Studio</string>
   <string>Mago4</string>
 </ArrayOfString>")]
+        [CategoryAttribute("Advanced options")]
+        [Editor("System.Windows.Forms.Design.StringCollectionEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(System.Drawing.Design.UITypeEditor))]
         public global::System.Collections.Specialized.StringCollection KeepFeatures {
             get {
                 return ((global::System.Collections.Specialized.StringCollection)(this["KeepFeatures"]));

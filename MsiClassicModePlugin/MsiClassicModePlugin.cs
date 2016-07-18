@@ -101,32 +101,42 @@ namespace MsiClassicModePlugin
         }
         public override void OnAskForParametersForInstall(AskForParametersBag bag)
         {
+
+            //protoForm proto = new protoForm();
+            //proto.ShowDialog(); 
+
             frmMsiClassicMode frm = new frmMsiClassicMode(false);
-           
+
             frm.ShowDialog();
 
-            if (frm.DialogResult != System.Windows.Forms.DialogResult.OK)
+            if (frm.DialogResult == System.Windows.Forms.DialogResult.OK)
             {
                 bag.InstanceName = frm.txtInstanceName.Text;
                 bag.MsiFullFilePath = frm.txtboxFileMsi.Text;
 
             }
-
-
+            else
+            {
+                bag.Cancel = true;
+            }
         }
 
         public override void OnAskForParametersForUpdate(AskForParametersBag bag)
         {
             frmMsiClassicMode frm = new frmMsiClassicMode(true);
-      
-            frm.txtInstanceName.Text = "don't worry" ;
+
+            frm.txtInstanceName.Text = "don't worry";
 
             frm.ShowDialog();
             if (frm.DialogResult == System.Windows.Forms.DialogResult.OK)
             {
-               
+
                 bag.MsiFullFilePath = frm.txtboxFileMsi.Text;
-                return;
+               
+            }
+            else
+            {
+                bag.Cancel = true;
             }
         }
     }

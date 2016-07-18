@@ -36,8 +36,9 @@ namespace MsiClassicModePlugin
             txtInstanceName.Enabled = !isupdating;
             //listFeature.Visible = !isupdating;
 
-
+            //[CategoryAttribute("Advanced options"), DefaultValueAttribute(true)]
             propgrdSettings.SelectedObject = Properties.Settings.Default;
+            
             propgrdSettings.ToolbarVisible = false;
 
                                                         //////foreach (var feat in listfeature.Features)
@@ -88,8 +89,6 @@ namespace MsiClassicModePlugin
                     errProvider.SetError(box, "Please fill the required field");
                     ctr++;
                 }
-
-
             }
 
             return ctr > 0;
@@ -97,22 +96,30 @@ namespace MsiClassicModePlugin
         }
 
 
-
         private void frmMsiClassicMode_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (FieldsHaveErrors())
             { this.DialogResult = System.Windows.Forms.DialogResult.Cancel; }
 
-
         }
  
 
 
-
         private void btnSplitPanel_Click(object sender, EventArgs e)
         {
-            splitContainer1.Panel2Collapsed = !splitContainer1.Panel2Collapsed;
+            //splitContainer1.Panel1MinSize = 0;
+       
+            //splitContainer1.Panel2Collapsed = !splitContainer1.Panel2Collapsed;
+            
+        }
+
+        private void frmMsiClassicMode_Load(object sender, EventArgs e)
+        {
+            //splitContainer1.Panel2Collapsed = false;
+            propgrdSettings.CollapseAllGridItems();
         }
     }
+
+
 
 }

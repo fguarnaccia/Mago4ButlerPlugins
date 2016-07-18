@@ -40,13 +40,7 @@
             this.btnOk = new System.Windows.Forms.Button();
             this.btnEsc = new System.Windows.Forms.Button();
             this.propgrdSettings = new System.Windows.Forms.PropertyGrid();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.btnSplitPanel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.errProvider)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtInstanceName
@@ -95,7 +89,6 @@
             // 
             // dlgOpenFile
             // 
-            this.dlgOpenFile.FileName = "openFileDialog1";
             this.dlgOpenFile.Filter = "Msi file|*.msi";
             // 
             // errProvider
@@ -127,52 +120,21 @@
             // 
             // propgrdSettings
             // 
-            this.propgrdSettings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.propgrdSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.propgrdSettings.HelpVisible = false;
-            this.propgrdSettings.Location = new System.Drawing.Point(0, 0);
+            this.propgrdSettings.Location = new System.Drawing.Point(2, 151);
             this.propgrdSettings.Name = "propgrdSettings";
-            this.propgrdSettings.Size = new System.Drawing.Size(533, 192);
+            this.propgrdSettings.Size = new System.Drawing.Size(533, 265);
             this.propgrdSettings.TabIndex = 7;
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.Location = new System.Drawing.Point(0, 159);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.btnSplitPanel);
-
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.propgrdSettings);
-            this.splitContainer1.Panel2Collapsed = true;
-            this.splitContainer1.Size = new System.Drawing.Size(533, 258);
-            this.splitContainer1.SplitterDistance = 62;
-            this.splitContainer1.TabIndex = 8;
-            // 
-            // btnSplitPanel
-            // 
-            this.btnSplitPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnSplitPanel.Location = new System.Drawing.Point(0, 0);
-            this.btnSplitPanel.Name = "btnSplitPanel";
-            this.btnSplitPanel.Size = new System.Drawing.Size(533, 258);
-            this.btnSplitPanel.TabIndex = 0;
-            this.btnSplitPanel.Text = "Advanced &options";
-            this.btnSplitPanel.UseVisualStyleBackColor = true;
-            this.btnSplitPanel.Click += new System.EventHandler(this.btnSplitPanel_Click);
             // 
             // frmMsiClassicMode
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(533, 429);
-            this.Controls.Add(this.splitContainer1);
+            this.CancelButton = this.btnEsc;
+            this.ClientSize = new System.Drawing.Size(533, 428);
+            this.Controls.Add(this.propgrdSettings);
             this.Controls.Add(this.btnEsc);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.btnSelectFileMsi);
@@ -180,17 +142,17 @@
             this.Controls.Add(this.lblFileMsi);
             this.Controls.Add(this.lblInstanceName);
             this.Controls.Add(this.txtInstanceName);
+            this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmMsiClassicMode";
+            this.ShowInTaskbar = false;
             this.Text = "Parameters";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMsiClassicMode_FormClosing);
+            this.Load += new System.EventHandler(this.frmMsiClassicMode_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errProvider)).EndInit();
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -206,9 +168,7 @@
         private System.Windows.Forms.OpenFileDialog dlgOpenFile;
         private System.Windows.Forms.ErrorProvider errProvider;
         private System.Windows.Forms.Button btnOk;
-        private System.Windows.Forms.Button btnEsc;
+        private System.Windows.Forms.Button btnEsc;     
         private System.Windows.Forms.PropertyGrid propgrdSettings;
-        private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.Button btnSplitPanel;
     }
 }
