@@ -43,6 +43,9 @@ namespace Microarea.Mago4Butler.BL
 
             using (var httpClient = new HttpClient(handler, true))
             {
+                var loginPageRequest = httpClient.GetAsync(new Uri("http://www.microarea.it/common/Login.aspx"));
+                loginPageRequest.Wait();
+
                 httpClient.DefaultRequestHeaders.Host = "www.microarea.it";
                 httpClient.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:47.0) Gecko/20100101 Firefox/47.0");
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/html"));
