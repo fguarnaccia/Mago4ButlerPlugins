@@ -48,7 +48,7 @@
             this.errProvider.SetIconAlignment(this.txtInstanceName, System.Windows.Forms.ErrorIconAlignment.MiddleLeft);
             this.txtInstanceName.Location = new System.Drawing.Point(108, 33);
             this.txtInstanceName.Name = "txtInstanceName";
-            this.txtInstanceName.Size = new System.Drawing.Size(218, 20);
+            this.txtInstanceName.Size = new System.Drawing.Size(380, 20);
             this.txtInstanceName.TabIndex = 1;
             // 
             // lblInstanceName
@@ -74,12 +74,12 @@
             this.errProvider.SetIconAlignment(this.txtboxFileMsi, System.Windows.Forms.ErrorIconAlignment.MiddleLeft);
             this.txtboxFileMsi.Location = new System.Drawing.Point(108, 69);
             this.txtboxFileMsi.Name = "txtboxFileMsi";
-            this.txtboxFileMsi.Size = new System.Drawing.Size(359, 20);
+            this.txtboxFileMsi.Size = new System.Drawing.Size(380, 20);
             this.txtboxFileMsi.TabIndex = 3;
             // 
             // btnSelectFileMsi
             // 
-            this.btnSelectFileMsi.Location = new System.Drawing.Point(473, 69);
+            this.btnSelectFileMsi.Location = new System.Drawing.Point(494, 69);
             this.btnSelectFileMsi.Name = "btnSelectFileMsi";
             this.btnSelectFileMsi.Size = new System.Drawing.Size(27, 20);
             this.btnSelectFileMsi.TabIndex = 4;

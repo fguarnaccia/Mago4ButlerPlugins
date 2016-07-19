@@ -34,11 +34,10 @@ namespace MsiClassicModePlugin
             //    var feature = cmdLineInfo
             //        .Features
             //        .Where(f => String.Compare(f.Description, description, StringComparison.InvariantCultureIgnoreCase) == 0)
-            //        .FirstOrDefault();
-     
+            //        .FirstOrDefault();     
 
-            if (IsMago4Setup())
-            {
+            //if (IsMago4Setup(cmdLineInfo))
+            //{
                 var clonedCollection = new List<Feature>(cmdLineInfo.Features);
 
                 foreach (Feature feature in clonedCollection)
@@ -49,8 +48,9 @@ namespace MsiClassicModePlugin
                         cmdLineInfo.Features.Remove(feature);
                     }
                 }
-            }
+            //}
             //listfeature.Features = cmdLineInfo.Features;
+            
         }  
 
         void StopSharedFolder(Instance istanza)
@@ -66,12 +66,25 @@ namespace MsiClassicModePlugin
 
 
         }
-        bool IsMago4Setup()
+        bool IsMago4Setup(CmdLineInfo cmdLineInfo)
         {
+            bool ismago4setup = false; 
+            foreach (Feature feature in cmdLineInfo.Features)
 
-            return true;
+            {
+             
+                if (feature.Description.ToString() == "Mago4")
+                {
+                    ismago4setup =  true;
+                }
+                else
+                {
+                    ismago4setup =  false;
+                }
+            }
+
+            return ismago4setup;
         }
-
 
         void DeleteShare(string sharestring)
         {
@@ -102,9 +115,7 @@ namespace MsiClassicModePlugin
         public override void OnAskForParametersForInstall(AskForParametersBag bag)
         {
 
-            //protoForm proto = new protoForm();
-            //proto.ShowDialog(); 
-
+          
             frmMsiClassicMode frm = new frmMsiClassicMode(false);
 
             frm.ShowDialog();

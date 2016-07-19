@@ -8,6 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 using System.ComponentModel;
+
 namespace MsiClassicModePlugin.Properties {
     
     
@@ -25,6 +26,7 @@ namespace MsiClassicModePlugin.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+   
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         [CategoryAttribute("Advanced options")]
         public bool ClassicApplicationPoolPipeline {
@@ -66,7 +68,7 @@ namespace MsiClassicModePlugin.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         [CategoryAttribute("Advanced options")]
-        public bool NoShortcuts {
+        public bool NoShortcuts {     
             get {
                 return ((bool)(this["NoShortcuts"]));
             }
@@ -109,6 +111,8 @@ namespace MsiClassicModePlugin.Properties {
   <string>TaskBuilder Framework</string>
   <string>TaskBuilder Studio</string>
   <string>Mago4</string>
+ <string>Mago.net</string>
+ <string>Language Packages</string>
 </ArrayOfString>")]
         [CategoryAttribute("Advanced options")]
         [Editor("System.Windows.Forms.Design.StringCollectionEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(System.Drawing.Design.UITypeEditor))]
@@ -120,5 +124,6 @@ namespace MsiClassicModePlugin.Properties {
                 this["KeepFeatures"] = value;
             }
         }
+        
     }
 }
