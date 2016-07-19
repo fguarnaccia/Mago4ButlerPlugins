@@ -63,7 +63,6 @@ namespace Microarea.Mago4Butler
         {
             this.LogInfo(e.Instances[0].Name + " successfully removed");
             Console.WriteLine("[" + Now + "]: " + e.Instances[0].Name + " successfully removed", Color.Green);
-            this.model.RemoveInstances(e.Instances);
             this.PrintCurrentStatus();
         }
 
@@ -77,7 +76,6 @@ namespace Microarea.Mago4Butler
         {
             this.LogInfo("Installation of " + e.Instance.Name + " completed");
             Console.WriteLine("[" + Now + "]: Installation of " + e.Instance.Name + " completed", Color.Green);
-            this.model.AddInstance(e.Instance);
             this.PrintCurrentStatus();
         }
 
