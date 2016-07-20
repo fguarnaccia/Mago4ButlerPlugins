@@ -9,6 +9,7 @@ namespace Microarea.Mago4Butler
 {
     public class PluginService : ILogger
     {
+        internal static readonly string PluginsPath = Path.GetDirectoryName(typeof(PluginService).Assembly.Location);
         List<IPlugin> plugins;
         string pluginsPath;
         string ipluginTypeName;
@@ -35,7 +36,6 @@ namespace Microarea.Mago4Butler
 
         public PluginService()
         {
-            this.pluginsPath = Path.GetDirectoryName(this.GetType().Assembly.Location);
             this.ipluginTypeName = typeof(IPlugin).FullName;
         }
 

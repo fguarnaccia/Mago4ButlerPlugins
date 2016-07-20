@@ -83,8 +83,7 @@ namespace Microarea.Mago4Butler
                     break;
                 case AppAutomationClient.GetPluginFolderPathCommand:
                     {
-                        var path = Path.GetDirectoryName(this.GetType().Assembly.Location);
-                        writer.WriteLine(path);
+                        writer.WriteLine(PluginService.PluginsPath);
                         writer.Flush();
 
                     }
