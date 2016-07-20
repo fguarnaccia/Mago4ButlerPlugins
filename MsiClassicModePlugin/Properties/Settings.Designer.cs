@@ -26,7 +26,7 @@ namespace MsiClassicModePlugin.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-   
+
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         [CategoryAttribute("Advanced options")]
         public bool ClassicApplicationPoolPipeline {
@@ -68,7 +68,7 @@ namespace MsiClassicModePlugin.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         [CategoryAttribute("Advanced options")]
-        public bool NoShortcuts {     
+        public bool NoShortcuts {
             get {
                 return ((bool)(this["NoShortcuts"]));
             }
@@ -108,11 +108,11 @@ namespace MsiClassicModePlugin.Properties {
         [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
 <ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
   <string>Italian (Italy)</string>
+  <string>Language Packages</string>
   <string>TaskBuilder Framework</string>
   <string>TaskBuilder Studio</string>
   <string>Mago4</string>
- <string>Mago.net</string>
- <string>Language Packages</string>
+  <string>Mago.net</string>
 </ArrayOfString>")]
         [CategoryAttribute("Advanced options")]
         [Editor("System.Windows.Forms.Design.StringCollectionEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(System.Drawing.Design.UITypeEditor))]
@@ -124,6 +124,5 @@ namespace MsiClassicModePlugin.Properties {
                 this["KeepFeatures"] = value;
             }
         }
-        
     }
 }
