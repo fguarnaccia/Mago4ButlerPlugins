@@ -56,6 +56,7 @@
             this.lblProgressText.Size = new System.Drawing.Size(86, 16);
             this.lblProgressText.TabIndex = 9;
             this.lblProgressText.Text = "Progress text";
+            this.lblProgressText.Click += new System.EventHandler(this.lblProgressText_Click);
             // 
             // progressBar
             // 
@@ -65,9 +66,10 @@
             this.progressBar.Location = new System.Drawing.Point(12, 35);
             this.progressBar.MarqueeAnimationSpeed = 20;
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(210, 23);
+            this.progressBar.Size = new System.Drawing.Size(196, 23);
             this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.progressBar.TabIndex = 8;
+            this.progressBar.Click += new System.EventHandler(this.progressBar_Click);
             // 
             // UIWaitingMinimized
             // 
@@ -88,6 +90,7 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Please wait";
+            this.Click += new System.EventHandler(this.UIWaitingMinimized_Click);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -17,6 +17,16 @@ namespace Microarea.Mago4Butler
         MainForm mainForm;
         UIWaiting uiWaiting;
 
+        public event EventHandler<EventArgs> WindowClose;
+        protected virtual void OnWindowClose()
+        {
+            var handler = WindowClose;
+            if (handler != null)
+            {
+                handler(this, EventArgs.Empty);
+            }
+        }
+
         public UIWaitingMinimized()
         {
             this.syncCtx = SynchronizationContext.Current;
@@ -68,6 +78,21 @@ namespace Microarea.Mago4Butler
                 var newY = mainFormLocation.Y + (mainForm.Height - this.Height);
                 this.Location = new Point(newX, newY);
             }
+        }
+
+        private void UIWaitingMinimized_Click(object sender, EventArgs e)
+        {
+            OnWindowClose();
+        }
+
+        private void lblProgressText_Click(object sender, EventArgs e)
+        {
+            OnWindowClose();
+        }
+
+        private void progressBar_Click(object sender, EventArgs e)
+        {
+            OnWindowClose();
         }
     }
 }

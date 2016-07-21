@@ -138,7 +138,7 @@ namespace Microarea.Mago4Butler
             this.uiNormalUse.UpdateInstance += UiNormalUse_UpdateInstance;
             this.uiNormalUse.RemoveInstance += UiNormalUse_RemoveInstance;
             this.uiWaiting.Back += UiWaiting_Back;
-            this.uiWaitingMinimized.Click += UiWaitingMinimized_Click;
+            this.uiWaitingMinimized.WindowClose += UiWaitingMinimized_WindowClose;
             this.uiWaitingMinimized.AttachToMainUI(this);
             this.uiWaitingMinimized.AttachToMainUiWaiting(this.uiWaiting);
 
@@ -182,7 +182,7 @@ namespace Microarea.Mago4Butler
             }
         }
 
-        private void UiWaitingMinimized_Click(object sender, EventArgs e)
+        private void UiWaitingMinimized_WindowClose(object sender, EventArgs e)
         {
             this.uiWaitingMinimized.Hide();
             ShowUI(this.uiWaiting);
