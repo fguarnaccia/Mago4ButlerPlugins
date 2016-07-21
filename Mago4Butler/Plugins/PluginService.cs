@@ -11,7 +11,6 @@ namespace Microarea.Mago4Butler
     {
         internal static readonly string PluginsPath = Path.GetDirectoryName(typeof(PluginService).Assembly.Location);
         List<IPlugin> plugins;
-        string pluginsPath;
         string ipluginTypeName;
 
         public event EventHandler<PluginErrorEventArgs> ErrorLoadingPlugins;
@@ -61,7 +60,7 @@ namespace Microarea.Mago4Butler
             var plugins = new List<IPlugin>();
             IPlugin plugin = null;
             List<string> pluginsFailedToLoad = new List<string>();
-            foreach (var dllFileInfo in new DirectoryInfo(pluginsPath).GetFiles("*.dll"))
+            foreach (var dllFileInfo in new DirectoryInfo(PluginsPath).GetFiles("*.dll"))
             {
                 try
                 {
