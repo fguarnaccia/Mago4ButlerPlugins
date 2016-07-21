@@ -593,6 +593,13 @@ namespace Microarea.Mago4Butler
             }
 
             var version = this.msiService.GetVersion(this.msiFullFilePath);
+            foreach (var instance in e.Instances)
+            {
+                if (instance.Version >= version)
+                {
+                    this.loggerService.LogError(instance.Name + " version is " + instance.Version + ", instance not to be updated");
+                }
+            }
             this.model.UpdateInstances(e.Instances, version);
         }
 
