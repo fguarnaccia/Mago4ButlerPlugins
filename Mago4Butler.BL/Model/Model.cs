@@ -156,6 +156,7 @@ namespace Microarea.Mago4Butler.BL
             if (oldInstance.Version < version)
             {
                 oldInstance.Version = version;
+                oldInstance.InstalledOn = DateTime.Now;
 
                 this.OnInstanceUpdated(new InstanceEventArgs() { Instance = oldInstance });
 

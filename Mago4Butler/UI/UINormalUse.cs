@@ -164,8 +164,11 @@ namespace Microarea.Mago4Butler
             {
                 return;
             }
-            item.Text = e.Instance.Name;
             item.Tag = e.Instance;
+
+            item.Text = e.Instance.Name;
+            item.SubItems[1].Text = e.Instance.Version.ToString();
+            item.SubItems[2].Text = e.Instance.InstalledOn.ToString("d MMM yyyy HH:mm");
         }
 
         private void Model_InstanceRemoved(object sender, InstanceEventArgs e)
