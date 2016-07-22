@@ -419,7 +419,9 @@ namespace Microarea.Mago4Butler.BL
             OnNotification(new NotificationEventArgs() { Message = "Removing installation info..." });
             //Rimuovo le informazioni di installazione dal registry se presenti in
             //modo che la mia installazione non le trovi e tenga i parametri che passo io da riga di comando.
+            this.msiZapper.ZapMsi(currentRequest.MsiPath);
             this.registryService.RemoveInstallationInfoKey(currentRequest.MsiPath);
+            this.registryService.RemoveInstallerFoldersKeys(currentRequest.RootFolder, currentRequest.Instance);
             OnNotification(new NotificationEventArgs() { Message = "Installation info removed" });
 
             //Rimuovo la parte di installazione su IIS per evitare che, se tra un setup e il successivo
@@ -483,7 +485,9 @@ namespace Microarea.Mago4Butler.BL
             OnNotification(new NotificationEventArgs() { Message = "Removing installation info..." });
             //Rimuovo le informazioni di installazione dal registry se presenti in
             //modo che la mia installazione non le trovi e tenga i parametri che passo io da riga di comando.
+            this.msiZapper.ZapMsi(currentRequest.MsiPath);
             this.registryService.RemoveInstallationInfoKey(currentRequest.MsiPath);
+            this.registryService.RemoveInstallerFoldersKeys(currentRequest.RootFolder, currentRequest.Instance);
             OnNotification(new NotificationEventArgs() { Message = "Installation info removed" });
             string logFilesFolderPath = CreateApplicationFolders(currentRequest);
 
