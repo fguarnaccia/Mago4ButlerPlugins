@@ -1,4 +1,5 @@
 ﻿using Microarea.Mago4Butler.BL;
+using Microarea.Mago4Butler.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

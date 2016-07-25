@@ -91,51 +91,39 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="YamlDotNet, Version=3.8.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\YamlDotNet.3.8.0\lib\net35\YamlDotNet.dll</HintPath>
-      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\YamlDotNet.3.8.0\lib\dotnet\YamlDotNet.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\Mago4Butler\Properties\AssemblyInfo.cs">
-      <Link>AssemblyInfo.cs</Link>
+      <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Automation\AppAutomationClient.cs" />
-    <Compile Include="BL\Batch.cs" />
-    <Compile Include="BL\CompanyDBUpdateService.cs" />
-    <Compile Include="BL\HttpService.cs" />
-    <Compile Include="BL\InstallerServiceErrorEventArgs.cs" />
-    <Compile Include="BL\IProvisioningService.cs" />
-    <Compile Include="BL\LoggerService.cs" />
-    <Compile Include="BL\NoProvisioningService.cs" />
-    <Compile Include="BL\NotificationEventArgs.cs" />
-    <Compile Include="BL\Mago4ProvisioningService.cs" />
-    <Compile Include="BL\ServerManagerTrait.cs" />
-    <Compile Include="BL\FileSystemService.cs" />
-    <Compile Include="BL\IisService.cs" />
-    <Compile Include="BL\InstallerService.cs" />
-    <Compile Include="BL\InstallInstanceEventArgs.cs" />
-    <Compile Include="BL\LaunchProcessTrait.cs" />
-    <Compile Include="BL\MsiService.cs" />
-    <Compile Include="BL\MsiZapper.cs" />
-    <Compile Include="BL\RegistryService.cs" />
-    <Compile Include="BL\RemoveInstanceEventArgs.cs" />
-    <Compile Include="BL\Request.cs" />
-    <Compile Include="BL\RequestType.cs" />
-    <Compile Include="BL\UpdateInstanceEventArgs.cs" />
-    <Compile Include="BL\UpdatesDownloaderService.cs" />
-    <Compile Include="BL\WcfService.cs" />
-    <Compile Include="ILogger.cs" />
-    <Compile Include="ISettings.cs" />
-    <Compile Include="LocalAssemblyInfo.cs" />
-    <Compile Include="LoggerTrait.cs" />
-    <Compile Include="Model\CmdLineInfo.cs" />
-    <Compile Include="Model\Edition.cs" />
-    <Compile Include="Model\Feature.cs" />
-    <Compile Include="Model\Instance.cs" />
-    <Compile Include="Model\InstanceEventArgs.cs" />
-    <Compile Include="Model\Model.cs" />
-    <Compile Include="Model\Version.cs" />
-    <Compile Include="Model\WebSiteInfo.cs" />
+    <Compile Include="Batch.cs" />
+    <Compile Include="CompanyDBUpdateService.cs" />
+    <Compile Include="HttpService.cs" />
+    <Compile Include="InstallerServiceErrorEventArgs.cs" />
+    <Compile Include="IProvisioningService.cs" />
+    <Compile Include="NoProvisioningService.cs" />
+    <Compile Include="NotificationEventArgs.cs" />
+    <Compile Include="Mago4ProvisioningService.cs" />
+    <Compile Include="ServerManagerTrait.cs" />
+    <Compile Include="FileSystemService.cs" />
+    <Compile Include="IisService.cs" />
+    <Compile Include="InstallerService.cs" />
+    <Compile Include="InstallInstanceEventArgs.cs" />
+    <Compile Include="LaunchProcessTrait.cs" />
+    <Compile Include="MsiService.cs" />
+    <Compile Include="MsiZapper.cs" />
+    <Compile Include="RegistryService.cs" />
+    <Compile Include="RemoveInstanceEventArgs.cs" />
+    <Compile Include="Request.cs" />
+    <Compile Include="RequestType.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="UpdateInstanceEventArgs.cs" />
+    <Compile Include="UpdatesDownloaderService.cs" />
+    <Compile Include="WcfService.cs" />
+    <Compile Include="Properties\LocalAssemblyInfo.cs" />
     <Compile Include="Resource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -146,7 +134,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Settings.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -171,7 +158,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Properties\" />
+    <Folder Include="BL\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Standard\TaskBuilder\TaskBuilderNet\Microarea.TaskBuilderNet.Core\Microarea.TaskBuilderNet.Core.csproj">
@@ -181,6 +168,14 @@
     <ProjectReference Include="..\..\..\Standard\TaskBuilder\TaskBuilderNet\Microarea.TaskBuilderNet.Interfaces\Microarea.TaskBuilderNet.Interfaces.csproj">
       <Project>{d21fd41d-0c68-40ef-a65a-ccfa47a05f3e}</Project>
       <Name>Microarea.TaskBuilderNet.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mago4Butler.Log\Mago4Butler.Log.csproj">
+      <Project>{9fb56833-6f10-4903-9385-79da49402977}</Project>
+      <Name>Mago4Butler.Log</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mago4Butler.Model\Mago4Butler.Model.csproj">
+      <Project>{fc530c3a-f313-4948-8692-1dd52a809639}</Project>
+      <Name>Mago4Butler.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

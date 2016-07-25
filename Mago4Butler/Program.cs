@@ -1,4 +1,5 @@
 ﻿using Microarea.Mago4Butler.BL;
+using Microarea.Mago4Butler.Model;
 using Microarea.Mago4Butler.Properties;
 using Ninject.Parameters;
 using System;

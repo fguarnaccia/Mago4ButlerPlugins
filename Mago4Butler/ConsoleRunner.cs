@@ -5,6 +5,7 @@ using Microarea.Mago4Butler.BL;
 using System.Drawing;
 using System.IO;
 using System.Threading;
+using Microarea.Mago4Butler.Model;
 
 namespace Microarea.Mago4Butler
 {

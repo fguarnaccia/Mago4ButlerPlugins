@@ -1,4 +1,6 @@
 ﻿using Microarea.Mago4Butler.BL;
+using Microarea.Mago4Butler.Log;
+using Microarea.Mago4Butler.Model;
 using Ninject;
 using Ninject.Modules;
 using System;
@@ -15,11 +17,11 @@ namespace Microarea.Mago4Butler
         {
             public override void Load()
             {
-                Bind<Model>()
+                Bind<Model.Model>()
                     .ToMethod(context =>
                     {
                         var settings = context.Kernel.Get<ISettings>();
-                        var model = new Model(settings);
+                        var model = new Model.Model(settings.RootFolder);
                         model.Init();
 
                         return model;

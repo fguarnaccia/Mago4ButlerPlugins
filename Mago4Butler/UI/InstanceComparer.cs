@@ -49,8 +49,8 @@ namespace Microarea.Mago4Butler
             var lviX = x as ListViewItem;
             var lviY = y as ListViewItem;
 
-            var instX = lviX.Tag as BL.Instance;
-            var instY = lviY.Tag as BL.Instance;
+            var instX = lviX.Tag as Model.Instance;
+            var instY = lviY.Tag as Model.Instance;
 
             if (instX == null && instY == null)
             {

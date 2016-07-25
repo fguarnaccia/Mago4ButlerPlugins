@@ -1,8 +1,6 @@
-﻿using Microarea.Mago4Butler.BL;
-using System.IO;
-using System.IO.Pipes;
+﻿using Microarea.Mago4Butler.Automation;
+using Microarea.Mago4Butler.Log;
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace Microarea.Mago4Butler.Plugins
@@ -22,7 +20,7 @@ namespace Microarea.Mago4Butler.Plugins
             }
         }
 
-        AppAutomationClient appAutomation;
+        AppAutomation appAutomation;
         protected App()
         {
             
@@ -33,7 +31,7 @@ namespace Microarea.Mago4Butler.Plugins
             {
                 Dispose();
             }
-            this.appAutomation = new AppAutomationClient();
+            this.appAutomation = new AppAutomation();
         }
 
         public Settings Settings

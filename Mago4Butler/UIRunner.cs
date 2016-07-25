@@ -8,6 +8,8 @@ using System.IO.Pipes;
 using System.IO;
 using Microarea.Mago4Butler.BL;
 using Microarea.Mago4Butler.Plugins;
+using Microarea.Mago4Butler.Log;
+using Microarea.Mago4Butler.Automation;
 
 namespace Microarea.Mago4Butler
 {
@@ -23,7 +25,6 @@ namespace Microarea.Mago4Butler
             try
             {
                 var pluginService = IoCContainer.Instance.Get<PluginService>();
-                //pluginService.ErrorLoadingPlugins += PluginService_ErrorLoadingPlugins;
                 pluginService.PluginsLoaded += PluginService_PluginsLoaded;
 
                 var mainForm = IoCContainer.Instance.Get<MainForm>();
@@ -46,11 +47,51 @@ namespace Microarea.Mago4Butler
 
         private void PluginService_PluginsLoaded(object sender, EventArgs e)
         {
+            appAutomationServer.CommandReceived += AppAutomationServer_CommandReceived;
             var workingThread = new Thread(() => appAutomationServer.Start());
             workingThread.IsBackground = true;
             workingThread.Start();
 
             App.Instance.Init();
+        }
+
+        private void AppAutomationServer_CommandReceived(object sender, CommandEventArgs e)
+        {
+            Command command;
+            Enum.TryParse(e.Command, out command);
+            switch (command)
+            {
+                case Command.ShutdownApplication:
+                    Environment.Exit(0);
+                    break;
+                case Command.GetVersion:
+                    if (e.Args == Path.GetFileNameWithoutExtension(this.GetType().Assembly.Location))
+                    {
+                        e.Response = this.GetType().Assembly.GetName().Version.ToString();
+                    }
+                    else
+                    {
+                        bool found = false;
+                        foreach (var plugin in IoCContainer.Instance.Get<PluginService>().Plugins)
+                        {
+                            if (plugin.GetName() == e.Args)
+                            {
+                                found = true;
+                                e.Response = plugin.GetVersion().ToString();
+                            }
+                        }
+                        if (!found)
+                        {
+                            e.Response = string.Empty;
+                        }
+                    }
+                    break;
+                case Command.GetPluginFolderPath:
+                    e.Response = PluginService.PluginsPath;
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void PluginService_ErrorLoadingPlugins(object sender, PluginErrorEventArgs e)

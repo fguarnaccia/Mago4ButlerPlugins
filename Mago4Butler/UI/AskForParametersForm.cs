@@ -1,4 +1,5 @@
 ﻿using Microarea.Mago4Butler.BL;
+using Microarea.Mago4Butler.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,13 +14,13 @@ namespace Microarea.Mago4Butler
 {
     public partial class AskForParametersForm : Form
     {
-        Model model;
+        Model.Model model;
         ISettings settings;
 
         public string InstanceName { get; set; }
         public string MsiFullPath { get; set; }
 
-        public AskForParametersForm(Model model, ISettings settings)
+        public AskForParametersForm(Model.Model model, ISettings settings)
         {
             this.settings = settings;
             this.model = model;
@@ -36,7 +37,7 @@ namespace Microarea.Mago4Butler
                 this.errorProviderInstanceName.SetError(this.txtInstanceName, "An instance with the given name already exists");
                 error = true;
             }
-            if (!Model.IsInstanceNameValid(this.txtInstanceName.Text))
+            if (!Model.Model.IsInstanceNameValid(this.txtInstanceName.Text))
             {
                 this.errorProviderInstanceName.SetError(this.txtInstanceName, "Only letters, digits and '-' are allowed");
                 error = true;

@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Microarea.Mago4Butler.BL;
+using Microarea.Mago4Butler.Log;
+using Microarea.Mago4Butler.Model;
 using Microarea.Mago4Butler.Plugins;
 using System;
 using System.Collections.Generic;
@@ -15,7 +17,7 @@ namespace Microarea.Mago4Butler
         MapperConfiguration config;
         IMapper mapper;
 
-        Model model;
+        Model.Model model;
         PluginService pluginService;
         InstallerService installerService;
         List<DoubleClickHandler> doubleClickHandlers = new List<DoubleClickHandler>();
@@ -54,7 +56,7 @@ namespace Microarea.Mago4Butler
             }
         }
 
-        public UINormalUse(Model model, PluginService pluginService, InstallerService installerService, ISettings settings)
+        public UINormalUse(Model.Model model, PluginService pluginService, InstallerService installerService, ISettings settings)
         {
             this.syncCtx = SynchronizationContext.Current;
             if (this.syncCtx == null)
@@ -62,7 +64,7 @@ namespace Microarea.Mago4Butler
                 this.syncCtx = new WindowsFormsSynchronizationContext();
             }
 
-            config = new MapperConfiguration(cfg => cfg.CreateMap<BL.Instance, Plugins.Instance>());
+            config = new MapperConfiguration(cfg => cfg.CreateMap<Model.Instance, Plugins.Instance>());
             mapper = config.CreateMapper();
 
             this.model = model;
@@ -97,7 +99,7 @@ namespace Microarea.Mago4Butler
             , null);
         }
 
-        private void UpdateVersionAndTooltip(BL.Instance instance)
+        private void UpdateVersionAndTooltip(Model.Instance instance)
         {
             var idx = this.lsvInstances.Items.IndexOf(instance);
             if (idx < 0)
@@ -111,7 +113,7 @@ namespace Microarea.Mago4Butler
             }
 
             var instanceDirInfo = new DirectoryInfo(Path.Combine(this.settings.RootFolder, instance.Name, "Standard"));
-            instance.Version = BL.Instance.FromStandardDirectoryInfo(instanceDirInfo).Version;
+            instance.Version = Model.Instance.FromStandardDirectoryInfo(instanceDirInfo).Version;
             item.SubItems[1].Text = instance.Version.ToString();
 
             if (instance.Edition != Edition.None)
@@ -186,7 +188,7 @@ namespace Microarea.Mago4Butler
             AddInstanceToListView(instance);
         }
 
-        private void AddInstanceToListView(BL.Instance instance)
+        private void AddInstanceToListView(Model.Instance instance)
         {
             ListViewItem item = new ListViewItem(instance.Name);
             item.SubItems.Add(instance.Version.ToString());
@@ -223,7 +225,7 @@ namespace Microarea.Mago4Butler
             {
                 return;
             }
-            var instance = selectedItems[0].Tag as BL.Instance;
+            var instance = selectedItems[0].Tag as Model.Instance;
 
             foreach (ToolStripMenuItem item in this.contextMenuStrip.Items)
             {
@@ -242,10 +244,10 @@ namespace Microarea.Mago4Butler
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            List<BL.Instance> selectedInstances = new List<BL.Instance>();
+            var selectedInstances = new List<Model.Instance>();
             foreach (ListViewItem selectedItem in this.lsvInstances.SelectedItems)
             {
-                selectedInstances.Add(selectedItem.Tag as BL.Instance);
+                selectedInstances.Add(selectedItem.Tag as Model.Instance);
             }
 
             if (selectedInstances.Count > 0)
@@ -256,10 +258,10 @@ namespace Microarea.Mago4Butler
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
-            List<BL.Instance> selectedInstances = new List<BL.Instance>();
+            var selectedInstances = new List<Model.Instance>();
             foreach (ListViewItem selectedItem in this.lsvInstances.SelectedItems)
             {
-                selectedInstances.Add(selectedItem.Tag as BL.Instance);
+                selectedInstances.Add(selectedItem.Tag as Model.Instance);
             }
 
             if (selectedInstances.Count > 0)
@@ -303,7 +305,7 @@ namespace Microarea.Mago4Butler
             {
                 return;
             }
-            var instance = lvi.Tag as BL.Instance;
+            var instance = lvi.Tag as Model.Instance;
 
             var pluginInstance = mapper.Map<Plugins.Instance>(instance);
 
@@ -323,7 +325,7 @@ namespace Microarea.Mago4Butler
 
     internal static class ListViewItemCollectionExt
     {
-        public static int IndexOf(this ListView.ListViewItemCollection @this, BL.Instance instance)
+        public static int IndexOf(this ListView.ListViewItemCollection @this, Model.Instance instance)
         {
             int idx = -1;
             for (int i = 0; i < @this.Count; i++)

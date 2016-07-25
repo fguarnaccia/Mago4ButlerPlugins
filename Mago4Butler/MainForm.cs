@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using log4net;
 using Microarea.Mago4Butler.BL;
+using Microarea.Mago4Butler.Log;
+using Microarea.Mago4Butler.Model;
 using Microarea.Mago4Butler.Plugins;
 using Microarea.Tools.ProvisioningConfigurator.ProvisioningConfigurator;
 using System;
@@ -36,7 +38,7 @@ namespace Microarea.Mago4Butler
 
         ISettings settings;
 
-        Model model;
+        Model.Model model;
         MsiService msiService;
         InstallerService installerService;
         LoggerService loggerService;
@@ -45,7 +47,7 @@ namespace Microarea.Mago4Butler
         string msiFullFilePath;
 
         public MainForm(
-            Model model,
+            Model.Model model,
             MsiService msiService,
             InstallerService installerService,
             LoggerService loggerService,
@@ -60,21 +62,21 @@ namespace Microarea.Mago4Butler
         {
             cmdLineMapperConfig = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<BL.CmdLineInfo, Plugins.CmdLineInfo>();
-                cfg.CreateMap<BL.Feature, Plugins.Feature>();
+                cfg.CreateMap<Model.CmdLineInfo, Plugins.CmdLineInfo>();
+                cfg.CreateMap<Model.Feature, Plugins.Feature>();
             });
 
             cmdLineMapper = cmdLineMapperConfig.CreateMapper();
 
             cmdLineReverseMapperConfig = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<Plugins.CmdLineInfo, BL.CmdLineInfo>();
-                cfg.CreateMap<Plugins.Feature, BL.Feature>();
+                cfg.CreateMap<Plugins.CmdLineInfo, Model.CmdLineInfo>();
+                cfg.CreateMap<Plugins.Feature, Model.Feature>();
             });
 
             cmdLineReverseMapper = cmdLineReverseMapperConfig.CreateMapper();
 
-            instanceMapperConfig = new MapperConfiguration(cfg => cfg.CreateMap<BL.Instance, Plugins.Instance>());
+            instanceMapperConfig = new MapperConfiguration(cfg => cfg.CreateMap<Model.Instance, Plugins.Instance>());
             instanceMapper = instanceMapperConfig.CreateMapper();
 
             parametersBagMapperConfig = new MapperConfiguration(cfg => cfg.CreateMap<AskForParametersBag, Plugins.AskForParametersBag>());
@@ -235,7 +237,7 @@ namespace Microarea.Mago4Butler
                 try
                 {
                     plugin.OnUpdating(pluginCmdLineInfo);
-                    e.CmdLineInfo = cmdLineReverseMapper.Map(pluginCmdLineInfo, typeof(Plugins.CmdLineInfo), typeof(BL.CmdLineInfo)) as BL.CmdLineInfo;
+                    e.CmdLineInfo = cmdLineReverseMapper.Map(pluginCmdLineInfo, typeof(Plugins.CmdLineInfo), typeof(Model.CmdLineInfo)) as Model.CmdLineInfo;
                 }
                 catch (Exception exc)
                 {
@@ -314,7 +316,7 @@ namespace Microarea.Mago4Butler
                 try
                 {
                     plugin.OnInstalling(pluginCmdLineInfo);
-                    e.CmdLineInfo = cmdLineReverseMapper.Map(pluginCmdLineInfo, typeof(Plugins.CmdLineInfo), typeof(BL.CmdLineInfo)) as BL.CmdLineInfo;
+                    e.CmdLineInfo = cmdLineReverseMapper.Map(pluginCmdLineInfo, typeof(Plugins.CmdLineInfo), typeof(Model.CmdLineInfo)) as Model.CmdLineInfo;
                 }
                 catch (Exception exc)
                 {
@@ -523,7 +525,7 @@ namespace Microarea.Mago4Butler
                 instanceName = bag.InstanceName;
             }
 
-            this.model.AddInstance(new BL.Instance()
+            this.model.AddInstance(new Model.Instance()
             {
                 Name = instanceName,
                 Version = msiService.GetVersion(this.msiFullFilePath),
