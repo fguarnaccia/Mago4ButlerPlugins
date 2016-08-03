@@ -1,6 +1,7 @@
 ﻿Per generare file msi da distribuire bisogna prendere in out i file:
  - Mago4Butler\Properties\AssemblyInfo.cs
  - AutomaticUpdates\Properties\AssemblyInfo.cs
+ - Telemetry\Properties\AssemblyInfo.cs
  - Mago4ButlerSetup\Files.wxs
  - Mago4ButlerWithPluginsSetup\Files.wxs
 
