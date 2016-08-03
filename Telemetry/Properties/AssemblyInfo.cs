@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Mago4Butler")]
+[assembly: AssemblyTitle("Microarea.Mago4Butler.Telemetry")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microarea S.p.A.")]
-[assembly: AssemblyProduct("Mago4Butler")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("Microarea.Mago4Butler.Telemetry")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("74895131-51fe-4fe9-baeb-8d8e192e27cf")]
+[assembly: Guid("c6b39461-cebf-4c54-9a3a-10b37e5954ee")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -29,8 +29,6 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-// You can specify all the values or you can default the Build and Revision Numbers 
-// by using the '*' as shown below:
-// [assembly: AssemblyVersion("1.0.5992.18522")]
-[assembly: AssemblyVersion("1.0.5992.18522")]
+// [assembly: AssemblyVersion("1.0.6052.18651")]
+[assembly: AssemblyVersion("1.0.6052.18651")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
