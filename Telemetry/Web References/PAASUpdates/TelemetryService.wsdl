@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.microarea.it/PAASUpdates/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://www.microarea.it/PAASUpdates/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.microarea.it/PAASUpdates/">
+      <s:element name="StoreTelemetryData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="telemetryData" type="tns:TelemetryData" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TelemetryData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="MachineName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mago4ButlerVersion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="StoreTelemetryDataResponse">
+        <s:complexType />
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="StoreTelemetryDataSoapIn">
+    <wsdl:part name="parameters" element="tns:StoreTelemetryData" />
+  </wsdl:message>
+  <wsdl:message name="StoreTelemetryDataSoapOut">
+    <wsdl:part name="parameters" element="tns:StoreTelemetryDataResponse" />
+  </wsdl:message>
+  <wsdl:portType name="TelemetryServiceSoap">
+    <wsdl:operation name="StoreTelemetryData">
+      <wsdl:input message="tns:StoreTelemetryDataSoapIn" />
+      <wsdl:output message="tns:StoreTelemetryDataSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="TelemetryServiceSoap" type="tns:TelemetryServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="StoreTelemetryData">
+      <soap:operation soapAction="http://www.microarea.it/PAASUpdates/StoreTelemetryData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="TelemetryServiceSoap12" type="tns:TelemetryServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="StoreTelemetryData">
+      <soap12:operation soapAction="http://www.microarea.it/PAASUpdates/StoreTelemetryData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TelemetryService">
+    <wsdl:port name="TelemetryServiceSoap" binding="tns:TelemetryServiceSoap">
+      <soap:address location="http://localhost/PAASUpdates/TelemetryService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="TelemetryServiceSoap12" binding="tns:TelemetryServiceSoap12">
+      <soap12:address location="http://localhost/PAASUpdates/TelemetryService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

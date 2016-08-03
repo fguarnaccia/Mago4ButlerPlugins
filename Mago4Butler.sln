@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mago4Butler", "Mago4Butler\Mago4Butler.csproj", "{74895131-51FE-4FE9-BAEB-8D8E192E27CF}"
 EndProject
@@ -40,6 +40,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mago4Butler.Log", "Mago4Butler.Log\Mago4Butler.Log.csproj", "{9FB56833-6F10-4903-9385-79DA49402977}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mago4Butler.Automation", "Mago4Butler.Automation\Mago4Butler.Automation.csproj", "{3CB71368-55E5-4557-B12B-8E453398D2A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telemetry", "Telemetry\Telemetry.csproj", "{6E13D76A-5412-4496-BDA9-B4C403EF99FA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -177,6 +179,14 @@ Global
 		{3CB71368-55E5-4557-B12B-8E453398D2A3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3CB71368-55E5-4557-B12B-8E453398D2A3}.Release|x86.ActiveCfg = Release|Any CPU
 		{3CB71368-55E5-4557-B12B-8E453398D2A3}.Release|x86.Build.0 = Release|Any CPU
+		{6E13D76A-5412-4496-BDA9-B4C403EF99FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E13D76A-5412-4496-BDA9-B4C403EF99FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E13D76A-5412-4496-BDA9-B4C403EF99FA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6E13D76A-5412-4496-BDA9-B4C403EF99FA}.Debug|x86.Build.0 = Debug|Any CPU
+		{6E13D76A-5412-4496-BDA9-B4C403EF99FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E13D76A-5412-4496-BDA9-B4C403EF99FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E13D76A-5412-4496-BDA9-B4C403EF99FA}.Release|x86.ActiveCfg = Release|Any CPU
+		{6E13D76A-5412-4496-BDA9-B4C403EF99FA}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -194,7 +204,7 @@ Global
 		{30CC3935-A7C5-441E-9A26-A6C94BFDEC69} = {807CBFB5-AB06-4AD2-BD86-9083B92B7504}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 18
+		SccNumberOfProjects = 19
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = http://tfs:8080/tfs/microarea
 		SccLocalPath0 = .
@@ -259,5 +269,8 @@ Global
 		SccProjectUniqueName17 = Mago4Butler.Automation\\Mago4Butler.Automation.csproj
 		SccProjectName17 = Mago4Butler.Automation
 		SccLocalPath17 = Mago4Butler.Automation
+		SccProjectUniqueName18 = Telemetry\\Telemetry.csproj
+		SccProjectName18 = Telemetry
+		SccLocalPath18 = Telemetry
 	EndGlobalSection
 EndGlobal
