@@ -43,6 +43,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mago4Butler.Automation", "M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telemetry", "Telemetry\Telemetry.csproj", "{6E13D76A-5412-4496-BDA9-B4C403EF99FA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{366B46EA-2F7E-4A3C-B501-0515CD8B3A10}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OtherStuff", "OtherStuff", "{E2FADDD4-6B16-4647-B0CF-88A5919F58A5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -194,7 +198,9 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{A063F660-3E25-452C-B093-0C85F2B81A27} = {807CBFB5-AB06-4AD2-BD86-9083B92B7504}
 		{00545D6C-42B4-4F42-B8F3-5E7282E03DBE} = {807CBFB5-AB06-4AD2-BD86-9083B92B7504}
+		{2D2E7056-A199-4418-8040-1830BB6FA8D2} = {366B46EA-2F7E-4A3C-B501-0515CD8B3A10}
 		{0FF997AA-E75E-48B6-ABEE-3BEE0D69852C} = {807CBFB5-AB06-4AD2-BD86-9083B92B7504}
+		{7852B045-F57A-458E-B718-89F9FA26E8A0} = {366B46EA-2F7E-4A3C-B501-0515CD8B3A10}
 		{D21FD41D-0C68-40EF-A65A-CCFA47A05F3E} = {8F83B0E7-0A95-4AA3-94B0-F06D90888795}
 		{DCA1DC48-522C-41FA-9E43-3DCCE3ED0FE3} = {8F83B0E7-0A95-4AA3-94B0-F06D90888795}
 		{F2F1C352-B5F8-4E92-A85F-99B012F80504} = {8F83B0E7-0A95-4AA3-94B0-F06D90888795}
@@ -202,6 +208,9 @@ Global
 		{BEFDB95F-5504-4C27-993B-094C069CB8BF} = {8F83B0E7-0A95-4AA3-94B0-F06D90888795}
 		{A84F78EE-5EDE-4C7C-A042-36E0806BACF5} = {8F83B0E7-0A95-4AA3-94B0-F06D90888795}
 		{30CC3935-A7C5-441E-9A26-A6C94BFDEC69} = {807CBFB5-AB06-4AD2-BD86-9083B92B7504}
+		{9FB56833-6F10-4903-9385-79DA49402977} = {E2FADDD4-6B16-4647-B0CF-88A5919F58A5}
+		{3CB71368-55E5-4557-B12B-8E453398D2A3} = {E2FADDD4-6B16-4647-B0CF-88A5919F58A5}
+		{6E13D76A-5412-4496-BDA9-B4C403EF99FA} = {366B46EA-2F7E-4A3C-B501-0515CD8B3A10}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 19
@@ -223,6 +232,7 @@ Global
 		SccProjectName4 = DigitalSignerClient
 		SccLocalPath4 = DigitalSignerClient
 		SccProjectUniqueName5 = Mago4Butler.Plugins\\Mago4Butler.Plugins.csproj
+		SccProjectTopLevelParentUniqueName5 = Mago4Butler.sln
 		SccProjectName5 = Mago4Butler.Plugins
 		SccLocalPath5 = Mago4Butler.Plugins
 		SccProjectUniqueName6 = VersionManager\\VersionManager.csproj
@@ -258,18 +268,22 @@ Global
 		SccProjectName13 = Mago4ButlerWithPluginsSetup
 		SccLocalPath13 = Mago4ButlerWithPluginsSetup
 		SccProjectUniqueName14 = AutmaticUpdates\\AutomaticUpdates.csproj
+		SccProjectTopLevelParentUniqueName14 = Mago4Butler.sln
 		SccProjectName14 = AutmaticUpdates
 		SccLocalPath14 = AutmaticUpdates
 		SccProjectUniqueName15 = Mago4Butler.Model\\Mago4Butler.Model.csproj
 		SccProjectName15 = Mago4Butler.Model
 		SccLocalPath15 = Mago4Butler.Model
 		SccProjectUniqueName16 = Mago4Butler.Log\\Mago4Butler.Log.csproj
+		SccProjectTopLevelParentUniqueName16 = Mago4Butler.sln
 		SccProjectName16 = Mago4Butler.Log
 		SccLocalPath16 = Mago4Butler.Log
 		SccProjectUniqueName17 = Mago4Butler.Automation\\Mago4Butler.Automation.csproj
+		SccProjectTopLevelParentUniqueName17 = Mago4Butler.sln
 		SccProjectName17 = Mago4Butler.Automation
 		SccLocalPath17 = Mago4Butler.Automation
 		SccProjectUniqueName18 = Telemetry\\Telemetry.csproj
+		SccProjectTopLevelParentUniqueName18 = Mago4Butler.sln
 		SccProjectName18 = Telemetry
 		SccLocalPath18 = Telemetry
 	EndGlobalSection
