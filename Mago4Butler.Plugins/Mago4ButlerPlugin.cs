@@ -8,6 +8,10 @@ namespace Microarea.Mago4Butler.Plugins
 {
     public class Mago4ButlerPlugin : IPlugin
     {
+        protected Mago4ButlerPlugin()
+        {
+
+        }
         public virtual IEnumerable<ContextMenuItem> GetContextMenuItems()
         {
             return new List<ContextMenuItem>();
