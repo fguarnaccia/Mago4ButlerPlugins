@@ -345,13 +345,12 @@ namespace Microarea.Mago4Butler
             this.loggerService.LogInfo("Installer service stopped");
             this.loggerService.LogInfo("--------------------------------------------------------------------------------");
 
-            if (this.uiWaitingMinimized.Visible)
+            bool uiWaitingMinimizedVisible = false;
+            this.syncCtx.Send((obj) =>  uiWaitingMinimizedVisible = this.uiWaitingMinimized.Visible, null);
+
+            if (uiWaitingMinimizedVisible)
             {
-                this.syncCtx.Post(new SendOrPostCallback((obj) =>
-                {
-                    this.uiWaitingMinimized.Hide();
-                })
-                , null);
+                this.syncCtx.Post((obj) => this.uiWaitingMinimized.Visible = false, null);
             }
             else
             {
@@ -387,11 +386,7 @@ namespace Microarea.Mago4Butler
             this.loggerService.LogInfo("--------------------------------------------------------------------------------");
             this.loggerService.LogInfo("Installer service started");
 
-            this.syncCtx.Post(new SendOrPostCallback((obj) =>
-            {
-                uiWaiting.ClearDetails();
-            })
-            , null);
+            this.syncCtx.Post((obj) => uiWaiting.ClearDetails(), null);
 
             ShowUI(uiWaiting);
             EnableDisableToolStripItem(this.tsbSettings, false);
@@ -445,7 +440,7 @@ namespace Microarea.Mago4Butler
 
         private void ShowUI(UserControl ui)
         {
-            this.syncCtx.Post(new SendOrPostCallback((obj) =>
+            this.syncCtx.Post((obj) =>
             {
                 this.pnlContent.SuspendLayout();
                 if (this.pnlContent.Controls.Count > 0)
@@ -457,17 +452,13 @@ namespace Microarea.Mago4Butler
                 this.pnlContent.Controls[0].Visible = true;
                 ui.Dock = DockStyle.Fill;
                 this.pnlContent.ResumeLayout();
-            })
+            }
             , null);
         }
 
         private void EnableDisableToolStripItem(ToolStripItem item, bool enabled)
         {
-            this.syncCtx.Post(new SendOrPostCallback((obj) =>
-            {
-                item.Enabled = enabled;
-            })
-            , null);
+            this.syncCtx.Post((obj) => item.Enabled = enabled, null);
         }
 
         private void bntAbout_Click(object sender, EventArgs e)
