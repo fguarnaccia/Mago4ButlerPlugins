@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 
 namespace Microarea.Mago4Butler
 {
@@ -99,7 +100,13 @@ namespace Microarea.Mago4Butler
             }
 
             var pluginAssembly = AppDomain.CurrentDomain.Load(rawAssembly);
-            var pluginType = pluginAssembly.ExportedTypes.Where(t => t.GetInterface(ipluginTypeName) != null).FirstOrDefault();
+
+            var pluginTypesQuery = from pt in pluginAssembly.ExportedTypes
+                                   //Cerco i tipi che implementino l'interfaccia IPlugin e che abbiano un costruttore senza parametri
+                    where pt.GetInterface(ipluginTypeName) != null && pt.GetConstructor(BindingFlags.Instance | BindingFlags.Public, null, CallingConventions.Any, new Type[] { }, null) != null
+                    select pt;
+            var pluginType = pluginTypesQuery.FirstOrDefault();
+
             IPlugin pluginInstance = null;
             if (pluginType != null)
             {

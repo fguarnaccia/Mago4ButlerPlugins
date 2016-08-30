@@ -60,48 +60,22 @@ namespace Microarea.Mago4Butler
             UINormalUse uiNormalUse
             )
         {
-            cmdLineMapperConfig = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<Model.CmdLineInfo, Plugins.CmdLineInfo>();
-                cfg.CreateMap<Model.Feature, Plugins.Feature>();
-            });
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            Application.ThreadException += Application_ThreadException;
 
-            cmdLineMapper = cmdLineMapperConfig.CreateMapper();
-
-            cmdLineReverseMapperConfig = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<Plugins.CmdLineInfo, Model.CmdLineInfo>();
-                cfg.CreateMap<Plugins.Feature, Model.Feature>();
-            });
-
-            cmdLineReverseMapper = cmdLineReverseMapperConfig.CreateMapper();
-
-            instanceMapperConfig = new MapperConfiguration(cfg => cfg.CreateMap<Model.Instance, Plugins.Instance>());
-            instanceMapper = instanceMapperConfig.CreateMapper();
-
-            parametersBagMapperConfig = new MapperConfiguration(cfg => cfg.CreateMap<AskForParametersBag, Plugins.AskForParametersBag>());
-            parametersBagMapper = parametersBagMapperConfig.CreateMapper();
-
-            parametersBagReverseMapperConfig = new MapperConfiguration(cfg => cfg.CreateMap<Plugins.AskForParametersBag, AskForParametersBag>());
-            parametersBagReverseMapper = parametersBagReverseMapperConfig.CreateMapper();
-
-            this.loggerService = loggerService;
-            this.pluginService = pluginService;
             this.syncCtx = SynchronizationContext.Current;
             if (this.syncCtx == null)
             {
                 this.syncCtx = new WindowsFormsSynchronizationContext();
             }
 
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-            Application.ThreadException += Application_ThreadException;
-
+            this.settings = settings;
             this.model = model;
 
+            this.loggerService = loggerService;
+            this.pluginService = pluginService;
             this.msiService = msiService;
             this.installerService = installerService;
-
-            this.settings = settings;
 
             InitializeComponent();
 
@@ -129,6 +103,31 @@ namespace Microarea.Mago4Butler
             Application.Idle -= Application_Idle;
 
             this.Text = String.Format(System.Globalization.CultureInfo.InvariantCulture, "{0} v. {1}", this.Text, this.GetType().Assembly.GetName().Version.ToString());
+
+            this.cmdLineMapperConfig = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Model.CmdLineInfo, Plugins.CmdLineInfo>();
+                cfg.CreateMap<Model.Feature, Plugins.Feature>();
+            });
+
+            this.cmdLineMapper = cmdLineMapperConfig.CreateMapper();
+
+            this.cmdLineReverseMapperConfig = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Plugins.CmdLineInfo, Model.CmdLineInfo>();
+                cfg.CreateMap<Plugins.Feature, Model.Feature>();
+            });
+
+            this.cmdLineReverseMapper = cmdLineReverseMapperConfig.CreateMapper();
+
+            this.instanceMapperConfig = new MapperConfiguration(cfg => cfg.CreateMap<Model.Instance, Plugins.Instance>());
+            this.instanceMapper = instanceMapperConfig.CreateMapper();
+
+            this.parametersBagMapperConfig = new MapperConfiguration(cfg => cfg.CreateMap<AskForParametersBag, Plugins.AskForParametersBag>());
+            this.parametersBagMapper = parametersBagMapperConfig.CreateMapper();
+
+            this.parametersBagReverseMapperConfig = new MapperConfiguration(cfg => cfg.CreateMap<Plugins.AskForParametersBag, AskForParametersBag>());
+            this.parametersBagReverseMapper = parametersBagReverseMapperConfig.CreateMapper();
 
             this.model.InstanceAdded += (s, iea) => this.installerService.Install(this.msiFullFilePath, iea.Instance);
             this.model.InstanceUpdated += (s, iea) => this.installerService.Update(this.msiFullFilePath, iea.Instance);
@@ -186,14 +185,25 @@ namespace Microarea.Mago4Butler
 
         private void UiWaitingMinimized_WindowClose(object sender, EventArgs e)
         {
-            this.uiWaitingMinimized.Hide();
+            this.uiWaitingMinimized.Visible = false;
             ShowUI(this.uiWaiting);
         }
 
         private void UiWaiting_Back(object sender, EventArgs e)
         {
+            if (!this.uiWaitingMinimized.Visible)
+            {
+                if (!this.uiWaitingMinimized.IsHandleCreated)
+                {
+                    this.uiWaitingMinimized.Show(this);
+                }
+                else
+                {
+                    this.uiWaitingMinimized.Visible = true;
+                }
+            }
+
             var ui = (this.model.Instances.Count() == 0) ? this.uiEmpty as UserControl : this.uiNormalUse as UserControl;
-            this.uiWaitingMinimized.Show(this);
             ShowUI(ui);
         }
 
@@ -493,7 +503,7 @@ namespace Microarea.Mago4Butler
                 this.msiFullFilePath = this.msiService.CalculateMsiFullFilePath();
                 using (var askForParametersDialog = new AskForParametersForm(this.model, this.settings))
                 {
-                    var diagRes = askForParametersDialog.ShowDialog();
+                    var diagRes = askForParametersDialog.ShowDialog(this);
 
                     if (diagRes != DialogResult.OK)
                     {
@@ -508,7 +518,7 @@ namespace Microarea.Mago4Butler
                     {
                         using (var provisioningForm = new ProvisioningFormLITE(instanceName: askForParametersDialog.InstanceName, preconfigurationMode: true, loadDataFromFile: false))
                         {
-                            diagRes = provisioningForm.ShowDialog();
+                            diagRes = provisioningForm.ShowDialog(this);
 
                             if (diagRes == DialogResult.Cancel)
                             {

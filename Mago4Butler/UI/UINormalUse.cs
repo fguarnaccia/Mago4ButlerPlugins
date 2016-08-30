@@ -268,7 +268,7 @@ namespace Microarea.Mago4Butler
             {
                 using (var form = new AskConfirmationForUninstallForm(selectedInstances))
                 {
-                    if (form.ShowDialog() != DialogResult.OK)
+                    if (form.ShowDialog(this) != DialogResult.OK)
                     {
                         return;
                     }
