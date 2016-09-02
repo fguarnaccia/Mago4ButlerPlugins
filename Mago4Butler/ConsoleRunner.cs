@@ -193,6 +193,9 @@ namespace Microarea.Mago4Butler
             Console.WriteLine("Mago4Butler.exe " + statusSwitch, Color.White);
             Console.WriteLine("Print installation status for all the instances");
             Console.WriteLine("");
+            Console.WriteLine("Mago4Butler.exe " + downloadUpdatedMsiSwitch, Color.White);
+            Console.WriteLine("Download the latest msi from Microarea web site");
+            Console.WriteLine("");
             Console.WriteLine("Mago4Butler.exe " + installSwitch + " InstanceName", Color.White);
             Console.WriteLine("Install the specified instance using the msi file from the \\MSI folder");
             Console.WriteLine("");
