@@ -507,8 +507,19 @@ namespace Microarea.Mago4Butler
 
                     if (provisioningService.ShouldStartProvisioning)
                     {
-                        using (var provisioningForm = new ProvisioningFormLITE(instanceName: askForParametersDialog.InstanceName, preconfigurationMode: true, loadDataFromFile: false))
+                        using (var provisioningForm = new ProvisioningFormLITE(instanceName: instanceName, preconfigurationMode: true, loadDataFromFile: false))
                         {
+                            var provisioningSuggestions = new ProvisioningData()
+                            {
+                                CompanyDbName = string.Format("{0}_DB", instanceName),
+                                DMSDbName = string.Format("{0}_DBDMS", instanceName),
+                                SystemDbName = string.Format("{0}_SystemDB", instanceName),
+                                AdminLoginName = string.Format("{0}_admin", instanceName),
+                                UserLoginName = string.Format("{0}_user", instanceName)
+                            };
+
+                            provisioningForm.ProvisioningData = provisioningSuggestions;
+
                             diagRes = provisioningForm.ShowDialog(this);
 
                             if (diagRes == DialogResult.Cancel)
