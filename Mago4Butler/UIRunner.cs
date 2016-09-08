@@ -89,6 +89,10 @@ namespace Microarea.Mago4Butler
                 case Command.GetPluginFolderPath:
                     e.Response = PluginService.PluginsPath;
                     break;
+                case Command.GetInstances:
+                    var model = IoCContainer.Instance.Get<Model.Model>();
+                    e.Response = string.Join(",", model.Instances.Select(i => i.Name).ToArray());
+                    break;
                 default:
                     break;
             }

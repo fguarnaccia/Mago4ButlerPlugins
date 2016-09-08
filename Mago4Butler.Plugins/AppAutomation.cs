@@ -54,5 +54,22 @@ namespace Microarea.Mago4Butler.Plugins
                 return string.Empty;
             }
         }
+
+        public string[] GetInstances()
+        {
+            if (Client.IsConnected)
+            {
+                Writer.WriteLine(Command.GetInstances);
+                Writer.Flush();
+                var response = Reader.ReadLine();
+
+                return response.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            }
+            else
+            {
+                this.LogInfo("AppAutomation server is not connected, unable to send GetInstances command");
+                return new string[] { };
+            }
+        }
     }
 }

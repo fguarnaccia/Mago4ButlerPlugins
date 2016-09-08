@@ -5,6 +5,7 @@
         None,
         GetVersion,
         ShutdownApplication,
-        GetPluginFolderPath
+        GetPluginFolderPath,
+        GetInstances
     }
 }
