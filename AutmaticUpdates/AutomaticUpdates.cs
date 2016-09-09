@@ -85,8 +85,9 @@ namespace Microarea.Mago4Butler.AutomaticUpdates
                     App.Instance.ShutdownApplication();
                 }
             }
-            catch
+            catch (Exception exc)
             {
+                App.Instance.Error("Error during update", exc);
             }
         }
 

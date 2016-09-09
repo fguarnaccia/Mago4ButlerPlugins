@@ -31,6 +31,10 @@
   <xsl:template match="wix:Component[key('vshost-search', @Id)]" />
   <xsl:template match="wix:ComponentRef[key('vshost-search', @Id)]" />
   
+  <xsl:key name="XmlSerializers-search" match="wix:Component[contains(wix:File/@Source, '.XmlSerializers.')]" use="@Id" />
+  <xsl:template match="wix:Component[key('XmlSerializers-search', @Id)]" />
+  <xsl:template match="wix:ComponentRef[key('XmlSerializers-search', @Id)]" />
+  
   <xsl:key name="PluginExample-search" match="wix:Component[contains(wix:File/@Source, 'PluginExample')]" use="@Id" />
   <xsl:template match="wix:Component[key('PluginExample-search', @Id)]" />
   <xsl:template match="wix:ComponentRef[key('PluginExample-search', @Id)]" />
