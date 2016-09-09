@@ -24,14 +24,10 @@ namespace Microarea.Mago4Butler.AutomaticUpdates
                     null
                     );
 
-                XmlReaderSettings readerSettings = new XmlReaderSettings();
-                readerSettings.Schemas.Add(setupSchema);
-                readerSettings.ValidationType = ValidationType.Schema;
-
                 XmlReader xmlReader = null;
                 try
                 {
-                    xmlReader = XmlReader.Create(inputFile, readerSettings);
+                    xmlReader = XmlReader.Create(inputFile);
                 }
                 catch (SecurityException)
                 {
