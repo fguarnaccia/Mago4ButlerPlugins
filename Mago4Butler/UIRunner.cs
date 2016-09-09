@@ -93,6 +93,18 @@ namespace Microarea.Mago4Butler
                     var model = IoCContainer.Instance.Get<Model.Model>();
                     e.Response = string.Join(",", model.Instances.Select(i => i.Name).ToArray());
                     break;
+                case Command.GetPluginsData:
+                    {
+                        var pluginService = IoCContainer.Instance.Get<PluginService>();
+                        var responseBld = new StringBuilder();
+                        foreach (var plugin in pluginService.Plugins)
+                        {
+                            responseBld.Append(plugin.GetName()).Append("-").Append(plugin.GetVersion()).Append(",");
+                        }
+                        responseBld.Remove(responseBld.Length - 1, 1);
+                        e.Response = responseBld.ToString();
+                        break;
+                    }
                 default:
                     break;
             }

@@ -131,6 +131,8 @@ namespace Microarea.Mago4Butler.Telemetry.PAASUpdates {
         
         private string mago4ButlerVersionField;
         
+        private PluginData[] pluginsDataField;
+        
         /// <remarks/>
         public string MachineName {
             get {
@@ -148,6 +150,49 @@ namespace Microarea.Mago4Butler.Telemetry.PAASUpdates {
             }
             set {
                 this.mago4ButlerVersionField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public PluginData[] PluginsData {
+            get {
+                return this.pluginsDataField;
+            }
+            set {
+                this.pluginsDataField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.microarea.it/PAASUpdates/")]
+    public partial class PluginData {
+        
+        private string nameField;
+        
+        private string versionField;
+        
+        /// <remarks/>
+        public string Name {
+            get {
+                return this.nameField;
+            }
+            set {
+                this.nameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Version {
+            get {
+                return this.versionField;
+            }
+            set {
+                this.versionField = value;
             }
         }
     }

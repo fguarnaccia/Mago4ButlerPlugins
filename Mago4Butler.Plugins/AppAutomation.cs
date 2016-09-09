@@ -71,5 +71,22 @@ namespace Microarea.Mago4Butler.Plugins
                 return new string[] { };
             }
         }
+
+        public string[] GetPluginsData()
+        {
+            if (Client.IsConnected)
+            {
+                Writer.WriteLine(Command.GetPluginsData);
+                Writer.Flush();
+                var response = Reader.ReadLine();
+
+                return response.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            }
+            else
+            {
+                this.LogInfo("AppAutomation server is not connected, unable to send GetPluginsData command");
+                return new string[] { };
+            }
+        }
     }
 }

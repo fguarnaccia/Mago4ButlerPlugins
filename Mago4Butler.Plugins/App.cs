@@ -107,6 +107,11 @@ namespace Microarea.Mago4Butler.Plugins
             return this.appAutomation.GetInstances();
         }
 
+        public string[] GetPluginsData()
+        {
+            return this.appAutomation.GetPluginsData();
+        }
+
         public void Error(string errorMessage, Exception exc = null)
         {
             this.LogError(errorMessage, exc);

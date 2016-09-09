@@ -6,6 +6,7 @@
         GetVersion,
         ShutdownApplication,
         GetPluginFolderPath,
-        GetInstances
+        GetInstances,
+        GetPluginsData
     }
 }
