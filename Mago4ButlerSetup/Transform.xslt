@@ -43,7 +43,7 @@
   <xsl:template match="wix:Component[key('PluginExample-search', @Id)]" />
   <xsl:template match="wix:ComponentRef[key('PluginExample-search', @Id)]" />
 
-  <xsl:key name="OtherPlugins-search" match="wix:Component[starts-with(wix:File/@Source, 'plgn')]" use="@Id" />
+  <xsl:key name="OtherPlugins-search" match="wix:Component[contains(wix:File/@Source, 'plgn')]" use="@Id" />
   <xsl:template match="wix:Component[key('OtherPlugins-search', @Id)]" />
   <xsl:template match="wix:ComponentRef[key('OtherPlugins-search', @Id)]" />
   
