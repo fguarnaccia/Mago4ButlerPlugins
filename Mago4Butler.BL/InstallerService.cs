@@ -469,14 +469,6 @@ namespace Microarea.Mago4Butler.BL
             this.registryService.RemoveInstallerFoldersKeys(currentRequest.RootFolder, currentRequest.Instance);
             OnNotification(new NotificationEventArgs() { Message = "Now the registry is clean" });
 
-            //OnNotification(new NotificationEventArgs() { Message = "Registering wcf namespaces..." });
-            //this.wcfService.RegisterWcf(currentRequest.Instance.WcfStartPort, currentRequest.Instance.Name);
-            //OnNotification(new NotificationEventArgs() { Message = "Wcf namespaces registered" });
-
-            //OnNotification(new NotificationEventArgs() { Message = "Creating settings.config file with wcf starting port..." });
-            //this.wcfService.CreateSettingsConfigFile(currentRequest.Instance.Name, currentRequest.Instance.WcfStartPort);
-            //OnNotification(new NotificationEventArgs() { Message = "settings.config file created" });
-
             OnNotification(new NotificationEventArgs() { Message = "Updating company database..." });
             this.companyDBUpdateService.UpdateCompanyDB(currentRequest.Instance);
             OnNotification(new NotificationEventArgs() { Message = "Company database successfully updated" });
