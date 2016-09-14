@@ -12,23 +12,28 @@ namespace Microarea.Mago4Butler.BL
     public class CompanyDBUpdateService : ILogger
     {
         string rootFolder;
+        IAdmConsoleToLaunchNameProvider admConsoleToLaunchNameProvider;
 
-        public CompanyDBUpdateService(ISettings settings)
+        public CompanyDBUpdateService(ISettings settings, IAdmConsoleToLaunchNameProvider admConsoleToLaunchNameProvider)
         {
             this.rootFolder = settings.RootFolder;
+            this.admConsoleToLaunchNameProvider = admConsoleToLaunchNameProvider;
         }
 
         public void UpdateCompanyDB(Instance instance)
         {
+            string fileNameToLaunch = null;
             try
             {
-                this.LogInfo("Starting AdministrationConsoleLite.exe with command line parameters /autologin yes /UpgradeAllCompaniesAndExit yes");
+                fileNameToLaunch = admConsoleToLaunchNameProvider.GetFileNameToLaunch();
+
+                this.LogInfo("Starting " + fileNameToLaunch + " with command line parameters /autologin yes /UpgradeAllCompaniesAndExit yes");
                 string consoleExePath = Path.Combine(
                         this.rootFolder,
                         instance.Name,
                         "Apps",
                         "Publish",
-                        "AdministrationConsoleLite.exe"
+                        fileNameToLaunch
                         );
 
                 this.LaunchProcess(
@@ -36,12 +41,16 @@ namespace Microarea.Mago4Butler.BL
                     "/autologin yes /UpgradeAllCompaniesAndExit yes",
                     3600000
                     );
-                this.LogInfo("AdministrationConsoleLite.exe terminated successfully");
+                this.LogInfo(fileNameToLaunch + " terminated successfully");
 
             }
             catch (Exception exc)
             {
-                this.LogError("Error executing AdministrationConsoleLite.exe", exc);
+                if (string.IsNullOrWhiteSpace(fileNameToLaunch))
+                {
+                    fileNameToLaunch = "Administration Console or Administration Console Lite";
+                }
+                this.LogError("Error executing " + fileNameToLaunch, exc);
             }
         }
     }

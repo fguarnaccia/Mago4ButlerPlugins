@@ -13,6 +13,7 @@ namespace Microarea.Mago4Butler
 {
     public class IoCContainer
     {
+        IoCModule iocModule;
         class IoCModule : NinjectModule
         {
             public override void Load()
@@ -29,6 +30,7 @@ namespace Microarea.Mago4Butler
                     .InSingletonScope();
 
                 Bind<HttpService>().ToSelf();
+                Bind<ShouldUseProvisioningProvider>().ToSelf();
                 Bind<UpdatesDownloaderService>().ToSelf();
                 Bind<MsiService>().ToSelf();
                 Bind<WcfService>().ToSelf();
@@ -54,6 +56,9 @@ namespace Microarea.Mago4Butler
                 Bind<IProvisioningService>()
                     .To<NoProvisioningService>()
                     .Named(string.Empty);
+
+                Bind<IAdmConsoleToLaunchNameProvider>()
+                    .To<AdmConsoleToLaunchNameProvider>();
 
                 Bind<ISettings>().ToMethod(context => Settings.Default);
 
@@ -109,7 +114,8 @@ namespace Microarea.Mago4Butler
         private IoCContainer()
         {
             ioc = new StandardKernel();
-            ioc.Load<IoCModule>();
+            this.iocModule = new Mago4Butler.IoCContainer.IoCModule();
+            ioc.Load(this.iocModule);
         }
         IKernel ioc;
         public T Get<T>(params Parameter[] parameters)
@@ -148,7 +154,8 @@ namespace Microarea.Mago4Butler
         public IProvisioningService GetProvisioningService(string productName)
         {
             IProvisioningService provisioningService = null;
-            if (this.ShouldUseProvisioning())
+            var shouldUseProvisioningProvider = IoCContainer.Instance.Get<ShouldUseProvisioningProvider>();
+            if (shouldUseProvisioningProvider.ShouldUseProvisioning)
             {
                 provisioningService = IoCContainer.Instance.Get<IProvisioningService>(productName);
             }
@@ -158,28 +165,6 @@ namespace Microarea.Mago4Butler
             }
 
             return provisioningService;
-        }
-
-        private bool ShouldUseProvisioning()
-        {
-            bool shouldUseProvisioning = true;
-            var pluginService = this.Get<PluginService>();
-            foreach (var plugin in pluginService.Plugins)
-            {
-                if (plugin != null)
-                {
-                    try
-                    {
-                        shouldUseProvisioning &= plugin.ShouldUseProvisioning();
-                    }
-                    catch (Exception exc)
-                    {
-                        var loggerService = this.Get<LoggerService>();
-                        loggerService.LogError("Error asking plugins if provisioning procedure should be started", exc);
-                    }
-                }
-            }
-            return shouldUseProvisioning;
         }
     }
 }
