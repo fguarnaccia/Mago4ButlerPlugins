@@ -178,6 +178,7 @@ namespace MagoRunnerPlugin
 
             string fileName = string.Empty;
             string executable = string.Empty;
+            string arguments = "/autologin yes";
 
             if (IsMago4(istanza.Version))
 
@@ -192,9 +193,10 @@ namespace MagoRunnerPlugin
 
             }
 
+            
             fileName = Path.Combine(App.Instance.Settings.RootFolder, istanza.Name, @"Apps\Publish\", executable);
 
-            Process.Start(fileName);
+            Process.Start(fileName,arguments);
 
         }
         void RunCustom(Instance istanza)
