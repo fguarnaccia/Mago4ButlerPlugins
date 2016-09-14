@@ -18,11 +18,11 @@ namespace Microarea.Mago4Butler.BL
         {
             var instanceRootFolder = Path.Combine(this.settings.RootFolder, instanceName);
             var processFilePath = Path.Combine(instanceRootFolder, "Apps", "ClickOnceDeployer", "ClickOnceDeployer.exe");
-            string user = GetUserNameForWcfRegistration();
+            string user = GetUserNameForWcfRegistration(instanceName);
 
             var args = string.Format(
                 CultureInfo.InvariantCulture,
-                "RegisterWcf /root \"{0}\" /port {1} /user {2}",
+                "RegisterWcf /root \"{0}\" /port {1} /user \"{2}\"",
                 instanceRootFolder,
                 startPort.ToString(CultureInfo.InvariantCulture),
                 user
@@ -40,10 +40,22 @@ namespace Microarea.Mago4Butler.BL
             }
         }
 
-        private static string GetUserNameForWcfRegistration()
+        private string GetUserNameForWcfRegistration(string instanceName)
         {
-#warning Chiamare il metodo GetAspNetUser di LoginManager
-            return "NETWORKSERVICE";
+            var lgmUrl = string.Format(CultureInfo.InvariantCulture, "http://localhost/{0}/LoginManager/LoginManager.asmx", instanceName);
+
+            try
+            {
+                var lgmProxy = new Microarea.TaskBuilderNet.Core.WebServicesWrapper.LoginManager(lgmUrl, 12000);
+
+                return lgmProxy.GetAspNetUser();
+            }
+            catch (Exception exc)
+            {
+                this.LogError("Error retrieving aspnet user from login manager, login manager url: " + lgmUrl, exc);
+
+                return "NETWORK SERVICE";
+            }
         }
 
         public void CreateSettingsConfigFile(string instanceName, int port)
