@@ -620,7 +620,9 @@ namespace Microarea.Mago4Butler
         private void tsbSettings_Click(object sender, EventArgs e)
         {
             var oldRootFolder = this.settings.RootFolder;
-            using (var settingsForm = new SettingsForm(this.settings, new IisService()))
+
+            var iisService = IoCContainer.Instance.Get<IisService>();
+            using (var settingsForm = new SettingsForm(this.settings, iisService))
             {
                 settingsForm.ShowDialog(this);
             }

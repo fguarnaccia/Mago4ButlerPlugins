@@ -3,15 +3,24 @@ using Microarea.Mago4Butler.Model;
 using Microsoft.Web.Administration;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Microarea.Mago4Butler.BL
 {
     public class IisService : ILogger
     {
+        readonly ISettings settings;
+
+        public IisService(ISettings settings)
+        {
+            this.settings = settings;
+        }
         public void RemoveApplicationPools(Instance instance)
         {
             try
@@ -126,6 +135,33 @@ namespace Microarea.Mago4Butler.BL
             }
 
             return webSites;
+        }
+
+        public void RestartLoginManager(Instance instance)
+        {
+            var webConfigFullPath = Path.Combine(this.settings.RootFolder, instance.Name, "Standard", "TaskBuilder", "WebFramework", "LoginManager", "web.config");
+
+            if (File.Exists(webConfigFullPath))
+            {
+                try
+                {
+                    Process.Start("cmd", string.Format(CultureInfo.InvariantCulture, @"/C attrib -r {0}", webConfigFullPath));
+
+                    Thread.Sleep(500);
+                    Process.Start("cmd", string.Format(CultureInfo.InvariantCulture, @"/C copy /Y /B {0}+,, {0}", webConfigFullPath));
+
+                    Thread.Sleep(500);
+                    Process.Start("cmd", string.Format(CultureInfo.InvariantCulture, @"/C attrib +r {0}", webConfigFullPath));
+                }
+                catch (Exception exc)
+                {
+                    this.LogError("Exception restarting login manager for " + instance.Name, exc);
+                }
+            }
+            else
+            {
+                this.LogInfo("Unable to restart login manager for " + instance.Name + " because the file " + webConfigFullPath + " does not exist");
+            }
         }
     }
 }

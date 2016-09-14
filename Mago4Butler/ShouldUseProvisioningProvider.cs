@@ -7,6 +7,7 @@ namespace Microarea.Mago4Butler
     {
         readonly LoggerService loggerService;
         readonly PluginService pluginService;
+        bool? shouldUseProvisioning = null;
 
         public ShouldUseProvisioningProvider(PluginService pluginService, LoggerService loggerService)
         {
@@ -16,23 +17,27 @@ namespace Microarea.Mago4Butler
         public bool ShouldUseProvisioning
         {
             get
-            { 
-                bool shouldUseProvisioning = true;
-                foreach (var plugin in pluginService.Plugins)
+            {
+                if (!shouldUseProvisioning.HasValue)
                 {
-                    if (plugin != null)
+                    shouldUseProvisioning = true;
+                    foreach (var plugin in pluginService.Plugins)
                     {
-                        try
+                        if (plugin != null)
                         {
-                            shouldUseProvisioning &= plugin.ShouldUseProvisioning();
-                        }
-                        catch (Exception exc)
-                        {
-                            loggerService.LogError("Error asking plugins if provisioning procedure should be started", exc);
+                            try
+                            {
+                                shouldUseProvisioning &= plugin.ShouldUseProvisioning();
+                            }
+                            catch (Exception exc)
+                            {
+                                loggerService.LogError("Error asking plugins if provisioning procedure should be started", exc);
+                            }
                         }
                     }
                 }
-                return shouldUseProvisioning;
+
+                return shouldUseProvisioning.Value;
             }
         }
     }

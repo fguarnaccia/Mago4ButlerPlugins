@@ -30,7 +30,10 @@ namespace Microarea.Mago4Butler
                     .InSingletonScope();
 
                 Bind<HttpService>().ToSelf();
-                Bind<ShouldUseProvisioningProvider>().ToSelf();
+                Bind<ShouldUseProvisioningProvider>()
+                    .ToSelf()
+                    .InSingletonScope();
+
                 Bind<UpdatesDownloaderService>().ToSelf();
                 Bind<MsiService>().ToSelf();
                 Bind<WcfService>().ToSelf();
@@ -46,6 +49,23 @@ namespace Microarea.Mago4Butler
                 Bind<InstallerService>()
                     .ToSelf()
                     .InSingletonScope();
+
+                Bind<ISalesModulesConfiguratorService>()
+                    .To<SalesModulesConfiguratorService>()
+                    .When(
+                    (r) =>
+                    {
+                        var svc = r.ParentContext.Kernel.Get<ShouldUseProvisioningProvider>();
+                        return svc.ShouldUseProvisioning;
+                    });
+                Bind<ISalesModulesConfiguratorService>()
+                    .To<NoSalesModulesConfigurationService>()
+                    .When(
+                    (r) =>
+                    {
+                        var svc = r.ParentContext.Kernel.Get<ShouldUseProvisioningProvider>();
+                        return !svc.ShouldUseProvisioning;
+                    });
 
                 Bind<IProvisioningService>()
                     .To<Mago4ProvisioningService>()

@@ -38,6 +38,7 @@ namespace Microarea.Mago4Butler.BL
         IisService iisService;
         FileSystemService fileSystemService;
         CompanyDBUpdateService companyDBUpdateService;
+        ISalesModulesConfiguratorService salesModulesConfiguratorService;
 
         ISettings settings;
         Queue<Request> requests = new Queue<Request>();
@@ -62,7 +63,8 @@ namespace Microarea.Mago4Butler.BL
             RegistryService registryService,
             IisService iisService,
             FileSystemService fileSystemService,
-            WcfService wcfService
+            WcfService wcfService,
+            ISalesModulesConfiguratorService salesModulesConfiguratorService
             )
         {
             this.settings = settings;
@@ -73,6 +75,7 @@ namespace Microarea.Mago4Butler.BL
             this.iisService = iisService;
             this.fileSystemService = fileSystemService;
             this.wcfService = wcfService;
+            this.salesModulesConfiguratorService = salesModulesConfiguratorService;
         }
 
         protected virtual void OnStarting()
@@ -469,6 +472,10 @@ namespace Microarea.Mago4Butler.BL
             this.registryService.RemoveInstallerFoldersKeys(currentRequest.RootFolder, currentRequest.Instance);
             OnNotification(new NotificationEventArgs() { Message = "Now the registry is clean" });
 
+            OnNotification(new NotificationEventArgs() { Message = "Configuring the application..." });
+            this.salesModulesConfiguratorService.ConfigureSalesModules(currentRequest.Instance);
+            OnNotification(new NotificationEventArgs() { Message = "Application configured" });
+
             OnNotification(new NotificationEventArgs() { Message = "Updating company database..." });
             this.companyDBUpdateService.UpdateCompanyDB(currentRequest.Instance);
             OnNotification(new NotificationEventArgs() { Message = "Company database successfully updated" });
@@ -517,6 +524,7 @@ namespace Microarea.Mago4Butler.BL
 
             OnNotification(new NotificationEventArgs() { Message = "Configuring the application..." });
             this.SaveServerConnectionConfig(currentRequest);
+            this.salesModulesConfiguratorService.ConfigureSalesModules(currentRequest.Instance);
             OnNotification(new NotificationEventArgs() { Message = "Application configured" });
 
             OnNotification(new NotificationEventArgs() { Message = "Creating settings.config file with wcf starting port..." });

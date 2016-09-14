@@ -10,6 +10,7 @@ using Microarea.Mago4Butler.BL;
 using Microarea.Mago4Butler.Plugins;
 using Microarea.Mago4Butler.Log;
 using Microarea.Mago4Butler.Automation;
+using WinApp = System.Windows.Forms.Application;
 
 namespace Microarea.Mago4Butler
 {
@@ -19,8 +20,8 @@ namespace Microarea.Mago4Butler
 
         public int Run()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+            WinApp.EnableVisualStyles();
+            WinApp.SetCompatibleTextRenderingDefault(false);
 
             try
             {
@@ -29,7 +30,7 @@ namespace Microarea.Mago4Butler
 
                 var mainForm = IoCContainer.Instance.Get<MainForm>();
 
-                Application.Run(mainForm);
+                WinApp.Run(mainForm);
             }
             catch (Exception exc)
             {

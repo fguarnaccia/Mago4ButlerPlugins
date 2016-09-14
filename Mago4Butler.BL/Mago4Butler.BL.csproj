@@ -105,9 +105,12 @@
     <Compile Include="IAdmConsoleToLaunchNameProvider.cs" />
     <Compile Include="InstallerServiceErrorEventArgs.cs" />
     <Compile Include="IProvisioningService.cs" />
+    <Compile Include="ISalesModulesConfiguratorService.cs" />
     <Compile Include="NoProvisioningService.cs" />
+    <Compile Include="NoSalesModulesConfigurationService.cs" />
     <Compile Include="NotificationEventArgs.cs" />
     <Compile Include="Mago4ProvisioningService.cs" />
+    <Compile Include="SalesModulesConfiguratorService.cs" />
     <Compile Include="ServerManagerTrait.cs" />
     <Compile Include="FileSystemService.cs" />
     <Compile Include="IisService.cs" />
