@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using WinApp = System.Windows.Forms.Application;
 
 namespace Microarea.Mago4Butler
 {
@@ -61,7 +62,7 @@ namespace Microarea.Mago4Butler
             )
         {
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-            Application.ThreadException += Application_ThreadException;
+            WinApp.ThreadException += Application_ThreadException;
 
             this.syncCtx = SynchronizationContext.Current;
             if (this.syncCtx == null)
@@ -85,7 +86,7 @@ namespace Microarea.Mago4Butler
             this.uiWaitingMinimized = uiWaitingMinimized;
             this.uiError = uiError;
 
-            Application.Idle += Application_Idle;
+            WinApp.Idle += Application_Idle;
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -100,7 +101,7 @@ namespace Microarea.Mago4Butler
 
         private void Application_Idle(object sender, EventArgs e)
         {
-            Application.Idle -= Application_Idle;
+            WinApp.Idle -= Application_Idle;
 
             this.Text = String.Format(System.Globalization.CultureInfo.InvariantCulture, "{0} v. {1}", this.Text, this.GetType().Assembly.GetName().Version.ToString());
 
