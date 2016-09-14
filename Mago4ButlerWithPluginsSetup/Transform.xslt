@@ -38,6 +38,10 @@
   <xsl:key name="PluginExample-search" match="wix:Component[contains(wix:File/@Source, 'PluginExample')]" use="@Id" />
   <xsl:template match="wix:Component[key('PluginExample-search', @Id)]" />
   <xsl:template match="wix:ComponentRef[key('PluginExample-search', @Id)]" />
+
+  <xsl:key name="NoTbs-search" match="wix:Component[contains(wix:File/@Source, 'Microarea.Mago4Butler.NoTbs')]" use="@Id" />
+  <xsl:template match="wix:Component[key('NoTbs-search', @Id)]" />
+  <xsl:template match="wix:ComponentRef[key('NoTbs-search', @Id)]" />
   
   <xsl:template match='wix:Component'>
     <xsl:copy>

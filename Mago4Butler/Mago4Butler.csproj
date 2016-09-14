@@ -283,6 +283,10 @@
       <Project>{2d2e7056-a199-4418-8040-1830bb6fa8d2}</Project>
       <Name>Mago4Butler.Plugins</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NoTbs\NoTbs.csproj">
+      <Project>{874a305e-40b6-4a11-97a0-6fd31c78f174}</Project>
+      <Name>NoTbs</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Telemetry\Telemetry.csproj">
       <Project>{6e13d76a-5412-4496-bda9-b4c403ef99fa}</Project>
       <Name>Telemetry</Name>
