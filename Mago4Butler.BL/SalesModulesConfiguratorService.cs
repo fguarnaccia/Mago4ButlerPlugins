@@ -12,18 +12,6 @@ namespace Microarea.Mago4Butler.BL
 {
     public class SalesModulesConfiguratorService : ISalesModulesConfiguratorService, ILogger
     {
-        class Application
-        {
-            public string Name { get; set; }
-            public List<Module> Modules { get; set; } = new List<Module>();
-        }
-
-        class Module
-        {
-            public string Name { get; set; }
-        }
-
-
         const string csmFileExtension = "csm";
         static List<Application> applications = InitApplications();
 
