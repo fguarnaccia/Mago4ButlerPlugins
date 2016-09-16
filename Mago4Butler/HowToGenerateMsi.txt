@@ -2,6 +2,7 @@
  - Mago4Butler\Properties\AssemblyInfo.cs
  - AutomaticUpdates\Properties\AssemblyInfo.cs
  - Telemetry\Properties\AssemblyInfo.cs
+ - Reporter\Properties\AssemblyInfo.cs
  - Mago4ButlerSetup\Files.wxs
  - Mago4ButlerWithPluginsSetup\Files.wxs
 
