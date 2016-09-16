@@ -1,18 +1,19 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagoRunnerPlugin", "MagoRunnerPlugin.csproj", "{DDF38A44-C6C7-4643-B991-68870B94E8E7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagoRunnerPlugin.MagoRunner", "MagoRunnerPlugin\MagoRunnerPlugin.MagoRunner.csproj", "{DDF38A44-C6C7-4643-B991-68870B94E8E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientSetupPlugin", "..\ClientSetupPlugin\ClientSetupPlugin.csproj", "{7B94404F-1303-4A5C-80DC-AE1467F3C0CF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientSetup", "ClientSetupPlugin\ClientSetup.csproj", "{7B94404F-1303-4A5C-80DC-AE1467F3C0CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MsiClassicModePlugin", "..\MsiClassicModePlugin\MsiClassicModePlugin.csproj", "{D7AF6322-4DAC-4D52-9051-EB023F83A5CA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MsiClassicModePlugin.MsiClassicMode", "MsiClassicModePlugin\MsiClassicModePlugin.MsiClassicMode.csproj", "{D7AF6322-4DAC-4D52-9051-EB023F83A5CA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D48D2E5F-8BCA-43C8-8FAF-0CBDC72B54E8}"
 	ProjectSection(SolutionItems) = preProject
 		..\deploy.bat = ..\deploy.bat
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VersionManager", "VersionManager\VersionManager.csproj", "{0FF997AA-E75E-48B6-ABEE-3BEE0D69852C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,22 +39,32 @@ Global
 		{D7AF6322-4DAC-4D52-9051-EB023F83A5CA}.Deploy|Any CPU.Build.0 = Deploy|Any CPU
 		{D7AF6322-4DAC-4D52-9051-EB023F83A5CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7AF6322-4DAC-4D52-9051-EB023F83A5CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FF997AA-E75E-48B6-ABEE-3BEE0D69852C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FF997AA-E75E-48B6-ABEE-3BEE0D69852C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FF997AA-E75E-48B6-ABEE-3BEE0D69852C}.Deploy|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FF997AA-E75E-48B6-ABEE-3BEE0D69852C}.Deploy|Any CPU.Build.0 = Debug|Any CPU
+		{0FF997AA-E75E-48B6-ABEE-3BEE0D69852C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FF997AA-E75E-48B6-ABEE-3BEE0D69852C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 4
+		SccNumberOfProjects = 5
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = http://tfs:8080/tfs/microarea
 		SccLocalPath0 = .
-		SccProjectUniqueName1 = MagoRunnerPlugin.csproj
-		SccLocalPath1 = .
-		SccProjectUniqueName2 = ..\\ClientSetupPlugin\\ClientSetupPlugin.csproj
-		SccProjectName2 = ../ClientSetupPlugin
-		SccLocalPath2 = ..\\ClientSetupPlugin
-		SccProjectUniqueName3 = ..\\MsiClassicModePlugin\\MsiClassicModePlugin.csproj
-		SccProjectName3 = ../MsiClassicModePlugin
-		SccLocalPath3 = ..\\MsiClassicModePlugin
+		SccProjectUniqueName1 = VersionManager\\VersionManager.csproj
+		SccProjectName1 = VersionManager
+		SccLocalPath1 = VersionManager
+		SccProjectUniqueName2 = ClientSetupPlugin\\ClientSetup.csproj
+		SccProjectName2 = ClientSetupPlugin
+		SccLocalPath2 = ClientSetupPlugin
+		SccProjectUniqueName3 = MagoRunnerPlugin\\MagoRunnerPlugin.MagoRunner.csproj
+		SccProjectName3 = MagoRunnerPlugin
+		SccLocalPath3 = MagoRunnerPlugin
+		SccProjectUniqueName4 = MsiClassicModePlugin\\MsiClassicModePlugin.MsiClassicMode.csproj
+		SccProjectName4 = MsiClassicModePlugin
+		SccLocalPath4 = MsiClassicModePlugin
 	EndGlobalSection
 EndGlobal

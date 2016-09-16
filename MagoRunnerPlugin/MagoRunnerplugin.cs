@@ -100,7 +100,6 @@ namespace MagoRunnerPlugin
             cmis.Add(cmi);
 
             cmi = new ContextMenuItem();
-
             cmi.Name = "runStandard";
             cmi.Text = "...Standard";
             cmi.ShortcutKeys = Keys.Control | Keys.S;
@@ -122,7 +121,7 @@ namespace MagoRunnerPlugin
                 );
             cmis.Add(cmi);
 
-            return cmis;
+             return cmis;
         
         }
 
@@ -266,6 +265,7 @@ namespace MagoRunnerPlugin
             fileName = Path.Combine(App.Instance.Settings.RootFolder, istanza.Name, @"Apps\ClickOnceDeployer\", executable);
             Process.Start(fileName, "ui");
         }
+
         bool IsMago4(string version)
         {
 
@@ -295,7 +295,10 @@ namespace MagoRunnerPlugin
 
             }
 
- 
+
+
+
+
     }
 }
 

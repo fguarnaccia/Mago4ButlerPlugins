@@ -28,8 +28,8 @@ namespace MsiClassicModePlugin
 
             //var FeatureCollection = new List<Feature>(listfeature.Features);
 
-
-            InitializeComponent();
+            
+           InitializeComponent();
 
             ListViewItem lvi = new ListViewItem();
 

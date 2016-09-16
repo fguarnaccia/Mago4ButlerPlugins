@@ -114,7 +114,7 @@ namespace MsiClassicModePlugin
         }
         public override void OnAskForParametersForInstall(AskForParametersBag bag)
         {
-
+            
           
             frmMsiClassicMode frm = new frmMsiClassicMode(false);
 
