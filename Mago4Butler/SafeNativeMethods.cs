@@ -73,5 +73,8 @@ namespace Microarea.Mago4Butler
 
         [DllImport("user32.dll", SetLastError = true)]
         internal static extern uint GetWindowThreadProcessId(IntPtr hWnd, out int lpdwProcessId);
+
+        [DllImport("shlwapi.dll")]
+        internal static extern bool PathIsNetworkPath(string pszPath);
     }
 }

@@ -88,6 +88,10 @@ namespace Microarea.Mago4Butler
             c = this.txtMsi;
             try
             {
+                if (SafeNativeMethods.PathIsNetworkPath(c.Text))
+                {
+                    throw new Exception("Network path is not allowed");
+                }
                 var msiFolderDirInfo = new DirectoryInfo(c.Text);
                 if (!msiFolderDirInfo.Exists)
                 {
