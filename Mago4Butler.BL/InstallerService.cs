@@ -467,6 +467,7 @@ namespace Microarea.Mago4Butler.BL
             }
 
             OnNotification(new NotificationEventArgs() { Message = "Cleaning registry..." });
+            Thread.Sleep(2000);//Wait for the msiexec process to unlock the msi file...
             this.msiZapper.ZapMsi(currentRequest.MsiPath);
             this.registryService.RemoveInstallationInfoKey(currentRequest.MsiPath);
             this.registryService.RemoveInstallerFoldersKeys(currentRequest.RootFolder, currentRequest.Instance);
@@ -517,6 +518,7 @@ namespace Microarea.Mago4Butler.BL
             }
 
             OnNotification(new NotificationEventArgs() { Message = "Cleaning registry..." });
+            Thread.Sleep(2000);//Wait for the msiexec process to unlock the msi file...
             this.msiZapper.ZapMsi(currentRequest.MsiPath);
             this.registryService.RemoveInstallationInfoKey(currentRequest.MsiPath);
             this.registryService.RemoveInstallerFoldersKeys(currentRequest.RootFolder, currentRequest.Instance);

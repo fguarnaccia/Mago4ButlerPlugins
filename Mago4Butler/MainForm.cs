@@ -343,38 +343,38 @@ namespace Microarea.Mago4Butler
 
         private void InstallerService_Stopped(object sender, EventArgs e)
         {
-            this.loggerService.LogInfo("Installer service stopped");
-            this.loggerService.LogInfo("--------------------------------------------------------------------------------");
-
-            bool uiWaitingMinimizedVisible = false;
-            this.syncCtx.Send((obj) =>  uiWaitingMinimizedVisible = this.uiWaitingMinimized.Visible, null);
-
-            if (uiWaitingMinimizedVisible)
+            this.syncCtx.Post((_) =>
             {
-                this.syncCtx.Post((obj) => this.uiWaitingMinimized.Visible = false, null);
-            }
-            else
-            {
-                var ui = (this.model.Instances.Count() == 0) ? this.uiEmpty as UserControl : this.uiNormalUse as UserControl;
-                ShowUI(ui);
-            }
+                this.loggerService.LogInfo("Installer service stopped");
+                this.loggerService.LogInfo("--------------------------------------------------------------------------------");
 
-            EnableDisableToolStripItem(this.tsbSettings, true);
-
-            foreach (var plugin in this.pluginService.Plugins)
-            {
-                if (plugin != null)
+                if (this.uiWaitingMinimized.Visible)
                 {
-                    try
+                    this.uiWaitingMinimized.Visible = false;
+                }
+                else
+                {
+                    var ui = (this.model.Instances.Count() == 0) ? this.uiEmpty as UserControl : this.uiNormalUse as UserControl;
+                    ShowUI(ui);
+                }
+
+                EnableDisableToolStripItem(this.tsbSettings, true);
+
+                foreach (var plugin in this.pluginService.Plugins)
+                {
+                    if (plugin != null)
                     {
-                        plugin.OnInstallerServiceStopped();
-                    }
-                    catch (Exception exc)
-                    {
-                        this.loggerService.LogError("Error notifing plugins about the installed service stopped event.", exc);
+                        try
+                        {
+                            plugin.OnInstallerServiceStopped();
+                        }
+                        catch (Exception exc)
+                        {
+                            this.loggerService.LogError("Error notifying plugins about the installed service stopped event.", exc);
+                        }
                     }
                 }
-            }
+            }, null);
         }
 
         private void InstallerService_Starting(object sender, EventArgs e)
