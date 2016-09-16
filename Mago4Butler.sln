@@ -49,6 +49,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OtherStuff", "OtherStuff", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoTbs", "NoTbs\NoTbs.csproj", "{874A305E-40B6-4A11-97A0-6FD31C78F174}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reporter", "Reporter\Reporter.csproj", "{8B507BD2-82D0-45B9-A232-B6A93B8F997A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -201,6 +203,14 @@ Global
 		{874A305E-40B6-4A11-97A0-6FD31C78F174}.Release|Any CPU.Build.0 = Release|Any CPU
 		{874A305E-40B6-4A11-97A0-6FD31C78F174}.Release|x86.ActiveCfg = Release|Any CPU
 		{874A305E-40B6-4A11-97A0-6FD31C78F174}.Release|x86.Build.0 = Release|Any CPU
+		{8B507BD2-82D0-45B9-A232-B6A93B8F997A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B507BD2-82D0-45B9-A232-B6A93B8F997A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B507BD2-82D0-45B9-A232-B6A93B8F997A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8B507BD2-82D0-45B9-A232-B6A93B8F997A}.Debug|x86.Build.0 = Debug|Any CPU
+		{8B507BD2-82D0-45B9-A232-B6A93B8F997A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B507BD2-82D0-45B9-A232-B6A93B8F997A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B507BD2-82D0-45B9-A232-B6A93B8F997A}.Release|x86.ActiveCfg = Release|Any CPU
+		{8B507BD2-82D0-45B9-A232-B6A93B8F997A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -222,9 +232,10 @@ Global
 		{3CB71368-55E5-4557-B12B-8E453398D2A3} = {E2FADDD4-6B16-4647-B0CF-88A5919F58A5}
 		{6E13D76A-5412-4496-BDA9-B4C403EF99FA} = {366B46EA-2F7E-4A3C-B501-0515CD8B3A10}
 		{874A305E-40B6-4A11-97A0-6FD31C78F174} = {366B46EA-2F7E-4A3C-B501-0515CD8B3A10}
+		{8B507BD2-82D0-45B9-A232-B6A93B8F997A} = {366B46EA-2F7E-4A3C-B501-0515CD8B3A10}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 20
+		SccNumberOfProjects = 21
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = http://tfs:8080/tfs/microarea
 		SccLocalPath0 = .
@@ -301,5 +312,9 @@ Global
 		SccProjectTopLevelParentUniqueName19 = Mago4Butler.sln
 		SccProjectName19 = NoTbs
 		SccLocalPath19 = NoTbs
+		SccProjectUniqueName20 = Reporter\\Reporter.csproj
+		SccProjectTopLevelParentUniqueName20 = Mago4Butler.sln
+		SccProjectName20 = Reporter
+		SccLocalPath20 = Reporter
 	EndGlobalSection
 EndGlobal

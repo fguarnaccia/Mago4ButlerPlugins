@@ -287,6 +287,10 @@
       <Project>{874a305e-40b6-4a11-97a0-6fd31c78f174}</Project>
       <Name>NoTbs</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Reporter\Reporter.csproj">
+      <Project>{8b507bd2-82d0-45b9-a232-b6a93b8f997a}</Project>
+      <Name>Reporter</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Telemetry\Telemetry.csproj">
       <Project>{6e13d76a-5412-4496-bda9-b4c403ef99fa}</Project>
       <Name>Telemetry</Name>
