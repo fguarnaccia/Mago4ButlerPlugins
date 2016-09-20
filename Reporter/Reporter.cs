@@ -11,11 +11,8 @@ using System.Threading.Tasks;
 
 namespace Microarea.Mago4Butler.Reporter
 {
-    public class Reporter : Mago4ButlerPlugin
+    public class Reporter : Mago4ButlerPlugin, IWorker<ReportData>
     {
-        readonly object lockTicket = new object();
-        Queue<ReportData> reportDatas = new Queue<ReportData>();
-
         string appVersion;
         string[] pluginsData;
 
@@ -23,37 +20,14 @@ namespace Microarea.Mago4Butler.Reporter
         {
             base.OnApplicationStarted();
 
+            this.Start();
+
             appVersion = App.Instance.GetVersion("Mago4Butler").ToString();
             pluginsData = App.Instance.GetPluginsData();
 
             AppDomain.CurrentDomain.FirstChanceException += CurrentDomain_FirstChanceException;
-
-            var thread = new Thread(() => ReporterThread());
-            thread.IsBackground = true;
-            thread.Start();
         }
-
-        void Enqueue(ReportData request)
-        {
-            lock (this.lockTicket)
-            {
-                this.reportDatas.Enqueue(request);
-            }
-        }
-        ReportData Dequeue()
-        {
-            lock (this.lockTicket)
-            {
-                if (this.reportDatas.Count > 0)
-                {
-                    return this.reportDatas.Dequeue();
-                }
-
-                return null;
-            }
-        }
-
-        private void ReporterThread()
+        public void OnRequestReceived(ReportData currentRequest)
         {
             using (var svc = new ReportService())
             {
@@ -62,25 +36,13 @@ namespace Microarea.Mago4Butler.Reporter
 #else
                 svc.Url = "http://spp-hotfix/PAASUpdates/ReportService.asmx";
 #endif
-                while (true)
-                {
-                    var currentReportData = this.Dequeue();
-
-                    while (currentReportData == null)
-                    {
-                        Thread.Sleep(1000);
-                        currentReportData = this.Dequeue();
-                    }
-
-                    svc.StoreReportData(currentReportData);
-                    Thread.Sleep(1000);//Not to DOS our server...
-                }
+                svc.StoreReportData(currentRequest);
             }
         }
 
         private void CurrentDomain_FirstChanceException(object sender, FirstChanceExceptionEventArgs e)
         {
-            Enqueue(new ReportData()
+            this.Enqueue(new ReportData()
             {
                 MachineName = Environment.MachineName,
                 OSVersion = Environment.OSVersion.ToString(),
