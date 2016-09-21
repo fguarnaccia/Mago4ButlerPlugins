@@ -50,6 +50,7 @@
             this.txtInstanceName.Name = "txtInstanceName";
             this.txtInstanceName.Size = new System.Drawing.Size(380, 20);
             this.txtInstanceName.TabIndex = 1;
+            this.txtInstanceName.Leave += new System.EventHandler(this.txtInstanceName_Leave);
             // 
             // lblInstanceName
             // 

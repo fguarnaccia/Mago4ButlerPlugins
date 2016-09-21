@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Windows.Forms;
 
 namespace VersionManager
 {
@@ -14,9 +15,9 @@ namespace VersionManager
     {
         static void Main(string[] args)
         {
-//#if DEBUG
-//            return;
-//#endif
+#if DEBUG
+            return;
+#endif
 
             string starVersionRegexPattern = "(?<major>[0-9]+)\\.(?<minor>[0-9]+)\\.\\*";
             Regex starVersionRegex = new Regex(starVersionRegexPattern);
@@ -26,11 +27,18 @@ namespace VersionManager
 
             string path = string.Empty;
 
+            //MessageBox.Show("args len: " + args.Length + ", values: " + string.Join(", ", args));
+
             if (args[0] == "POST")
             {
                SetPluginVersion(args[1] , args[2]);
+              
+                
                 return;
+
+
             }
+
             else
             {
                  path = args[0];

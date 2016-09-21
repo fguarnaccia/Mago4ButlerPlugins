@@ -28,8 +28,8 @@ namespace MsiClassicModePlugin
 
             //var FeatureCollection = new List<Feature>(listfeature.Features);
 
-            
-           InitializeComponent();
+
+            InitializeComponent();
 
             ListViewItem lvi = new ListViewItem();
 
@@ -38,16 +38,16 @@ namespace MsiClassicModePlugin
 
             //[CategoryAttribute("Advanced options"), DefaultValueAttribute(true)]
             propgrdSettings.SelectedObject = Properties.Settings.Default;
-            
+
             propgrdSettings.ToolbarVisible = false;
 
-                                                        //////foreach (var feat in listfeature.Features)
-                                                        //////{
-                                                        //////    lvi.SubItems.Add(feat.Name);
-                                                        //////    lvi.SubItems.Add(feat.Description);
+            //////foreach (var feat in listfeature.Features)
+            //////{
+            //////    lvi.SubItems.Add(feat.Name);
+            //////    lvi.SubItems.Add(feat.Description);
 
-                                                        //////    listFeature.Items.Add(lvi);
-                                                        //////}
+            //////    listFeature.Items.Add(lvi);
+            //////}
 
         }
 
@@ -96,30 +96,58 @@ namespace MsiClassicModePlugin
         }
 
 
+
+        private bool InstanceAlreadyExists(string NomeIstanza)
+        {
+            bool result = false;
+
+            //if (App.Instance.GetInstances().Contains < NomeIstanza >
+
+            //        App.Instance.GetInstances().Conta;
+
+
+            //App.Instance.GetInstances().Contains(s => s.)
+
+            foreach (var i in App.Instance.GetInstances())
+            {
+                if (i == NomeIstanza)
+                {
+                    result = true;
+                }
+
+            }
+            return result;
+        }
+
+
         private void frmMsiClassicMode_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (FieldsHaveErrors())
             { this.DialogResult = System.Windows.Forms.DialogResult.Cancel; }
 
         }
- 
 
 
-        private void btnSplitPanel_Click(object sender, EventArgs e)
-        {
-            //splitContainer1.Panel1MinSize = 0;
-       
-            //splitContainer1.Panel2Collapsed = !splitContainer1.Panel2Collapsed;
-            
-        }
 
         private void frmMsiClassicMode_Load(object sender, EventArgs e)
         {
             //splitContainer1.Panel2Collapsed = false;
             propgrdSettings.CollapseAllGridItems();
         }
+
+        private void txtInstanceName_Leave(object sender, EventArgs e)
+        {
+            errProvider.Clear();
+
+            if (InstanceAlreadyExists(txtInstanceName.Text))
+            {
+
+                errProvider.SetIconAlignment((TextBox)sender, ErrorIconAlignment.MiddleLeft);
+                errProvider.SetError((TextBox)sender, "Instance Already exists!");
+
+                return;
+            }
+        }
+
     }
-
-
-
 }
