@@ -350,10 +350,13 @@ namespace Microarea.Mago4Butler
 
                 if (this.uiWaitingMinimized.Visible)
                 {
+                    this.loggerService.LogInfo("uiWaitingMinimized is visible, I'm going to hide it...");
                     this.uiWaitingMinimized.Visible = false;
+                    this.loggerService.LogInfo("uiWaitingMinimized now should be no more visible.");
                 }
                 else
                 {
+                    this.loggerService.LogInfo("uiWaitingMinimized was not visible, nothing to do.");
                     var ui = (this.model.Instances.Count() == 0) ? this.uiEmpty as UserControl : this.uiNormalUse as UserControl;
                     ShowUI(ui);
                 }
