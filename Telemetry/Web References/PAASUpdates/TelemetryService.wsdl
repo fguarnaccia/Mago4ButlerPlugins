@@ -15,6 +15,7 @@
           <s:element minOccurs="0" maxOccurs="1" name="Mago4ButlerVersion" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="PluginsData" type="tns:ArrayOfPluginData" />
           <s:element minOccurs="1" maxOccurs="1" name="Event" type="tns:TelemetryEvent" />
+          <s:element minOccurs="0" maxOccurs="1" name="Data" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="ArrayOfPluginData">
@@ -32,6 +33,7 @@
         <s:restriction base="s:string">
           <s:enumeration value="None" />
           <s:enumeration value="ApplicationStartup" />
+          <s:enumeration value="ButtonClicked" />
         </s:restriction>
       </s:simpleType>
       <s:element name="StoreTelemetryDataResponse">

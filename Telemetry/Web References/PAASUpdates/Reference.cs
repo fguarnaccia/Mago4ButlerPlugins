@@ -135,6 +135,8 @@ namespace Microarea.Mago4Butler.Telemetry.PAASUpdates {
         
         private TelemetryEvent eventField;
         
+        private string dataField;
+        
         /// <remarks/>
         public string MachineName {
             get {
@@ -172,6 +174,16 @@ namespace Microarea.Mago4Butler.Telemetry.PAASUpdates {
             }
             set {
                 this.eventField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Data {
+            get {
+                return this.dataField;
+            }
+            set {
+                this.dataField = value;
             }
         }
     }
@@ -220,6 +232,9 @@ namespace Microarea.Mago4Butler.Telemetry.PAASUpdates {
         
         /// <remarks/>
         ApplicationStartup,
+        
+        /// <remarks/>
+        ButtonClicked,
     }
     
     /// <remarks/>
