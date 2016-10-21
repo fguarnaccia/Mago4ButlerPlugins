@@ -82,7 +82,12 @@ namespace Microarea.Mago4Butler
 
                 Bind<ISettings>().ToMethod(context => Settings.Default);
 
+                Bind<IUIMediator>().To<UIMediator>();
+
                 Bind<MainForm>().ToSelf();
+                Bind<AboutForm>().ToSelf();
+                Bind<SettingsForm>().ToSelf();
+                Bind<AskForParametersForm>().ToSelf();
                 Bind<UIEmpty>().ToSelf();
                 Bind<UIWaiting>().ToSelf();
                 Bind<UIWaitingMinimized>().ToSelf();

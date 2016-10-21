@@ -57,6 +57,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <UseVSHostingProcess>false</UseVSHostingProcess>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
@@ -112,11 +113,15 @@
     <Compile Include="IForrest.cs" />
     <Compile Include="IoC\IoCContainer.cs" />
     <Compile Include="IoC\Parameter.cs" />
+    <Compile Include="IUIMediator.cs" />
+    <Compile Include="MediatorEventArgs.cs" />
     <Compile Include="Plugins\IPluginTrait.cs" />
     <Compile Include="Plugins\PluginErrorEventArgs.cs" />
     <Compile Include="Plugins\PluginService.cs" />
+    <Compile Include="ProvisioningEventArgs.cs" />
     <Compile Include="SafeNativeMethods.cs" />
     <Compile Include="ShouldUseProvisioningProvider.cs" />
+    <Compile Include="UIMediator.cs" />
     <Compile Include="UIRunner.cs" />
     <Compile Include="UI\AboutForm.cs">
       <SubType>Form</SubType>
