@@ -24,8 +24,9 @@ namespace Microarea.DigitalSignerClient
                 SignFile(args[0]);
                 return 0;
             }
-            catch (Exception)
+            catch (Exception exc)
             {
+                Console.WriteLine(exc.ToString());
                 return 1;
             }
         }
@@ -34,7 +35,7 @@ namespace Microarea.DigitalSignerClient
         {
             using (var proxy = new DigitalSignerServer.DigitalSignerSoapClient())
             {
-                (proxy.Endpoint.Binding as BasicHttpBinding).MaxReceivedMessageSize = 10000000;
+                (proxy.Endpoint.Binding as BasicHttpBinding).MaxReceivedMessageSize = 100000000;
 # if DEBUG
                 proxy.Endpoint.Address = new EndpointAddress("http://localhost/DigitalSigner/DigitalSigner.asmx");
 #endif
