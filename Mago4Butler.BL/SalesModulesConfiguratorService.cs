@@ -17,10 +17,28 @@ namespace Microarea.Mago4Butler.BL
 
         private static List<Application> InitApplications()
         {
-            var app = new Application() { Name="TBF" };
+            var app = new Application() { Name="TBF", AppFolderName = "TBF" };
             app.Modules.Add(new Module() { Name= "JobScheduler" });
 
-            return new List<Application>() { app };
+            var erpProApp = new Application() { Name = "ERP-Pro", AppFolderName="ERP" };
+            erpProApp.Modules.Add(new Module() { Name= "Analysis and Controlling" });
+            erpProApp.Modules.Add(new Module() { Name= "BEOConnector" });
+            erpProApp.Modules.Add(new Module() { Name= "IBConnector" });
+            erpProApp.Modules.Add(new Module() { Name= "InfiniteCRM" });
+            erpProApp.Modules.Add(new Module() { Name= "InfinityConnector" });
+            erpProApp.Modules.Add(new Module() { Name= "TESANConnector" });
+            erpProApp.Modules.Add(new Module() { Name= "IMago" });
+            erpProApp.Modules.Add(new Module() { Name= "Manufacturing Mobile" });
+            erpProApp.Modules.Add(new Module() { Name= "WMS Mobile" });
+
+            var erpEntApp = new Application() { Name = "ERP-Ent", AppFolderName = "ERP" };
+            erpEntApp.Modules.Add(new Module() { Name = "IBConnector" });
+            erpEntApp.Modules.Add(new Module() { Name = "InfiniteCRM" });
+            erpEntApp.Modules.Add(new Module() { Name = "InfinityConnector" });
+            erpEntApp.Modules.Add(new Module() { Name = "TESANConnector" });
+            erpEntApp.Modules.Add(new Module() { Name = "IMago" });
+
+            return new List<Application>() { app, erpProApp, erpEntApp };
         }
 
         readonly ISettings settings;
@@ -40,7 +58,7 @@ namespace Microarea.Mago4Butler.BL
             FileInfo moduleFileInfo = null;
             foreach (var application in applications)
             {
-                modulesFolderPath = Path.Combine(applicationsFolderPath, application.Name, "Solutions", "Modules");
+                modulesFolderPath = Path.Combine(applicationsFolderPath, application.AppFolderName, "Solutions", "Modules");
 
                 foreach (var module in application.Modules)
                 {
