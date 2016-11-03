@@ -134,6 +134,9 @@ namespace Microarea.Mago4Butler.AutomaticUpdates {
         
         /// <remarks/>
         dll,
+
+        /// <remarks/>
+        exe,
     }
     
     /// <remarks/>

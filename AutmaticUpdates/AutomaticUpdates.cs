@@ -57,6 +57,7 @@ namespace Microarea.Mago4Butler.AutomaticUpdates
 
                 string pluginsFolderPath = App.Instance.GetPluginFolderPath();
                 string msiUpdateFileFullPath = null;
+                string exeUpdateFileFullPath = null;
                 foreach (var update in updates.Updates)
                 {
                     if (update.Type == type.dll)
@@ -74,11 +75,27 @@ namespace Microarea.Mago4Butler.AutomaticUpdates
                             msiUpdateFileFullPath = Path.Combine(localCacheForUpdates, file);
                         }
                     }
+                    else if (update.Type == type.exe)
+                    {
+                        foreach (var file in update.FileNames)
+                        {
+                            //Anche ui...lo so....ma anche un update con exe e` costituito da un solo file...per adesso
+                            exeUpdateFileFullPath = Path.Combine(localCacheForUpdates, file);
+                        }
+                    }
                 }
 
                 if (msiUpdateFileFullPath != null)
                 {
                     ThreadPool.QueueUserWorkItem((_) => Process.Start(msiUpdateFileFullPath));
+
+                    Thread.Sleep(500);
+
+                    App.Instance.ShutdownApplication();
+                }
+                else if (exeUpdateFileFullPath != null)
+                {
+                    ThreadPool.QueueUserWorkItem((_) => Process.Start(exeUpdateFileFullPath));
 
                     Thread.Sleep(500);
 

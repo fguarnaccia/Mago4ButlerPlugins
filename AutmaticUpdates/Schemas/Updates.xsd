@@ -52,6 +52,7 @@
     <xs:restriction base='xs:NMTOKEN'>
       <xs:enumeration value="msi"/>
       <xs:enumeration value="dll"/>
+      <xs:enumeration value="exe"/>
     </xs:restriction>
   </xs:simpleType>
   
