@@ -477,6 +477,10 @@ namespace Microarea.Mago4Butler.BL
             this.salesModulesConfiguratorService.ConfigureSalesModules(currentRequest.Instance);
             OnNotification(new NotificationEventArgs() { Message = "Application configured" });
 
+            OnNotification(new NotificationEventArgs() { Message = "Restarting Login Manager..." });
+            this.iisService.RestartLoginManager(currentRequest.Instance);
+            OnNotification(new NotificationEventArgs() { Message = "Login Manager restarted" });
+
             OnNotification(new NotificationEventArgs() { Message = "Updating company database..." });
             this.companyDBUpdateService.UpdateCompanyDB(currentRequest.Instance);
             OnNotification(new NotificationEventArgs() { Message = "Company database successfully updated" });
@@ -528,6 +532,10 @@ namespace Microarea.Mago4Butler.BL
             this.SaveServerConnectionConfig(currentRequest);
             this.salesModulesConfiguratorService.ConfigureSalesModules(currentRequest.Instance);
             OnNotification(new NotificationEventArgs() { Message = "Application configured" });
+
+            OnNotification(new NotificationEventArgs() { Message = "Restarting Login Manager..." });
+            this.iisService.RestartLoginManager(currentRequest.Instance);
+            OnNotification(new NotificationEventArgs() { Message = "Login Manager restarted" });
 
             OnNotification(new NotificationEventArgs() { Message = "Creating settings.config file with wcf starting port..." });
             this.wcfService.CreateSettingsConfigFile(currentRequest.Instance.Name, currentRequest.Instance.WcfStartPort);

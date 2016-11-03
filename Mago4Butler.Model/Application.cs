@@ -12,10 +12,5 @@ namespace Microarea.Mago4Butler.Model
         public string Name { get; set; }
         public List<Module> Modules { get; set; } = new List<Module>();
         public string AppFolderName { get; set; }
-
-        public Application()
-        {
-            AppFolderName = Name;
-        }
     }
 }

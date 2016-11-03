@@ -21,7 +21,7 @@ namespace Microarea.Mago4Butler.BL
             app.Modules.Add(new Module() { Name= "JobScheduler" });
 
             var erpProApp = new Application() { Name = "ERP-Pro", AppFolderName="ERP" };
-            erpProApp.Modules.Add(new Module() { Name= "Analysis and Controlling" });
+            erpProApp.Modules.Add(new Module() { Name= "Basel_II" });
             erpProApp.Modules.Add(new Module() { Name= "BEOConnector" });
             erpProApp.Modules.Add(new Module() { Name= "IBConnector" });
             erpProApp.Modules.Add(new Module() { Name= "InfiniteCRM" });
@@ -42,12 +42,10 @@ namespace Microarea.Mago4Butler.BL
         }
 
         readonly ISettings settings;
-        readonly IisService iisService;
 
-        public SalesModulesConfiguratorService(ISettings settings, IisService iisService)
+        public SalesModulesConfiguratorService(ISettings settings)
         {
             this.settings = settings;
-            this.iisService = iisService;
         }
         public void ConfigureSalesModules(Instance instance)
         {
@@ -85,8 +83,6 @@ namespace Microarea.Mago4Butler.BL
                     }
                 }
             }
-
-            this.iisService.RestartLoginManager(instance);
         }
     }
 }
