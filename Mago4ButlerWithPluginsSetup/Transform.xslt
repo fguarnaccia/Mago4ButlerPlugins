@@ -42,6 +42,26 @@
   <xsl:key name="NoTbs-search" match="wix:Component[contains(wix:File/@Source, 'Microarea.Mago4Butler.NoTbs')]" use="@Id" />
   <xsl:template match="wix:Component[key('NoTbs-search', @Id)]" />
   <xsl:template match="wix:ComponentRef[key('NoTbs-search', @Id)]" />
+
+  <xsl:key name="NoCefPak-search" match="wix:Component[contains(wix:File/@Source, 'cef.pak')]" use="@Id" />
+  <xsl:template match="wix:Component[key('NoCefPak-search', @Id)]" />
+  <xsl:template match="wix:ComponentRef[key('NoCefPak-search', @Id)]" />
+  
+  <xsl:key name="NoCefPakExtensions-search" match="wix:Component[contains(wix:File/@Source, 'cef_extensions.pak')]" use="@Id" />
+  <xsl:template match="wix:Component[key('NoCefPakExtensions-search', @Id)]" />
+  <xsl:template match="wix:ComponentRef[key('NoCefPakExtensions-search', @Id)]" />
+  
+  <xsl:key name="Nod3dcompiler_43-search" match="wix:Component[contains(wix:File/@Source, 'd3dcompiler_43.dll')]" use="@Id" />
+  <xsl:template match="wix:Component[key('Nod3dcompiler_43-search', @Id)]" />
+  <xsl:template match="wix:ComponentRef[key('Nod3dcompiler_43-search', @Id)]" />
+  
+  <xsl:key name="Nodevtools_resources-search" match="wix:Component[contains(wix:File/@Source, 'devtools_resources.pak')]" use="@Id" />
+  <xsl:template match="wix:Component[key('Nodevtools_resources-search', @Id)]" />
+  <xsl:template match="wix:ComponentRef[key('Nodevtools_resources-search', @Id)]" />
+  
+  <xsl:key name="Nowidevinecdmadapter-search" match="wix:Component[contains(wix:File/@Source, 'widevinecdmadapter.dll')]" use="@Id" />
+  <xsl:template match="wix:Component[key('Nowidevinecdmadapter-search', @Id)]" />
+  <xsl:template match="wix:ComponentRef[key('Nowidevinecdmadapter-search', @Id)]" />
   
   <xsl:template match='wix:Component'>
     <xsl:copy>

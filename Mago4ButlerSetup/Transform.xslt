@@ -50,6 +50,40 @@
   <xsl:key name="OtherPlugins-search" match="wix:Component[contains(wix:File/@Source, 'plgn')]" use="@Id" />
   <xsl:template match="wix:Component[key('OtherPlugins-search', @Id)]" />
   <xsl:template match="wix:ComponentRef[key('OtherPlugins-search', @Id)]" />
+
+  <xsl:key name="NoCefPak-search" match="wix:Component[contains(wix:File/@Source, '.pak')]" use="@Id" />
+  <xsl:template match="wix:Component[key('NoCefPak-search', @Id)]" />
+  <xsl:template match="wix:ComponentRef[key('NoCefPak-search', @Id)]" />
+
+  <xsl:key name="NoCefBin-search" match="wix:Component[contains(wix:File/@Source, '.bin')]" use="@Id" />
+  <xsl:template match="wix:Component[key('NoCefBin-search', @Id)]" />
+  <xsl:template match="wix:ComponentRef[key('NoCefBin-search', @Id)]" />
+
+  <xsl:key name="NoCefDat-search" match="wix:Component[contains(wix:File/@Source, '.dat')]" use="@Id" />
+  <xsl:template match="wix:Component[key('NoCefDat-search', @Id)]" />
+  <xsl:template match="wix:ComponentRef[key('NoCefDat-search', @Id)]" />
+
+  <xsl:key name="NoCefSharp-search" match="wix:Component[contains(wix:File/@Source, 'CefSharp')]" use="@Id" />
+  <xsl:template match="wix:Component[key('NoCefSharp-search', @Id)]" />
+  <xsl:template match="wix:ComponentRef[key('NoCefSharp-search', @Id)]" />
+
+  <xsl:key name="Nod3dcompiler-search" match="wix:Component[contains(wix:File/@Source, 'd3dcompiler')]" use="@Id" />
+  <xsl:template match="wix:Component[key('Nod3dcompiler-search', @Id)]" />
+  <xsl:template match="wix:ComponentRef[key('Nod3dcompiler-search', @Id)]" />
+
+  <xsl:key name="Nolibcef-search" match="wix:Component[contains(wix:File/@Source, 'libcef.dll')]" use="@Id" />
+  <xsl:template match="wix:Component[key('Nolibcef-search', @Id)]" />
+  <xsl:template match="wix:ComponentRef[key('Nolibcef-search', @Id)]" />
+
+  <xsl:key name="NolibEGL-search" match="wix:Component[contains(wix:File/@Source, 'libEGL.dll')]" use="@Id" />
+  <xsl:template match="wix:Component[key('NolibEGL-search', @Id)]" />
+  <xsl:template match="wix:ComponentRef[key('NolibEGL-search', @Id)]" />
+
+  <xsl:key name="NolibGLESv2-search" match="wix:Component[contains(wix:File/@Source, 'libGLESv2.dll')]" use="@Id" />
+  <xsl:template match="wix:Component[key('NolibGLESv2-search', @Id)]" />
+  <xsl:template match="wix:ComponentRef[key('NolibGLESv2-search', @Id)]" />
+  
+  
   
   <xsl:template match='wix:Component'>
     <xsl:copy>

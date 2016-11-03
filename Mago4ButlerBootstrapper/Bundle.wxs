@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:bal="http://schemas.microsoft.com/wix/BalExtension">
+	<Bundle
+    Name="Mago4 Butler"
+    Version="$(var.ProductVersion)"
+    Manufacturer="Microarea"
+    IconSourceFile="../Mago4Butler/img/Logo.ico"
+    UpgradeCode="764d7af8-bc01-4a88-82a5-d6eed6e2196e"
+    Compressed="yes"
+    >
+    <BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.HyperlinkLicense">
+      <bal:WixStandardBootstrapperApplication
+          LicenseUrl=""
+          ShowVersion="yes"
+          SuppressOptionsUI="yes"
+          LogoFile="../Mago4Butler/img/Logo.png"
+          ThemeFile="customtheme.xml"
+        />
+    </BootstrapperApplicationRef>
+
+		<Chain>
+			<ExePackage
+          Compressed="yes"
+          Description="This package installs Microsoft Visual C++ Runtime 2013 x86"
+          DisplayName="Microsoft Visual C++ Runtime 2013 x86"
+          Id="MVCPP2013X86"
+          SourceFile=".\res\vcredist_x86.exe"
+          Vital="yes"
+          />
+      <ExePackage
+          Compressed="yes"
+          Description="This package installs Microsoft Visual C++ Runtime 2013 x64"
+          DisplayName="Microsoft Visual C++ Runtime 2013 x64"
+          Id="MVCPP2013X64"
+          SourceFile=".\res\vcredist_x64.exe"
+          Vital="yes"
+          />
+      <MsiPackage
+          Compressed="yes"
+          Description="This package installs Mago4 Butler"
+          DisplayInternalUI="no"
+          DisplayName="Mago4 Butler Setup"
+          ForcePerMachine="yes"
+          Id="Mago4ButlerMsi"
+          SourceFile="..\Mago4ButlerWithPluginsSetup\bin\Release\Mago4ButlerWithPluginsSetup.msi"
+          Vital="yes"
+          />
+		</Chain>
+	</Bundle>
+</Wix>

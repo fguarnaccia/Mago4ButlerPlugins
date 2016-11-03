@@ -51,6 +51,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoTbs", "NoTbs\NoTbs.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reporter", "Reporter\Reporter.csproj", "{8B507BD2-82D0-45B9-A232-B6A93B8F997A}"
 EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Mago4ButlerBootstrapper", "Mago4ButlerBootstrapper\Mago4ButlerBootstrapper.wixproj", "{FBB3184C-9ED3-4441-BEE9-F129D3FBC542}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -211,6 +213,11 @@ Global
 		{8B507BD2-82D0-45B9-A232-B6A93B8F997A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8B507BD2-82D0-45B9-A232-B6A93B8F997A}.Release|x86.ActiveCfg = Release|Any CPU
 		{8B507BD2-82D0-45B9-A232-B6A93B8F997A}.Release|x86.Build.0 = Release|Any CPU
+		{FBB3184C-9ED3-4441-BEE9-F129D3FBC542}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{FBB3184C-9ED3-4441-BEE9-F129D3FBC542}.Debug|x86.ActiveCfg = Debug|x86
+		{FBB3184C-9ED3-4441-BEE9-F129D3FBC542}.Release|Any CPU.ActiveCfg = Release|x86
+		{FBB3184C-9ED3-4441-BEE9-F129D3FBC542}.Release|x86.ActiveCfg = Release|x86
+		{FBB3184C-9ED3-4441-BEE9-F129D3FBC542}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -233,9 +240,10 @@ Global
 		{6E13D76A-5412-4496-BDA9-B4C403EF99FA} = {366B46EA-2F7E-4A3C-B501-0515CD8B3A10}
 		{874A305E-40B6-4A11-97A0-6FD31C78F174} = {366B46EA-2F7E-4A3C-B501-0515CD8B3A10}
 		{8B507BD2-82D0-45B9-A232-B6A93B8F997A} = {366B46EA-2F7E-4A3C-B501-0515CD8B3A10}
+		{FBB3184C-9ED3-4441-BEE9-F129D3FBC542} = {807CBFB5-AB06-4AD2-BD86-9083B92B7504}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 21
+		SccNumberOfProjects = 22
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = http://tfs:8080/tfs/microarea
 		SccLocalPath0 = .
@@ -316,5 +324,9 @@ Global
 		SccProjectTopLevelParentUniqueName20 = Mago4Butler.sln
 		SccProjectName20 = Reporter
 		SccLocalPath20 = Reporter
+		SccProjectUniqueName21 = Mago4ButlerBootstrapper\\Mago4ButlerBootstrapper.wixproj
+		SccProjectTopLevelParentUniqueName21 = Mago4Butler.sln
+		SccProjectName21 = Mago4ButlerBootstrapper
+		SccLocalPath21 = Mago4ButlerBootstrapper
 	EndGlobalSection
 EndGlobal
