@@ -110,6 +110,7 @@ namespace Microarea.Mago4Butler
         private void ManageException(Exception e)
         {
             this.loggerService.LogError("Application error", e);
+            this.OnJobNotification(new JobEventArgs() { Error = e });
         }
 
         private void Application_Idle(object sender, EventArgs e)

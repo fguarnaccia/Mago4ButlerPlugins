@@ -84,7 +84,6 @@ namespace Microarea.Mago4Butler
 
                 Bind<IUIMediator>().To<UIMediator>();
 
-                Bind<MainForm>().ToSelf();
                 Bind<AboutForm>().ToSelf();
                 Bind<SettingsForm>().ToSelf();
                 Bind<AskForParametersForm>().ToSelf();
@@ -93,6 +92,28 @@ namespace Microarea.Mago4Butler
                 Bind<UIWaitingMinimized>().ToSelf();
                 Bind<UINormalUse>().ToSelf();
                 Bind<UIError>().ToSelf();
+
+                Bind<ContextMenuHandler>().ToSelf();
+                Bind<ButlerSchemeHandlerFactory>().ToSelf();
+
+                //Bind<System.Windows.Forms.Form>().To<MainForm>();
+                Bind<System.Windows.Forms.Form>()
+                    .To<MainForm>()
+                    .When(
+                    (r) =>
+                    {
+                        var svc = this.Kernel.Get<ShouldUseProvisioningProvider>();
+                        return svc.ShouldUseProvisioning;
+                    });
+                Bind<System.Windows.Forms.Form>()
+                    .To<CefForm>()
+                    .When(
+                    (r) =>
+                    {
+                        var svc = this.Kernel.Get<ShouldUseProvisioningProvider>();
+                        return !svc.ShouldUseProvisioning;
+                    });
+
 
                 Bind<Batch>().ToSelf();
 

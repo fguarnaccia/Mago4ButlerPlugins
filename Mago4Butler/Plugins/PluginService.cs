@@ -64,6 +64,16 @@ namespace Microarea.Mago4Butler
             List<string> pluginsFailedToLoad = new List<string>();
             foreach (var dllFileInfo in new DirectoryInfo(PluginsPath).GetFiles("*.dll"))
             {
+#warning TODO CEF
+                if (
+                    dllFileInfo.Name.StartsWith("cef", StringComparison.InvariantCultureIgnoreCase) ||
+                    dllFileInfo.Name.StartsWith("d3", StringComparison.InvariantCultureIgnoreCase) ||
+                    dllFileInfo.Name.StartsWith("lib", StringComparison.InvariantCultureIgnoreCase) ||
+                    dllFileInfo.Name.StartsWith("widev", StringComparison.InvariantCultureIgnoreCase)
+                    )
+                {
+                    continue;
+                }
                 try
                 {
                     plugin = LoadPlugin(dllFileInfo);

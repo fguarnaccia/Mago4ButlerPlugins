@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\CefSharp.WinForms.53.0.0\build\CefSharp.WinForms.props" Condition="Exists('..\packages\CefSharp.WinForms.53.0.0\build\CefSharp.WinForms.props')" />
+  <Import Project="..\packages\CefSharp.Common.53.0.0\build\CefSharp.Common.props" Condition="Exists('..\packages\CefSharp.Common.53.0.0\build\CefSharp.Common.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -17,6 +19,8 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -106,105 +110,117 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdmConsoleToLaunchNameProvider.cs" />
+    <Compile Include="Providers\AdmConsoleToLaunchNameProvider.cs" />
     <Compile Include="AskForParametersBag.cs" />
-    <Compile Include="ConsoleRunner.cs" />
-    <Compile Include="ConsoleWrapper.cs" />
+    <Compile Include="UIWeb\CefForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIWeb\CefForm.Designer.cs">
+      <DependentUpon>CefForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Runners\ConsoleRunner.cs" />
+    <Compile Include="UIConsole\ConsoleWrapper.cs" />
     <Compile Include="IForrest.cs" />
     <Compile Include="IoC\IoCContainer.cs" />
     <Compile Include="IoC\Parameter.cs" />
     <Compile Include="IUIMediator.cs" />
-    <Compile Include="MediatorEventArgs.cs" />
+    <Compile Include="EventArgs\MediatorEventArgs.cs" />
     <Compile Include="Plugins\IPluginTrait.cs" />
     <Compile Include="Plugins\PluginErrorEventArgs.cs" />
     <Compile Include="Plugins\PluginService.cs" />
-    <Compile Include="ProvisioningEventArgs.cs" />
+    <Compile Include="EventArgs\ProvisioningEventArgs.cs" />
     <Compile Include="SafeNativeMethods.cs" />
-    <Compile Include="ShouldUseProvisioningProvider.cs" />
+    <Compile Include="UIWeb\ContextMenuHandler.cs" />
+    <Compile Include="UIWeb\ButlerSchemeHandler.cs" />
+    <Compile Include="UIWeb\ButlerSchemeHandlerFactory.cs" />
+    <Compile Include="Providers\ShouldUseProvisioningProvider.cs" />
     <Compile Include="UIMediator.cs" />
-    <Compile Include="UIRunner.cs" />
-    <Compile Include="UI\AboutForm.cs">
+    <Compile Include="Runners\UIRunner.cs" />
+    <Compile Include="UIForms\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\AboutForm.Designer.cs">
+    <Compile Include="UIForms\AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\AskConfirmationForUninstallForm.cs">
+    <Compile Include="UIForms\AskConfirmationForUninstallForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\AskConfirmationForUninstallForm.Designer.cs">
+    <Compile Include="UIForms\AskConfirmationForUninstallForm.Designer.cs">
       <DependentUpon>AskConfirmationForUninstallForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\AskForParametersForm.cs">
+    <Compile Include="UIForms\AskForParametersForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\AskForParametersForm.Designer.cs">
+    <Compile Include="UIForms\AskForParametersForm.Designer.cs">
       <DependentUpon>AskForParametersForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainForm.cs">
+    <Compile Include="UIForms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="UIForms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI\ChooseRootFolderForm.cs">
+    <Compile Include="UIForms\ChooseRootFolderForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\ChooseRootFolderForm.Designer.cs">
+    <Compile Include="UIForms\ChooseRootFolderForm.Designer.cs">
       <DependentUpon>ChooseRootFolderForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\InstanceComparer.cs" />
-    <Compile Include="UI\ListViewSortManager.cs" />
-    <Compile Include="UI\NumericTextboxBehaviour.cs" />
-    <Compile Include="UI\SettingsForm.cs">
+    <Compile Include="UIForms\InstanceComparer.cs" />
+    <Compile Include="UIForms\ListViewSortManager.cs" />
+    <Compile Include="UIForms\NumericTextboxBehaviour.cs" />
+    <Compile Include="UIForms\SettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\SettingsForm.Designer.cs">
+    <Compile Include="UIForms\SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\TextBoxCueDecorator.cs" />
-    <Compile Include="UI\UIEmpty.cs">
+    <Compile Include="UIForms\TextBoxCueDecorator.cs" />
+    <Compile Include="UIForms\UIEmpty.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\UIEmpty.Designer.cs">
+    <Compile Include="UIForms\UIEmpty.Designer.cs">
       <DependentUpon>UIEmpty.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\UIError.cs">
+    <Compile Include="UIForms\UIError.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\UIError.Designer.cs">
+    <Compile Include="UIForms\UIError.Designer.cs">
       <DependentUpon>UIError.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\UINormalUse.cs">
+    <Compile Include="UIForms\UINormalUse.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\UINormalUse.Designer.cs">
+    <Compile Include="UIForms\UINormalUse.Designer.cs">
       <DependentUpon>UINormalUse.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\UIWaiting.cs">
+    <Compile Include="UIForms\UIWaiting.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\UIWaiting.Designer.cs">
+    <Compile Include="UIForms\UIWaiting.Designer.cs">
       <DependentUpon>UIWaiting.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\UIWaitingMinimized.cs">
+    <Compile Include="UIForms\UIWaitingMinimized.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\UIWaitingMinimized.Designer.cs">
+    <Compile Include="UIForms\UIWaitingMinimized.Designer.cs">
       <DependentUpon>UIWaitingMinimized.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="UI\AboutForm.resx">
+    <EmbeddedResource Include="UIWeb\CefForm.resx">
+      <DependentUpon>CefForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIForms\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\AskConfirmationForUninstallForm.resx">
+    <EmbeddedResource Include="UIForms\AskConfirmationForUninstallForm.resx">
       <DependentUpon>AskConfirmationForUninstallForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\AskForParametersForm.resx">
+    <EmbeddedResource Include="UIForms\AskForParametersForm.resx">
       <DependentUpon>AskForParametersForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="UIForms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -217,25 +233,25 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="UI\ChooseRootFolderForm.resx">
+    <EmbeddedResource Include="UIForms\ChooseRootFolderForm.resx">
       <DependentUpon>ChooseRootFolderForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\SettingsForm.resx">
+    <EmbeddedResource Include="UIForms\SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\UIEmpty.resx">
+    <EmbeddedResource Include="UIForms\UIEmpty.resx">
       <DependentUpon>UIEmpty.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\UIError.resx">
+    <EmbeddedResource Include="UIForms\UIError.resx">
       <DependentUpon>UIError.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\UINormalUse.resx">
+    <EmbeddedResource Include="UIForms\UINormalUse.resx">
       <DependentUpon>UINormalUse.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\UIWaiting.resx">
+    <EmbeddedResource Include="UIForms\UIWaiting.resx">
       <DependentUpon>UIWaiting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\UIWaitingMinimized.resx">
+    <EmbeddedResource Include="UIForms\UIWaitingMinimized.resx">
       <DependentUpon>UIWaitingMinimized.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.manifest" />
@@ -303,11 +319,27 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="HowToGenerateMsi.txt" />
+    <None Include="UIWeb\web-res\Index.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>$(SolutionDir)VersionManager\bin\$(ConfigurationName)\VersionManager.exe $(ProjectDir)Properties\AssemblyInfo.cs</PreBuildEvent>
   </PropertyGroup>
+  <Import Project="..\packages\cef.redist.x64.3.2785.1482\build\cef.redist.x64.targets" Condition="Exists('..\packages\cef.redist.x64.3.2785.1482\build\cef.redist.x64.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\cef.redist.x64.3.2785.1482\build\cef.redist.x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cef.redist.x64.3.2785.1482\build\cef.redist.x64.targets'))" />
+    <Error Condition="!Exists('..\packages\cef.redist.x86.3.2785.1482\build\cef.redist.x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\cef.redist.x86.3.2785.1482\build\cef.redist.x86.targets'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.Common.53.0.0\build\CefSharp.Common.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.53.0.0\build\CefSharp.Common.props'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.Common.53.0.0\build\CefSharp.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.Common.53.0.0\build\CefSharp.Common.targets'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.WinForms.53.0.0\build\CefSharp.WinForms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.WinForms.53.0.0\build\CefSharp.WinForms.props'))" />
+    <Error Condition="!Exists('..\packages\CefSharp.WinForms.53.0.0\build\CefSharp.WinForms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CefSharp.WinForms.53.0.0\build\CefSharp.WinForms.targets'))" />
+  </Target>
+  <Import Project="..\packages\cef.redist.x86.3.2785.1482\build\cef.redist.x86.targets" Condition="Exists('..\packages\cef.redist.x86.3.2785.1482\build\cef.redist.x86.targets')" />
+  <Import Project="..\packages\CefSharp.Common.53.0.0\build\CefSharp.Common.targets" Condition="Exists('..\packages\CefSharp.Common.53.0.0\build\CefSharp.Common.targets')" />
+  <Import Project="..\packages\CefSharp.WinForms.53.0.0\build\CefSharp.WinForms.targets" Condition="Exists('..\packages\CefSharp.WinForms.53.0.0\build\CefSharp.WinForms.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

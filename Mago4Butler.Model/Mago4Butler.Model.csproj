@@ -37,6 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="YamlDotNet">
       <HintPath>..\packages\YamlDotNet.3.8.0\lib\dotnet\YamlDotNet.dll</HintPath>
     </Reference>
