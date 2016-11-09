@@ -110,8 +110,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MainUIFactory.cs" />
     <Compile Include="Providers\AdmConsoleToLaunchNameProvider.cs" />
     <Compile Include="AskForParametersBag.cs" />
+    <Compile Include="IMainUI.cs" />
     <Compile Include="UIWeb\CefForm.cs">
       <SubType>Form</SubType>
     </Compile>

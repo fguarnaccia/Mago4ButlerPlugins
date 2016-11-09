@@ -14,7 +14,7 @@ using Microarea.Mago4Butler.Model;
 
 namespace Microarea.Mago4Butler
 {
-    public partial class CefForm : Form
+    public partial class CefForm : Form, IMainUI
     {
         Model.Model model;
         IUIMediator uiMediator;

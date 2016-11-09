@@ -16,21 +16,29 @@ namespace Microarea.Mago4Butler
 {
     internal class UIRunner : IForrest, ILogger
     {
-        AppAutomationServer appAutomationServer = new AppAutomationServer();
+        AppAutomationServer appAutomationServer;
+        PluginService pluginService;
+        MainUIFactory mainUIFactory;
+
+        public UIRunner(PluginService pluginService, MainUIFactory mainUIFactory, AppAutomationServer appAutomationServer)
+        {
+            this.pluginService = pluginService;
+            this.mainUIFactory = mainUIFactory;
+            this.appAutomationServer = appAutomationServer;
+        }
 
         public int Run()
         {
             WinApp.EnableVisualStyles();
             WinApp.SetCompatibleTextRenderingDefault(false);
 
+            pluginService.PluginsLoaded += PluginService_PluginsLoaded;
+
             try
             {
-                var pluginService = IoCContainer.Instance.Get<PluginService>();
-                pluginService.PluginsLoaded += PluginService_PluginsLoaded;
+                var mainUI = mainUIFactory.CreateMainUI();
 
-                var mainForm = IoCContainer.Instance.Get<Form>();
-
-                WinApp.Run(mainForm);
+                WinApp.Run(mainUI as Form);
             }
             catch (Exception exc)
             {

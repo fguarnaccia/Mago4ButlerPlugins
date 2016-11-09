@@ -18,7 +18,7 @@ namespace Microarea.Mago4Butler
         {
             public override void Load()
             {
-                Bind<Model.Model>()
+               Bind<Model.Model>()
                     .ToMethod(context =>
                     {
                         var settings = context.Kernel.Get<ISettings>();
@@ -96,8 +96,9 @@ namespace Microarea.Mago4Butler
                 Bind<ContextMenuHandler>().ToSelf();
                 Bind<ButlerSchemeHandlerFactory>().ToSelf();
 
-                //Bind<System.Windows.Forms.Form>().To<MainForm>();
-                Bind<System.Windows.Forms.Form>()
+                Bind<MainUIFactory>().ToSelf();
+
+                Bind<IMainUI>()
                     .To<MainForm>()
                     .When(
                     (r) =>
@@ -105,7 +106,7 @@ namespace Microarea.Mago4Butler
                         var svc = this.Kernel.Get<ShouldUseProvisioningProvider>();
                         return svc.ShouldUseProvisioning;
                     });
-                Bind<System.Windows.Forms.Form>()
+                Bind<IMainUI>()
                     .To<CefForm>()
                     .When(
                     (r) =>
