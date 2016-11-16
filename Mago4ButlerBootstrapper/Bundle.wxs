@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:bal="http://schemas.microsoft.com/wix/BalExtension">
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:bal="http://schemas.microsoft.com/wix/BalExtension" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
 	<Bundle
     Name="Mago4 Butler"
     Version="$(var.ProductVersion)"
@@ -8,6 +8,12 @@
     UpgradeCode="764d7af8-bc01-4a88-82a5-d6eed6e2196e"
     Compressed="yes"
     >
+
+    <util:FileSearchRef Id="GetVC12X86onX64Exists"/>
+    <util:FileSearchRef Id="GetVC12X86onX64Version"/>
+    <util:FileSearchRef Id="GetVC12X86onX86Exists"/>
+    <util:FileSearchRef Id="GetVC12X86onX86Version"/>
+
     <BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.HyperlinkLicense">
       <bal:WixStandardBootstrapperApplication
           LicenseUrl=""
@@ -19,22 +25,25 @@
     </BootstrapperApplicationRef>
 
 		<Chain>
-			<ExePackage
+      <ExePackage
+          Cache="no"
           Compressed="yes"
+          PerMachine="yes"
+          Permanent="yes"
           Description="This package installs Microsoft Visual C++ Runtime 2013 x86"
           DisplayName="Microsoft Visual C++ Runtime 2013 x86"
           Id="MVCPP2013X86"
           SourceFile=".\res\vcredist_x86.exe"
           Vital="yes"
-          />
-      <ExePackage
-          Compressed="yes"
-          Description="This package installs Microsoft Visual C++ Runtime 2013 x64"
-          DisplayName="Microsoft Visual C++ Runtime 2013 x64"
-          Id="MVCPP2013X64"
-          SourceFile=".\res\vcredist_x64.exe"
-          Vital="yes"
-          />
+          InstallCommand="/install /quiet /norestart"
+          DetectCondition="vc12x86Exists AND vc12x86Version &gt;= 12"
+          Name="res\vcredist_x86.exe"
+          >
+        <!-- -->
+        <ExitCode Value="3010" Behavior="forceReboot"/>
+        <!-- Ignore "Newer version installed" error -->
+        <ExitCode Value="1638" Behavior="success"/>
+      </ExePackage>
       <MsiPackage
           Compressed="yes"
           Description="This package installs Mago4 Butler"
@@ -47,4 +56,11 @@
           />
 		</Chain>
 	</Bundle>
+  <Fragment>
+    <!-- Detect existing version of VC ++ 2013 x86 libraries -->
+    <util:FileSearch Id="GetVC12X86onX64Exists" Condition="VersionNT64" Variable="vc12x86Exists" Path="[System64Folder]vcruntime120.dll" Result="exists"/>
+    <util:FileSearch Id="GetVC12X86onX64Version" Condition="VersionNT64" Variable="vc12x86Version" Path="[System64Folder]vcruntime120.dll" Result="version"/>
+    <util:FileSearch Id="GetVC12X86onX86Exists" Condition="NOT VersionNT64" Variable="vc12x86Exists" Path="[SystemFolder]vcruntime120.dll" Result="exists"/>
+    <util:FileSearch Id="GetVC12X86onX86Version" Condition="NOT VersionNT64" Variable="vc12x86Version" Path="[SystemFolder]vcruntime120.dll" Result="version"/>
+  </Fragment>
 </Wix>

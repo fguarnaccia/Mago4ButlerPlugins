@@ -29,6 +29,10 @@
     <Compile Include="Bundle.wxs" />
   </ItemGroup>
   <ItemGroup>
+    <WixExtension Include="WixUtilExtension">
+      <HintPath>$(WixExtDir)\WixUtilExtension.dll</HintPath>
+      <Name>WixUtilExtension</Name>
+    </WixExtension>
     <WixExtension Include="WixBalExtension">
       <HintPath>$(WixExtDir)\WixBalExtension.dll</HintPath>
       <Name>WixBalExtension</Name>
@@ -48,7 +52,6 @@
     <Folder Include="res" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\vcredist_x64.exe" />
     <None Include="res\vcredist_x86.exe" />
   </ItemGroup>
   <ItemGroup>
@@ -56,6 +59,10 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="customtheme.wxl" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\k.pfx" />
+    <Content Include="SignBootstrapper.bat" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <PropertyGroup>
@@ -70,6 +77,10 @@
     <CreateProperty Value="$(DefineConstants);ProductVersion=%(AsmInfo.Version)">
       <Output TaskParameter="Value" PropertyName="DefineConstants" />
     </CreateProperty>
+  </Target>
+  <Target Name="AfterBuild">
+    <Message Text="Signing $(MSBuildProjectDirectory)\bin\$(Configuration)\$(OutputName).exe" />
+    <Exec Command="SignBootstrapper.bat &quot;$(MSBuildProjectDirectory)\bin\$(Configuration)\$(OutputName).exe&quot; &quot;$(MSBuildProjectDirectory)\res\k.pfx&quot;" />
   </Target>
   <PropertyGroup>
     <PreBuildEvent />
