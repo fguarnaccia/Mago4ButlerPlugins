@@ -9,9 +9,6 @@ namespace Microarea.Mago4Butler
 {
     internal class ButlerSchemeHandlerFactory : ISchemeHandlerFactory
     {
-        const string butlerSchemeName = "butler";
-        public string ButlerSchemeName { get { return butlerSchemeName; } }
-
         public IResourceHandler Create(IBrowser browser, IFrame frame, string schemeName, IRequest request)
         {
             if (schemeName == null)
@@ -22,12 +19,22 @@ namespace Microarea.Mago4Butler
             {
                 throw new ArgumentException("Empty or white spaces scheme name");
             }
-            if (string.Compare(schemeName, ButlerSchemeName, StringComparison.InvariantCultureIgnoreCase) != 0)
+            if (string.Compare(schemeName, this.GetButlerSchemeName(), StringComparison.InvariantCultureIgnoreCase) != 0)
             {
                 throw new Exception("Unknown scheme name: " + schemeName);
             }
 
             return new ButlerSchemeHandler();
+        }
+    }
+
+    public static class SchemeHandlerFactoryExtensions
+    {
+        const string butlerSchemeName = "butler";
+
+        public static string GetButlerSchemeName(this ISchemeHandlerFactory @this)
+        {
+            return butlerSchemeName;
         }
     }
 }

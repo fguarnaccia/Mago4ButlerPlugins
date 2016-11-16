@@ -2,6 +2,7 @@
 using Microarea.Mago4Butler.Log;
 using Microarea.Mago4Butler.Model;
 using Ninject;
+using Ninject.Extensions.Factory;
 using Ninject.Modules;
 using System;
 using System.Collections.Generic;
@@ -18,22 +19,12 @@ namespace Microarea.Mago4Butler
         {
             public override void Load()
             {
-               Bind<Model.Model>()
-                    .ToMethod(context =>
-                    {
-                        var settings = context.Kernel.Get<ISettings>();
-                        var model = new Model.Model(settings.RootFolder);
-                        model.Init();
-
-                        return model;
-                    })
-                    .InSingletonScope();
+                Bind<Model.Model>()
+                    .ToSelf()
+                    .InSingletonScope()
+                    .OnActivation(m => m.Init());
 
                 Bind<HttpService>().ToSelf();
-                Bind<ShouldUseProvisioningProvider>()
-                    .ToSelf()
-                    .InSingletonScope();
-
                 Bind<UpdatesDownloaderService>().ToSelf();
                 Bind<MsiService>().ToSelf();
                 Bind<WcfService>().ToSelf();
@@ -77,6 +68,10 @@ namespace Microarea.Mago4Butler
                     .To<NoProvisioningService>()
                     .Named(string.Empty);
 
+                Bind<ShouldUseProvisioningProvider>()
+                    .ToSelf()
+                    .InSingletonScope();
+
                 Bind<IAdmConsoleToLaunchNameProvider>()
                     .To<AdmConsoleToLaunchNameProvider>();
 
@@ -93,28 +88,13 @@ namespace Microarea.Mago4Butler
                 Bind<UINormalUse>().ToSelf();
                 Bind<UIError>().ToSelf();
 
-                Bind<ContextMenuHandler>().ToSelf();
-                Bind<ButlerSchemeHandlerFactory>().ToSelf();
+                Bind<MainForm>().ToSelf();
+                Bind<Lazy<CefForm>>().ToFactory();
+                //Bind<Lazy<ContextMenuHandler>>().ToFactory();
+                //Bind<Lazy<ButlerSchemeHandlerFactory>>().ToFactory();
 
                 Bind<MainUIFactory>().ToSelf();
-
-                Bind<IMainUI>()
-                    .To<MainForm>()
-                    .When(
-                    (r) =>
-                    {
-                        var svc = this.Kernel.Get<ShouldUseProvisioningProvider>();
-                        return svc.ShouldUseProvisioning;
-                    });
-                Bind<IMainUI>()
-                    .To<CefForm>()
-                    .When(
-                    (r) =>
-                    {
-                        var svc = this.Kernel.Get<ShouldUseProvisioningProvider>();
-                        return !svc.ShouldUseProvisioning;
-                    });
-
+                Bind<CefFactory>().ToSelf();
 
                 Bind<Batch>().ToSelf();
 

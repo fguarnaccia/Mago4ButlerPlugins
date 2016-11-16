@@ -18,12 +18,14 @@ namespace Microarea.Mago4Butler
     {
         Model.Model model;
         IUIMediator uiMediator;
+        CefFactory cefFactory;
         ChromiumWebBrowser chromeBrowser;
 
-        public CefForm(IUIMediator uiMediator, Model.Model model)
+        public CefForm(IUIMediator uiMediator, Model.Model model, CefFactory cefFactory)
         {
             this.model = model;
             this.uiMediator = uiMediator;
+            this.cefFactory = cefFactory;
 
             InitializeComponent();
 
@@ -51,12 +53,12 @@ namespace Microarea.Mago4Butler
                 LogSeverity = LogSeverity.Verbose
             };
 
-            var schemeHandlerFactory = IoCContainer.Instance.Get<ButlerSchemeHandlerFactory>();
+            var schemeHandlerFactory = this.cefFactory.CreateSchemeHandlerFactory();
 
             settings.RegisterScheme(new CefCustomScheme
             {
                 SchemeHandlerFactory = schemeHandlerFactory,
-                SchemeName = schemeHandlerFactory.ButlerSchemeName
+                SchemeName = schemeHandlerFactory.GetButlerSchemeName()
             });
 
             if (!Cef.Initialize(settings))
@@ -64,10 +66,10 @@ namespace Microarea.Mago4Butler
                 throw new Exception("Failed to init view");
             }
 
-            var startPage = string.Format(CultureInfo.InvariantCulture, "{0}://cef/index.html", schemeHandlerFactory.ButlerSchemeName);
+            var startPage = string.Format(CultureInfo.InvariantCulture, "{0}://cef/index.html", schemeHandlerFactory.GetButlerSchemeName());
             this.chromeBrowser = new ChromiumWebBrowser(startPage);
             this.chromeBrowser.RegisterJsObject("model", this.model);
-            this.chromeBrowser.MenuHandler = IoCContainer.Instance.Get<ContextMenuHandler>();
+            this.chromeBrowser.MenuHandler = this.cefFactory.CreateContextMenuHandler();
             this.Controls.Add(chromeBrowser);
             this.chromeBrowser.Dock = DockStyle.Fill;
         }

@@ -54,9 +54,9 @@ namespace Microarea.Mago4Butler.Model
             //needed for serialization/dserialization
         }
 
-        public Model(string rootFolder)
+        public Model(ISettings settings)
         {
-            this.rootFolder = rootFolder;
+            this.rootFolder = settings.RootFolder;
         }
 
         public static bool IsInstanceNameValid(string instanceName)

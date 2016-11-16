@@ -1,4 +1,5 @@
 ﻿using Ninject;
+using System;
 
 namespace Microarea.Mago4Butler
 {
@@ -12,7 +13,16 @@ namespace Microarea.Mago4Butler
         }
         public IMainUI CreateMainUI()
         {
-            return this.ioc.Get<IMainUI>();
+            var svc = this.ioc.Get<ShouldUseProvisioningProvider>();
+
+            IMainUI mainUI = svc.ShouldUseProvisioning
+                ?
+                this.ioc.Get<MainForm>() as IMainUI
+                :
+                this.ioc.Get<CefForm>()
+                ;
+
+            return mainUI;
         }
     }
 }
