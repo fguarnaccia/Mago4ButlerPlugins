@@ -51,7 +51,7 @@ namespace Microarea.Mago4Butler.Model
 
         public Model()
         {
-            //needed for serialization/dserialization
+            //needed for serialization/deserialization
         }
 
         public Model(ISettings settings)
@@ -180,6 +180,27 @@ namespace Microarea.Mago4Butler.Model
         public bool ContainsInstance(Instance toSearchFor)
         {
             return this.ContainsInstance(toSearchFor.Name);
+        }
+
+        public Instance GetInstance(int instanceIdx)
+        {
+            if (instanceIdx < 0 || instanceIdx > this.instances.Count)
+            {
+                throw new ArgumentException("Invalid instance index");
+            }
+            return this.instances[instanceIdx];
+        }
+
+        public Instance GetInstance(string instanceName)
+        {
+            if (string.IsNullOrWhiteSpace(instanceName))
+            {
+                return null;
+            }
+            return
+                this.instances
+                .Where(i => string.Compare(instanceName, i.Name, StringComparison.InvariantCultureIgnoreCase) == 0)
+                .FirstOrDefault();
         }
 
         public void Init()
