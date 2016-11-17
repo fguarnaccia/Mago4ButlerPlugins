@@ -61,13 +61,9 @@
     <EmbeddedResource Include="customtheme.wxl" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\k.pfx" />
-    <Content Include="SignBootstrapper.bat" />
+    <None Include="SignBootstrapper.bat" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
-  <PropertyGroup>
-    <PostBuildEvent>..\..\..\DigitalSignerClient\bin\Release\Microarea.DigitalSignerClient.exe "$(TargetDir)$(TargetFileName)"</PostBuildEvent>
-  </PropertyGroup>
   <Target Name="BeforeBuild">
     <!-- Get the programs assembly version from the .exe file -->
     <GetAssemblyIdentity AssemblyFiles="..\Mago4Butler\bin\$(platform)\$(Configuration)\Mago4Butler.exe">
@@ -84,5 +80,8 @@
   </Target>
   <PropertyGroup>
     <PreBuildEvent />
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent />
   </PropertyGroup>
 </Project>
