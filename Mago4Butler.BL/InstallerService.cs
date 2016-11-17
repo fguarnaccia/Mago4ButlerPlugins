@@ -350,7 +350,7 @@ namespace Microarea.Mago4Butler.BL
                                 ProxyPassword = this.settings.Password,
                                 Features = this.msiService.GetFeatureNames(currentRequest.MsiPath)
                             };
-                            var args = new UpdateInstanceEventArgs() { Instances = new List<Instance>() { currentRequest.Instance }, CmdLineInfo = cmdLineInfo };
+                            var args = new UpdateInstanceEventArgs() { Instances = new Instance[] { currentRequest.Instance }, CmdLineInfo = cmdLineInfo };
                             try
                             {
                                 this.OnUpdating(args);
@@ -362,16 +362,16 @@ namespace Microarea.Mago4Butler.BL
                             }
                             this.Update(currentRequest, args.CmdLineInfo);
 
-                            this.OnUpdated(new UpdateInstanceEventArgs() { Instances = new List<Instance>() { currentRequest.Instance } });
+                            this.OnUpdated(new UpdateInstanceEventArgs() { Instances = new Instance[] { currentRequest.Instance } });
 
                             break;
                         }
                     case RequestType.Remove:
                         {
-                            this.OnRemoving(new RemoveInstanceEventArgs() { Instances = new List<Instance>() { currentRequest.Instance } });
+                            this.OnRemoving(new RemoveInstanceEventArgs() { Instances = new Instance[] { currentRequest.Instance } });
                             this.Remove(currentRequest);
 
-                            this.OnRemoved(new RemoveInstanceEventArgs() { Instances = new List<Instance>() { currentRequest.Instance } });
+                            this.OnRemoved(new RemoveInstanceEventArgs() { Instances = new Instance[] { currentRequest.Instance } });
                             break;
                         }
                     default:

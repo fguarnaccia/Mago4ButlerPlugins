@@ -252,7 +252,7 @@ namespace Microarea.Mago4Butler
 
             if (selectedInstances.Count > 0)
             {
-                this.OnUpdateInstance(new UpdateInstanceEventArgs() { Instances = selectedInstances });
+                this.OnUpdateInstance(new UpdateInstanceEventArgs() { Instances = selectedInstances.ToArray() });
             }
         }
 
@@ -273,7 +273,7 @@ namespace Microarea.Mago4Butler
                         return;
                     }
                 }
-                this.OnRemoveInstance(new RemoveInstanceEventArgs() { Instances = selectedInstances });
+                this.OnRemoveInstance(new RemoveInstanceEventArgs() { Instances = selectedInstances.ToArray() });
             }
         }
         internal void AddContextMenuItems(IEnumerable<ContextMenuItem> contextMenuItems)

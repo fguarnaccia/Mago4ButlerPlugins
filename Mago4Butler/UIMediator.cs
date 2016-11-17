@@ -237,7 +237,7 @@ namespace Microarea.Mago4Butler
             this.loggerService.LogInfo(message);
             OnJobNotification(new Mago4Butler.JobEventArgs() { Progress = message, NotificationType = NotificationTypes.Progress });
 
-            var instances = new List<Plugins.Instance>(e.Instances.Count);
+            var instances = new List<Plugins.Instance>(e.Instances.Length);
             foreach (var instance in e.Instances)
             {
                 instances.Add(instanceMapper.Map<Plugins.Instance>(instance));
@@ -410,12 +410,12 @@ namespace Microarea.Mago4Butler
             this.model.Init();
         }
 
-        public void RemoveInstances(IList<Instance> instances)
+        public void RemoveInstances(Instance[] instances)
         {
             this.model.RemoveInstances(instances);
         }
 
-        public void UpdateInstances(IList<Instance> instances)
+        public void UpdateInstances(Instance[] instances)
         {
             this.msiFullFilePath = null;
             var bag = new AskForParametersBag() { MsiFullFilePath = this.msiFullFilePath };

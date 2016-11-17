@@ -6,6 +6,6 @@ namespace Microarea.Mago4Butler.BL
 {
     public class RemoveInstanceEventArgs : EventArgs
     {
-        public IList<Instance> Instances { get; internal set; }
+        public Instance[] Instances { get; internal set; }
     }
 }

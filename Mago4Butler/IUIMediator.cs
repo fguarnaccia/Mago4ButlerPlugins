@@ -15,7 +15,7 @@ namespace Microarea.Mago4Butler
 
         void Init();
         void InstallInstance();
-        void RemoveInstances(IList<Instance> instances);
-        void UpdateInstances(IList<Instance> instances);
+        void RemoveInstances(Instance[] instances);
+        void UpdateInstances(Instance[] instances);
     }
 }

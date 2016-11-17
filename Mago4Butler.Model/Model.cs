@@ -75,11 +75,11 @@ namespace Microarea.Mago4Butler.Model
             return true;
         }
 
-        public IEnumerable<Instance> Instances
+        public Instance[] Instances
         {
             get
             {
-                return instances;
+                return instances.ToArray();
             }
             internal set
             {
@@ -87,7 +87,7 @@ namespace Microarea.Mago4Butler.Model
                 this.instances.AddRange(value);
             }
         }
-        public void RemoveInstances(ICollection<Instance> instances)
+        public void RemoveInstances(Instance[] instances)
         {
             if (instances != null)
             {
@@ -133,7 +133,7 @@ namespace Microarea.Mago4Butler.Model
             return maxWcfStartPortFound + 10;
         }
 
-        public void UpdateInstances(ICollection<Instance> instances, Version version)
+        public void UpdateInstances(Instance[] instances, Version version)
         {
             if (instances != null)
             {
