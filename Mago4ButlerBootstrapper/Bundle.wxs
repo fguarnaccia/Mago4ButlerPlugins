@@ -9,10 +9,7 @@
     Compressed="yes"
     >
 
-    <util:FileSearchRef Id="GetVC12X86onX64Exists"/>
-    <util:FileSearchRef Id="GetVC12X86onX64Version"/>
-    <util:FileSearchRef Id="GetVC12X86onX86Exists"/>
-    <util:FileSearchRef Id="GetVC12X86onX86Version"/>
+    <util:RegistrySearchRef Id="GetVC12X86Exists"/>
 
     <BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.HyperlinkLicense">
       <bal:WixStandardBootstrapperApplication
@@ -36,7 +33,7 @@
           SourceFile=".\res\vcredist_x86.exe"
           Vital="yes"
           InstallCommand="/install /quiet /norestart"
-          DetectCondition="vc12x86Exists AND vc12x86Version &gt;= 12"
+          DetectCondition="vc12x86Exists"
           Name="res\vcredist_x86.exe"
           >
         <!-- -->
@@ -58,9 +55,6 @@
 	</Bundle>
   <Fragment>
     <!-- Detect existing version of VC ++ 2013 x86 libraries -->
-    <util:FileSearch Id="GetVC12X86onX64Exists" Condition="VersionNT64" Variable="vc12x86Exists" Path="[System64Folder]vcruntime120.dll" Result="exists"/>
-    <util:FileSearch Id="GetVC12X86onX64Version" Condition="VersionNT64" Variable="vc12x86Version" Path="[System64Folder]vcruntime120.dll" Result="version"/>
-    <util:FileSearch Id="GetVC12X86onX86Exists" Condition="NOT VersionNT64" Variable="vc12x86Exists" Path="[SystemFolder]vcruntime120.dll" Result="exists"/>
-    <util:FileSearch Id="GetVC12X86onX86Version" Condition="NOT VersionNT64" Variable="vc12x86Version" Path="[SystemFolder]vcruntime120.dll" Result="version"/>
+    <util:RegistrySearch Id="GetVC12X86Exists" Root="HKLM" Key="SOFTWARE\Microsoft\VisualStudio\12.0\VC\Runtimes\x86" Value="Installed" Variable="vc12x86Exists" />
   </Fragment>
 </Wix>
