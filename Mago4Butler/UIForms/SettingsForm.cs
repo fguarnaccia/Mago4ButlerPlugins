@@ -20,7 +20,7 @@ namespace Microarea.Mago4Butler
         TextBoxCueDecorator serverTextBoxCueDecorator;
         NumericTextboxBehaviour numericTextboxBehaviour;
 
-        internal SettingsForm(ISettings settings, IisService iisService)
+        public SettingsForm(ISettings settings, IisService iisService)
         {
             this.settings = settings;
             this.iisService = iisService;
