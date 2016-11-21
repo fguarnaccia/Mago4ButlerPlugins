@@ -168,21 +168,24 @@ namespace Microarea.Mago4Butler
             this.msiFullFilePath = this.msiService.CalculateMsiFullFilePath();
             var version = this.msiService.GetVersion(msiFullfilePath);
 
+            Instance toBeUpdated = null;
             foreach (var instance in instances)
             {
-                if (!this.model.ContainsInstance(instance))
+                toBeUpdated = this.model.GetInstance(instance.Name);
+                if (toBeUpdated == null)
                 {
                     this.LogError(instance.Name + " does not exist, I cannot update it");
                     Console.WriteLine("[" + Now + "]: " + instance.Name + " does not exist, I cannot update it", Color.Red);
                     continue;
                 }
-                if (!instance.AllowBatchDeletesUpdates)
+
+                if (!toBeUpdated.AllowBatchDeletesUpdates)
                 {
                     this.LogError(instance.Name + " is not updatable via batch, I cannot update it");
                     Console.WriteLine("[" + Now + "]: " + instance.Name + " is not updatable via batch, I cannot update it", Color.Orange);
                     continue;
                 }
-                if (instance.Version >= version)
+                if (toBeUpdated.Version >= version)
                 {
                     this.LogError(instance.Name + " version is " + instance.Version + ", instance not to be updated");
                     Console.WriteLine("[" + Now + "]: " + instance.Name + " version is " + instance.Version + ", instance not to be updated", Color.Orange);

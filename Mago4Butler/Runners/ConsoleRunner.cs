@@ -154,11 +154,6 @@ namespace Microarea.Mago4Butler
                 {
                     instanceToInstall.Version = version;
                 }
-
-                foreach (var instance in instanceToUpdate)
-                {
-                    instance.Version = version;
-                }
             }
 
             return true;
