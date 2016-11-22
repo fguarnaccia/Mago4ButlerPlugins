@@ -36,7 +36,14 @@ namespace Microarea.Mago4Butler.Reporter
 #else
                 svc.Url = "http://spp-hotfix/PAASUpdates/ReportService.asmx";
 #endif
-                svc.StoreReportData(currentRequest);
+                try
+                {
+                    svc.StoreReportData(currentRequest);
+                }
+                catch (Exception exc)
+                {
+                    App.Instance.Error("Exception sending reporting data", exc);
+                }
             }
         }
 

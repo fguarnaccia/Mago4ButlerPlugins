@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace Microarea.Mago4Butler.Telemetry
 {
-    public class Telemetry : Mago4ButlerPlugin, IWorker<TelemetryData>, IMessageFilter
+    public class Telemetry : Mago4ButlerPlugin, IWorker<TelemetryData>//, IMessageFilter
     {
         string machineName;
         string appVersion;
@@ -30,7 +30,7 @@ namespace Microarea.Mago4Butler.Telemetry
 
             this.Enqueue(new TelemetryData() { Event = TelemetryEvent.ApplicationStartup });//To log application startup
 
-            Application.AddMessageFilter(this);
+            //Application.AddMessageFilter(this);
         }
         public void OnRequestReceived(TelemetryData currentRequest)
         {
@@ -45,35 +45,42 @@ namespace Microarea.Mago4Butler.Telemetry
                 currentRequest.PluginsData = pluginsData.ToArray();
                 currentRequest.Mago4ButlerVersion = appVersion;
 
-                svc.StoreTelemetryData(currentRequest);
+                try
+                {
+                    svc.StoreTelemetryData(currentRequest);
+                }
+                catch (Exception exc)
+                {
+                    App.Instance.Error("Exception sending telemetry data", exc);
+                }
             }
         }
 
-        public bool PreFilterMessage(ref Message m)
-        {
-            if (m.Msg == 513)
-            {
-                var control = Control.FromHandle(m.HWnd);
-                if (control != null && control.Enabled)
-                {
-                    if (control.GetType() == typeof(Button))
-                    {
-                        this.Enqueue(new TelemetryData() { Event = TelemetryEvent.ButtonClicked, Data = "control text: " + control.Text + "\t\tcontrol name: " + control.Name });
-                    }
-                }
-            }
-            using (var sw = new StreamWriter("C:\\Log.txt", true))
-            {
-                if (m.Msg != 512 && m.Msg != 160)
-                {
-                    var control = Control.FromHandle(m.HWnd);
-                    if (control != null)
-                    {
-                        sw.WriteLine("Message: " + m.Msg + "\t\tcontrol text: " + control.Text + "\t\tcontrol name: " + control.Name + "\t\tcontrol type: " + control.GetType().FullName);
-                    }
-                }
-                return false;
-            }
-        }
+        //public bool PreFilterMessage(ref Message m)
+        //{
+        //    if (m.Msg == 513)
+        //    {
+        //        var control = Control.FromHandle(m.HWnd);
+        //        if (control != null && control.Enabled)
+        //        {
+        //            if (control.GetType() == typeof(Button))
+        //            {
+        //                this.Enqueue(new TelemetryData() { Event = TelemetryEvent.ButtonClicked, Data = "control text: " + control.Text + "\t\tcontrol name: " + control.Name });
+        //            }
+        //        }
+        //    }
+        //    using (var sw = new StreamWriter("C:\\Log.txt", true))
+        //    {
+        //        if (m.Msg != 512 && m.Msg != 160)
+        //        {
+        //            var control = Control.FromHandle(m.HWnd);
+        //            if (control != null)
+        //            {
+        //                sw.WriteLine("Message: " + m.Msg + "\t\tcontrol text: " + control.Text + "\t\tcontrol name: " + control.Name + "\t\tcontrol type: " + control.GetType().FullName);
+        //            }
+        //        }
+        //        return false;
+        //    }
+        //}
     }
 }
