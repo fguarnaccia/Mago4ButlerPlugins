@@ -16,6 +16,8 @@ namespace Microarea.Mago4Butler
 {
     internal class UIRunner : IForrest, ILogger
     {
+        static readonly Mutex mutex = new Mutex(true, "{5EDCA319-7AED-4E2C-A80A-3F545BB7D572}");
+
         AppAutomationServer appAutomationServer;
         PluginService pluginService;
         MainUIFactory mainUIFactory;
@@ -29,26 +31,38 @@ namespace Microarea.Mago4Butler
 
         public int Run()
         {
-            WinApp.EnableVisualStyles();
-            WinApp.SetCompatibleTextRenderingDefault(false);
-
-            pluginService.PluginsLoaded += PluginService_PluginsLoaded;
-
-            try
+            if (mutex.WaitOne(TimeSpan.Zero, true))
             {
-                var mainUI = mainUIFactory.CreateMainUI();
+                WinApp.EnableVisualStyles();
+                WinApp.SetCompatibleTextRenderingDefault(false);
 
-                WinApp.Run(mainUI as Form);
+                pluginService.PluginsLoaded += PluginService_PluginsLoaded;
+
+                try
+                {
+                    var mainUI = mainUIFactory.CreateMainUI();
+
+                    WinApp.Run(mainUI as Form);
+                }
+                catch (Exception exc)
+                {
+                    this.LogError("Error running the application.", exc);
+                    return 1;
+                }
+                finally
+                {
+                    App.Instance.Dispose();
+                    appAutomationServer.Dispose();
+                }
             }
-            catch (Exception exc)
+            else
             {
-                this.LogError("Error running the application.", exc);
-                return 1;
-            }
-            finally
-            {
-                App.Instance.Dispose();
-                appAutomationServer.Dispose();
+                SafeNativeMethods.PostMessage(
+                   (IntPtr)SafeNativeMethods.HWND_BROADCAST,
+                   SafeNativeMethods.WM_WAKEMEUP,
+                   IntPtr.Zero,
+                   IntPtr.Zero
+                   );
             }
 
             return 0;

@@ -76,5 +76,12 @@ namespace Microarea.Mago4Butler
 
         [DllImport("shlwapi.dll")]
         internal static extern bool PathIsNetworkPath(string pszPath);
+
+        public const int HWND_BROADCAST = 0xffff;
+        public static readonly int WM_WAKEMEUP = RegisterWindowMessage("WM_WAKEMEUP");
+        [DllImport("user32")]
+        public static extern bool PostMessage(IntPtr hwnd, int msg, IntPtr wparam, IntPtr lparam);
+        [DllImport("user32")]
+        public static extern int RegisterWindowMessage(string message);
     }
 }
