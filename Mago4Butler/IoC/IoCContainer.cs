@@ -78,6 +78,7 @@ namespace Microarea.Mago4Butler
                 Bind<ISettings>().ToMethod(context => Settings.Default);
 
                 Bind<IUIMediator>().To<UIMediator>();
+                Bind<WebMediator> ().ToSelf();
 
                 Bind<AboutForm>().ToSelf();
                 Bind<SettingsForm>().ToSelf();

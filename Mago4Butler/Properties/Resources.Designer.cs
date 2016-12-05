@@ -71,6 +71,27 @@ namespace Microarea.Mago4Butler.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to function install() {
+        ///    uiMediator.installInstance();
+        ///}
+        ///function uninstall() {
+        ///    var instance = model.getInstance(0);
+        ///    var instences = [instance];
+        ///    uiMediator.removeInstances(instences);
+        ///}
+        ///function update() {
+        ///    var instance = model.getInstance(0);
+        ///    var instences = [instance];
+        ///    uiMediator.updateInstances(instences);
+        ///}.
+        /// </summary>
+        internal static string app {
+            get {
+                return ResourceManager.GetString("app", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Back {
@@ -96,12 +117,20 @@ namespace Microarea.Mago4Butler.Properties {
         ///&lt;html lang=&quot;en&quot; xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
         ///&lt;head&gt;
         ///    &lt;meta charset=&quot;utf-8&quot; /&gt;
-        ///    &lt;title&gt;Hello World&lt;/title&gt;
+        ///    &lt;title&gt;Mago4 Butler&lt;/title&gt;
         ///&lt;/head&gt;
         ///&lt;body&gt;
-        ///    &lt;h1&gt;Hello World&lt;/h1&gt;
-        ///&lt;/body&gt;
-        ///&lt;/html&gt;.
+        ///    &lt;h1&gt;May I help You, Sir?&lt;/h1&gt;
+        ///    &lt;div id=&quot;instancesDiv&quot;&gt;
+        ///
+        ///    &lt;/div&gt;
+        ///    &lt;button onclick=&quot;install()&quot;&gt;Install&lt;/button&gt;
+        ///    &lt;button onclick=&quot;uninstall()&quot;&gt;Uninstall&lt;/button&gt;
+        ///    &lt;button onclick=&quot;update()&quot;&gt;Update&lt;/button&gt;
+        ///    &lt;script type=&quot;text/javascript&quot; src=&quot;butler://cef/js/app.js&quot;&gt;
+        ///    &lt;/script&gt;
+        ///    &lt;script type=&quot;text/javascript&quot;&gt;
+        ///   [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Index {
             get {

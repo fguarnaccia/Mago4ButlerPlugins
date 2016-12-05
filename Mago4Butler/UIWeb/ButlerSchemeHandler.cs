@@ -23,8 +23,8 @@ namespace Microarea.Mago4Butler
         {
             resources = new Dictionary<string, string>
             {
-                { "/index.html", Resources.Index }
-                //{ "/main.html", Resources.main_html },
+                { "/index.html", Resources.Index },
+                { "/js/app.js", Resources.app }
 
                 //{ "/js/foundation.min.js", Resources.foundation_min_js },
 
