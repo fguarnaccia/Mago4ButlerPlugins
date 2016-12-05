@@ -11,6 +11,7 @@ using Microarea.Mago4Butler.Plugins;
 using Microarea.Mago4Butler.Log;
 using Microarea.Mago4Butler.Automation;
 using WinApp = System.Windows.Forms.Application;
+using System.Diagnostics;
 
 namespace Microarea.Mago4Butler
 {
@@ -57,12 +58,16 @@ namespace Microarea.Mago4Butler
             }
             else
             {
-                SafeNativeMethods.PostMessage(
-                   (IntPtr)SafeNativeMethods.HWND_BROADCAST,
-                   SafeNativeMethods.WM_WAKEMEUP,
-                   IntPtr.Zero,
-                   IntPtr.Zero
-                   );
+                var current = Process.GetCurrentProcess();
+                foreach (var process in Process.GetProcessesByName(current.ProcessName))
+                {
+                    if (process.Id != current.Id)
+                    {
+                        SafeNativeMethods.ShowWindow(process.MainWindowHandle, ShowWindowCommands.Restore);
+                        SafeNativeMethods.SetForegroundWindow(process.MainWindowHandle);
+                        break;
+                    }
+                }
             }
 
             return 0;

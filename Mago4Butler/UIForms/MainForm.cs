@@ -293,24 +293,5 @@ namespace Microarea.Mago4Butler
             }
             Process.Start(logFileFullPath);
         }
-
-        protected override void WndProc(ref Message m)
-        {
-            if (m.Msg == SafeNativeMethods.WM_WAKEMEUP)
-            {
-                WakeMeUp();
-            }
-            base.WndProc(ref m);
-        }
-        private void WakeMeUp()
-        {
-            if (WindowState == FormWindowState.Minimized)
-            {
-                WindowState = FormWindowState.Normal;
-            }
-            bool topMost = TopMost;
-            TopMost = true;
-            TopMost = topMost;
-        }
     }
 }
