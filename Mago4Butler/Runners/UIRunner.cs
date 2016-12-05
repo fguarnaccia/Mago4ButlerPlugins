@@ -58,15 +58,15 @@ namespace Microarea.Mago4Butler
             }
             else
             {
-                var current = Process.GetCurrentProcess();
-                foreach (var process in Process.GetProcessesByName(current.ProcessName))
+                var currentProcess = Process.GetCurrentProcess();
+                var process = Process.GetProcessesByName(currentProcess.ProcessName)
+                    .Where((p => p.Id != currentProcess.Id))
+                    .FirstOrDefault();
+
+                if (process != null)
                 {
-                    if (process.Id != current.Id)
-                    {
-                        SafeNativeMethods.ShowWindow(process.MainWindowHandle, ShowWindowCommands.Restore);
-                        SafeNativeMethods.SetForegroundWindow(process.MainWindowHandle);
-                        break;
-                    }
+                    SafeNativeMethods.ShowWindow(process.MainWindowHandle, ShowWindowCommands.Restore);
+                    SafeNativeMethods.SetForegroundWindow(process.MainWindowHandle);
                 }
             }
 
