@@ -13,16 +13,18 @@ namespace Microarea.Mago4Butler
         }
         public IMainUI CreateMainUI()
         {
-            var svc = this.ioc.Get<ShouldUseProvisioningProvider>();
+            //var svc = this.ioc.Get<ShouldUseProvisioningProvider>();
 
-            IMainUI mainUI = svc.ShouldUseProvisioning
-                ?
-                this.ioc.Get<MainForm>() as IMainUI
-                :
-                this.ioc.Get<CefForm>()
-                ;
+            //IMainUI mainUI = svc.ShouldUseProvisioning
+            //    ?
+            //    this.ioc.Get<MainForm>() as IMainUI
+            //    :
+            //    this.ioc.Get<CefForm>()
+            //    ;
 
-            return mainUI;
+            //return mainUI;
+
+            return this.ioc.Get<MainForm>();
         }
     }
 }
