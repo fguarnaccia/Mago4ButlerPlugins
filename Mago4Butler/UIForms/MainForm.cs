@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Security.Permissions;
 using System.Threading;
 using System.Windows.Forms;
 using WinApp = System.Windows.Forms.Application;
@@ -292,6 +293,27 @@ namespace Microarea.Mago4Butler
                 return;
             }
             Process.Start(logFileFullPath);
+        }
+
+        const int WM_SYSCOMMAND = 0x0112;
+        const int SC_MINIMIZE = 0xF020;
+
+        [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.UnmanagedCode)]
+        protected override void WndProc(ref Message m)
+        {
+            switch (m.Msg)
+            {
+                case WM_SYSCOMMAND:
+                    int command = m.WParam.ToInt32() & 0xfff0;
+                    if (command == SC_MINIMIZE && this.uiWaitingMinimized.Visible)
+                    {
+                        UiWaitingMinimized_WindowClose(this, EventArgs.Empty);
+                    }
+                    break;
+                default:
+                    break;
+            }
+            base.WndProc(ref m);
         }
     }
 }
