@@ -1,4 +1,6 @@
-﻿using Microarea.Mago4Butler.Model;
+﻿using Microarea.Mago4Butler.BL;
+using Microarea.Mago4Butler.Log;
+using Microarea.Mago4Butler.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,51 +9,23 @@ using System.Threading.Tasks;
 
 namespace Microarea.Mago4Butler
 {
-    public class WebMediator
+    public class WebMediator : UIMediator
     {
-        IUIMediator uiMediator;
-
         public WebCommand Command { get; } = new WebCommand();
 
-        public WebMediator(IUIMediator uiMediator)
-        {
-            this.uiMediator = uiMediator;
+        public WebMediator(
+            Model.Model model,
+            MsiService msiService,
+            InstallerService installerService,
+            LoggerService loggerService,
+            PluginService pluginService,
+            ISettings settings
+            )
+            :
+            base (model, msiService, installerService, loggerService, pluginService, settings)
+        { }
 
-            this.uiMediator.JobNotification += UiMediator_Notification;
-            this.uiMediator.ParametersForInstallNeeded += UiMediator_AskForParametersForInstall;
-            this.uiMediator.ProvisioningNeeded += UiMediator_ProvisioningNeeded;
-        }
-
-        public void Execute()
-        {
-            if (Command == null)
-            {
-                return;
-            }
-
-            WebCommandType res = WebCommandType.None;
-            if (!Enum.TryParse(Command.Type, out res))
-            {
-                return;
-            }
-            
-            switch (res)
-            {
-                case WebCommandType.Install:
-                    this.uiMediator.InstallInstance();
-                    break;
-                case WebCommandType.Remove:
-                    this.uiMediator.RemoveInstances(null);
-                    break;
-                case WebCommandType.Update:
-                    this.uiMediator.UpdateInstances(null);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        private void UiMediator_ProvisioningNeeded(object sender, ProvisioningEventArgs e)
+        protected override void OnProvisioningNeeded(ProvisioningEventArgs e)
         {
             //using (var provisioningForm = new ProvisioningFormLITE(instanceName: e.InstanceName, preconfigurationMode: true, loadDataFromFile: false))
             //{
@@ -77,7 +51,7 @@ namespace Microarea.Mago4Butler
             //}
         }
 
-        private void UiMediator_AskForParametersForInstall(object sender, JobEventArgs e)
+        protected override void OnAskForParametersForInstall(JobEventArgs e)
         {
             //using (var askForParametersDialog = IoCContainer.Instance.Get<AskForParametersForm>())
             //{
@@ -91,8 +65,7 @@ namespace Microarea.Mago4Butler
             //    e.Bag.InstanceName = askForParametersDialog.InstanceName;
             //}
         }
-
-        private void UiMediator_Notification(object sender, JobEventArgs e)
+        protected override void OnJobNotification(JobEventArgs e)
         {
             if ((e.NotificationType & NotificationTypes.JobStarted) == NotificationTypes.JobStarted)
             {
@@ -113,6 +86,35 @@ namespace Microarea.Mago4Butler
             if ((e.NotificationType & NotificationTypes.Error) == NotificationTypes.Error)
             {
 
+            }
+        }
+
+        public void Execute()
+        {
+            if (Command == null)
+            {
+                return;
+            }
+
+            WebCommandType res = WebCommandType.None;
+            if (!Enum.TryParse(Command.Type, out res))
+            {
+                return;
+            }
+            
+            switch (res)
+            {
+                case WebCommandType.Install:
+                    this.InstallInstance();
+                    break;
+                case WebCommandType.Remove:
+                    this.RemoveInstances(null);
+                    break;
+                case WebCommandType.Update:
+                    this.UpdateInstances(null);
+                    break;
+                default:
+                    break;
             }
         }
     }
