@@ -14,6 +14,31 @@ namespace Microarea.Mago4Butler.BL
         {
             this.settings = settings;
         }
+        public void UnregisterWcf(int startPort, string instanceName)
+        {
+            var instanceRootFolder = Path.Combine(this.settings.RootFolder, instanceName);
+            var processFilePath = Path.Combine(instanceRootFolder, "Apps", "ClickOnceDeployer", "ClickOnceDeployer.exe");
+            string user = GetUserNameForWcfRegistration(instanceName);
+
+            var args = string.Format(
+                CultureInfo.InvariantCulture,
+                "UnregisterWcf /root \"{0}\" /port {1} /user \"{2}\"",
+                instanceRootFolder,
+                startPort.ToString(CultureInfo.InvariantCulture),
+                user
+                );
+
+            try
+            {
+                this.LogInfo("Wcf unregistration started with parameters: " + args);
+                this.LaunchProcess(processFilePath, args, 10000);
+                this.LogInfo("Wcf unregistration successfully ended");
+            }
+            catch (Exception exc)
+            {
+                this.LogError("Wcf unregistration terminated with errors...", exc);
+            }
+        }
         public void RegisterWcf(int startPort, string instanceName)
         {
             var instanceRootFolder = Path.Combine(this.settings.RootFolder, instanceName);

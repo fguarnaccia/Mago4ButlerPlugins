@@ -391,6 +391,10 @@ namespace Microarea.Mago4Butler.BL
 
         private void Remove(Request currentRequest)
         {
+            OnNotification(new NotificationEventArgs() { Message = "Unregistering wcf namespaces..." });
+            this.wcfService.UnregisterWcf(currentRequest.Instance.WcfStartPort, currentRequest.Instance.Name);
+            OnNotification(new NotificationEventArgs() { Message = "Wcf namespaces unregistered" });
+
             OnNotification(new NotificationEventArgs() { Message = "Removing virtual folders..." });
             //Rimuovere prima le virtual folder e le application, poi gli application pool.
             //Un application pool a cui sono collegate ancora applicazioni non puo` essere eliminato
