@@ -14,6 +14,10 @@
     </xsl:copy>
   </xsl:template>
   <xsl:output method="xml" indent="yes" />
+
+  <xsl:key name="log-search" match="wix:Component[contains(wix:File/@Source, '.log')]" use="@Id" />
+  <xsl:template match="wix:Component[key('log-search', @Id)]" />
+  <xsl:template match="wix:ComponentRef[key('log-search', @Id)]" />
   
   <xsl:key name="pdb-search" match="wix:Component[contains(wix:File/@Source, '.pdb')]" use="@Id" />
   <xsl:template match="wix:Component[key('pdb-search', @Id)]" />
