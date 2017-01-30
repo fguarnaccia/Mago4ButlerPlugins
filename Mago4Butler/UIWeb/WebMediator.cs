@@ -27,6 +27,7 @@ namespace Microarea.Mago4Butler
 
         protected override void OnProvisioningNeeded(ProvisioningEventArgs e)
         {
+            base.OnProvisioningNeeded(e);
             //using (var provisioningForm = new ProvisioningFormLITE(instanceName: e.InstanceName, preconfigurationMode: true, loadDataFromFile: false))
             //{
             //    var provisioningSuggestions = new ProvisioningData()
@@ -53,6 +54,7 @@ namespace Microarea.Mago4Butler
 
         protected override void OnAskForParametersForInstall(JobEventArgs e)
         {
+            base.OnAskForParametersForInstall(e);
             //using (var askForParametersDialog = IoCContainer.Instance.Get<AskForParametersForm>())
             //{
             //    var diagRes = askForParametersDialog.ShowDialog(this);
@@ -67,6 +69,7 @@ namespace Microarea.Mago4Butler
         }
         protected override void OnJobNotification(JobEventArgs e)
         {
+            base.OnJobNotification(e);
             if ((e.NotificationType & NotificationTypes.JobStarted) == NotificationTypes.JobStarted)
             {
 
