@@ -24,6 +24,7 @@ namespace Microarea.Mago4Butler
                     .InSingletonScope()
                     .OnActivation(m => m.Init());
 
+                Bind<IFileLocker>().To<FileLocker>();
                 Bind<HttpService>().ToSelf();
                 Bind<UpdatesDownloaderService>().ToSelf();
                 Bind<MsiService>().ToSelf();

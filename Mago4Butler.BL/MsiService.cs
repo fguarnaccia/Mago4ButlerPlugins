@@ -42,7 +42,7 @@ namespace Microarea.Mago4Butler.BL
             try
             {
                 var installer = Activator.CreateInstance(InstallerType) as Installer;
-                var database = installer.OpenDatabase(msiFilePath, MsiOpenDatabaseMode.msiOpenDatabaseModeTransact);
+                var database = installer.OpenDatabase(msiFilePath, MsiOpenDatabaseMode.msiOpenDatabaseModeReadOnly);
                 var view = database.OpenView(String.Format(CultureInfo.InvariantCulture, "SELECT * from Property WHERE Property = '{0}'", propertyToSearchFor));
 
                 view.Execute(null);
@@ -87,7 +87,7 @@ namespace Microarea.Mago4Butler.BL
             try
             {
                 var installer = Activator.CreateInstance(InstallerType) as Installer;
-                var database = installer.OpenDatabase(msiFilePath, MsiOpenDatabaseMode.msiOpenDatabaseModeTransact);
+                var database = installer.OpenDatabase(msiFilePath, MsiOpenDatabaseMode.msiOpenDatabaseModeReadOnly);
                 var view = database.OpenView("SELECT * from Property WHERE Property = 'ProductCode'");
 
                 view.Execute(null);
@@ -132,7 +132,7 @@ namespace Microarea.Mago4Butler.BL
             try
             {
                 var installer = Activator.CreateInstance(InstallerType) as Installer;
-                var database = installer.OpenDatabase(msiFilePath, MsiOpenDatabaseMode.msiOpenDatabaseModeTransact);
+                var database = installer.OpenDatabase(msiFilePath, MsiOpenDatabaseMode.msiOpenDatabaseModeReadOnly);
                 var view = database.OpenView("SELECT * from Property WHERE Property = 'UpgradeCode'");
 
                 view.Execute(null);
@@ -208,7 +208,7 @@ namespace Microarea.Mago4Butler.BL
             try
             {
                 var installer = Activator.CreateInstance(InstallerType) as Installer;
-                var database = installer.OpenDatabase(msiFilePath, MsiOpenDatabaseMode.msiOpenDatabaseModeTransact);
+                var database = installer.OpenDatabase(msiFilePath, MsiOpenDatabaseMode.msiOpenDatabaseModeReadOnly);
                 var view = database.OpenView("SELECT * from Property WHERE Property = 'ProductVersion'");
 
                 view.Execute(null);
@@ -259,7 +259,7 @@ namespace Microarea.Mago4Butler.BL
             try
             {
                 var installer = Activator.CreateInstance(InstallerType) as Installer;
-                var database = installer.OpenDatabase(msiFilePath, MsiOpenDatabaseMode.msiOpenDatabaseModeTransact);
+                var database = installer.OpenDatabase(msiFilePath, MsiOpenDatabaseMode.msiOpenDatabaseModeReadOnly);
                 var view = database.OpenView("SELECT * from Feature");
 
                 view.Execute(null);

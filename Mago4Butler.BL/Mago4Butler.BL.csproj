@@ -102,8 +102,10 @@
     </Compile>
     <Compile Include="Batch.cs" />
     <Compile Include="CompanyDBUpdateService.cs" />
+    <Compile Include="FileLocker.cs" />
     <Compile Include="HttpService.cs" />
     <Compile Include="IAdmConsoleToLaunchNameProvider.cs" />
+    <Compile Include="IFileLocker.cs" />
     <Compile Include="InstallerServiceErrorEventArgs.cs" />
     <Compile Include="IProvisioningService.cs" />
     <Compile Include="ISalesModulesConfiguratorService.cs" />

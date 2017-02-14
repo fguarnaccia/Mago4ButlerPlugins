@@ -39,6 +39,7 @@ namespace Microarea.Mago4Butler.BL
         FileSystemService fileSystemService;
         CompanyDBUpdateService companyDBUpdateService;
         ISalesModulesConfiguratorService salesModulesConfiguratorService;
+        IFileLocker fileLocker;
 
         ISettings settings;
         Queue<Request> requests = new Queue<Request>();
@@ -64,7 +65,8 @@ namespace Microarea.Mago4Butler.BL
             IisService iisService,
             FileSystemService fileSystemService,
             WcfService wcfService,
-            ISalesModulesConfiguratorService salesModulesConfiguratorService
+            ISalesModulesConfiguratorService salesModulesConfiguratorService,
+            IFileLocker fileLocker
             )
         {
             this.settings = settings;
@@ -76,6 +78,7 @@ namespace Microarea.Mago4Butler.BL
             this.fileSystemService = fileSystemService;
             this.wcfService = wcfService;
             this.salesModulesConfiguratorService = salesModulesConfiguratorService;
+            this.fileLocker = fileLocker;
         }
 
         protected virtual void OnStarting()
@@ -425,49 +428,54 @@ namespace Microarea.Mago4Butler.BL
 
         private void Update(Request currentRequest, CmdLineInfo cmdLineInfo)
         {
-            OnNotification(new NotificationEventArgs() { Message = "Removing installation info..." });
-            //Rimuovo le informazioni di installazione dal registry se presenti in
-            //modo che la mia installazione non le trovi e tenga i parametri che passo io da riga di comando.
-            this.msiZapper.ZapMsi(currentRequest.MsiPath);
-            this.registryService.RemoveInstallationInfoKey(currentRequest.MsiPath);
-            this.registryService.RemoveInstallerFoldersKeys(currentRequest.RootFolder, currentRequest.Instance);
-            OnNotification(new NotificationEventArgs() { Message = "Installation info removed" });
-
-            //Rimuovo la parte di installazione su IIS per evitare che, se tra un setup e il successivo
-            //alcuni componenti cambiano noe, mi rimangano dei cadaveri.
-            //Rimuovere prima le virtual folder e le application, poi gli application pool.
-            //Un application pool a cui sono collegate ancora applicazioni non puo` essere eliminato
-            OnNotification(new NotificationEventArgs() { Message = "Removing virtual folders..." });
-            this.iisService.RemoveVirtualFoldersAndApplications(currentRequest.Instance);
-            OnNotification(new NotificationEventArgs() { Message = "Virtual folders removed" });
-            OnNotification(new NotificationEventArgs() { Message = "Removing application pools..." });
-            this.iisService.RemoveApplicationPools(currentRequest.Instance);
-            OnNotification(new NotificationEventArgs() { Message = "Application pools removed" });
-
-            string logFilesFolderPath = CreateApplicationFolders(currentRequest);            
-
-            OnNotification(new NotificationEventArgs() { Message = "Launching msi..." });
-            this.LogInfo("Launching msi with command line " + cmdLineInfo.ToString());
-            string installLogFilePath = Path.Combine(logFilesFolderPath, "Mago4_" + currentRequest.Instance.Name + "_UpdateLog_" + DateTime.Now.ToString("yyyyMMddhhmmss", CultureInfo.InvariantCulture) + ".log");
-
-            try
+            //Lock-o il file msi perche` fino a che windows installer non comincia il suo lavoro
+            //nessuno lo lock-a e quindi l'utente potrebbe cancellarlo causando errori.
+            using (var lockToken = this.fileLocker.CreateLockToken(currentRequest.MsiPath))
             {
-                this.LaunchProcess(
-                        msiexecPath,
-                        String.Format("/i \"{0}\" /qn /norestart {1} UICULTURE=\"it-IT\" INSTALLLOCATION=\"{2}\" INSTANCENAME=\"{3}\" DEFAULTWEBSITENAME=\"{4}\" DEFAULTWEBSITEID={5} DEFAULTWEBSITEPORT={6} {7}", currentRequest.MsiPath, this.settings.MsiLog ? String.Format("/l*vx \"{0}\"", installLogFilePath) : string.Empty, currentRequest.RootFolder, currentRequest.Instance.Name, currentRequest.Instance.WebSiteInfo.SiteName, currentRequest.Instance.WebSiteInfo.SiteID, currentRequest.Instance.WebSiteInfo.SitePort, cmdLineInfo.ToString()),
-                        3600000
-                        );
-                OnNotification(new NotificationEventArgs() { Message = "Msi execution successfully terminated..." });
-            }
-            catch (Exception exc)
-            {
-                this.LogError("Msi execution terminated with errors...", exc);
-                OnNotification(new NotificationEventArgs() { Message = "Msi execution terminated with errors..." });
-                OnError(new InstallerServiceErrorEventArgs()
+                OnNotification(new NotificationEventArgs() { Message = "Removing installation info..." });
+                //Rimuovo le informazioni di installazione dal registry se presenti in
+                //modo che la mia installazione non le trovi e tenga i parametri che passo io da riga di comando.
+                this.msiZapper.ZapMsi(currentRequest.MsiPath);
+                this.registryService.RemoveInstallationInfoKey(currentRequest.MsiPath);
+                this.registryService.RemoveInstallerFoldersKeys(currentRequest.RootFolder, currentRequest.Instance);
+                OnNotification(new NotificationEventArgs() { Message = "Installation info removed" });
+
+                //Rimuovo la parte di installazione su IIS per evitare che, se tra un setup e il successivo
+                //alcuni componenti cambiano noe, mi rimangano dei cadaveri.
+                //Rimuovere prima le virtual folder e le application, poi gli application pool.
+                //Un application pool a cui sono collegate ancora applicazioni non puo` essere eliminato
+                OnNotification(new NotificationEventArgs() { Message = "Removing virtual folders..." });
+                this.iisService.RemoveVirtualFoldersAndApplications(currentRequest.Instance);
+                OnNotification(new NotificationEventArgs() { Message = "Virtual folders removed" });
+                OnNotification(new NotificationEventArgs() { Message = "Removing application pools..." });
+                this.iisService.RemoveApplicationPools(currentRequest.Instance);
+                OnNotification(new NotificationEventArgs() { Message = "Application pools removed" });
+
+                string logFilesFolderPath = CreateApplicationFolders(currentRequest);
+
+                OnNotification(new NotificationEventArgs() { Message = "Launching msi..." });
+                this.LogInfo("Launching msi with command line " + cmdLineInfo.ToString());
+                string installLogFilePath = Path.Combine(logFilesFolderPath, "Mago4_" + currentRequest.Instance.Name + "_UpdateLog_" + DateTime.Now.ToString("yyyyMMddhhmmss", CultureInfo.InvariantCulture) + ".log");
+
+                try
                 {
-                    Message = "Error updating " + currentRequest.Instance.Name,
-                    Error = exc
-                });
+                    this.LaunchProcess(
+                            msiexecPath,
+                            String.Format("/i \"{0}\" /qn /norestart {1} UICULTURE=\"it-IT\" INSTALLLOCATION=\"{2}\" INSTANCENAME=\"{3}\" DEFAULTWEBSITENAME=\"{4}\" DEFAULTWEBSITEID={5} DEFAULTWEBSITEPORT={6} {7}", currentRequest.MsiPath, this.settings.MsiLog ? String.Format("/l*vx \"{0}\"", installLogFilePath) : string.Empty, currentRequest.RootFolder, currentRequest.Instance.Name, currentRequest.Instance.WebSiteInfo.SiteName, currentRequest.Instance.WebSiteInfo.SiteID, currentRequest.Instance.WebSiteInfo.SitePort, cmdLineInfo.ToString()),
+                            3600000
+                            );
+                    OnNotification(new NotificationEventArgs() { Message = "Msi execution successfully terminated..." });
+                }
+                catch (Exception exc)
+                {
+                    this.LogError("Msi execution terminated with errors...", exc);
+                    OnNotification(new NotificationEventArgs() { Message = "Msi execution terminated with errors..." });
+                    OnError(new InstallerServiceErrorEventArgs()
+                    {
+                        Message = "Error updating " + currentRequest.Instance.Name,
+                        Error = exc
+                    });
+                }
             }
 
             OnNotification(new NotificationEventArgs() { Message = "Cleaning registry..." });
@@ -492,37 +500,42 @@ namespace Microarea.Mago4Butler.BL
 
         private void Install(Request currentRequest, CmdLineInfo cmdLineInfo)
         {
-            OnNotification(new NotificationEventArgs() { Message = "Removing installation info..." });
-            //Rimuovo le informazioni di installazione dal registry se presenti in
-            //modo che la mia installazione non le trovi e tenga i parametri che passo io da riga di comando.
-            this.msiZapper.ZapMsi(currentRequest.MsiPath);
-            this.registryService.RemoveInstallationInfoKey(currentRequest.MsiPath);
-            this.registryService.RemoveInstallerFoldersKeys(currentRequest.RootFolder, currentRequest.Instance);
-            OnNotification(new NotificationEventArgs() { Message = "Installation info removed" });
-            string logFilesFolderPath = CreateApplicationFolders(currentRequest);
-
-            OnNotification(new NotificationEventArgs() { Message = "Launching msi..." });
-            this.LogInfo("Launching msi with command line " + cmdLineInfo.ToString());
-            string installLogFilePath = Path.Combine(logFilesFolderPath, "Mago4_" + currentRequest.Instance.Name + "_InstallLog_" + DateTime.Now.ToString("yyyyMMddhhmmss", CultureInfo.InvariantCulture) + ".log");
-
-            try
+            //Lock-o il file msi perche` fino a che windows installer non comincia il suo lavoro
+            //nessuno lo lock-a e quindi l'utente potrebbe cancellarlo causando errori.
+            using (var lockToken = this.fileLocker.CreateLockToken(currentRequest.MsiPath))
             {
-                this.LaunchProcess(
-                        msiexecPath,
-                        String.Format("/i \"{0}\" /qn /norestart {1} UICULTURE=\"it-IT\" INSTALLLOCATION=\"{2}\" INSTANCENAME=\"{3}\" DEFAULTWEBSITENAME=\"{4}\" DEFAULTWEBSITEID={5} DEFAULTWEBSITEPORT={6} {7}", currentRequest.MsiPath, this.settings.MsiLog ? String.Format("/l*vx \"{0}\"", installLogFilePath) : string.Empty, currentRequest.RootFolder, currentRequest.Instance.Name, currentRequest.Instance.WebSiteInfo.SiteName, currentRequest.Instance.WebSiteInfo.SiteID, currentRequest.Instance.WebSiteInfo.SitePort, cmdLineInfo.ToString()),
-                        3600000
-                        );
-                OnNotification(new NotificationEventArgs() { Message = "Msi execution successfully terminated..." });
-            }
-            catch (Exception exc)
-            {
-                this.LogError("Msi execution terminated with errors...", exc);
-                OnNotification(new NotificationEventArgs() { Message = "Msi execution terminated with errors..." });
-                OnError(new InstallerServiceErrorEventArgs()
+                OnNotification(new NotificationEventArgs() { Message = "Removing installation info..." });
+                //Rimuovo le informazioni di installazione dal registry se presenti in
+                //modo che la mia installazione non le trovi e tenga i parametri che passo io da riga di comando.
+                this.msiZapper.ZapMsi(currentRequest.MsiPath);
+                this.registryService.RemoveInstallationInfoKey(currentRequest.MsiPath);
+                this.registryService.RemoveInstallerFoldersKeys(currentRequest.RootFolder, currentRequest.Instance);
+                OnNotification(new NotificationEventArgs() { Message = "Installation info removed" });
+                string logFilesFolderPath = CreateApplicationFolders(currentRequest);
+
+                OnNotification(new NotificationEventArgs() { Message = "Launching msi..." });
+                this.LogInfo("Launching msi with command line " + cmdLineInfo.ToString());
+                string installLogFilePath = Path.Combine(logFilesFolderPath, "Mago4_" + currentRequest.Instance.Name + "_InstallLog_" + DateTime.Now.ToString("yyyyMMddhhmmss", CultureInfo.InvariantCulture) + ".log");
+
+                try
                 {
-                    Message = "Error installing " + currentRequest.Instance.Name,
-                    Error = exc
-                });
+                    this.LaunchProcess(
+                            msiexecPath,
+                            String.Format("/i \"{0}\" /qn /norestart {1} UICULTURE=\"it-IT\" INSTALLLOCATION=\"{2}\" INSTANCENAME=\"{3}\" DEFAULTWEBSITENAME=\"{4}\" DEFAULTWEBSITEID={5} DEFAULTWEBSITEPORT={6} {7}", currentRequest.MsiPath, this.settings.MsiLog ? String.Format("/l*vx \"{0}\"", installLogFilePath) : string.Empty, currentRequest.RootFolder, currentRequest.Instance.Name, currentRequest.Instance.WebSiteInfo.SiteName, currentRequest.Instance.WebSiteInfo.SiteID, currentRequest.Instance.WebSiteInfo.SitePort, cmdLineInfo.ToString()),
+                            3600000
+                            );
+                    OnNotification(new NotificationEventArgs() { Message = "Msi execution successfully terminated..." });
+                }
+                catch (Exception exc)
+                {
+                    this.LogError("Msi execution terminated with errors...", exc);
+                    OnNotification(new NotificationEventArgs() { Message = "Msi execution terminated with errors..." });
+                    OnError(new InstallerServiceErrorEventArgs()
+                    {
+                        Message = "Error installing " + currentRequest.Instance.Name,
+                        Error = exc
+                    });
+                }
             }
 
             OnNotification(new NotificationEventArgs() { Message = "Cleaning registry..." });
