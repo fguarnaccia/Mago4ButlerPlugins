@@ -37,6 +37,11 @@ namespace Microarea.Mago4Butler
 
         static Program()
         {
+            RefreshLogConfiguration();
+        }
+
+        internal static void RefreshLogConfiguration()
+        {
             var settings = IoCContainer.Instance.Get<ISettings>();
             log4net.GlobalContext.Properties["LogFilePath"] = Path.Combine(settings.LogsFolder, LogFileName);
             log4net.Config.XmlConfigurator.Configure();

@@ -71,6 +71,7 @@ namespace Microarea.Mago4Butler
             this.model.InstanceAdded += Model_InstanceAdded;
             this.model.InstanceRemoved += Model_InstanceRemoved;
             this.model.InstanceUpdated += Model_InstanceUpdated;
+            this.model.ModelInitialized += Model_ModelInitialized;
 
             this.pluginService = pluginService;
             this.installerService = installerService;
@@ -153,6 +154,11 @@ namespace Microarea.Mago4Butler
             }
         }
 
+        private void Model_ModelInitialized(object sender, EventArgs e)
+        {
+            InitInstancesListView();
+        }
+
         private void Model_InstanceUpdated(object sender, InstanceEventArgs e)
         {
             var idx = this.lsvInstances.Items.IndexOf(e.Instance);
@@ -206,7 +212,11 @@ namespace Microarea.Mago4Butler
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+            InitInstancesListView();
+        }
 
+        private void InitInstancesListView()
+        {
             this.lsvInstances.Items.Clear();
             foreach (var instance in this.model.Instances)
             {

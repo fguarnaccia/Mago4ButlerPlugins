@@ -15,38 +15,31 @@ namespace Microarea.Mago4Butler.Model
     {
         const string configutationFileName = "Mago4Butler.yml";
 
-        string rootFolder;
+        ISettings settings;
 
         List<Instance> instances = new List<Instance>();
 
         public event EventHandler<InstanceEventArgs> InstanceAdded;
         public event EventHandler<InstanceEventArgs> InstanceRemoved;
         public event EventHandler<InstanceEventArgs> InstanceUpdated;
+        public event EventHandler<EventArgs> ModelInitialized;
 
         protected virtual void OnInstanceAdded(InstanceEventArgs e)
         {
-            var handler = InstanceAdded;
-            if (handler != null)
-            {
-                handler(this, e);
-            }
+            InstanceAdded?.Invoke(this, e);
         }
         protected virtual void OnInstanceRemoved(InstanceEventArgs e)
         {
-            var handler = InstanceRemoved;
-            if (handler != null)
-            {
-                handler(this, e);
-            }
+            InstanceRemoved?.Invoke(this, e);
         }
 
         protected virtual void OnInstanceUpdated(InstanceEventArgs e)
         {
-            var handler = InstanceUpdated;
-            if (handler != null)
-            {
-                handler(this, e);
-            }
+            InstanceUpdated?.Invoke(this, e);
+        }
+        protected virtual void OnModelInitialized()
+        {
+            ModelInitialized?.Invoke(this, EventArgs.Empty);
         }
 
         public Model()
@@ -56,7 +49,7 @@ namespace Microarea.Mago4Butler.Model
 
         public Model(ISettings settings)
         {
-            this.rootFolder = settings.RootFolder;
+            this.settings = settings;
         }
 
         public static bool IsInstanceNameValid(string instanceName)
@@ -207,7 +200,7 @@ namespace Microarea.Mago4Butler.Model
         {
             this.instances.Clear();
 
-            var rootFolderDirInfo = new DirectoryInfo(this.rootFolder);
+            var rootFolderDirInfo = new DirectoryInfo(this.settings.RootFolder);
             if (!rootFolderDirInfo.Exists)
             {
                 rootFolderDirInfo.Create();
@@ -215,7 +208,7 @@ namespace Microarea.Mago4Butler.Model
 
             LoadFromConfigurationFile();
 
-            var rootDirInfo = new DirectoryInfo(this.rootFolder);
+            var rootDirInfo = new DirectoryInfo(this.settings.RootFolder);
             var instancesOnDisk = new List<Instance>();
             var instanceDirInfos = rootDirInfo.GetDirectories();
             foreach (var instanceDirInfo in instanceDirInfos)
@@ -251,11 +244,13 @@ namespace Microarea.Mago4Butler.Model
                     this.instances[i].Edition = instanceOnDisk.Edition;
                 }
             }
+
+            OnModelInitialized();
         }
 
         private void LoadFromConfigurationFile()
         {
-            var confFileInfo = new FileInfo(Path.Combine(this.rootFolder, configutationFileName));
+            var confFileInfo = new FileInfo(Path.Combine(this.settings.RootFolder, configutationFileName));
             if (!confFileInfo.Exists)
             {
                 return;
@@ -275,7 +270,7 @@ namespace Microarea.Mago4Butler.Model
 
         private void SaveToConfigurationFile()
         {
-            var confFileInfo = new FileInfo(Path.Combine(this.rootFolder, configutationFileName));
+            var confFileInfo = new FileInfo(Path.Combine(this.settings.RootFolder, configutationFileName));
 
             var serializer = new YamlDotNet.Serialization.Serializer(SerializationOptions.DisableAliases | SerializationOptions.EmitDefaults);
             using (var outputStream = File.Create(confFileInfo.FullName))
