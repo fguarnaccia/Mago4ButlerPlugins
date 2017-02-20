@@ -81,6 +81,8 @@
             // 
             this.txtRootFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtRootFolder.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.txtRootFolder.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.txtRootFolder.Location = new System.Drawing.Point(7, 23);
             this.txtRootFolder.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.txtRootFolder.Name = "txtRootFolder";

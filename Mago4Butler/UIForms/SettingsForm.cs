@@ -1,4 +1,5 @@
 ﻿using Microarea.Mago4Butler.BL;
+using Microarea.Mago4Butler.Log;
 using Microarea.Mago4Butler.Model;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ using System.Windows.Forms;
 
 namespace Microarea.Mago4Butler
 {
-    public partial class SettingsForm : Form
+    public partial class SettingsForm : Form, ILogger
     {
         ISettings settings;
         IisService iisService;
@@ -46,6 +47,19 @@ namespace Microarea.Mago4Butler
             this.txtUsername.Text = this.settings.Username;
             this.txtPassword.Text = this.settings.Password;
 
+            //Trucco per capire se siamo in ambiente PAAS oppure no.
+            var svc = IoCContainer.Instance.Get<ShouldUseProvisioningProvider>();
+            if (!svc.ShouldUseProvisioning)
+            {
+                Task.Factory
+                    .StartNew(() => LoadSuggestions(this.settings.RootFolder));
+            }
+            else
+            {
+                //In ambiente PAAS non applico la logica di suggerimento.
+                txtRootFolder.AutoCompleteCustomSource = new AutoCompleteStringCollection();
+            }
+
             //var availableWebSites = this.iisService.GetAvailableWebSites();
             //int selectedIdx = -1;
             //int idx = -1;
@@ -57,6 +71,39 @@ namespace Microarea.Mago4Butler
             //        selectedIdx = idx;
             //    }
             //}
+        }
+
+        private void LoadSuggestions(string rootFolder)
+        {
+            try
+            {
+                var workingFolder = new DirectoryInfo(rootFolder);
+                var root = workingFolder.Root;
+                while (workingFolder.Parent.Name != root.Name)
+                {
+                    workingFolder = workingFolder.Parent;
+                }
+
+                FileInfo[] ymlFiles = null;
+
+                ymlFiles = workingFolder.GetFiles("*.yml", SearchOption.AllDirectories);
+
+                var datasource = new AutoCompleteStringCollection();
+                foreach (var ymlFile in ymlFiles)
+                {
+                    if (!datasource.Contains(ymlFile.Directory.FullName))
+                    {
+                        datasource.Add(ymlFile.Directory.FullName);
+                    }
+                }
+
+                this.BeginInvoke(new Action(() => txtRootFolder.AutoCompleteCustomSource = datasource));
+            }
+            catch (Exception exc)
+            {
+                this.LogError("Unable to load .yml files from " + rootFolder, exc);
+                this.BeginInvoke(new Action(() => txtRootFolder.AutoCompleteCustomSource = new AutoCompleteStringCollection()));
+            }
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
