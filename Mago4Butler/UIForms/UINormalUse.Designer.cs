@@ -68,30 +68,33 @@
             // splitContainer.Panel1
             // 
             this.splitContainer.Panel1.Controls.Add(this.lsvInstances);
+            this.splitContainer.Panel1.Padding = new System.Windows.Forms.Padding(20, 0, 20, 0);
             // 
             // splitContainer.Panel2
             // 
             this.splitContainer.Panel2.Controls.Add(this.btnRemove);
             this.splitContainer.Panel2.Controls.Add(this.btnAddInstance);
             this.splitContainer.Panel2.Controls.Add(this.btnUpdate);
-            this.splitContainer.Size = new System.Drawing.Size(400, 400);
+            this.splitContainer.Size = new System.Drawing.Size(500, 400);
             this.splitContainer.SplitterDistance = 345;
             this.splitContainer.TabIndex = 0;
             // 
             // lsvInstances
             // 
+            this.lsvInstances.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lsvInstances.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.instanceColumnHeader,
             this.versionColumnHeader,
             this.installedOnColumnHeader});
             this.lsvInstances.ContextMenuStrip = this.contextMenuStrip;
-            this.lsvInstances.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lsvInstances.FullRowSelect = true;
-            this.lsvInstances.Location = new System.Drawing.Point(0, 0);
+            this.lsvInstances.Location = new System.Drawing.Point(20, 0);
             this.lsvInstances.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.lsvInstances.Name = "lsvInstances";
             this.lsvInstances.ShowItemToolTips = true;
-            this.lsvInstances.Size = new System.Drawing.Size(400, 345);
+            this.lsvInstances.Size = new System.Drawing.Size(456, 345);
             this.lsvInstances.TabIndex = 0;
             this.lsvInstances.UseCompatibleStateImageBehavior = false;
             this.lsvInstances.View = System.Windows.Forms.View.Details;
@@ -101,17 +104,17 @@
             // instanceColumnHeader
             // 
             this.instanceColumnHeader.Text = "Instance";
-            this.instanceColumnHeader.Width = 160;
+            this.instanceColumnHeader.Width = 25;
             // 
             // versionColumnHeader
             // 
             this.versionColumnHeader.Text = "Version";
-            this.versionColumnHeader.Width = 95;
+            this.versionColumnHeader.Width = 25;
             // 
             // installedOnColumnHeader
             // 
             this.installedOnColumnHeader.Text = "Installed on";
-            this.installedOnColumnHeader.Width = 141;
+            this.installedOnColumnHeader.Width = 25;
             // 
             // contextMenuStrip
             // 
@@ -124,7 +127,7 @@
             this.btnRemove.Enabled = false;
             this.btnRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRemove.Image = ((System.Drawing.Image)(resources.GetObject("btnRemove.Image")));
-            this.btnRemove.Location = new System.Drawing.Point(252, 7);
+            this.btnRemove.Location = new System.Drawing.Point(303, 7);
             this.btnRemove.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(40, 32);
@@ -138,7 +141,7 @@
             this.btnAddInstance.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAddInstance.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddInstance.Image = ((System.Drawing.Image)(resources.GetObject("btnAddInstance.Image")));
-            this.btnAddInstance.Location = new System.Drawing.Point(108, 7);
+            this.btnAddInstance.Location = new System.Drawing.Point(159, 7);
             this.btnAddInstance.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnAddInstance.Name = "btnAddInstance";
             this.btnAddInstance.Size = new System.Drawing.Size(40, 32);
@@ -153,7 +156,7 @@
             this.btnUpdate.Enabled = false;
             this.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUpdate.Image = ((System.Drawing.Image)(resources.GetObject("btnUpdate.Image")));
-            this.btnUpdate.Location = new System.Drawing.Point(180, 7);
+            this.btnUpdate.Location = new System.Drawing.Point(231, 7);
             this.btnUpdate.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(40, 32);
@@ -170,10 +173,10 @@
             this.Controls.Add(this.splitContainer);
             this.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.MaximumSize = new System.Drawing.Size(400, 400);
-            this.MinimumSize = new System.Drawing.Size(400, 400);
+            this.MaximumSize = new System.Drawing.Size(500, 400);
+            this.MinimumSize = new System.Drawing.Size(500, 400);
             this.Name = "UINormalUse";
-            this.Size = new System.Drawing.Size(400, 400);
+            this.Size = new System.Drawing.Size(500, 400);
             this.splitContainer.Panel1.ResumeLayout(false);
             this.splitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();

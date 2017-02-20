@@ -40,7 +40,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lnkSelectMsi.AutoSize = true;
             this.lnkSelectMsi.Font = new System.Drawing.Font("Verdana", 12F);
-            this.lnkSelectMsi.Location = new System.Drawing.Point(127, 172);
+            this.lnkSelectMsi.Location = new System.Drawing.Point(173, 172);
             this.lnkSelectMsi.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lnkSelectMsi.Name = "lnkSelectMsi";
             this.lnkSelectMsi.Size = new System.Drawing.Size(120, 18);
@@ -57,7 +57,7 @@
             this.lblNoMoreInstallations.AutoSize = true;
             this.lblNoMoreInstallations.Font = new System.Drawing.Font("Verdana", 26.25F);
             this.lblNoMoreInstallations.ForeColor = System.Drawing.Color.Gray;
-            this.lblNoMoreInstallations.Location = new System.Drawing.Point(58, 104);
+            this.lblNoMoreInstallations.Location = new System.Drawing.Point(104, 104);
             this.lblNoMoreInstallations.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNoMoreInstallations.Name = "lblNoMoreInstallations";
             this.lblNoMoreInstallations.Size = new System.Drawing.Size(284, 42);
@@ -69,7 +69,7 @@
             // 
             this.pictureBox.BackgroundImage = global::Microarea.Mago4Butler.Properties.Resources.logo;
             this.pictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox.Location = new System.Drawing.Point(163, 29);
+            this.pictureBox.Location = new System.Drawing.Point(209, 29);
             this.pictureBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(48, 67);
@@ -86,10 +86,10 @@
             this.Controls.Add(this.lblNoMoreInstallations);
             this.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.MaximumSize = new System.Drawing.Size(400, 400);
-            this.MinimumSize = new System.Drawing.Size(400, 400);
+            this.MaximumSize = new System.Drawing.Size(500, 400);
+            this.MinimumSize = new System.Drawing.Size(500, 400);
             this.Name = "UIEmpty";
-            this.Size = new System.Drawing.Size(400, 400);
+            this.Size = new System.Drawing.Size(500, 400);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

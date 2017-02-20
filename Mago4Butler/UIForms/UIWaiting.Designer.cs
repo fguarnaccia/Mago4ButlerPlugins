@@ -45,7 +45,7 @@
             this.lblPleaseWait.AutoSize = true;
             this.lblPleaseWait.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPleaseWait.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.lblPleaseWait.Location = new System.Drawing.Point(126, 26);
+            this.lblPleaseWait.Location = new System.Drawing.Point(176, 26);
             this.lblPleaseWait.Name = "lblPleaseWait";
             this.lblPleaseWait.Size = new System.Drawing.Size(117, 23);
             this.lblPleaseWait.TabIndex = 5;
@@ -60,7 +60,7 @@
             this.progressBar.Location = new System.Drawing.Point(7, 180);
             this.progressBar.MarqueeAnimationSpeed = 20;
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(369, 23);
+            this.progressBar.Size = new System.Drawing.Size(469, 23);
             this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.progressBar.TabIndex = 6;
             // 
@@ -78,7 +78,7 @@
             // 
             this.pictureBox.BackgroundImage = global::Microarea.Mago4Butler.Properties.Resources.logo;
             this.pictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox.Location = new System.Drawing.Point(163, 69);
+            this.pictureBox.Location = new System.Drawing.Point(213, 69);
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(48, 67);
             this.pictureBox.TabIndex = 8;
@@ -95,7 +95,7 @@
             this.txtDetails.Name = "txtDetails";
             this.txtDetails.ReadOnly = true;
             this.txtDetails.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtDetails.Size = new System.Drawing.Size(369, 133);
+            this.txtDetails.Size = new System.Drawing.Size(469, 133);
             this.txtDetails.TabIndex = 9;
             // 
             // btnBack
@@ -120,10 +120,10 @@
             this.Controls.Add(this.lblProgressText);
             this.Controls.Add(this.progressBar);
             this.Controls.Add(this.lblPleaseWait);
-            this.MaximumSize = new System.Drawing.Size(400, 400);
-            this.MinimumSize = new System.Drawing.Size(400, 400);
+            this.MaximumSize = new System.Drawing.Size(500, 400);
+            this.MinimumSize = new System.Drawing.Size(500, 400);
             this.Name = "UIWaiting";
-            this.Size = new System.Drawing.Size(400, 400);
+            this.Size = new System.Drawing.Size(500, 400);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

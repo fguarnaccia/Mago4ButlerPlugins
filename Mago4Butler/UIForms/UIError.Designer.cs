@@ -43,7 +43,7 @@
             this.lblError.AutoSize = true;
             this.lblError.Font = new System.Drawing.Font("Verdana", 26.25F);
             this.lblError.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblError.Location = new System.Drawing.Point(164, 38);
+            this.lblError.Location = new System.Drawing.Point(211, 38);
             this.lblError.Name = "lblError";
             this.lblError.Size = new System.Drawing.Size(106, 42);
             this.lblError.TabIndex = 6;
@@ -62,7 +62,7 @@
             this.txtError.Name = "txtError";
             this.txtError.ReadOnly = true;
             this.txtError.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtError.Size = new System.Drawing.Size(366, 144);
+            this.txtError.Size = new System.Drawing.Size(466, 144);
             this.txtError.TabIndex = 8;
             this.txtError.Text = "Error details";
             // 
@@ -81,7 +81,7 @@
             // 
             this.pictureBox.BackgroundImage = global::Microarea.Mago4Butler.Properties.Resources.Error;
             this.pictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox.Location = new System.Drawing.Point(126, 41);
+            this.pictureBox.Location = new System.Drawing.Point(173, 41);
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(39, 39);
             this.pictureBox.TabIndex = 7;
@@ -96,10 +96,10 @@
             this.Controls.Add(this.txtError);
             this.Controls.Add(this.pictureBox);
             this.Controls.Add(this.lblError);
-            this.MaximumSize = new System.Drawing.Size(400, 400);
-            this.MinimumSize = new System.Drawing.Size(400, 400);
+            this.MaximumSize = new System.Drawing.Size(500, 400);
+            this.MinimumSize = new System.Drawing.Size(500, 400);
             this.Name = "UIError";
-            this.Size = new System.Drawing.Size(400, 400);
+            this.Size = new System.Drawing.Size(500, 400);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -222,6 +222,10 @@ namespace Microarea.Mago4Butler
             {
                 AddInstanceToListView(instance);
             }
+            foreach (ColumnHeader column in this.lsvInstances.Columns)
+            {
+                column.Width = -1;
+            }
         }
 
         private void lsvInstances_SelectedIndexChanged(object sender, EventArgs e)
