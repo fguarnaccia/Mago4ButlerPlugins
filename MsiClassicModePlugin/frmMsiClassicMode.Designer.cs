@@ -72,11 +72,14 @@
             // 
             // txtboxFileMsi
             // 
+            this.txtboxFileMsi.AllowDrop = true;
             this.errProvider.SetIconAlignment(this.txtboxFileMsi, System.Windows.Forms.ErrorIconAlignment.MiddleLeft);
             this.txtboxFileMsi.Location = new System.Drawing.Point(108, 69);
             this.txtboxFileMsi.Name = "txtboxFileMsi";
             this.txtboxFileMsi.Size = new System.Drawing.Size(380, 20);
             this.txtboxFileMsi.TabIndex = 3;
+            this.txtboxFileMsi.DragDrop += new System.Windows.Forms.DragEventHandler(this.txtboxFileMsi_DragDrop);
+            this.txtboxFileMsi.DragEnter += new System.Windows.Forms.DragEventHandler(this.txtboxFileMsi_DragEnter);
             // 
             // btnSelectFileMsi
             // 
@@ -131,6 +134,7 @@
             // 
             // frmMsiClassicMode
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnEsc;

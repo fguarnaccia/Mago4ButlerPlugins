@@ -56,9 +56,10 @@ namespace MsiClassicModePlugin
         {
 
             InitializeComponent();
+
         }
 
-
+  
         private void btnSelectFileMsi_Click(object sender, EventArgs e)
         {
             dlgOpenFile.ShowDialog();
@@ -124,7 +125,7 @@ namespace MsiClassicModePlugin
         {
             if (FieldsHaveErrors())
             { this.DialogResult = System.Windows.Forms.DialogResult.Cancel; }
-
+            Properties.Settings.Default.Save();
         }
 
 
@@ -149,5 +150,33 @@ namespace MsiClassicModePlugin
             }
         }
 
+
+        private void txtboxFileMsi_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+
+            errProvider.Clear();         
+
+            foreach (string file in files)
+
+            {
+                System.IO.FileInfo fi = new System.IO.FileInfo(file);
+
+                if (fi.Extension == ".msi") 
+
+                { txtboxFileMsi.Text = file; }
+                else
+                {
+                    errProvider.SetIconAlignment(txtboxFileMsi, ErrorIconAlignment.MiddleLeft);
+                    errProvider.SetError((TextBox)sender, "Extension not allowed");
+                }
+            } 
+            
+        }
+
+        private void txtboxFileMsi_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.All;
+        }
     }
 }

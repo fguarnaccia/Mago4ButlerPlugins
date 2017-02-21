@@ -24,6 +24,7 @@ namespace MsiClassicModePlugin
 
         private void SetClassicModeParameter(CmdLineInfo cmdLineInfo)
         {
+
             cmdLineInfo.ClassicApplicationPoolPipeline = Properties.Settings.Default.ClassicApplicationPoolPipeline;
             cmdLineInfo.NoEveryone = Properties.Settings.Default.NoEveryone;
             cmdLineInfo.NoShares = Properties.Settings.Default.NoShares;
