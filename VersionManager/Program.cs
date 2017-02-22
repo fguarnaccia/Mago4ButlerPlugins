@@ -9,6 +9,13 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Windows.Forms;
 
+/// <summary>
+/// Aggiorna la versione 
+/// </summary>
+/// <remarks>
+/// richiede che il file AssemblyInfo.cs sia in edit 
+/// </remarks>
+
 namespace VersionManager
 {
     class Program
@@ -18,7 +25,7 @@ namespace VersionManager
 #if DEBUG
             return;
 #endif
-
+            System.Diagnostics.Debug.Fail("debug");
             string starVersionRegexPattern = "(?<major>[0-9]+)\\.(?<minor>[0-9]+)\\.\\*";
             Regex starVersionRegex = new Regex(starVersionRegexPattern);
 
@@ -33,9 +40,7 @@ namespace VersionManager
             {
                SetPluginVersion(args[1] , args[2]);
               
-                
                 return;
-
 
             }
 
@@ -102,8 +107,7 @@ namespace VersionManager
             Version v = new Version(oldVersion);
             return String.Format(CultureInfo.InvariantCulture, "{0}.{1}.{2}.{3}", v.Major, v.Minor, v.Build + 1, v.Revision);
         }
-
-              
+        
 
         private static void SetPluginVersion(string plgnNamespace, string pathOfAssemblyinfo)
         {
@@ -119,7 +123,7 @@ namespace VersionManager
 
                 if (item.GetAttribute("name") == plgnNamespace)
                 {
-                   item.SetAttribute("version", GetLastVersion(pathOfAssemblyinfo));
+                   item.SetAttribute("version", CalculateNewVersion(GetLastVersion(pathOfAssemblyinfo)));
                 }
 
             }

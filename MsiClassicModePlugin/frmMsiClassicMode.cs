@@ -153,25 +153,31 @@ namespace MsiClassicModePlugin
 
         private void txtboxFileMsi_DragDrop(object sender, DragEventArgs e)
         {
-            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
-
-            errProvider.Clear();         
-
-            foreach (string file in files)
-
-            {
-                System.IO.FileInfo fi = new System.IO.FileInfo(file);
-
-                if (fi.Extension == ".msi") 
-
-                { txtboxFileMsi.Text = file; }
-                else
-                {
-                    errProvider.SetIconAlignment(txtboxFileMsi, ErrorIconAlignment.MiddleLeft);
-                    errProvider.SetError((TextBox)sender, "Extension not allowed");
-                }
-            } 
             
+            errProvider.Clear();
+
+            //string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+            string[] files = e.Data.GetData(DataFormats.FileDrop, false) as string[];
+                                
+            if (files != null)
+            {
+                foreach (string file in files)
+
+                {
+
+                    System.IO.FileInfo fi = new System.IO.FileInfo(file);
+                    
+                    if (fi.Extension == ".msi")
+
+                        { txtboxFileMsi.Text = file; }
+                        else
+                        {
+                            errProvider.SetIconAlignment(txtboxFileMsi, ErrorIconAlignment.MiddleLeft);
+                            errProvider.SetError((TextBox)sender, "Extension not allowed");
+                        }                     
+                 }
+                    
+            }
         }
 
         private void txtboxFileMsi_DragEnter(object sender, DragEventArgs e)
