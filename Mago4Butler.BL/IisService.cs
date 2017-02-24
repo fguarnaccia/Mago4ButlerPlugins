@@ -30,8 +30,25 @@ namespace Microarea.Mago4Butler.BL
                     var appPools = mgr.ApplicationPools;
                     var appPoolsToRemove = appPools.Where(
                         pool =>
-                            pool.Name.StartsWith(String.Format(CultureInfo.InvariantCulture, "MA_{0}", instance.Name), StringComparison.InvariantCultureIgnoreCase)
-                            ).ToList();
+                        {
+                            //MA_M4_1_3_1_EasyLookAppPool
+                            var startIdx = pool.Name.IndexOf("_", StringComparison.InvariantCultureIgnoreCase) + 1;
+                            if (startIdx < 1)
+                            {
+                                return false;
+                            }
+                            var lastIndexOfUnderscore = pool.Name.LastIndexOf("_", StringComparison.InvariantCultureIgnoreCase);
+                            var len = lastIndexOfUnderscore - startIdx;
+                            if (len == -1)
+                            {
+                                return false;
+                            }
+
+                            //Questa logica e` un po` tricky....
+                            var instanceNameFromCurrentAppPoolName = pool.Name.Substring(startIdx, len);
+
+                            return string.CompareOrdinal(instanceNameFromCurrentAppPoolName, instance.Name) == 0;
+                        }).ToList();
 
                     foreach (var appPool in appPoolsToRemove)
                     {
@@ -56,7 +73,7 @@ namespace Microarea.Mago4Butler.BL
 
                     var applicationCollection = site.Applications;
 
-                    var rootPath = String.Concat("/", instance.Name);
+                    var rootPath = String.Concat("/", instance.Name, "/");
 
                     var applications = applicationCollection.FindApplications(rootPath);
 
@@ -69,6 +86,8 @@ namespace Microarea.Mago4Butler.BL
                     if (rootApplication != null)
                     {
                         var virtualDirCollection = rootApplication.VirtualDirectories;
+
+                        rootPath = String.Concat("/", instance.Name);
                         var instanceVirtualDir = virtualDirCollection.FindVirtualDirectory(rootPath);
                         if (instanceVirtualDir != null)
                         {
