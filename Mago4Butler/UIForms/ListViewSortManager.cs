@@ -17,6 +17,14 @@ namespace Microarea.Mago4Butler
             listView.ListViewItemSorter = instanceComparer;
         }
 
+        public void SortByColumn(int columnId)
+        {
+            ListView_ColumnClick(
+                this,
+                new ColumnClickEventArgs(columnId)
+                );
+        }
+
         private void ListView_ColumnClick(object sender, ColumnClickEventArgs e)
         {
             this.instanceComparer.Sorting =

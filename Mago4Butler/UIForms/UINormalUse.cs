@@ -213,6 +213,9 @@ namespace Microarea.Mago4Butler
         {
             base.OnLoad(e);
             InitInstancesListView();
+
+            this.listViewSortManager.SortByColumn(2);
+            var c = this.lsvInstances.Columns[""];
         }
 
         private void InitInstancesListView()
