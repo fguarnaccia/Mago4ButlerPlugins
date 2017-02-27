@@ -29,7 +29,6 @@ namespace Microarea.Mago4Butler
                 Bind<UpdatesDownloaderService>().ToSelf();
                 Bind<MsiService>().ToSelf();
                 Bind<WcfService>().ToSelf();
-                Bind<CompanyDBUpdateService>().ToSelf();
                 Bind<FileSystemService>().ToSelf();
                 Bind<IisService>().ToSelf();
                 Bind<MsiZapper>().ToSelf();
@@ -41,6 +40,23 @@ namespace Microarea.Mago4Butler
                 Bind<InstallerService>()
                     .ToSelf()
                     .InSingletonScope();
+
+                Bind<ICompanyDBUpdateService>()
+                    .To<CompanyDBUpdateService>()
+                    .When(
+                    (r) =>
+                    {
+                        var svc = r.ParentContext.Kernel.Get<ShouldUseProvisioningProvider>();
+                        return svc.ShouldUseProvisioning;
+                    });
+                Bind<ICompanyDBUpdateService>()
+                    .To<NoCompanyDbUpdate>()
+                    .When(
+                    (r) =>
+                    {
+                        var svc = r.ParentContext.Kernel.Get<ShouldUseProvisioningProvider>();
+                        return !svc.ShouldUseProvisioning;
+                    });
 
                 Bind<ISalesModulesConfiguratorService>()
                     .To<SalesModulesConfiguratorService>()

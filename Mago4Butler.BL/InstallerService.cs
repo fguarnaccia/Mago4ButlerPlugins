@@ -37,7 +37,7 @@ namespace Microarea.Mago4Butler.BL
         MsiService msiService;
         IisService iisService;
         FileSystemService fileSystemService;
-        CompanyDBUpdateService companyDBUpdateService;
+        ICompanyDBUpdateService companyDBUpdateService;
         ISalesModulesConfiguratorService salesModulesConfiguratorService;
         IFileLocker fileLocker;
 
@@ -59,7 +59,7 @@ namespace Microarea.Mago4Butler.BL
         public InstallerService(
             ISettings settings,
             MsiService msiService,
-            CompanyDBUpdateService companyDBUpdateService,
+            ICompanyDBUpdateService companyDBUpdateService,
             MsiZapper msiZapper,
             RegistryService registryService,
             IisService iisService,

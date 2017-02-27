@@ -105,10 +105,12 @@
     <Compile Include="FileLocker.cs" />
     <Compile Include="HttpService.cs" />
     <Compile Include="IAdmConsoleToLaunchNameProvider.cs" />
+    <Compile Include="ICompanyDBUpdateService.cs" />
     <Compile Include="IFileLocker.cs" />
     <Compile Include="InstallerServiceErrorEventArgs.cs" />
     <Compile Include="IProvisioningService.cs" />
     <Compile Include="ISalesModulesConfiguratorService.cs" />
+    <Compile Include="NoCompanyDbUpdate.cs" />
     <Compile Include="NoProvisioningService.cs" />
     <Compile Include="NoSalesModulesConfigurationService.cs" />
     <Compile Include="NotificationEventArgs.cs" />

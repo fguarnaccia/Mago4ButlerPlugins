@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Microarea.Mago4Butler.BL
 {
-    public class CompanyDBUpdateService : ILogger
+    public class CompanyDBUpdateService : ILogger, ICompanyDBUpdateService
     {
         string rootFolder;
         IAdmConsoleToLaunchNameProvider admConsoleToLaunchNameProvider;
