@@ -1,16 +1,9 @@
-﻿using AutoMapper;
-using log4net;
-using Microarea.Mago4Butler.BL;
-using Microarea.Mago4Butler.Log;
+﻿using Microarea.Mago4Butler.BL;
 using Microarea.Mago4Butler.Model;
-using Microarea.Mago4Butler.Plugins;
 using Microarea.Tools.ProvisioningConfigurator.ProvisioningConfigurator;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Security.Permissions;
 using System.Threading;
 using System.Windows.Forms;
 using WinApp = System.Windows.Forms.Application;
@@ -24,6 +17,7 @@ namespace Microarea.Mago4Butler
         UIEmpty uiEmpty;
         UIWaiting uiWaiting;
         UIWaitingMinimized uiWaitingMinimized;
+        UIWaitingMinimizedFactory uiWaitingMinimizedFactory;
         UIError uiError;
         UINormalUse uiNormalUse;
 
@@ -36,7 +30,7 @@ namespace Microarea.Mago4Butler
             ISettings settings,
             UIEmpty uiEmpty,
             UIWaiting uiWaiting,
-            UIWaitingMinimized uiWaitingMinimized,
+            UIWaitingMinimizedFactory uiWaitingMinimizedFactory,
             UIError uiError,
             UINormalUse uiNormalUse
             )
@@ -56,7 +50,7 @@ namespace Microarea.Mago4Butler
             this.uiNormalUse = uiNormalUse;
             this.uiEmpty = uiEmpty;
             this.uiWaiting = uiWaiting;
-            this.uiWaitingMinimized = uiWaitingMinimized;
+            this.uiWaitingMinimizedFactory = uiWaitingMinimizedFactory;
             this.uiError = uiError;
 
             WinApp.Idle += Application_Idle;
@@ -88,12 +82,37 @@ namespace Microarea.Mago4Butler
             this.uiNormalUse.UpdateInstance += UiNormalUse_UpdateInstance;
             this.uiNormalUse.RemoveInstance += UiNormalUse_RemoveInstance;
             this.uiWaiting.Back += UiWaiting_Back;
-            this.uiWaitingMinimized.WindowClose += UiWaitingMinimized_WindowClose;
-            this.uiWaitingMinimized.AttachToMainUI(this);
-            this.uiWaitingMinimized.AttachToMainUiWaiting(this.uiWaiting);
 
             Thread.Sleep(1000);
             UpdateUI();
+        }
+
+        private void CreateUIWaitingMinimized()
+        {
+            if (this.uiWaitingMinimized != null)
+            {
+                DestroyUIWaitingMinimized();
+            }
+            this.uiWaitingMinimized = this.uiWaitingMinimizedFactory.CreateWaitingWindow();
+            this.uiWaitingMinimized.WindowClose += UiWaitingMinimized_WindowClose;
+            this.uiWaitingMinimized.AttachToMainUI(this);
+            this.uiWaitingMinimized.AttachToMainUiWaiting(this.uiWaiting);
+            this.uiWaitingMinimized.Show(this);
+        }
+        private void DestroyUIWaitingMinimized()
+        {
+            if (this.uiWaitingMinimized != null)
+            {
+                this.uiWaitingMinimized.WindowClose -= UiWaitingMinimized_WindowClose;
+                this.uiWaitingMinimized.DetachToMainUI();
+                this.uiWaitingMinimized.DetachToMainUiWaiting();
+
+                if (!this.uiWaitingMinimized.IsDisposed)
+                {
+                    this.uiWaitingMinimized.Dispose();
+                }
+                this.uiWaitingMinimized = null;
+            }
         }
 
         private void UiMediator_ProvisioningNeeded(object sender, ProvisioningEventArgs e)
@@ -153,15 +172,8 @@ namespace Microarea.Mago4Butler
             {
                 this.syncCtx.Post((_) =>
                 {
-                    if (this.uiWaitingMinimized.Visible)
-                    {
-                        this.uiWaitingMinimized.Visible = false;
-                    }
-                    else
-                    {
-                        var ui = this.uiMediator.ShouldShowEmptyUI ? this.uiEmpty as UserControl : this.uiNormalUse as UserControl;
-                        ShowUI(ui);
-                    }
+                    DestroyUIWaitingMinimized();
+                    UpdateUI();
 
                     EnableDisableToolStripItem(this.tsbSettings, true);
                 }, null);
@@ -183,26 +195,15 @@ namespace Microarea.Mago4Butler
 
         private void UiWaitingMinimized_WindowClose(object sender, EventArgs e)
         {
-            this.uiWaitingMinimized.Visible = false;
+            DestroyUIWaitingMinimized();
             ShowUI(this.uiWaiting);
         }
 
         private void UiWaiting_Back(object sender, EventArgs e)
         {
-            if (!this.uiWaitingMinimized.Visible)
-            {
-                if (!this.uiWaitingMinimized.IsHandleCreated)
-                {
-                    this.uiWaitingMinimized.Show(this);
-                }
-                else
-                {
-                    this.uiWaitingMinimized.Visible = true;
-                }
-            }
+            CreateUIWaitingMinimized();
 
-            var ui = this.uiMediator.ShouldShowEmptyUI ? this.uiEmpty as UserControl : this.uiNormalUse as UserControl;
-            ShowUI(ui);
+            UpdateUI();
         }
 
         void UpdateUI()
@@ -224,8 +225,7 @@ namespace Microarea.Mago4Butler
                 ShowUI(this.uiWaiting);
                 return;
             }
-            var ui = this.uiMediator.ShouldShowEmptyUI ? this.uiEmpty as UserControl : this.uiNormalUse as UserControl;
-            ShowUI(ui);
+            UpdateUI();
         }
 
         private void ShowUI(UserControl ui)
@@ -293,27 +293,6 @@ namespace Microarea.Mago4Butler
                 return;
             }
             Process.Start(logFileFullPath);
-        }
-
-        const int WM_SYSCOMMAND = 0x0112;
-        const int SC_MINIMIZE = 0xF020;
-
-        [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.UnmanagedCode)]
-        protected override void WndProc(ref Message m)
-        {
-            switch (m.Msg)
-            {
-                case WM_SYSCOMMAND:
-                    int command = m.WParam.ToInt32() & 0xfff0;
-                    if (command == SC_MINIMIZE && this.uiWaitingMinimized.Visible)
-                    {
-                        UiWaitingMinimized_WindowClose(this, EventArgs.Empty);
-                    }
-                    break;
-                default:
-                    break;
-            }
-            base.WndProc(ref m);
         }
     }
 }

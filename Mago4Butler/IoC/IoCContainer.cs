@@ -102,7 +102,7 @@ namespace Microarea.Mago4Butler
                 Bind<AskForParametersForm>().ToSelf();
                 Bind<UIEmpty>().ToSelf();
                 Bind<UIWaiting>().ToSelf();
-                Bind<UIWaitingMinimized>().ToSelf();
+                Bind<UIWaitingMinimizedFactory>().ToSelf();
                 Bind<UINormalUse>().ToSelf();
                 Bind<UIError>().ToSelf();
 

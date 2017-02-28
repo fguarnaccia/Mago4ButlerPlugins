@@ -37,16 +37,41 @@ namespace Microarea.Mago4Butler
             InitializeComponent();
         }
 
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            if (this.uiWaiting != null)
+            {
+                this.SetProgressText(this.uiWaiting.GetProgressText());
+            }
+        }
+
         internal void AttachToMainUI(MainForm mainForm)
         {
             this.mainForm = mainForm;
             this.mainForm.LocationChanged += MainForm_LocationChanged;
+        }
+        internal void DetachToMainUI()
+        {
+            if (this.mainForm != null)
+            {
+                this.mainForm.LocationChanged -= MainForm_LocationChanged;
+                this.mainForm = null;
+            }
         }
 
         internal void AttachToMainUiWaiting(UIWaiting uiWaiting)
         {
             this.uiWaiting = uiWaiting;
             this.uiWaiting.ProgressTextChanged += UiWaiting_ProgressTextChanged;
+        }
+        internal void DetachToMainUiWaiting()
+        {
+            if (this.uiWaiting != null)
+            {
+                this.uiWaiting.ProgressTextChanged -= UiWaiting_ProgressTextChanged;
+                this.uiWaiting = null;
+            }
         }
 
         private void UiWaiting_ProgressTextChanged(object sender, EventArgs e)
