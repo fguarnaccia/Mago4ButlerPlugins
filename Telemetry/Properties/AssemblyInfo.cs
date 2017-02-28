@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Microarea.Mago4Butler.Telemetry")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -29,6 +29,6 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-// [assembly: AssemblyVersion("1.0.6126.18651")]
-[assembly: AssemblyVersion("1.0.6126.18651")]
+// [assembly: AssemblyVersion("1.0.6128.18651")]
+[assembly: AssemblyVersion("1.0.6128.18651")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
