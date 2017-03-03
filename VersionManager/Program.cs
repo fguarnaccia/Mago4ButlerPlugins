@@ -50,12 +50,14 @@ namespace VersionManager
             }
 
             string content = null;
+            string version = null;
+
             using (StreamReader sr = new StreamReader(path))
             {
                 content = sr.ReadToEnd();
             }
 
-            string version = null;
+            
             Match starVersionMatch = starVersionRegex.Match(content);
             if (starVersionMatch.Success)
             {
@@ -77,6 +79,24 @@ namespace VersionManager
                 sw.Write(content);
             }
         }
+
+        private void WriteVersionOnAssemblyInfo(string path, string newnversion, ref string content)
+
+        {
+            using (StreamReader sr = new StreamReader(path))
+            {
+                content = sr.ReadToEnd();
+            }
+
+            content = content.Replace("oldversion", newversion);
+
+            using (StreamWriter sw = new StreamWriter(path, false))
+            {
+                sw.Write(content);
+            }
+        }
+
+
 
         private static string CalculateNewVersion(string major, string minor)
         {
