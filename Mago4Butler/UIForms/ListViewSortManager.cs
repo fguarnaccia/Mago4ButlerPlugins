@@ -1,3 +1,4 @@
+using Microarea.Mago4Butler.Model;
 using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
@@ -8,10 +9,13 @@ namespace Microarea.Mago4Butler
     public class ListViewSortManager : IDisposable
     {
         ListView listView;
-        InstanceComparer instanceComparer = new InstanceComparer();
+        readonly InstanceComparer instanceComparer = new InstanceComparer();
+        ISettings settings;
 
-        public ListViewSortManager(ListView listView)
+        public ListViewSortManager(ListView listView, ISettings settings)
         {
+            this.settings = settings;
+
             this.listView = listView;
             listView.ColumnClick += ListView_ColumnClick;
             listView.ListViewItemSorter = instanceComparer;
@@ -23,6 +27,7 @@ namespace Microarea.Mago4Butler
                 this,
                 new ColumnClickEventArgs(columnId)
                 );
+            this.instanceComparer.Sorting = (SortOrder)this.settings.ListViewSortOrder;
         }
 
         private void ListView_ColumnClick(object sender, ColumnClickEventArgs e)
@@ -32,18 +37,24 @@ namespace Microarea.Mago4Butler
                 ? SortOrder.Descending
                 : SortOrder.Ascending;
 
+            this.settings.ListViewSortOrder = (int)this.instanceComparer.Sorting;
+
             switch (e.Column)
             {
                 case 1:
                     this.instanceComparer.CompareOn = CompareOn.Version;
+                    this.settings.LastColumnSortedIndex = 1;
                     break;
                 case 2:
                     this.instanceComparer.CompareOn = CompareOn.InstallationDate;
+                    this.settings.LastColumnSortedIndex = 2;
                     break;
                 default:
                     this.instanceComparer.CompareOn = CompareOn.Name;
+                    this.settings.LastColumnSortedIndex = 0;
                     break;
             }
+            this.settings.Save();
 
             this.listView.SetSortIcon(e.Column, this.instanceComparer.Sorting);
             this.listView.Sort();

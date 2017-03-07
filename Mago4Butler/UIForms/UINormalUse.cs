@@ -83,7 +83,7 @@ namespace Microarea.Mago4Butler
             InitContextMenus();
             InitDoubleClickHandlers();
 
-            listViewSortManager = new ListViewSortManager(this.lsvInstances);
+            listViewSortManager = new ListViewSortManager(this.lsvInstances, this.settings);
         }
 
         private void InstallerService_Installed(object sender, InstallInstanceEventArgs e)
@@ -214,8 +214,7 @@ namespace Microarea.Mago4Butler
             base.OnLoad(e);
             InitInstancesListView();
 
-            this.listViewSortManager.SortByColumn(2);
-            var c = this.lsvInstances.Columns[""];
+            this.listViewSortManager.SortByColumn(this.settings.LastColumnSortedIndex);
         }
 
         private void InitInstancesListView()

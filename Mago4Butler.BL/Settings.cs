@@ -46,6 +46,9 @@ namespace Microarea.Mago4Butler.BL
         public string LastFolderOpenedBrowsingForMsi { get; set; } = string.Empty;
         public string UpdatesUri { get; set; } = "http://www.microarea.it/PAASUpdates/UpdatesService.asmx";
 
+        public int ListViewSortOrder { get; set; }
+        public int LastColumnSortedIndex { get; set; }
+
         public void Save()
         {
             var settingsFileInfo = new FileInfo(Path.Combine(settingsFolderPath, settingsFileName));

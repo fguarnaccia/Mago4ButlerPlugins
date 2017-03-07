@@ -25,6 +25,9 @@ namespace Microarea.Mago4Butler.Model
 
         string UpdatesUri { get; set; }
 
+        int ListViewSortOrder { get; set; }
+        int LastColumnSortedIndex { get; set; }
+
         void Save();
     }
 }
