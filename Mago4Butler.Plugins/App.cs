@@ -38,7 +38,7 @@ namespace Microarea.Mago4Butler.Plugins
         {
             get
             {
-                return new Settings() { RootFolder = BL.Settings.Default.RootFolder };
+                return new Settings() { RootFolder = BL.Settings.Default.RootFolder, MsiFolder = BL.Settings.Default.MsiFolder };
             }
         }
 
