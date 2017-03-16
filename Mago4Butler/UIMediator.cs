@@ -421,6 +421,10 @@ namespace Microarea.Mago4Butler
             var bag = new AskForParametersBag() { MsiFullFilePath = this.msiFullFilePath };
             OnAskForUpdateParametersToPlugins(bag);
 
+            if (bag.Cancel)
+            {
+                return;
+            }
             if (!string.IsNullOrWhiteSpace(bag.MsiFullFilePath))
             {
                 this.msiFullFilePath = bag.MsiFullFilePath;
