@@ -34,62 +34,58 @@
             this.lblInstanceName = new System.Windows.Forms.Label();
             this.lblFileMsi = new System.Windows.Forms.Label();
             this.txtboxFileMsi = new System.Windows.Forms.TextBox();
-            this.btnSelectFileMsi = new System.Windows.Forms.Button();
             this.dlgOpenFile = new System.Windows.Forms.OpenFileDialog();
             this.errProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.btnOk = new System.Windows.Forms.Button();
             this.btnEsc = new System.Windows.Forms.Button();
             this.propgrdSettings = new System.Windows.Forms.PropertyGrid();
+            this.dropdownMsiFrom = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.itemCCNet = new System.Windows.Forms.ToolStripMenuItem();
+            this.itemFolder = new System.Windows.Forms.ToolStripMenuItem();
+            this.itemSite = new System.Windows.Forms.ToolStripMenuItem();
+            this.ccNetManagerClientUsrCtrl1 = new MsiClassicModePlugin.CCNetManagerClientUsrCtrl();
             ((System.ComponentModel.ISupportInitialize)(this.errProvider)).BeginInit();
+            this.dropdownMsiFrom.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtInstanceName
             // 
             this.errProvider.SetIconAlignment(this.txtInstanceName, System.Windows.Forms.ErrorIconAlignment.MiddleLeft);
-            this.txtInstanceName.Location = new System.Drawing.Point(108, 33);
+            this.txtInstanceName.Location = new System.Drawing.Point(50, 62);
             this.txtInstanceName.Name = "txtInstanceName";
-            this.txtInstanceName.Size = new System.Drawing.Size(380, 20);
-            this.txtInstanceName.TabIndex = 1;
+            this.txtInstanceName.Size = new System.Drawing.Size(365, 20);
+            this.txtInstanceName.TabIndex = 3;
             this.txtInstanceName.Leave += new System.EventHandler(this.txtInstanceName_Leave);
             // 
             // lblInstanceName
             // 
             this.lblInstanceName.AutoSize = true;
-            this.lblInstanceName.Location = new System.Drawing.Point(20, 36);
+            this.lblInstanceName.Location = new System.Drawing.Point(11, 65);
             this.lblInstanceName.Name = "lblInstanceName";
-            this.lblInstanceName.Size = new System.Drawing.Size(82, 13);
+            this.lblInstanceName.Size = new System.Drawing.Size(38, 13);
             this.lblInstanceName.TabIndex = 0;
-            this.lblInstanceName.Text = "Instance Name:";
+            this.lblInstanceName.Text = "Name:";
             // 
             // lblFileMsi
             // 
             this.lblFileMsi.AutoSize = true;
-            this.lblFileMsi.Location = new System.Drawing.Point(20, 72);
+            this.lblFileMsi.Location = new System.Drawing.Point(11, 27);
             this.lblFileMsi.Name = "lblFileMsi";
-            this.lblFileMsi.Size = new System.Drawing.Size(44, 13);
+            this.lblFileMsi.Size = new System.Drawing.Size(26, 13);
             this.lblFileMsi.TabIndex = 2;
-            this.lblFileMsi.Text = "File msi:";
+            this.lblFileMsi.Text = "Msi:";
             // 
             // txtboxFileMsi
             // 
             this.txtboxFileMsi.AllowDrop = true;
             this.errProvider.SetIconAlignment(this.txtboxFileMsi, System.Windows.Forms.ErrorIconAlignment.MiddleLeft);
-            this.txtboxFileMsi.Location = new System.Drawing.Point(108, 69);
+            this.txtboxFileMsi.Location = new System.Drawing.Point(50, 24);
             this.txtboxFileMsi.Name = "txtboxFileMsi";
-            this.txtboxFileMsi.Size = new System.Drawing.Size(380, 20);
-            this.txtboxFileMsi.TabIndex = 3;
+            this.txtboxFileMsi.Size = new System.Drawing.Size(365, 20);
+            this.txtboxFileMsi.TabIndex = 1;
+            this.txtboxFileMsi.TextChanged += new System.EventHandler(this.txtboxFileMsi_TextChanged);
             this.txtboxFileMsi.DragDrop += new System.Windows.Forms.DragEventHandler(this.txtboxFileMsi_DragDrop);
             this.txtboxFileMsi.DragEnter += new System.Windows.Forms.DragEventHandler(this.txtboxFileMsi_DragEnter);
-            // 
-            // btnSelectFileMsi
-            // 
-            this.btnSelectFileMsi.Location = new System.Drawing.Point(494, 69);
-            this.btnSelectFileMsi.Name = "btnSelectFileMsi";
-            this.btnSelectFileMsi.Size = new System.Drawing.Size(27, 20);
-            this.btnSelectFileMsi.TabIndex = 4;
-            this.btnSelectFileMsi.Text = "...";
-            this.btnSelectFileMsi.UseVisualStyleBackColor = true;
-            this.btnSelectFileMsi.Click += new System.EventHandler(this.btnSelectFileMsi_Click);
             // 
             // dlgOpenFile
             // 
@@ -103,7 +99,7 @@
             // 
             this.btnOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.errProvider.SetIconAlignment(this.btnOk, System.Windows.Forms.ErrorIconAlignment.MiddleLeft);
-            this.btnOk.Location = new System.Drawing.Point(23, 99);
+            this.btnOk.Location = new System.Drawing.Point(14, 99);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(182, 23);
             this.btnOk.TabIndex = 5;
@@ -115,7 +111,7 @@
             // 
             this.btnEsc.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnEsc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEsc.Location = new System.Drawing.Point(339, 99);
+            this.btnEsc.Location = new System.Drawing.Point(253, 99);
             this.btnEsc.Name = "btnEsc";
             this.btnEsc.Size = new System.Drawing.Size(182, 23);
             this.btnEsc.TabIndex = 6;
@@ -129,8 +125,47 @@
             this.propgrdSettings.HelpVisible = false;
             this.propgrdSettings.Location = new System.Drawing.Point(2, 151);
             this.propgrdSettings.Name = "propgrdSettings";
-            this.propgrdSettings.Size = new System.Drawing.Size(533, 265);
+            this.propgrdSettings.Size = new System.Drawing.Size(464, 238);
             this.propgrdSettings.TabIndex = 7;
+            // 
+            // dropdownMsiFrom
+            // 
+            this.dropdownMsiFrom.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.itemCCNet,
+            this.itemFolder,
+            this.itemSite});
+            this.dropdownMsiFrom.Name = "contextMenuStrip1";
+            this.dropdownMsiFrom.ShowImageMargin = false;
+            this.dropdownMsiFrom.Size = new System.Drawing.Size(85, 70);
+            // 
+            // itemCCNet
+            // 
+            this.itemCCNet.Name = "itemCCNet";
+            this.itemCCNet.Size = new System.Drawing.Size(84, 22);
+            this.itemCCNet.Text = "CCNet";
+            this.itemCCNet.Click += new System.EventHandler(this.itemCCNet_Click);
+            // 
+            // itemFolder
+            // 
+            this.itemFolder.Name = "itemFolder";
+            this.itemFolder.Size = new System.Drawing.Size(84, 22);
+            this.itemFolder.Text = "Local";
+            this.itemFolder.Click += new System.EventHandler(this.itemFolder_Click);
+            // 
+            // itemSite
+            // 
+            this.itemSite.Name = "itemSite";
+            this.itemSite.Size = new System.Drawing.Size(84, 22);
+            this.itemSite.Text = "&Site";
+            this.itemSite.Visible = false;
+            // 
+            // ccNetManagerClientUsrCtrl1
+            // 
+            this.ccNetManagerClientUsrCtrl1.Location = new System.Drawing.Point(50, 41);
+            this.ccNetManagerClientUsrCtrl1.Name = "ccNetManagerClientUsrCtrl1";
+            this.ccNetManagerClientUsrCtrl1.Size = new System.Drawing.Size(365, 104);
+            this.ccNetManagerClientUsrCtrl1.TabIndex = 9;
+            this.ccNetManagerClientUsrCtrl1.Visible = false;
             // 
             // frmMsiClassicMode
             // 
@@ -138,11 +173,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnEsc;
-            this.ClientSize = new System.Drawing.Size(533, 428);
+            this.ClientSize = new System.Drawing.Size(467, 401);
+            this.Controls.Add(this.ccNetManagerClientUsrCtrl1);
             this.Controls.Add(this.propgrdSettings);
             this.Controls.Add(this.btnEsc);
             this.Controls.Add(this.btnOk);
-            this.Controls.Add(this.btnSelectFileMsi);
             this.Controls.Add(this.txtboxFileMsi);
             this.Controls.Add(this.lblFileMsi);
             this.Controls.Add(this.lblInstanceName);
@@ -154,10 +189,11 @@
             this.MinimizeBox = false;
             this.Name = "frmMsiClassicMode";
             this.ShowInTaskbar = false;
-            this.Text = "Parameters";
+            this.Text = "Add Instance";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMsiClassicMode_FormClosing);
             this.Load += new System.EventHandler(this.frmMsiClassicMode_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errProvider)).EndInit();
+            this.dropdownMsiFrom.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -169,11 +205,15 @@
         private System.Windows.Forms.Label lblInstanceName;
         private System.Windows.Forms.Label lblFileMsi;
         public System.Windows.Forms.TextBox txtboxFileMsi;
-        private System.Windows.Forms.Button btnSelectFileMsi;
         private System.Windows.Forms.OpenFileDialog dlgOpenFile;
         private System.Windows.Forms.ErrorProvider errProvider;
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Button btnEsc;     
         private System.Windows.Forms.PropertyGrid propgrdSettings;
+        private CCNetManagerClientUsrCtrl ccNetManagerClientUsrCtrl1;
+        private System.Windows.Forms.ContextMenuStrip dropdownMsiFrom;
+        private System.Windows.Forms.ToolStripMenuItem itemFolder;
+        private System.Windows.Forms.ToolStripMenuItem itemCCNet;
+        private System.Windows.Forms.ToolStripMenuItem itemSite;
     }
 }

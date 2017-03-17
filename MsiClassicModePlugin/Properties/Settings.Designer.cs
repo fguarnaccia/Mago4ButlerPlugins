@@ -136,5 +136,16 @@ namespace MsiClassicModePlugin.Properties {
                 this["UpgradeRequired"] = value;
             }
         }
+        [Browsable(false)]
+
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://www.microarea.it/PAASUpdates/UpdatesService.asmx")]
+        public string plgnMsiClassicMode_it_microarea_www_UpdatesService {
+            get {
+                return ((string)(this["plgnMsiClassicMode_it_microarea_www_UpdatesService"]));
+            }
+        }
     }
 }

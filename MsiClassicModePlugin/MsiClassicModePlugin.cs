@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microarea.Mago4Butler.Plugins;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace MsiClassicModePlugin
 {
@@ -18,6 +19,12 @@ namespace MsiClassicModePlugin
 
         public CmdLineInfo listfeature ;
 
+        public override void OnApplicationStarted()
+        {
+            CCNet.UpdatesService ccnet = new CCNet.UpdatesService();
+            Task.Factory.StartNew(() => ccnet.GetNightlyBuilds());
+               
+        }
         public override void OnInstalling(CmdLineInfo cmdLineInfo)
         {
 
@@ -117,7 +124,7 @@ namespace MsiClassicModePlugin
 
             }
         }
-
+        
         public override bool ShouldUseProvisioning()
         {
             return false;

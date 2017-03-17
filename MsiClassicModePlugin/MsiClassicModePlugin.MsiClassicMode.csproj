@@ -47,6 +47,10 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -55,6 +59,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CCNetManagerClientUsrCtrl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CCNetManagerClientUsrCtrl.Designer.cs">
+      <DependentUpon>CCNetManagerClientUsrCtrl.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMsiClassicMode.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,6 +84,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
+    <Compile Include="Web References\CCNet\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -81,8 +96,22 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Web References\CCNet\GetUpdatesResponse1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\CCNet\NightlyBuildsResult1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\CCNet\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\CCNet\UpdatesService.wsdl" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="CCNetManagerClientUsrCtrl.resx">
+      <DependentUpon>CCNetManagerClientUsrCtrl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMsiClassicMode.resx">
       <DependentUpon>frmMsiClassicMode.cs</DependentUpon>
     </EmbeddedResource>
@@ -93,6 +122,28 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://www.microarea.it/PAASUpdates/UpdatesService.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\CCNet\</RelPath>
+      <UpdateFromURL>http://www.microarea.it/PAASUpdates/UpdatesService.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>plgnMsiClassicMode_it_microarea_www_UpdatesService</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\CCNet\UpdatesService.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

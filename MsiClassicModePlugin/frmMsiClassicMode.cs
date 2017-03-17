@@ -13,53 +13,55 @@ namespace MsiClassicModePlugin
 {
     public partial class frmMsiClassicMode : Form
     {
+ 
+        private bool FromCCNet;
+               
+        public bool IsUpdating { get; set; }
 
-        private bool isupdating;
-
-        //List<Feature> FeatureCollection;
-        public bool IsUpdating
+        public frmMsiClassicMode(bool isupdating=false/*, CmdLineInfo listfeature*/  )
         {
-            get { return isupdating; }
-            set { isupdating = value; }
+            
+            IsUpdating = isupdating;
+            InitializeComponent();
+            InitializeOtherComponents();
+
         }
 
-        public frmMsiClassicMode(bool isupdating/*, CmdLineInfo listfeature*/  )
+        private void btn_Click(object sender, EventArgs e)
         {
+            dropdownMsiFrom.Show((Button)sender, new Point(0, ((Button)sender).Height));
+        }
+        
 
-            //var FeatureCollection = new List<Feature>(listfeature.Features);
+        private void InitializeOtherComponents()
+        {
+            //creo pumello con lista
+            DropDownButton dropdownbtn = new DropDownButton();
+            dropdownbtn.Click += new EventHandler(btn_Click);
+            dropdownbtn.Text = "...";
+            dropdownbtn.Location = new System.Drawing.Point(423, 23);
+            dropdownbtn.Size = new System.Drawing.Size(35, 23);
+            dropdownbtn.Menu = new ContextMenuStrip();
 
+            itemCCNet.Visible = !IsUpdating;
+            itemFolder.Visible = true;
+            itemSite.Visible = false;
 
-            InitializeComponent();
-
-            ListViewItem lvi = new ListViewItem();
-
-            txtInstanceName.Enabled = !isupdating;
-            //listFeature.Visible = !isupdating;
-
-            //[CategoryAttribute("Advanced options"), DefaultValueAttribute(true)]
+            Controls.Add(dropdownbtn);
+            
+            txtInstanceName.Enabled = !IsUpdating;
+      
             propgrdSettings.SelectedObject = Properties.Settings.Default;
-
             propgrdSettings.ToolbarVisible = false;
 
-            //////foreach (var feat in listfeature.Features)
-            //////{
-            //////    lvi.SubItems.Add(feat.Name);
-            //////    lvi.SubItems.Add(feat.Description);
-
-            //////    listFeature.Items.Add(lvi);
-            //////}
-
+            if (IsUpdating)
+            {
+                this.Text = "Update instance";
+            }
+            ccNetManagerClientUsrCtrl1.MsiSelected += new EventHandler(CCNetManagerClientUsrCtrl1_MsiSelected);
+            CCNetManagerClientUsrCtrl.LocalFolderDestination = App.Instance.Settings.MsiFolder;
         }
 
-
-        public frmMsiClassicMode()
-        {
-
-            InitializeComponent();
-
-        }
-
-  
         private void btnSelectFileMsi_Click(object sender, EventArgs e)
         {
             dlgOpenFile.ShowDialog();
@@ -96,22 +98,16 @@ namespace MsiClassicModePlugin
 
         }
 
-
-
         private bool InstanceAlreadyExists(string NomeIstanza)
         {
             bool result = false;
 
             //if (App.Instance.GetInstances().Contains < NomeIstanza >
-
-            //        App.Instance.GetInstances().Conta;
-
-
             //App.Instance.GetInstances().Contains(s => s.)
-
-            foreach (var i in App.Instance.GetInstances())
+            
+            foreach (var i in App.Instance.GetInstances().ToString())
             {
-                if (i == NomeIstanza)
+                if (i.Equals(NomeIstanza))
                 {
                     result = true;
                 }
@@ -120,7 +116,6 @@ namespace MsiClassicModePlugin
             return result;
         }
 
-
         private void frmMsiClassicMode_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (FieldsHaveErrors())
@@ -128,11 +123,9 @@ namespace MsiClassicModePlugin
             Properties.Settings.Default.Save();
         }
 
-
-
         private void frmMsiClassicMode_Load(object sender, EventArgs e)
         {
-            //splitContainer1.Panel2Collapsed = false;
+
             propgrdSettings.CollapseAllGridItems();
         }
 
@@ -150,15 +143,14 @@ namespace MsiClassicModePlugin
             }
         }
 
-
         private void txtboxFileMsi_DragDrop(object sender, DragEventArgs e)
         {
-            
+
             errProvider.Clear();
 
             //string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
             string[] files = e.Data.GetData(DataFormats.FileDrop, false) as string[];
-                                
+
             if (files != null)
             {
                 foreach (string file in files)
@@ -166,23 +158,75 @@ namespace MsiClassicModePlugin
                 {
 
                     System.IO.FileInfo fi = new System.IO.FileInfo(file);
-                    
+
                     if (fi.Extension == ".msi")
 
-                        { txtboxFileMsi.Text = file; }
-                        else
-                        {
-                            errProvider.SetIconAlignment(txtboxFileMsi, ErrorIconAlignment.MiddleLeft);
-                            errProvider.SetError((TextBox)sender, "Extension not allowed");
-                        }                     
-                 }
-                    
+                    { txtboxFileMsi.Text = file; }
+                    else
+                    {
+                        errProvider.SetIconAlignment(txtboxFileMsi, ErrorIconAlignment.MiddleLeft);
+                        errProvider.SetError((TextBox)sender, "Extension not allowed");
+                    }
+                }
+
             }
         }
 
         private void txtboxFileMsi_DragEnter(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.All;
+        }
+
+        private void CCNetManagerClientUsrCtrl1_MsiSelected(object sender, EventArgs e)
+        {
+            txtboxFileMsi.Text = ccNetManagerClientUsrCtrl1.MsiSetupPath();
+            ccNetManagerClientUsrCtrl1.Visible = false;
+        }
+
+        private void txtboxFileMsi_TextChanged(object sender, EventArgs e)
+        {
+
+            if (!InstanceAlreadyExists(CCNetManagerClientUsrCtrl.ProvideInstanceName(txtboxFileMsi.Text,FromCCNet)))
+                txtInstanceName.BackColor = Color.White; 
+            else {
+                txtInstanceName.BackColor = Color.Yellow;
+            }
+
+            txtInstanceName.Text = CCNetManagerClientUsrCtrl.ProvideInstanceName(txtboxFileMsi.Text,   FromCCNet);
+        }
+
+        private void itemCCNet_Click(object sender, EventArgs e)
+        {
+            ccNetManagerClientUsrCtrl1.Visible = true;
+            FromCCNet = true;
+        }
+
+        private void itemFolder_Click(object sender, EventArgs e)
+        {
+            dlgOpenFile.ShowDialog();
+            txtboxFileMsi.Text = dlgOpenFile.FileName;
+            FromCCNet = false;
+        }
+    }
+    public class DropDownButton : Button
+    {
+        [DefaultValue(null)]
+        public ContextMenuStrip Menu { get; set; }
+
+
+        protected override void OnPaint(PaintEventArgs pevent)
+        {
+            base.OnPaint(pevent);
+
+            if (Menu != null)
+            {
+                int arrowX = ClientRectangle.Width - 14;
+                int arrowY = ClientRectangle.Height / 2 - 1;
+
+                Brush brush = Enabled ? SystemBrushes.ControlText : SystemBrushes.ButtonShadow;
+                Point[] arrows = new Point[] { new Point(arrowX, arrowY), new Point(arrowX + 7, arrowY), new Point(arrowX + 3, arrowY + 4) };
+                pevent.Graphics.FillPolygon(brush, arrows);
+            }
         }
     }
 }
