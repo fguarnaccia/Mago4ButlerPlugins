@@ -1,4 +1,5 @@
 ﻿using Microarea.Mago4Butler.Automation;
+using Microarea.Mago4Butler.BL;
 using Microarea.Mago4Butler.Log;
 using System;
 using System.Windows.Forms;
@@ -119,6 +120,13 @@ namespace Microarea.Mago4Butler.Plugins
         public void Info(string message)
         {
             this.LogInfo(message);
+        }
+
+        public void DownloadMsi(string msiUri, string localMsiPath)
+        {
+            var httpService = new HttpService(Microarea.Mago4Butler.BL.Settings.Default);
+
+            httpService.DownloadFile(msiUri, localMsiPath);
         }
     }
 }
