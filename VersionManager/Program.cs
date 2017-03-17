@@ -80,7 +80,7 @@ namespace VersionManager
             }
         }
 
-        private void WriteVersionOnAssemblyInfo(string path, string newnversion, ref string content)
+        private void WriteVersionOnAssemblyInfo(string path, string newversion, ref string content)
 
         {
             using (StreamReader sr = new StreamReader(path))
