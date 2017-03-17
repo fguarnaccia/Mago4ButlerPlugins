@@ -54,7 +54,7 @@ namespace Microarea.Mago4Butler.BL
             }
             else
             {
-                this.LogInfo("No msi file are present in " + msiFolder + ", I'm going to download the first one");
+                this.LogInfo("No msi files are present in " + msiFolder + ", I'm going to download the first one");
             }
 
             //...richiedo al server se ci sono versioni piu` aggiornate...
