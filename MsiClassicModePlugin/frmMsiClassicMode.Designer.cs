@@ -54,7 +54,7 @@
             this.txtInstanceName.Location = new System.Drawing.Point(50, 62);
             this.txtInstanceName.Name = "txtInstanceName";
             this.txtInstanceName.Size = new System.Drawing.Size(365, 20);
-            this.txtInstanceName.TabIndex = 3;
+            this.txtInstanceName.TabIndex = 4;
             this.txtInstanceName.Leave += new System.EventHandler(this.txtInstanceName_Leave);
             // 
             // lblInstanceName
@@ -84,8 +84,8 @@
             this.txtboxFileMsi.Size = new System.Drawing.Size(365, 20);
             this.txtboxFileMsi.TabIndex = 1;
             this.txtboxFileMsi.TextChanged += new System.EventHandler(this.txtboxFileMsi_TextChanged);
-            this.txtboxFileMsi.DragDrop += new System.Windows.Forms.DragEventHandler(this.txtboxFileMsi_DragDrop);
-            this.txtboxFileMsi.DragEnter += new System.Windows.Forms.DragEventHandler(this.txtboxFileMsi_DragEnter);
+            //this.txtboxFileMsi.DragDrop += new System.Windows.Forms.DragEventHandler(this.txtboxFileMsi_DragDrop);
+            //this.txtboxFileMsi.DragEnter += new System.Windows.Forms.DragEventHandler(this.txtboxFileMsi_DragEnter);
             // 
             // dlgOpenFile
             // 
@@ -164,7 +164,7 @@
             this.ccNetManagerClientUsrCtrl1.Location = new System.Drawing.Point(50, 41);
             this.ccNetManagerClientUsrCtrl1.Name = "ccNetManagerClientUsrCtrl1";
             this.ccNetManagerClientUsrCtrl1.Size = new System.Drawing.Size(365, 104);
-            this.ccNetManagerClientUsrCtrl1.TabIndex = 9;
+            this.ccNetManagerClientUsrCtrl1.TabIndex = 3;
             this.ccNetManagerClientUsrCtrl1.Visible = false;
             // 
             // frmMsiClassicMode

@@ -40,6 +40,7 @@
             this.lstboxMsi.Size = new System.Drawing.Size(150, 150);
             this.lstboxMsi.TabIndex = 0;
             this.lstboxMsi.DoubleClick += new System.EventHandler(this.lstboxMsi_DoubleClick);
+            this.lstboxMsi.KeyUp += new System.Windows.Forms.KeyEventHandler(this.lstboxMsi_KeyUp);
             // 
             // CCNetManagerClientUsrCtrl
             // 
@@ -47,7 +48,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.lstboxMsi);
             this.Name = "CCNetManagerClientUsrCtrl";
-                    this.ResumeLayout(false);
+            this.ResumeLayout(false);
 
         }
 

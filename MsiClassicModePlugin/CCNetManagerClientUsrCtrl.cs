@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
@@ -21,33 +14,14 @@ namespace MsiClassicModePlugin
         {
             InitializeComponent();
             this.PopulateListBoxWithMsiFiles(true);
-          
+
         }
 
         static public string LocalFolderDestination { get; set; }
 
         public event EventHandler MsiSelected;
 
-        internal void PopulateListBoxWithMsiFiles()
-        {
 
-#if DEBUG
-            string folder = @"C:\Users\guarnaccia\Downloads";
-#endif  
-            string[] files = Directory.GetFiles(folder, "*.msi");
-
-
-            foreach (string file in files)
-            {
-
-                lstboxMsi.Items.Add(Path.GetFileName(file).ToString());
-            }
-
-
-            if (lstboxMsi.Items.Count == 1)
-                lstboxMsi.SelectedIndex = 0;
-
-        }
 
         internal void PopulateListBoxWithMsiFiles(bool FromWebService)
         {
@@ -117,6 +91,7 @@ namespace MsiClassicModePlugin
 
         }
 
+
         public string MsiName()
         {
 
@@ -143,6 +118,14 @@ namespace MsiClassicModePlugin
 
             File.Copy(CCNetSource, Path.Combine(LocalFolderDestination, MsiName()), true);
 
+        }
+
+        private void lstboxMsi_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Return)
+            {
+                lstboxMsi_DoubleClick(sender, null);
+            }
         }
     }
 }

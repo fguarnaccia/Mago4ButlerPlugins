@@ -42,6 +42,7 @@ namespace MsiClassicModePlugin
             dropdownbtn.Location = new System.Drawing.Point(423, 23);
             dropdownbtn.Size = new System.Drawing.Size(35, 23);
             dropdownbtn.Menu = new ContextMenuStrip();
+            dropdownbtn.TabIndex = 2;
 
             itemCCNet.Visible = !IsUpdating;
             itemFolder.Visible = true;
@@ -143,56 +144,57 @@ namespace MsiClassicModePlugin
             }
         }
 
-        private void txtboxFileMsi_DragDrop(object sender, DragEventArgs e)
-        {
+        //////////private void txtboxFileMsi_DragDrop(object sender, DragEventArgs e)
+        //////////{
 
-            errProvider.Clear();
+        //////////    errProvider.Clear();
 
-            //string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
-            string[] files = e.Data.GetData(DataFormats.FileDrop, false) as string[];
+        //////////    //string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+        //////////    string[] files = e.Data.GetData(DataFormats.FileDrop, false) as string[];
 
-            if (files != null)
-            {
-                foreach (string file in files)
+        //////////    if (files != null)
+        //////////    {
+        //////////        foreach (string file in files)
 
-                {
+        //////////        {
 
-                    System.IO.FileInfo fi = new System.IO.FileInfo(file);
+        //////////            System.IO.FileInfo fi = new System.IO.FileInfo(file);
 
-                    if (fi.Extension == ".msi")
+        //////////            if (fi.Extension == ".msi")
 
-                    { txtboxFileMsi.Text = file; }
-                    else
-                    {
-                        errProvider.SetIconAlignment(txtboxFileMsi, ErrorIconAlignment.MiddleLeft);
-                        errProvider.SetError((TextBox)sender, "Extension not allowed");
-                    }
-                }
+        //////////            { txtboxFileMsi.Text = file; }
+        //////////            else
+        //////////            {
+        //////////                errProvider.SetIconAlignment(txtboxFileMsi, ErrorIconAlignment.MiddleLeft);
+        //////////                errProvider.SetError((TextBox)sender, "Extension not allowed");
+        //////////            }
+        //////////        }
 
-            }
-        }
+        //////////    }
+        //////////}
 
-        private void txtboxFileMsi_DragEnter(object sender, DragEventArgs e)
-        {
-            e.Effect = DragDropEffects.All;
-        }
+        //////////private void txtboxFileMsi_DragEnter(object sender, DragEventArgs e)
+        //////////{
+        //////////    e.Effect = DragDropEffects.All;
+        //////////}
 
         private void CCNetManagerClientUsrCtrl1_MsiSelected(object sender, EventArgs e)
         {
             txtboxFileMsi.Text = ccNetManagerClientUsrCtrl1.MsiSetupPath();
+           // txtboxFileMsi.Tag = ccNetManagerClientUsrCtrl1.MsiName();
             ccNetManagerClientUsrCtrl1.Visible = false;
         }
 
         private void txtboxFileMsi_TextChanged(object sender, EventArgs e)
         {
 
-            if (!InstanceAlreadyExists(CCNetManagerClientUsrCtrl.ProvideInstanceName(txtboxFileMsi.Text,FromCCNet)))
+            if (!InstanceAlreadyExists(CCNetManagerClientUsrCtrl.ProvideInstanceName(ccNetManagerClientUsrCtrl1.MsiName(), FromCCNet)))
                 txtInstanceName.BackColor = Color.White; 
             else {
                 txtInstanceName.BackColor = Color.Yellow;
             }
 
-            txtInstanceName.Text = CCNetManagerClientUsrCtrl.ProvideInstanceName(txtboxFileMsi.Text,   FromCCNet);
+            txtInstanceName.Text = CCNetManagerClientUsrCtrl.ProvideInstanceName(ccNetManagerClientUsrCtrl1.MsiName(),   FromCCNet);
         }
 
         private void itemCCNet_Click(object sender, EventArgs e)
