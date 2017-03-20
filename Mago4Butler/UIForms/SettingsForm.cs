@@ -9,6 +9,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -20,9 +21,15 @@ namespace Microarea.Mago4Butler
         IisService iisService;
         TextBoxCueDecorator serverTextBoxCueDecorator;
         NumericTextboxBehaviour numericTextboxBehaviour;
+        SynchronizationContext syncCtx;
 
         public SettingsForm(ISettings settings, IisService iisService)
         {
+            syncCtx = SynchronizationContext.Current;
+            if (syncCtx == null)
+            {
+                syncCtx = new WindowsFormsSynchronizationContext();
+            }
             this.settings = settings;
             this.iisService = iisService;
             InitializeComponent();
@@ -77,6 +84,8 @@ namespace Microarea.Mago4Butler
         {
             try
             {
+                //Do il tempo al control di essere mostrato affinche` abbia handle.
+                Thread.Sleep(250);
                 var workingFolder = new DirectoryInfo(rootFolder);
                 var root = workingFolder.Root;
                 while (workingFolder.Parent.Name != root.Name)
@@ -97,12 +106,18 @@ namespace Microarea.Mago4Butler
                     }
                 }
 
-                this.BeginInvoke(new Action(() => txtRootFolder.AutoCompleteCustomSource = datasource));
+                syncCtx.Post(
+                    (_) => txtRootFolder.AutoCompleteCustomSource = datasource,
+                    null
+                    );
             }
             catch (Exception exc)
             {
                 this.LogError("Unable to load .yml files from " + rootFolder, exc);
-                this.BeginInvoke(new Action(() => txtRootFolder.AutoCompleteCustomSource = new AutoCompleteStringCollection()));
+                syncCtx.Post(
+                    (_) => txtRootFolder.AutoCompleteCustomSource = new AutoCompleteStringCollection(),
+                    null
+                    );
             }
         }
 
