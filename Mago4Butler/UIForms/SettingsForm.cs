@@ -185,7 +185,7 @@ namespace Microarea.Mago4Butler
                 if (string.Compare(this.settings.LogsFolder, newLogsFolder, StringComparison.OrdinalIgnoreCase) != 0)
                 {
                     this.settings.LogsFolder = newLogsFolder;
-                    Program.RefreshLogConfiguration();
+                    Program.RefreshLogConfiguration(this.settings);
                 }
 
                 this.settings.MsiFolder = this.txtMsi.Text;

@@ -37,14 +37,59 @@ namespace Microarea.Mago4Butler
 
         static Program()
         {
-            RefreshLogConfiguration();
+            Task.Factory.StartNew(
+                ()
+                =>
+                {
+                    var settings = IoCContainer.Instance.Get<ISettings>();
+
+                    RefreshLogConfiguration(settings);
+                    EnsurePaths(settings);
+                }
+                );
         }
 
-        internal static void RefreshLogConfiguration()
+        private static void EnsurePaths(ISettings settings)
         {
-            var settings = IoCContainer.Instance.Get<ISettings>();
-            log4net.GlobalContext.Properties["LogFilePath"] = Path.Combine(settings.LogsFolder, LogFileName);
-            log4net.Config.XmlConfigurator.Configure();
+            if (settings == null)
+            {
+                return;
+            }
+            try
+            {
+                var logsDirInfo = new DirectoryInfo(settings.LogsFolder);
+                if (!logsDirInfo.Exists)
+                {
+                    logsDirInfo.Create();
+                }
+                var msiDirInfo = new DirectoryInfo(settings.MsiFolder);
+                if (!msiDirInfo.Exists)
+                {
+                    msiDirInfo.Create();
+                }
+                var rootDirInfo = new DirectoryInfo(settings.RootFolder);
+                if (!rootDirInfo.Exists)
+                {
+                    rootDirInfo.Create();
+                }
+            }
+            catch
+            {}
+        }
+
+        internal static void RefreshLogConfiguration(ISettings settings)
+        {
+            if (settings == null)
+            {
+                return;
+            }
+            try
+            {
+                log4net.GlobalContext.Properties["LogFilePath"] = Path.Combine(settings.LogsFolder, LogFileName);
+                log4net.Config.XmlConfigurator.Configure();
+            }
+            catch
+            {}
         }
     }
 }
