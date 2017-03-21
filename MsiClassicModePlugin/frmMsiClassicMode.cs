@@ -60,7 +60,7 @@ namespace MsiClassicModePlugin
                 this.Text = "Update instance";
             }
             ccNetManagerClientUsrCtrl1.MsiSelected += new EventHandler(CCNetManagerClientUsrCtrl1_MsiSelected);
-            CCNetManagerClientUsrCtrl.LocalFolderDestination = App.Instance.Settings.MsiFolder;
+            MSISelector .LocalFolderDestination = App.Instance.Settings.MsiFolder;
         }
 
         private void btnSelectFileMsi_Click(object sender, EventArgs e)
@@ -103,10 +103,7 @@ namespace MsiClassicModePlugin
         {
             bool result = false;
 
-            //if (App.Instance.GetInstances().Contains < NomeIstanza >
-            //App.Instance.GetInstances().Contains(s => s.)
-            
-            foreach (var i in App.Instance.GetInstances().ToString())
+             foreach (var i in App.Instance.GetInstances().ToString())
             {
                 if (i.Equals(NomeIstanza))
                 {
@@ -144,57 +141,30 @@ namespace MsiClassicModePlugin
             }
         }
 
-        //////////private void txtboxFileMsi_DragDrop(object sender, DragEventArgs e)
-        //////////{
-
-        //////////    errProvider.Clear();
-
-        //////////    //string[] files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
-        //////////    string[] files = e.Data.GetData(DataFormats.FileDrop, false) as string[];
-
-        //////////    if (files != null)
-        //////////    {
-        //////////        foreach (string file in files)
-
-        //////////        {
-
-        //////////            System.IO.FileInfo fi = new System.IO.FileInfo(file);
-
-        //////////            if (fi.Extension == ".msi")
-
-        //////////            { txtboxFileMsi.Text = file; }
-        //////////            else
-        //////////            {
-        //////////                errProvider.SetIconAlignment(txtboxFileMsi, ErrorIconAlignment.MiddleLeft);
-        //////////                errProvider.SetError((TextBox)sender, "Extension not allowed");
-        //////////            }
-        //////////        }
-
-        //////////    }
-        //////////}
-
-        //////////private void txtboxFileMsi_DragEnter(object sender, DragEventArgs e)
-        //////////{
-        //////////    e.Effect = DragDropEffects.All;
-        //////////}
-
         private void CCNetManagerClientUsrCtrl1_MsiSelected(object sender, EventArgs e)
         {
             txtboxFileMsi.Text = ccNetManagerClientUsrCtrl1.MsiSetupPath();
-           // txtboxFileMsi.Tag = ccNetManagerClientUsrCtrl1.MsiName();
+
             ccNetManagerClientUsrCtrl1.Visible = false;
         }
 
         private void txtboxFileMsi_TextChanged(object sender, EventArgs e)
         {
 
-            if (!InstanceAlreadyExists(CCNetManagerClientUsrCtrl.ProvideInstanceName(ccNetManagerClientUsrCtrl1.MsiName(), FromCCNet)))
-                txtInstanceName.BackColor = Color.White; 
-            else {
-                txtInstanceName.BackColor = Color.Yellow;
-            }
+            if (FromCCNet)
+            {
+                if (!InstanceAlreadyExists(MSISelector .ProvideInstanceName(ccNetManagerClientUsrCtrl1.MsiName(), FromCCNet)))
+                    txtInstanceName.BackColor = Color.White;
+                else {
+                    txtInstanceName.BackColor = Color.Yellow;
+                }
 
-            txtInstanceName.Text = CCNetManagerClientUsrCtrl.ProvideInstanceName(ccNetManagerClientUsrCtrl1.MsiName(),   FromCCNet);
+                txtInstanceName.Text = MSISelector .ProvideInstanceName(ccNetManagerClientUsrCtrl1.MsiName(), FromCCNet);
+            }
+            else
+            {
+                txtInstanceName.Text = MSISelector .ProvideInstanceName(txtboxFileMsi.Text, FromCCNet);
+            }
         }
 
         private void itemCCNet_Click(object sender, EventArgs e)
@@ -207,8 +177,9 @@ namespace MsiClassicModePlugin
         {
             ccNetManagerClientUsrCtrl1.Visible = false;
             dlgOpenFile.ShowDialog();
-            txtboxFileMsi.Text = dlgOpenFile.FileName;
             FromCCNet = false;
+            txtboxFileMsi.Text = dlgOpenFile.FileName;
+            
         }
     }
     public class DropDownButton : Button

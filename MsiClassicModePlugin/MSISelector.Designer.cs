@@ -1,6 +1,6 @@
 ﻿namespace MsiClassicModePlugin
 {
-    partial class CCNetManagerClientUsrCtrl
+    partial class MSISelector 
     {
         /// <summary> 
         /// Required designer variable.

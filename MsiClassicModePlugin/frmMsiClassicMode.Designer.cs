@@ -43,7 +43,7 @@
             this.itemCCNet = new System.Windows.Forms.ToolStripMenuItem();
             this.itemFolder = new System.Windows.Forms.ToolStripMenuItem();
             this.itemSite = new System.Windows.Forms.ToolStripMenuItem();
-            this.ccNetManagerClientUsrCtrl1 = new MsiClassicModePlugin.CCNetManagerClientUsrCtrl();
+            this.ccNetManagerClientUsrCtrl1 = new MsiClassicModePlugin.MSISelector ();
             ((System.ComponentModel.ISupportInitialize)(this.errProvider)).BeginInit();
             this.dropdownMsiFrom.SuspendLayout();
             this.SuspendLayout();
@@ -210,7 +210,7 @@
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Button btnEsc;     
         private System.Windows.Forms.PropertyGrid propgrdSettings;
-        private CCNetManagerClientUsrCtrl ccNetManagerClientUsrCtrl1;
+        private MSISelector  ccNetManagerClientUsrCtrl1;
         private System.Windows.Forms.ContextMenuStrip dropdownMsiFrom;
         private System.Windows.Forms.ToolStripMenuItem itemFolder;
         private System.Windows.Forms.ToolStripMenuItem itemCCNet;

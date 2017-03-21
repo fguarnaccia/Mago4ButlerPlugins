@@ -59,11 +59,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CCNetManagerClientUsrCtrl.cs">
+    <Compile Include="MSISelector.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="CCNetManagerClientUsrCtrl.Designer.cs">
-      <DependentUpon>CCNetManagerClientUsrCtrl.cs</DependentUpon>
+    <Compile Include="MSISelector.Designer.cs">
+      <DependentUpon>MSISelector.cs</DependentUpon>
     </Compile>
     <Compile Include="frmMsiClassicMode.cs">
       <SubType>Form</SubType>
@@ -110,8 +110,8 @@
     <None Include="Web References\CCNet\UpdatesService.wsdl" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="CCNetManagerClientUsrCtrl.resx">
-      <DependentUpon>CCNetManagerClientUsrCtrl.cs</DependentUpon>
+    <EmbeddedResource Include="MSISelector.resx">
+      <DependentUpon>MSISelector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMsiClassicMode.resx">
       <DependentUpon>frmMsiClassicMode.cs</DependentUpon>

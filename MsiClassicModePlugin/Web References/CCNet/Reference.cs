@@ -31,6 +31,8 @@ namespace MsiClassicModePlugin.CCNet {
         
         private System.Threading.SendOrPostCallback GetUpdatesOperationCompleted;
         
+        private System.Threading.SendOrPostCallback GetOfficialBuildsOperationCompleted;
+        
         private System.Threading.SendOrPostCallback GetNightlyBuildsOperationCompleted;
         
         private bool useDefaultCredentialsSetExplicitly;
@@ -75,6 +77,9 @@ namespace MsiClassicModePlugin.CCNet {
         public event GetUpdatesCompletedEventHandler GetUpdatesCompleted;
         
         /// <remarks/>
+        public event GetOfficialBuildsCompletedEventHandler GetOfficialBuildsCompleted;
+        
+        /// <remarks/>
         public event GetNightlyBuildsCompletedEventHandler GetNightlyBuildsCompleted;
         
         /// <remarks/>
@@ -103,6 +108,35 @@ namespace MsiClassicModePlugin.CCNet {
             if ((this.GetUpdatesCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.GetUpdatesCompleted(this, new GetUpdatesCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.microarea.it/PAASUpdates/GetOfficialBuilds", RequestNamespace="http://www.microarea.it/PAASUpdates/", ResponseNamespace="http://www.microarea.it/PAASUpdates/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public GetUpdatesResponse[] GetOfficialBuilds(GetUpdatesRequest request) {
+            object[] results = this.Invoke("GetOfficialBuilds", new object[] {
+                        request});
+            return ((GetUpdatesResponse[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetOfficialBuildsAsync(GetUpdatesRequest request) {
+            this.GetOfficialBuildsAsync(request, null);
+        }
+        
+        /// <remarks/>
+        public void GetOfficialBuildsAsync(GetUpdatesRequest request, object userState) {
+            if ((this.GetOfficialBuildsOperationCompleted == null)) {
+                this.GetOfficialBuildsOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetOfficialBuildsOperationCompleted);
+            }
+            this.InvokeAsync("GetOfficialBuilds", new object[] {
+                        request}, this.GetOfficialBuildsOperationCompleted, userState);
+        }
+        
+        private void OnGetOfficialBuildsOperationCompleted(object arg) {
+            if ((this.GetOfficialBuildsCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetOfficialBuildsCompleted(this, new GetOfficialBuildsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -285,6 +319,32 @@ namespace MsiClassicModePlugin.CCNet {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((GetUpdatesResponse)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1087.0")]
+    public delegate void GetOfficialBuildsCompletedEventHandler(object sender, GetOfficialBuildsCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1087.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetOfficialBuildsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetOfficialBuildsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public GetUpdatesResponse[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((GetUpdatesResponse[])(this.results[0]));
             }
         }
     }

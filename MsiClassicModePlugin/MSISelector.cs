@@ -4,13 +4,14 @@ using System.IO;
 
 namespace MsiClassicModePlugin
 {
-    public partial class CCNetManagerClientUsrCtrl : UserControl
+    public partial class MSISelector  : UserControl
     {
 
         CCNet.UpdatesService updateservice = new CCNet.UpdatesService();
         CCNet.NightlyBuildsResult[] nightlybuilds;
+       
 
-        public CCNetManagerClientUsrCtrl()
+        public MSISelector ()
         {
             InitializeComponent();
             this.PopulateListBoxWithMsiFiles(true);
@@ -20,7 +21,6 @@ namespace MsiClassicModePlugin
         static public string LocalFolderDestination { get; set; }
 
         public event EventHandler MsiSelected;
-
 
 
         internal void PopulateListBoxWithMsiFiles(bool FromWebService)
@@ -45,38 +45,36 @@ namespace MsiClassicModePlugin
         static public string ProvideInstanceName(string MsiFile, bool FromCCNet)
         {
 
+            FileInfo fi = new FileInfo(MsiFile);
+
             string instancename = "{0}_{1}";
             string root = "";
-            string buildnumb = string.Empty; // = MsiFile.Substring(MsiFile.IndexOf("build") + 5, 4).ToString();
+            string buildnumb = string.Empty;
 
             try
             {
 
-#if DEBUG
-                throw new System.ArgumentOutOfRangeException();
-#endif
-
                 if (MsiFile.IndexOf("build") < 0)
                 {
-                    buildnumb = MsiFile.Substring(MsiFile.IndexOf("x.") + 2, 4).ToString();
+                    buildnumb = (fi.Name).Substring((fi.Name).IndexOf("x.") + 2, 4);
                 }
                 else
                 {
 
-                    buildnumb = MsiFile.Substring(MsiFile.IndexOf("build") + 5, 4).ToString();
+                    buildnumb = (fi.Name).Substring((fi.Name).IndexOf("build") + 5, 4);
                 }
 
             }
             catch (ArgumentOutOfRangeException e)
             {
-         
+
                 PluginException plgnex = new PluginException("", e);
 
                 plgnex.ParamName = "MsiFile";
                 plgnex.ParamValue = MsiFile;
                 plgnex.ToString();
                 throw plgnex;
-               
+
 
             }
 
@@ -137,8 +135,10 @@ namespace MsiClassicModePlugin
         {
             Cursor.Current = Cursors.WaitCursor;
 
-            File.Copy(CCNetSource, Path.Combine(LocalFolderDestination, MsiName()), true);
-
+            if (!File.Exists(Path.Combine(LocalFolderDestination, MsiName())))
+            {
+                File.Copy(CCNetSource, Path.Combine(LocalFolderDestination, MsiName()), true);
+            }
         }
 
         private void lstboxMsi_KeyUp(object sender, KeyEventArgs e)

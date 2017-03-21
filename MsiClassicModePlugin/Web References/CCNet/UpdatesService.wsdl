@@ -29,6 +29,25 @@
           <s:element minOccurs="0" maxOccurs="1" name="MsiFileName" type="s:string" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GetOfficialBuilds">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="request" type="tns:GetUpdatesRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOfficialBuildsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOfficialBuildsResult" type="tns:ArrayOfGetUpdatesResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfGetUpdatesResponse">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="GetUpdatesResponse" nillable="true" type="tns:GetUpdatesResponse" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="GetNightlyBuilds">
         <s:complexType />
       </s:element>
@@ -58,6 +77,12 @@
   <wsdl:message name="GetUpdatesSoapOut">
     <wsdl:part name="parameters" element="tns:GetUpdatesResponse" />
   </wsdl:message>
+  <wsdl:message name="GetOfficialBuildsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetOfficialBuilds" />
+  </wsdl:message>
+  <wsdl:message name="GetOfficialBuildsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetOfficialBuildsResponse" />
+  </wsdl:message>
   <wsdl:message name="GetNightlyBuildsSoapIn">
     <wsdl:part name="parameters" element="tns:GetNightlyBuilds" />
   </wsdl:message>
@@ -69,6 +94,10 @@
       <wsdl:input message="tns:GetUpdatesSoapIn" />
       <wsdl:output message="tns:GetUpdatesSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetOfficialBuilds">
+      <wsdl:input message="tns:GetOfficialBuildsSoapIn" />
+      <wsdl:output message="tns:GetOfficialBuildsSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetNightlyBuilds">
       <wsdl:input message="tns:GetNightlyBuildsSoapIn" />
       <wsdl:output message="tns:GetNightlyBuildsSoapOut" />
@@ -78,6 +107,15 @@
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="GetUpdates">
       <soap:operation soapAction="http://www.microarea.it/PAASUpdates/GetUpdates" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOfficialBuilds">
+      <soap:operation soapAction="http://www.microarea.it/PAASUpdates/GetOfficialBuilds" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -99,6 +137,15 @@
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="GetUpdates">
       <soap12:operation soapAction="http://www.microarea.it/PAASUpdates/GetUpdates" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOfficialBuilds">
+      <soap12:operation soapAction="http://www.microarea.it/PAASUpdates/GetOfficialBuilds" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
