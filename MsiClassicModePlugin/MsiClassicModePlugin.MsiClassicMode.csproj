@@ -72,6 +72,7 @@
       <DependentUpon>frmMsiClassicMode.cs</DependentUpon>
     </Compile>
     <Compile Include="MsiClassicModePlugin.cs" />
+    <Compile Include="PluginException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

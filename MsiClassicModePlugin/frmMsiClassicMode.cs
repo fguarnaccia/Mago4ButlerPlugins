@@ -205,6 +205,7 @@ namespace MsiClassicModePlugin
 
         private void itemFolder_Click(object sender, EventArgs e)
         {
+            ccNetManagerClientUsrCtrl1.Visible = false;
             dlgOpenFile.ShowDialog();
             txtboxFileMsi.Text = dlgOpenFile.FileName;
             FromCCNet = false;

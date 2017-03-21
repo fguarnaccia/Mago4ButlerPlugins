@@ -47,17 +47,37 @@ namespace MsiClassicModePlugin
 
             string instancename = "{0}_{1}";
             string root = "";
-            string buildnumb; // = MsiFile.Substring(MsiFile.IndexOf("build") + 5, 4).ToString();
+            string buildnumb = string.Empty; // = MsiFile.Substring(MsiFile.IndexOf("build") + 5, 4).ToString();
 
-
-            if (MsiFile.IndexOf("build") < 0)
+            try
             {
-                buildnumb = MsiFile.Substring(MsiFile.IndexOf("x.") + 2, 4).ToString();
+
+#if DEBUG
+                throw new System.ArgumentOutOfRangeException();
+#endif
+
+                if (MsiFile.IndexOf("build") < 0)
+                {
+                    buildnumb = MsiFile.Substring(MsiFile.IndexOf("x.") + 2, 4).ToString();
+                }
+                else
+                {
+
+                    buildnumb = MsiFile.Substring(MsiFile.IndexOf("build") + 5, 4).ToString();
+                }
+
             }
-            else
+            catch (ArgumentOutOfRangeException e)
             {
+         
+                PluginException plgnex = new PluginException("", e);
 
-                buildnumb = MsiFile.Substring(MsiFile.IndexOf("build") + 5, 4).ToString();
+                plgnex.ParamName = "MsiFile";
+                plgnex.ParamValue = MsiFile;
+                plgnex.ToString();
+                throw plgnex;
+               
+
             }
 
             if (MsiFile.ToLowerInvariant().Contains("mago4"))
@@ -74,6 +94,7 @@ namespace MsiClassicModePlugin
                 instancename = "Session-" + instancename; // 0 - build ; 1 -  root}
                 return string.Format(instancename, buildnumb, root);
             }
+
 
             return string.Format(instancename, root, buildnumb);
 
@@ -128,4 +149,8 @@ namespace MsiClassicModePlugin
             }
         }
     }
+
+
+
+
 }
