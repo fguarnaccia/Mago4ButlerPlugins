@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Microarea.Mago4Butler
 {
-    public class WebMediator : UIMediator
+    internal class WebMediator : UIMediator
     {
         public WebCommand Command { get; } = new WebCommand();
 

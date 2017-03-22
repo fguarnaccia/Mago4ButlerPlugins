@@ -12,10 +12,9 @@ using System.Threading.Tasks;
 
 namespace Microarea.Mago4Butler.BL
 {
-    public class InstallerService : ILogger
+    internal class InstallerService : ILogger
     {
         readonly object lockTicket = new object();
-        const string msiexecPath = @"C:\Windows\System32\msiexec.exe";
 
         public event EventHandler<EventArgs> Starting;
         public event EventHandler<EventArgs> Started;
@@ -32,14 +31,11 @@ namespace Microarea.Mago4Butler.BL
         public event EventHandler<NotificationEventArgs> Notification;
 
         WcfService wcfService;
-        MsiZapper msiZapper;
-        RegistryService registryService;
         MsiService msiService;
-        IisService iisService;
         FileSystemService fileSystemService;
         ICompanyDBUpdateService companyDBUpdateService;
         ISalesModulesConfiguratorService salesModulesConfiguratorService;
-        IFileLocker fileLocker;
+        IisService iisService;
 
         ISettings settings;
         Queue<Request> requests = new Queue<Request>();
@@ -60,25 +56,19 @@ namespace Microarea.Mago4Butler.BL
             ISettings settings,
             MsiService msiService,
             ICompanyDBUpdateService companyDBUpdateService,
-            MsiZapper msiZapper,
-            RegistryService registryService,
-            IisService iisService,
             FileSystemService fileSystemService,
             WcfService wcfService,
             ISalesModulesConfiguratorService salesModulesConfiguratorService,
-            IFileLocker fileLocker
+            IisService iisService
             )
         {
             this.settings = settings;
             this.msiService = msiService;
             this.companyDBUpdateService = companyDBUpdateService;
-            this.msiZapper = msiZapper;
-            this.registryService = registryService;
-            this.iisService = iisService;
             this.fileSystemService = fileSystemService;
             this.wcfService = wcfService;
             this.salesModulesConfiguratorService = salesModulesConfiguratorService;
-            this.fileLocker = fileLocker;
+            this.iisService = iisService;
         }
 
         protected virtual void OnStarting()
@@ -428,62 +418,19 @@ namespace Microarea.Mago4Butler.BL
 
         private void Update(Request currentRequest, CmdLineInfo cmdLineInfo)
         {
-            //Lock-o il file msi perche` fino a che windows installer non comincia il suo lavoro
-            //nessuno lo lock-a e quindi l'utente potrebbe cancellarlo causando errori.
-            using (var lockToken = this.fileLocker.CreateLockToken(currentRequest.MsiPath))
+            try
             {
-                OnNotification(new NotificationEventArgs() { Message = "Removing installation info..." });
-                //Rimuovo le informazioni di installazione dal registry se presenti in
-                //modo che la mia installazione non le trovi e tenga i parametri che passo io da riga di comando.
-                this.msiZapper.ZapMsi(currentRequest.MsiPath);
-                this.registryService.RemoveInstallationInfoKey(currentRequest.MsiPath);
-                this.registryService.RemoveInstallerFoldersKeys(currentRequest.RootFolder, currentRequest.Instance);
-                OnNotification(new NotificationEventArgs() { Message = "Installation info removed" });
-
-                //Rimuovo la parte di installazione su IIS per evitare che, se tra un setup e il successivo
-                //alcuni componenti cambiano noe, mi rimangano dei cadaveri.
-                //Rimuovere prima le virtual folder e le application, poi gli application pool.
-                //Un application pool a cui sono collegate ancora applicazioni non puo` essere eliminato
-                OnNotification(new NotificationEventArgs() { Message = "Removing virtual folders..." });
-                this.iisService.RemoveVirtualFoldersAndApplications(currentRequest.Instance);
-                OnNotification(new NotificationEventArgs() { Message = "Virtual folders removed" });
-                OnNotification(new NotificationEventArgs() { Message = "Removing application pools..." });
-                this.iisService.RemoveApplicationPools(currentRequest.Instance);
-                OnNotification(new NotificationEventArgs() { Message = "Application pools removed" });
-
-                string logFilesFolderPath = CreateApplicationFolders(currentRequest);
-
-                OnNotification(new NotificationEventArgs() { Message = "Launching msi..." });
-                this.LogInfo("Launching msi with command line " + cmdLineInfo.ToString());
-                string installLogFilePath = Path.Combine(logFilesFolderPath, "Mago4_" + currentRequest.Instance.Name + "_UpdateLog_" + DateTime.Now.ToString("yyyyMMddhhmmss", CultureInfo.InvariantCulture) + ".log");
-
-                try
-                {
-                    this.LaunchProcess(
-                            msiexecPath,
-                            String.Format("/i \"{0}\" /qn /norestart {1} UICULTURE=\"it-IT\" INSTALLLOCATION=\"{2}\" INSTANCENAME=\"{3}\" DEFAULTWEBSITENAME=\"{4}\" DEFAULTWEBSITEID={5} DEFAULTWEBSITEPORT={6} {7}", currentRequest.MsiPath, this.settings.MsiLog ? String.Format("/l*vx \"{0}\"", installLogFilePath) : string.Empty, currentRequest.RootFolder, currentRequest.Instance.Name, currentRequest.Instance.WebSiteInfo.SiteName, currentRequest.Instance.WebSiteInfo.SiteID, currentRequest.Instance.WebSiteInfo.SitePort, cmdLineInfo.ToString()),
-                            3600000
-                            );
-                    OnNotification(new NotificationEventArgs() { Message = "Msi execution successfully terminated..." });
-                }
-                catch (Exception exc)
-                {
-                    this.LogError("Msi execution terminated with errors...", exc);
-                    OnNotification(new NotificationEventArgs() { Message = "Msi execution terminated with errors..." });
-                    OnError(new InstallerServiceErrorEventArgs()
-                    {
-                        Message = "Error updating " + currentRequest.Instance.Name,
-                        Error = exc
-                    });
-                }
+                this.msiService.UpdateMsi(currentRequest, cmdLineInfo);
             }
-
-            OnNotification(new NotificationEventArgs() { Message = "Cleaning registry..." });
-            Thread.Sleep(2000);//Wait for the msiexec process to unlock the msi file...
-            this.msiZapper.ZapMsi(currentRequest.MsiPath);
-            this.registryService.RemoveInstallationInfoKey(currentRequest.MsiPath);
-            this.registryService.RemoveInstallerFoldersKeys(currentRequest.RootFolder, currentRequest.Instance);
-            OnNotification(new NotificationEventArgs() { Message = "Now the registry is clean" });
+            catch (Exception exc)
+            {
+                OnError(new InstallerServiceErrorEventArgs()
+                {
+                    Message = "Error updating " + currentRequest.Instance.Name,
+                    Error = exc
+                });
+                return;
+            }
 
             OnNotification(new NotificationEventArgs() { Message = "Configuring the application..." });
             this.salesModulesConfiguratorService.ConfigureSalesModules(currentRequest.Instance);
@@ -500,50 +447,19 @@ namespace Microarea.Mago4Butler.BL
 
         private void Install(Request currentRequest, CmdLineInfo cmdLineInfo)
         {
-            //Lock-o il file msi perche` fino a che windows installer non comincia il suo lavoro
-            //nessuno lo lock-a e quindi l'utente potrebbe cancellarlo causando errori.
-            using (var lockToken = this.fileLocker.CreateLockToken(currentRequest.MsiPath))
+            try
             {
-                OnNotification(new NotificationEventArgs() { Message = "Removing installation info..." });
-                //Rimuovo le informazioni di installazione dal registry se presenti in
-                //modo che la mia installazione non le trovi e tenga i parametri che passo io da riga di comando.
-                this.msiZapper.ZapMsi(currentRequest.MsiPath);
-                this.registryService.RemoveInstallationInfoKey(currentRequest.MsiPath);
-                this.registryService.RemoveInstallerFoldersKeys(currentRequest.RootFolder, currentRequest.Instance);
-                OnNotification(new NotificationEventArgs() { Message = "Installation info removed" });
-                string logFilesFolderPath = CreateApplicationFolders(currentRequest);
-
-                OnNotification(new NotificationEventArgs() { Message = "Launching msi..." });
-                this.LogInfo("Launching msi with command line " + cmdLineInfo.ToString());
-                string installLogFilePath = Path.Combine(logFilesFolderPath, "Mago4_" + currentRequest.Instance.Name + "_InstallLog_" + DateTime.Now.ToString("yyyyMMddhhmmss", CultureInfo.InvariantCulture) + ".log");
-
-                try
-                {
-                    this.LaunchProcess(
-                            msiexecPath,
-                            String.Format("/i \"{0}\" /qn /norestart {1} UICULTURE=\"it-IT\" INSTALLLOCATION=\"{2}\" INSTANCENAME=\"{3}\" DEFAULTWEBSITENAME=\"{4}\" DEFAULTWEBSITEID={5} DEFAULTWEBSITEPORT={6} {7}", currentRequest.MsiPath, this.settings.MsiLog ? String.Format("/l*vx \"{0}\"", installLogFilePath) : string.Empty, currentRequest.RootFolder, currentRequest.Instance.Name, currentRequest.Instance.WebSiteInfo.SiteName, currentRequest.Instance.WebSiteInfo.SiteID, currentRequest.Instance.WebSiteInfo.SitePort, cmdLineInfo.ToString()),
-                            3600000
-                            );
-                    OnNotification(new NotificationEventArgs() { Message = "Msi execution successfully terminated..." });
-                }
-                catch (Exception exc)
-                {
-                    this.LogError("Msi execution terminated with errors...", exc);
-                    OnNotification(new NotificationEventArgs() { Message = "Msi execution terminated with errors..." });
-                    OnError(new InstallerServiceErrorEventArgs()
-                    {
-                        Message = "Error installing " + currentRequest.Instance.Name,
-                        Error = exc
-                    });
-                }
+                this.msiService.InstallMsi(currentRequest, cmdLineInfo);
             }
-
-            OnNotification(new NotificationEventArgs() { Message = "Cleaning registry..." });
-            Thread.Sleep(2000);//Wait for the msiexec process to unlock the msi file...
-            this.msiZapper.ZapMsi(currentRequest.MsiPath);
-            this.registryService.RemoveInstallationInfoKey(currentRequest.MsiPath);
-            this.registryService.RemoveInstallerFoldersKeys(currentRequest.RootFolder, currentRequest.Instance);
-            OnNotification(new NotificationEventArgs() { Message = "Now the registry is clean" });
+            catch (Exception exc)
+            {
+                OnError(new InstallerServiceErrorEventArgs()
+                {
+                    Message = "Error installing " + currentRequest.Instance.Name,
+                    Error = exc
+                });
+                return;
+            }
 
             OnNotification(new NotificationEventArgs() { Message = "Configuring the application..." });
             this.SaveServerConnectionConfig(currentRequest);
@@ -561,35 +477,6 @@ namespace Microarea.Mago4Butler.BL
             OnNotification(new NotificationEventArgs() { Message = "Registering wcf namespaces..." });
             this.wcfService.RegisterWcf(currentRequest.Instance.WcfStartPort, currentRequest.Instance.Name);
             OnNotification(new NotificationEventArgs() { Message = "Wcf namespaces registered" });
-        }
-
-        private string CreateApplicationFolders(Request currentRequest)
-        {
-            string logFilesFolderPath = null;
-            try
-            {
-                var rootDirInfo = new DirectoryInfo(currentRequest.RootFolder);
-                if (!rootDirInfo.Exists)
-                {
-                    OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Creating root folder {0}...", currentRequest.RootFolder) });
-                    rootDirInfo.Create();
-                    OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Root folder {0} created", currentRequest.RootFolder) });
-                }
-
-                logFilesFolderPath = Path.Combine(currentRequest.RootFolder, "Logs");
-                if (!Directory.Exists(logFilesFolderPath))
-                {
-                    OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Creating logs folder {0}...", currentRequest.RootFolder) });
-                    Directory.CreateDirectory(logFilesFolderPath);
-                    OnNotification(new NotificationEventArgs() { Message = String.Format(CultureInfo.InvariantCulture, "Logs folder {0} created", currentRequest.RootFolder) });
-                }
-            }
-            catch (Exception exc)
-            {
-                this.LogError("Error creating root folder or log folder", exc);
-            }
-
-            return logFilesFolderPath;
         }
 
         private void SaveServerConnectionConfig(Request currentRequest)

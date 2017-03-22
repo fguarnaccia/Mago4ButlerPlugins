@@ -10,7 +10,7 @@ using WinApp = System.Windows.Forms.Application;
 
 namespace Microarea.Mago4Butler
 {
-    public partial class MainForm : Form, IMainUI
+    internal partial class MainForm : Form, IMainUI
     {
         SynchronizationContext syncCtx;
 

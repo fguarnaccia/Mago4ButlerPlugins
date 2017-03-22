@@ -14,7 +14,7 @@ using WinApp = System.Windows.Forms.Application;
 
 namespace Microarea.Mago4Butler
 {
-    public class UIMediator : IUIMediator
+    internal class UIMediator : IUIMediator
     {
         public event EventHandler<JobEventArgs> JobNotification;
         public event EventHandler<JobEventArgs> ParametersForInstallNeeded;

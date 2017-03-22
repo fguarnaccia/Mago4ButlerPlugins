@@ -12,7 +12,7 @@ using WindowsInstaller;
 
 namespace Microarea.Mago4Butler.BL
 {
-    public class RegistryService : ILogger
+    internal class RegistryService : ILogger
     {
         MsiService msiService;
 

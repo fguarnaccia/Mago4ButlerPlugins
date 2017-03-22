@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Microarea.Mago4Butler.BL
 {
-    public class UpdatesDownloaderService : ILogger
+    internal class UpdatesDownloaderService : ILogger
     {
         readonly HttpService httpService;
         readonly MsiService msiService;

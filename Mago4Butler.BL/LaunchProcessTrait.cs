@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Microarea.Mago4Butler.BL
 {
-    public static class LaunchProcessTrait
+    internal static class LaunchProcessTrait
     {
         public static void LaunchProcess(this WcfService @this, string processFilePath, string args, int timeoutInMillSecs)
         {
@@ -16,7 +16,11 @@ namespace Microarea.Mago4Butler.BL
         {
             LaunchProcess(processFilePath, args, timeoutInMillSecs);
         }
-        public static void LaunchProcess(this InstallerService @this, string processFilePath, string args, int timeoutInMillSecs)
+        //public static void LaunchProcess(this InstallerService @this, string processFilePath, string args, int timeoutInMillSecs)
+        //{
+        //    LaunchProcess(processFilePath, args, timeoutInMillSecs);
+        //}
+        public static void LaunchProcess(this MsiService @this, string processFilePath, string args, int timeoutInMillSecs)
         {
             LaunchProcess(processFilePath, args, timeoutInMillSecs);
         }

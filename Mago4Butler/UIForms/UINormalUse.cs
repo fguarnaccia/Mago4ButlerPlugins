@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace Microarea.Mago4Butler
 {
-    public partial class UINormalUse : UserControl, ILogger
+    internal partial class UINormalUse : UserControl, ILogger
     {
         MapperConfiguration config;
         IMapper mapper;
