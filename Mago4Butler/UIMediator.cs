@@ -22,28 +22,16 @@ namespace Microarea.Mago4Butler
 
         protected virtual void OnJobNotification(JobEventArgs e)
         {
-            var handler = JobNotification;
-            if (handler != null)
-            {
-                handler(this, e);
-            }
+            JobNotification?.Invoke(this, e);
         }
         protected virtual void OnAskForParametersForInstall(JobEventArgs e)
         {
-            var handler = ParametersForInstallNeeded;
-            if (handler != null)
-            {
-                handler(this, e);
-            }
+            ParametersForInstallNeeded?.Invoke(this, e);
         }
 
         protected virtual void OnProvisioningNeeded(ProvisioningEventArgs e)
         {
-            var handler = ProvisioningNeeded;
-            if (handler != null)
-            {
-                handler(this, e);
-            }
+            ProvisioningNeeded?.Invoke(this, e);
         }
 
         MapperConfiguration cmdLineMapperConfig;

@@ -37,6 +37,11 @@ namespace Microarea.Mago4Butler
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
+            if (!this.webMediator.CanClose)
+            {
+                e.Cancel = true;
+                return;
+            }
             Cef.Shutdown();
         }
 
