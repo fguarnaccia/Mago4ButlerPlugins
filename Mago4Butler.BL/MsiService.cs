@@ -351,8 +351,11 @@ namespace Microarea.Mago4Butler.BL
                 //OnNotification(new NotificationEventArgs() { Message = "Removing installation info..." });
                 //Rimuovo le informazioni di installazione dal registry se presenti in
                 //modo che la mia installazione non le trovi e tenga i parametri che passo io da riga di comando.
-                this.msiZapper.ZapMsi(currentRequest.MsiPath);
-                this.registryService.RemoveInstallationInfoKey(currentRequest.MsiPath);
+                this.msiZapper.ZapMsi(currentRequest.MsiPath, this.GetProductCode(currentRequest.MsiPath));
+                this.registryService.RemoveInstallationInfoKey(
+                    currentRequest.MsiPath,
+                    this.GetUpgradeCode(currentRequest.MsiPath),
+                    this.GetProductName(currentRequest.MsiPath).Replace(".", string.Empty));
                 this.registryService.RemoveInstallerFoldersKeys(currentRequest.RootFolder, currentRequest.Instance);
                 //OnNotification(new NotificationEventArgs() { Message = "Installation info removed" });
 
@@ -379,8 +382,11 @@ namespace Microarea.Mago4Butler.BL
 
             //OnNotification(new NotificationEventArgs() { Message = "Cleaning registry..." });
             System.Threading.Thread.Sleep(2000);//Wait for the msiexec process to unlock the msi file...
-            this.msiZapper.ZapMsi(currentRequest.MsiPath);
-            this.registryService.RemoveInstallationInfoKey(currentRequest.MsiPath);
+            this.msiZapper.ZapMsi(currentRequest.MsiPath, this.GetProductCode(currentRequest.MsiPath));
+            this.registryService.RemoveInstallationInfoKey(
+                    currentRequest.MsiPath,
+                    this.GetUpgradeCode(currentRequest.MsiPath),
+                    this.GetProductName(currentRequest.MsiPath).Replace(".", string.Empty));
             this.registryService.RemoveInstallerFoldersKeys(currentRequest.RootFolder, currentRequest.Instance);
             //OnNotification(new NotificationEventArgs() { Message = "Now the registry is clean" });
         }
@@ -394,8 +400,11 @@ namespace Microarea.Mago4Butler.BL
                 //OnNotification(new NotificationEventArgs() { Message = "Removing installation info..." });
                 //Rimuovo le informazioni di installazione dal registry se presenti in
                 //modo che la mia installazione non le trovi e tenga i parametri che passo io da riga di comando.
-                this.msiZapper.ZapMsi(currentRequest.MsiPath);
-                this.registryService.RemoveInstallationInfoKey(currentRequest.MsiPath);
+                this.msiZapper.ZapMsi(currentRequest.MsiPath, this.GetProductCode(currentRequest.MsiPath));
+                this.registryService.RemoveInstallationInfoKey(
+                    currentRequest.MsiPath,
+                    this.GetUpgradeCode(currentRequest.MsiPath),
+                    this.GetProductName(currentRequest.MsiPath).Replace(".", string.Empty));
                 this.registryService.RemoveInstallerFoldersKeys(currentRequest.RootFolder, currentRequest.Instance);
                 //OnNotification(new NotificationEventArgs() { Message = "Installation info removed" });
 
@@ -433,8 +442,11 @@ namespace Microarea.Mago4Butler.BL
 
             //OnNotification(new NotificationEventArgs() { Message = "Cleaning registry..." });
             System.Threading.Thread.Sleep(2000);//Wait for the msiexec process to unlock the msi file...
-            this.msiZapper.ZapMsi(currentRequest.MsiPath);
-            this.registryService.RemoveInstallationInfoKey(currentRequest.MsiPath);
+            this.msiZapper.ZapMsi(currentRequest.MsiPath, this.GetProductCode(currentRequest.MsiPath));
+            this.registryService.RemoveInstallationInfoKey(
+                    currentRequest.MsiPath,
+                    this.GetUpgradeCode(currentRequest.MsiPath),
+                    this.GetProductName(currentRequest.MsiPath).Replace(".", string.Empty));
             this.registryService.RemoveInstallerFoldersKeys(currentRequest.RootFolder, currentRequest.Instance);
             //OnNotification(new NotificationEventArgs() { Message = "Now the registry is clean" });
         }

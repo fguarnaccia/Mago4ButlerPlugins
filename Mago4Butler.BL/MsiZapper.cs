@@ -8,18 +8,10 @@ namespace Microarea.Mago4Butler.BL
 {
     internal class MsiZapper : ILogger
     {
-        MsiService msiService;
-
-        public MsiZapper(MsiService msiService)
-        {
-            this.msiService = msiService;
-        }
-        public void ZapMsi(string msiFullPath)
+        public void ZapMsi(string msiFullPath, string productCode)
         {
             try
             {
-                string productCode = msiService.GetProductCode(msiFullPath);
-
                 if (String.IsNullOrWhiteSpace(productCode))
                 {
                     throw new ArgumentException(String.Format("'productCode' from {0} is null or empty", msiFullPath));

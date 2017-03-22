@@ -23,11 +23,13 @@ namespace Microarea.Mago4Butler
 
         public void SortByColumn(int columnId)
         {
+            this.instanceComparer.Sorting = ((SortOrder)this.settings.ListViewSortOrder == SortOrder.Ascending)
+                ? SortOrder.Descending
+                : SortOrder.Ascending;
             ListView_ColumnClick(
                 this,
                 new ColumnClickEventArgs(columnId)
                 );
-            this.instanceComparer.Sorting = (SortOrder)this.settings.ListViewSortOrder;
         }
 
         private void ListView_ColumnClick(object sender, ColumnClickEventArgs e)

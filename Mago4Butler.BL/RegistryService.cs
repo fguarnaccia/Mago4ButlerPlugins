@@ -14,25 +14,15 @@ namespace Microarea.Mago4Butler.BL
 {
     internal class RegistryService : ILogger
     {
-        MsiService msiService;
-
-        public RegistryService(MsiService msiService)
-        {
-            this.msiService = msiService;
-        }
-        public void RemoveInstallationInfoKey(string msiFullPath)
+        public void RemoveInstallationInfoKey(string msiFullPath, string upgradeCode, string productName)
         {
             try
             {
-                string upgradeCode = msiService.GetUpgradeCode(msiFullPath);
                 if (String.IsNullOrWhiteSpace(upgradeCode))
                 {
                     throw new ArgumentException(String.Format("'upgradeCode' from {0} is null or empty", msiFullPath));
                 }
 
-                string productName =
-                    msiService.GetProductName(msiFullPath)
-                    .Replace(".", string.Empty);
                 if (String.IsNullOrWhiteSpace(productName))
                 {
                     throw new ArgumentException(String.Format("'PRODUCTNAME' from {0} is null or empty", msiFullPath));
