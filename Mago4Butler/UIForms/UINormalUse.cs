@@ -192,6 +192,7 @@ namespace Microarea.Mago4Butler
         {
             var instance = e.Instance;
             AddInstanceToListView(instance);
+            AdjustColumnsWidth(this.lsvInstances, instance.Name.Length);
         }
 
         private void AddInstanceToListView(Model.Instance instance)
@@ -220,13 +221,32 @@ namespace Microarea.Mago4Butler
         private void InitInstancesListView()
         {
             this.lsvInstances.Items.Clear();
+            int instanceNameMaxLen = 0;
             foreach (var instance in this.model.Instances)
             {
+                if (instance.Name.Length > instanceNameMaxLen)
+                {
+                    instanceNameMaxLen = instance.Name.Length;
+                }
                 AddInstanceToListView(instance);
             }
-            foreach (ColumnHeader column in this.lsvInstances.Columns)
+            AdjustColumnsWidth(this.lsvInstances, instanceNameMaxLen);
+        }
+
+        private static void AdjustColumnsWidth(ListView lsvInstances, int instanceNameMaxLen)
+        {
+            int columnWidth = -1;//autosize to the longest item in the column
+            foreach (ColumnHeader column in lsvInstances.Columns)
             {
-                column.Width = -1;
+                if (column.Text.Length > instanceNameMaxLen)
+                {
+                    columnWidth = -2;//autosize the column to the length of the text in the column header
+                    break;
+                }
+            }
+            foreach (ColumnHeader column in lsvInstances.Columns)
+            {
+                column.Width = columnWidth;
             }
         }
 
