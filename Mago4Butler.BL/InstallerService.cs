@@ -420,7 +420,9 @@ namespace Microarea.Mago4Butler.BL
         {
             try
             {
+                OnNotification(new NotificationEventArgs() { Message = "Launching msi..." });
                 this.msiService.UpdateMsi(currentRequest, cmdLineInfo);
+                OnNotification(new NotificationEventArgs() { Message = "Msi execution successfully terminated..." });
             }
             catch (Exception exc)
             {
@@ -449,7 +451,9 @@ namespace Microarea.Mago4Butler.BL
         {
             try
             {
+                OnNotification(new NotificationEventArgs() { Message = "Launching msi..." });
                 this.msiService.InstallMsi(currentRequest, cmdLineInfo);
+                OnNotification(new NotificationEventArgs() { Message = "Msi execution successfully terminated..." });
             }
             catch (Exception exc)
             {
