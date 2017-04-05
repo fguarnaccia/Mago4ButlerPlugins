@@ -43,7 +43,7 @@
             this.itemCCNet = new System.Windows.Forms.ToolStripMenuItem();
             this.itemFolder = new System.Windows.Forms.ToolStripMenuItem();
             this.itemSite = new System.Windows.Forms.ToolStripMenuItem();
-            this.ccNetManagerClientUsrCtrl1 = new MsiClassicModePlugin.MSISelector ();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             ((System.ComponentModel.ISupportInitialize)(this.errProvider)).BeginInit();
             this.dropdownMsiFrom.SuspendLayout();
             this.SuspendLayout();
@@ -84,8 +84,6 @@
             this.txtboxFileMsi.Size = new System.Drawing.Size(365, 20);
             this.txtboxFileMsi.TabIndex = 1;
             this.txtboxFileMsi.TextChanged += new System.EventHandler(this.txtboxFileMsi_TextChanged);
-            //this.txtboxFileMsi.DragDrop += new System.Windows.Forms.DragEventHandler(this.txtboxFileMsi_DragDrop);
-            //this.txtboxFileMsi.DragEnter += new System.Windows.Forms.DragEventHandler(this.txtboxFileMsi_DragEnter);
             // 
             // dlgOpenFile
             // 
@@ -158,14 +156,15 @@
             this.itemSite.Size = new System.Drawing.Size(84, 22);
             this.itemSite.Text = "&Site";
             this.itemSite.Visible = false;
+            this.itemSite.Click += new System.EventHandler(this.itemSite_Click);
             // 
-            // ccNetManagerClientUsrCtrl1
+            // statusStrip1
             // 
-            this.ccNetManagerClientUsrCtrl1.Location = new System.Drawing.Point(50, 41);
-            this.ccNetManagerClientUsrCtrl1.Name = "ccNetManagerClientUsrCtrl1";
-            this.ccNetManagerClientUsrCtrl1.Size = new System.Drawing.Size(365, 104);
-            this.ccNetManagerClientUsrCtrl1.TabIndex = 3;
-            this.ccNetManagerClientUsrCtrl1.Visible = false;
+            this.statusStrip1.Location = new System.Drawing.Point(0, 379);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(467, 22);
+            this.statusStrip1.TabIndex = 8;
+            this.statusStrip1.Text = "statusStrip1";
             // 
             // frmMsiClassicMode
             // 
@@ -174,7 +173,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnEsc;
             this.ClientSize = new System.Drawing.Size(467, 401);
-            this.Controls.Add(this.ccNetManagerClientUsrCtrl1);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.propgrdSettings);
             this.Controls.Add(this.btnEsc);
             this.Controls.Add(this.btnOk);
@@ -210,10 +209,10 @@
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Button btnEsc;     
         private System.Windows.Forms.PropertyGrid propgrdSettings;
-        private MSISelector  ccNetManagerClientUsrCtrl1;
         private System.Windows.Forms.ContextMenuStrip dropdownMsiFrom;
         private System.Windows.Forms.ToolStripMenuItem itemFolder;
         private System.Windows.Forms.ToolStripMenuItem itemCCNet;
         private System.Windows.Forms.ToolStripMenuItem itemSite;
+        private System.Windows.Forms.StatusStrip statusStrip1;
     }
 }

@@ -13,7 +13,7 @@
 // 
 #pragma warning disable 1591
 
-namespace MsiClassicModePlugin.CCNet {
+namespace MsiClassicModePlugin.MABuilds {
     using System;
     using System.Web.Services;
     using System.Diagnostics;

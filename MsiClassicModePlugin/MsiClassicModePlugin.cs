@@ -2,6 +2,8 @@
 using Microarea.Mago4Butler.Plugins;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System;
+using System.ComponentModel;
 
 namespace MsiClassicModePlugin
 {
@@ -17,11 +19,19 @@ namespace MsiClassicModePlugin
             }
         }
 
-        public CmdLineInfo listfeature ;
-
+        //public CmdLineInfo listfeature;
+        public enum ProductSignature
+        {
+            [Description("MagoNet-Pro")]
+            MagoNetPro,
+            M4GO
+            
+        }
+       
         public override void OnApplicationStarted()
         {
-            CCNet.UpdatesService ccnet = new CCNet.UpdatesService();
+            //stimola il WS per accelerare la risposta quando richiesto
+            MABuilds.UpdatesService ccnet = new MABuilds.UpdatesService();
             Task.Factory.StartNew(() => ccnet.GetNightlyBuilds());
                
         }
@@ -83,25 +93,25 @@ namespace MsiClassicModePlugin
 
 
         }
-        bool IsMago4Setup(CmdLineInfo cmdLineInfo)
-        {
-            bool ismago4setup = false; 
-            foreach (Feature feature in cmdLineInfo.Features)
+        //bool IsMago4Setup(CmdLineInfo cmdLineInfo)
+        //{
+        //    bool ismago4setup = false; 
+        //    foreach (Feature feature in cmdLineInfo.Features)
 
-            {
+        //    {
              
-                if (feature.Description.ToString() == "Mago4")
-                {
-                    ismago4setup =  true;
-                }
-                else
-                {
-                    ismago4setup =  false;
-                }
-            }
+        //        if (feature.Description.ToString() == "Mago4")
+        //        {
+        //            ismago4setup =  true;
+        //        }
+        //        else
+        //        {
+        //            ismago4setup =  false;
+        //        }
+        //    }
 
-            return ismago4setup;
-        }
+        //    return ismago4setup;
+        //}
 
         void DeleteShare(string sharestring)
         {
@@ -132,7 +142,6 @@ namespace MsiClassicModePlugin
         public override void OnAskForParametersForInstall(AskForParametersBag bag)
         {
             
-          
             frmMsiClassicMode frm = new frmMsiClassicMode(false);
 
             frm.ShowDialog();
@@ -154,7 +163,6 @@ namespace MsiClassicModePlugin
             frmMsiClassicMode frm = new frmMsiClassicMode(true);
 
             frm.txtInstanceName.Text = "don't worry";
-
             frm.ShowDialog();
             if (frm.DialogResult == System.Windows.Forms.DialogResult.OK)
             {
@@ -166,6 +174,30 @@ namespace MsiClassicModePlugin
             {
                 bag.Cancel = true;
             }
+        }
+
+        public bool IsMago4(string version)
+        {
+
+            var versione = new Version(version);
+            if (versione.Major == 1)
+            {
+                return true;
+            }
+
+            return false;
+
+        }
+
+        public ProductSignature Signature(string version)
+        {
+
+          
+            if (IsMago4(version))
+                return ProductSignature.M4GO;
+            else
+                return ProductSignature.MagoNetPro;
+
         }
     }
 }

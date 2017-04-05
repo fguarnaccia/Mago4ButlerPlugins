@@ -85,7 +85,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
-    <Compile Include="Web References\CCNet\Reference.cs">
+    <Compile Include="Web References\MABuilds\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
@@ -97,17 +97,17 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Web References\CCNet\GetUpdatesResponse1.datasource">
+    <None Include="Web References\MABuilds\GetUpdatesResponse.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
-    <None Include="Web References\CCNet\NightlyBuildsResult1.datasource">
+    <None Include="Web References\MABuilds\NightlyBuildsResult.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
-    <None Include="Web References\CCNet\Reference.map">
+    <None Include="Web References\MABuilds\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Web References\CCNet\UpdatesService.wsdl" />
+    <None Include="Web References\MABuilds\UpdatesService.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MSISelector.resx">
@@ -133,7 +133,7 @@
   <ItemGroup>
     <WebReferenceUrl Include="http://www.microarea.it/PAASUpdates/UpdatesService.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\CCNet\</RelPath>
+      <RelPath>Web References\MABuilds\</RelPath>
       <UpdateFromURL>http://www.microarea.it/PAASUpdates/UpdatesService.asmx</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
@@ -144,7 +144,7 @@
     </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Web References\CCNet\UpdatesService.disco" />
+    <None Include="Web References\MABuilds\UpdatesService.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

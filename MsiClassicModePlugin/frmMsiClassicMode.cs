@@ -13,31 +13,24 @@ namespace MsiClassicModePlugin
 {
     public partial class frmMsiClassicMode : Form
     {
- 
-        private bool FromCCNet;
-               
-        public bool IsUpdating { get; set; }
-
-        public frmMsiClassicMode(bool isupdating=false/*, CmdLineInfo listfeature*/  )
+     
+        bool IsUpdating { get; set; }
+        MSISelector msiselector;
+        public frmMsiClassicMode(bool isupdating = false/*, CmdLineInfo listfeature*/  )
         {
-            
+
             IsUpdating = isupdating;
             InitializeComponent();
             InitializeOtherComponents();
 
         }
 
-        private void btn_Click(object sender, EventArgs e)
-        {
-            dropdownMsiFrom.Show((Button)sender, new Point(0, ((Button)sender).Height));
-        }
-        
 
-        private void InitializeOtherComponents()
+        public void InitializeOtherComponents()
         {
             //creo pumello con lista
             DropDownButton dropdownbtn = new DropDownButton();
-            dropdownbtn.Click += new EventHandler(btn_Click);
+            dropdownbtn.Click += new EventHandler(dropdownbtn_Click);
             dropdownbtn.Text = "...";
             dropdownbtn.Location = new System.Drawing.Point(423, 23);
             dropdownbtn.Size = new System.Drawing.Size(35, 23);
@@ -46,12 +39,12 @@ namespace MsiClassicModePlugin
 
             itemCCNet.Visible = !IsUpdating;
             itemFolder.Visible = true;
-            itemSite.Visible = false;
+            itemSite.Visible = true;
 
             Controls.Add(dropdownbtn);
-            
+
             txtInstanceName.Enabled = !IsUpdating;
-      
+
             propgrdSettings.SelectedObject = Properties.Settings.Default;
             propgrdSettings.ToolbarVisible = false;
 
@@ -59,10 +52,16 @@ namespace MsiClassicModePlugin
             {
                 this.Text = "Update instance";
             }
-            ccNetManagerClientUsrCtrl1.MsiSelected += new EventHandler(CCNetManagerClientUsrCtrl1_MsiSelected);
-            MSISelector .LocalFolderDestination = App.Instance.Settings.MsiFolder;
+ 
+            MSISelector.LocalFolderDestination = App.Instance.Settings.MsiFolder;
+
         }
 
+        private void dropdownbtn_Click(object sender, EventArgs e)
+        {
+            dropdownMsiFrom.Show((Button)sender, new Point(0, ((Button)sender).Height));
+        }
+    
         private void btnSelectFileMsi_Click(object sender, EventArgs e)
         {
             dlgOpenFile.ShowDialog();
@@ -103,7 +102,8 @@ namespace MsiClassicModePlugin
         {
             bool result = false;
 
-             foreach (var i in App.Instance.GetInstances().ToString())
+
+            foreach (var i in App.Instance.GetInstances().ToString())
             {
                 if (i.Equals(NomeIstanza))
                 {
@@ -141,47 +141,74 @@ namespace MsiClassicModePlugin
             }
         }
 
-        private void CCNetManagerClientUsrCtrl1_MsiSelected(object sender, EventArgs e)
-        {
-            txtboxFileMsi.Text = ccNetManagerClientUsrCtrl1.MsiSetupPath();
 
-            ccNetManagerClientUsrCtrl1.Visible = false;
+        private void MsiSelector_MsiSelected(object sender, EventArgs e)
+        {
+            txtboxFileMsi.Text = msiselector.SelectedMsiFilePath;
+
+            if (!IsUpdating  || txtInstanceName.Text == string.Empty) 
+                txtInstanceName.Text = msiselector.SelectedInstanceName;
+
+            msiselector.Visible = false;
         }
 
         private void txtboxFileMsi_TextChanged(object sender, EventArgs e)
         {
 
-            if (FromCCNet)
-            {
-                if (!InstanceAlreadyExists(MSISelector .ProvideInstanceName(ccNetManagerClientUsrCtrl1.MsiName(), FromCCNet)))
-                    txtInstanceName.BackColor = Color.White;
-                else {
-                    txtInstanceName.BackColor = Color.Yellow;
-                }
-
-                txtInstanceName.Text = MSISelector .ProvideInstanceName(ccNetManagerClientUsrCtrl1.MsiName(), FromCCNet);
-            }
+            if (!InstanceAlreadyExists(txtInstanceName.Text))
+                txtInstanceName.BackColor = Color.White;
             else
             {
-                txtInstanceName.Text = MSISelector .ProvideInstanceName(txtboxFileMsi.Text, FromCCNet);
-            }
+                txtInstanceName.BackColor = Color.Yellow;
+            }    
+      
         }
 
         private void itemCCNet_Click(object sender, EventArgs e)
         {
-            ccNetManagerClientUsrCtrl1.Visible = true;
-            FromCCNet = true;
+
+            if (msiselector != null)
+            {
+                msiselector.MsiSelected -= MsiSelector_MsiSelected;
+                msiselector.Dispose();
+            }
+            msiselector = new SelectorFromCCNet();
+            msiselector.MsiSelected += MsiSelector_MsiSelected;
+
+            msiselector.DrawSelector();
+            msiselector.Visible = true;
+
+            Controls.Add(msiselector);
+
+            Controls.SetChildIndex(msiselector, 0);
+
         }
 
         private void itemFolder_Click(object sender, EventArgs e)
         {
-            ccNetManagerClientUsrCtrl1.Visible = false;
+            msiselector.Visible = false;
             dlgOpenFile.ShowDialog();
-            FromCCNet = false;
             txtboxFileMsi.Text = dlgOpenFile.FileName;
-            
+        }
+
+        private void itemSite_Click(object sender, EventArgs e)
+        {
+            if (msiselector != null)
+            {       msiselector.MsiSelected -= MsiSelector_MsiSelected;
+            msiselector.Dispose();
+
+        }
+            msiselector = new SelectorFromSite();
+            msiselector.MsiSelected += MsiSelector_MsiSelected;
+            msiselector.DrawSelector();
+            msiselector.Visible = true;
+            Controls.Add(msiselector);
+            Controls.SetChildIndex(msiselector, 0);
+ 
         }
     }
+
+    // ------   ***** ------------------
     public class DropDownButton : Button
     {
         [DefaultValue(null)]
