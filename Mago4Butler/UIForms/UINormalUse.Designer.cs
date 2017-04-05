@@ -49,6 +49,7 @@
             this.btnAddInstance = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.imageList = new System.Windows.Forms.ImageList(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -95,6 +96,7 @@
             this.lsvInstances.Name = "lsvInstances";
             this.lsvInstances.ShowItemToolTips = true;
             this.lsvInstances.Size = new System.Drawing.Size(456, 345);
+            this.lsvInstances.SmallImageList = this.imageList;
             this.lsvInstances.TabIndex = 0;
             this.lsvInstances.UseCompatibleStateImageBehavior = false;
             this.lsvInstances.View = System.Windows.Forms.View.Details;
@@ -165,6 +167,13 @@
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
+            // imageList
+            // 
+            this.imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList.ImageStream")));
+            this.imageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList.Images.SetKeyName(0, "Mago.Net.png");
+            this.imageList.Images.SetKeyName(1, "TbAppManager.png");
+            // 
             // UINormalUse
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 14F);
@@ -197,5 +206,6 @@
         private System.Windows.Forms.ColumnHeader instanceColumnHeader;
         private System.Windows.Forms.ColumnHeader versionColumnHeader;
         private System.Windows.Forms.ColumnHeader installedOnColumnHeader;
+        private System.Windows.Forms.ImageList imageList;
     }
 }

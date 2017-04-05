@@ -115,6 +115,7 @@
     <Compile Include="NoSalesModulesConfigurationService.cs" />
     <Compile Include="NotificationEventArgs.cs" />
     <Compile Include="Mago4ProvisioningService.cs" />
+    <Compile Include="ProductIdentifierService.cs" />
     <Compile Include="SalesModulesConfiguratorService.cs" />
     <Compile Include="ServerManagerTrait.cs" />
     <Compile Include="FileSystemService.cs" />

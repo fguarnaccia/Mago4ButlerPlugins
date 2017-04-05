@@ -20,6 +20,7 @@ namespace Microarea.Mago4Butler
         Model.Model model;
         PluginService pluginService;
         InstallerService installerService;
+        ProductIdentifierService productIdentifierService;
         List<DoubleClickHandler> doubleClickHandlers = new List<DoubleClickHandler>();
         ListViewSortManager listViewSortManager;
 
@@ -56,7 +57,7 @@ namespace Microarea.Mago4Butler
             }
         }
 
-        public UINormalUse(Model.Model model, PluginService pluginService, InstallerService installerService, ISettings settings)
+        public UINormalUse(Model.Model model, PluginService pluginService, InstallerService installerService, ISettings settings, ProductIdentifierService productIdentifierService)
         {
             this.syncCtx = SynchronizationContext.Current;
             if (this.syncCtx == null)
@@ -76,6 +77,7 @@ namespace Microarea.Mago4Butler
             this.pluginService = pluginService;
             this.installerService = installerService;
             this.installerService.Installed += InstallerService_Installed;
+            this.productIdentifierService = productIdentifierService;
 
             this.settings = settings;
 
@@ -206,6 +208,7 @@ namespace Microarea.Mago4Butler
             {
                 item.ToolTipText = string.Concat(instance.Edition.ToString(), " Edition");
             }
+            item.ImageIndex = productIdentifierService.IsMagoNet(instance) ? 0 : 1;
 
             var listViewItem = this.lsvInstances.Items.Add(item);
         }
