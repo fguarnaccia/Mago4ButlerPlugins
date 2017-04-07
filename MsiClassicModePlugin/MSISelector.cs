@@ -13,7 +13,6 @@ namespace MsiClassicModePlugin
 
         internal MABuilds.UpdatesService updateservice = new MABuilds.UpdatesService();
 
-
         public MSISelector()
         {
             InitializeComponent();
@@ -84,7 +83,6 @@ namespace MsiClassicModePlugin
             return string.Format(instancename, root, buildnumb);
 
         }
-
 
         public virtual void DrawSelector()
         {
@@ -214,8 +212,6 @@ namespace MsiClassicModePlugin
         }
 
 
-
-
         string MsiSourcePath()
         {
             int idx = lstboxMain.SelectedIndex;
@@ -256,13 +252,17 @@ namespace MsiClassicModePlugin
 
         SessionTest = false;
             base.MsiSelected += SelectorFromSiteM4_MsiSelected;
-            //base.KeyUp += SelectorFromSiteM4_KeyUp;
-
             base.MsiSelected += SelectorFromSiteMN_MsiSelected;
-            base.KeyUp += SelectorFromSiteMN_KeyUp;
 
-            PopulateListBoxWithOfficialMago4();
-            PopulateListBoxWithOfficialMagonet();
+
+            updaterequest.ProductSignature = MsiClassicMode.ProductSignature.M4GO.ToString();
+            officialmago4builds = updateservice.GetOfficialBuilds(updaterequest);
+            PopulateListBoxWithOfficialMsi(lstboxMain , officialmago4builds);
+
+            updaterequest.ProductSignature = GetEnumDescription(MsiClassicMode.ProductSignature.MagoNetPro);
+            officialmagonetbuilds = updateservice.GetOfficialBuilds(updaterequest);
+            PopulateListBoxWithOfficialMsi(lstboxAux, officialmagonetbuilds);
+
         }
 
         private void SelectorFromSiteMN_KeyUp(object sender, KeyEventArgs e)
@@ -302,44 +302,18 @@ namespace MsiClassicModePlugin
             DownloadMsiFromSite(tmp);
            
         }
-
-        void PopulateListBoxWithOfficialMago4()
+        
+        void PopulateListBoxWithOfficialMsi(ListBox ListBox, MABuilds.GetUpdatesResponse[] OfficialBuild)
         {
-
-            updaterequest.ProductSignature = MsiClassicMode.ProductSignature.M4GO.ToString();
-
-            officialmago4builds = updateservice.GetOfficialBuilds(updaterequest);
-
-            foreach (var official in officialmago4builds)
-
+            foreach (var official in OfficialBuild)            
             {
-                lstboxMain.Items.Add(UppercaseFirst(official.MsiFileName.ToLower()));
-
+            
+                ListBox.Items.Add(UppercaseFirst(official.MsiFileName.ToLower()));
+                ListBox.ForeColor = System.Drawing.Color.Magenta;
             }
 
-            if (lstboxMain.Items.Count == 1)
-                lstboxMain.SelectedIndex = 0;
-        }
-
-        void PopulateListBoxWithOfficialMagonet()
-        {
-
-            updaterequest.ProductSignature = GetEnumDescription(MsiClassicMode.ProductSignature.MagoNetPro);
-
-            officialmagonetbuilds = updateservice.GetOfficialBuilds(updaterequest);
-
-            foreach (var official in officialmagonetbuilds)
-
-            {
-
-                lstboxAux.Items.Add(UppercaseFirst(official.MsiFileName.ToLower()));
-
-                lstboxAux.ForeColor = System.Drawing.Color.Magenta;
-            }
-
-            if (lstboxAux.Items.Count == 1)
-                lstboxAux.SelectedIndex = 0;
-
+            if (ListBox.Items.Count == 1)
+                ListBox.SelectedIndex = 0;
         }
 
         public string MsiURI4()

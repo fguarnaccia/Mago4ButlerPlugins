@@ -134,27 +134,27 @@
             this.itemSite});
             this.dropdownMsiFrom.Name = "contextMenuStrip1";
             this.dropdownMsiFrom.ShowImageMargin = false;
-            this.dropdownMsiFrom.Size = new System.Drawing.Size(85, 70);
+            this.dropdownMsiFrom.Size = new System.Drawing.Size(128, 92);
             // 
             // itemCCNet
             // 
             this.itemCCNet.Name = "itemCCNet";
-            this.itemCCNet.Size = new System.Drawing.Size(84, 22);
+            this.itemCCNet.Size = new System.Drawing.Size(127, 22);
             this.itemCCNet.Text = "CCNet";
             this.itemCCNet.Click += new System.EventHandler(this.itemCCNet_Click);
             // 
             // itemFolder
             // 
             this.itemFolder.Name = "itemFolder";
-            this.itemFolder.Size = new System.Drawing.Size(84, 22);
+            this.itemFolder.Size = new System.Drawing.Size(127, 22);
             this.itemFolder.Text = "Local";
             this.itemFolder.Click += new System.EventHandler(this.itemFolder_Click);
             // 
             // itemSite
             // 
             this.itemSite.Name = "itemSite";
-            this.itemSite.Size = new System.Drawing.Size(84, 22);
-            this.itemSite.Text = "&Site";
+            this.itemSite.Size = new System.Drawing.Size(127, 22);
+            this.itemSite.Text = "&Official";
             this.itemSite.Visible = false;
             this.itemSite.Click += new System.EventHandler(this.itemSite_Click);
             // 

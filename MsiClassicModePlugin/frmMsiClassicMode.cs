@@ -145,11 +145,12 @@ namespace MsiClassicModePlugin
         private void MsiSelector_MsiSelected(object sender, EventArgs e)
         {
             txtboxFileMsi.Text = msiselector.SelectedMsiFilePath;
+            if (msiselector != null)
+                msiselector.Visible = false;
 
-            if (!IsUpdating  || txtInstanceName.Text == string.Empty) 
+            if (!IsUpdating  && txtInstanceName.Text == string.Empty) 
                 txtInstanceName.Text = msiselector.SelectedInstanceName;
-
-            msiselector.Visible = false;
+       
         }
 
         private void txtboxFileMsi_TextChanged(object sender, EventArgs e)
@@ -186,7 +187,7 @@ namespace MsiClassicModePlugin
 
         private void itemFolder_Click(object sender, EventArgs e)
         {
-            msiselector.Visible = false;
+            if (msiselector != null)                 msiselector.Visible = false;
             dlgOpenFile.ShowDialog();
             txtboxFileMsi.Text = dlgOpenFile.FileName;
         }

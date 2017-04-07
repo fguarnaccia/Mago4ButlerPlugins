@@ -19,7 +19,6 @@ namespace MsiClassicModePlugin
             }
         }
 
-        //public CmdLineInfo listfeature;
         public enum ProductSignature
         {
             [Description("MagoNet-Pro")]
