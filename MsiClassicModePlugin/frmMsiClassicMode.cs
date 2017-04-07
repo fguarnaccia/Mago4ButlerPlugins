@@ -13,7 +13,7 @@ namespace MsiClassicModePlugin
 {
     public partial class frmMsiClassicMode : Form
     {
-     
+
         bool IsUpdating { get; set; }
         MSISelector msiselector;
         public frmMsiClassicMode(bool isupdating = false/*, CmdLineInfo listfeature*/  )
@@ -52,7 +52,7 @@ namespace MsiClassicModePlugin
             {
                 this.Text = "Update instance";
             }
- 
+
             MSISelector.LocalFolderDestination = App.Instance.Settings.MsiFolder;
 
         }
@@ -61,7 +61,7 @@ namespace MsiClassicModePlugin
         {
             dropdownMsiFrom.Show((Button)sender, new Point(0, ((Button)sender).Height));
         }
-    
+
         private void btnSelectFileMsi_Click(object sender, EventArgs e)
         {
             dlgOpenFile.ShowDialog();
@@ -148,9 +148,9 @@ namespace MsiClassicModePlugin
             if (msiselector != null)
                 msiselector.Visible = false;
 
-            if (!IsUpdating  && txtInstanceName.Text == string.Empty) 
+            if (!IsUpdating && txtInstanceName.Text == string.Empty)
                 txtInstanceName.Text = msiselector.SelectedInstanceName;
-       
+
         }
 
         private void txtboxFileMsi_TextChanged(object sender, EventArgs e)
@@ -161,8 +161,8 @@ namespace MsiClassicModePlugin
             else
             {
                 txtInstanceName.BackColor = Color.Yellow;
-            }    
-      
+            }
+
         }
 
         private void itemCCNet_Click(object sender, EventArgs e)
@@ -174,20 +174,18 @@ namespace MsiClassicModePlugin
                 msiselector.Dispose();
             }
             msiselector = new SelectorFromCCNet();
-            msiselector.MsiSelected += MsiSelector_MsiSelected;
 
+            msiselector.MsiSelected += MsiSelector_MsiSelected;
             msiselector.DrawSelector();
             msiselector.Visible = true;
-
             Controls.Add(msiselector);
-
             Controls.SetChildIndex(msiselector, 0);
 
         }
 
         private void itemFolder_Click(object sender, EventArgs e)
         {
-            if (msiselector != null)                 msiselector.Visible = false;
+            if (msiselector != null) msiselector.Visible = false;
             dlgOpenFile.ShowDialog();
             txtboxFileMsi.Text = dlgOpenFile.FileName;
         }
@@ -195,17 +193,18 @@ namespace MsiClassicModePlugin
         private void itemSite_Click(object sender, EventArgs e)
         {
             if (msiselector != null)
-            {       msiselector.MsiSelected -= MsiSelector_MsiSelected;
-            msiselector.Dispose();
-
-        }
+            {
+                msiselector.MsiSelected -= MsiSelector_MsiSelected;
+                msiselector.Dispose();
+            }
             msiselector = new SelectorFromSite();
+
             msiselector.MsiSelected += MsiSelector_MsiSelected;
             msiselector.DrawSelector();
             msiselector.Visible = true;
             Controls.Add(msiselector);
             Controls.SetChildIndex(msiselector, 0);
- 
+
         }
     }
 

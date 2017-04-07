@@ -12,6 +12,7 @@ namespace MsiClassicModePlugin
     {
 
         internal MABuilds.UpdatesService updateservice = new MABuilds.UpdatesService();
+        internal bool ShowHotFix { get; set; }
 
         public MSISelector()
         {
@@ -27,6 +28,7 @@ namespace MsiClassicModePlugin
         static internal string LocalFolderDestination { get; set; }
 
         public event EventHandler MsiSelected;
+        public event EventHandler HotFixChecked;
 
         internal  string ProvideInstanceName()
         {
@@ -51,7 +53,7 @@ namespace MsiClassicModePlugin
                 }
 
             }
-            catch (ArgumentOutOfRangeException e)
+            catch (Exception e)
             {
 
                 PluginException plgnex = new PluginException("", e);
@@ -163,10 +165,19 @@ namespace MsiClassicModePlugin
                 color = new SolidBrush(Color.OliveDrab);
             }
 
-
             g.DrawString(lb.Items[e.Index].ToString(), e.Font, color, new PointF(e.Bounds.X, e.Bounds.Y));
 
-            //e.DrawFocusRectangle();
+        }
+
+        private void chkShowHotFix_CheckedChanged(object sender, EventArgs e)
+        {
+            this.ShowHotFix = chkShowHotFix.Checked;
+
+            if (this.HotFixChecked != null)
+            {
+                this.HotFixChecked(this, e);
+            }
+
         }
     }
     // ---------------- ****** --------------------------------
@@ -178,9 +189,11 @@ namespace MsiClassicModePlugin
             SessionTest = true;
 
             base.MsiSelected += SelectorFromCCNet_MsiSelected;
+         
             this.PopulateListBoxWithNightlytMsi(true);
         }
 
+  
 
         private void SelectorFromCCNet_MsiSelected(object sender, EventArgs e)
         {
@@ -190,7 +203,6 @@ namespace MsiClassicModePlugin
             this.CopyMsiFromCCnet(MsiSourcePath());
         }
 
-   
 
         internal void PopulateListBoxWithNightlytMsi(bool FromWebService)
         {
@@ -245,24 +257,45 @@ namespace MsiClassicModePlugin
         MABuilds.GetUpdatesResponse[] officialmago4builds;
         MABuilds.GetUpdatesResponse[] officialmagonetbuilds;
         MABuilds.GetUpdatesRequest updaterequest = new MABuilds.GetUpdatesRequest();
+        
 
         public SelectorFromSite()
         {
   
 
-        SessionTest = false;
+            SessionTest = false;
             base.MsiSelected += SelectorFromSiteM4_MsiSelected;
             base.MsiSelected += SelectorFromSiteMN_MsiSelected;
+            base.HotFixChecked += SelectorFromCCNet_HotFixChecked;
 
+            //updaterequest.ProductSignature = MsiClassicMode.ProductSignature.M4GO.ToString();
+            //officialmago4builds = updateservice.GetOfficialBuilds(updaterequest);
+            //PopulateListBoxWithOfficialMsi(lstboxMain , officialmago4builds);
 
+            //updaterequest.ProductSignature = GetEnumDescription(MsiClassicMode.ProductSignature.MagoNetPro);
+            //officialmagonetbuilds = updateservice.GetOfficialBuilds(updaterequest);
+            //PopulateListBoxWithOfficialMsi(lstboxAux, officialmagonetbuilds);
+
+            PopulateBothLIstBox();
+
+        }
+
+        private void PopulateBothLIstBox()
+        {
             updaterequest.ProductSignature = MsiClassicMode.ProductSignature.M4GO.ToString();
             officialmago4builds = updateservice.GetOfficialBuilds(updaterequest);
-            PopulateListBoxWithOfficialMsi(lstboxMain , officialmago4builds);
+            PopulateListBoxWithOfficialMsi(lstboxMain, officialmago4builds);
 
             updaterequest.ProductSignature = GetEnumDescription(MsiClassicMode.ProductSignature.MagoNetPro);
             officialmagonetbuilds = updateservice.GetOfficialBuilds(updaterequest);
             PopulateListBoxWithOfficialMsi(lstboxAux, officialmagonetbuilds);
 
+        }
+
+
+        private void SelectorFromCCNet_HotFixChecked(object sender, EventArgs e)
+        {
+            PopulateBothLIstBox();
         }
 
         private void SelectorFromSiteMN_KeyUp(object sender, KeyEventArgs e)
@@ -302,14 +335,22 @@ namespace MsiClassicModePlugin
             DownloadMsiFromSite(tmp);
            
         }
-        
-        void PopulateListBoxWithOfficialMsi(ListBox ListBox, MABuilds.GetUpdatesResponse[] OfficialBuild)
+
+
+
+       internal  void PopulateListBoxWithOfficialMsi(ListBox ListBox, MABuilds.GetUpdatesResponse[] OfficialBuild)
         {
+            ListBox.Items.Clear();
+
             foreach (var official in OfficialBuild)            
             {
-            
-                ListBox.Items.Add(UppercaseFirst(official.MsiFileName.ToLower()));
-                ListBox.ForeColor = System.Drawing.Color.Magenta;
+                //ShowHotFix = true;
+                bool hf = UppercaseFirst(official.MsiFileName.ToLower()).Contains("hf");
+                if (!hf || ShowHotFix)
+                {
+                    ListBox.Items.Add(UppercaseFirst(official.MsiFileName.ToLower()));
+                    ListBox.ForeColor = System.Drawing.Color.Magenta;
+                }
             }
 
             if (ListBox.Items.Count == 1)

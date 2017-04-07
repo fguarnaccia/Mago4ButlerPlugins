@@ -107,7 +107,7 @@
             this.chkShowHotFix.TabIndex = 2;
             this.chkShowHotFix.Text = "Show hot fix";
             this.chkShowHotFix.UseVisualStyleBackColor = true;
-            this.chkShowHotFix.Visible = false;
+            this.chkShowHotFix.CheckedChanged += new System.EventHandler(this.chkShowHotFix_CheckedChanged);
             // 
             // MSISelector
             // 
