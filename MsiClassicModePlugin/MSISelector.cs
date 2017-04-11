@@ -152,8 +152,6 @@ namespace MsiClassicModePlugin
             Graphics g = e.Graphics;
             SolidBrush color;
 
-            //g.FillRectangle(new SolidBrush(Color.Beige), e.Bounds);
-
             ListBox lb = (ListBox)sender;
 
             if (lb.Items[e.Index].ToString().ToLower().Contains("hf"))
@@ -190,6 +188,10 @@ namespace MsiClassicModePlugin
 
             base.MsiSelected += SelectorFromCCNet_MsiSelected;
          
+
+
+
+
             this.PopulateListBoxWithNightlytMsi(true);
         }
 
@@ -267,14 +269,6 @@ namespace MsiClassicModePlugin
             base.MsiSelected += SelectorFromSiteM4_MsiSelected;
             base.MsiSelected += SelectorFromSiteMN_MsiSelected;
             base.HotFixChecked += SelectorFromCCNet_HotFixChecked;
-
-            //updaterequest.ProductSignature = MsiClassicMode.ProductSignature.M4GO.ToString();
-            //officialmago4builds = updateservice.GetOfficialBuilds(updaterequest);
-            //PopulateListBoxWithOfficialMsi(lstboxMain , officialmago4builds);
-
-            //updaterequest.ProductSignature = GetEnumDescription(MsiClassicMode.ProductSignature.MagoNetPro);
-            //officialmagonetbuilds = updateservice.GetOfficialBuilds(updaterequest);
-            //PopulateListBoxWithOfficialMsi(lstboxAux, officialmagonetbuilds);
 
             PopulateBothLIstBox();
 
@@ -387,7 +381,6 @@ namespace MsiClassicModePlugin
 
 
     }
-
 
 
 }
