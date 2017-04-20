@@ -128,5 +128,10 @@ namespace Microarea.Mago4Butler.Plugins
 
             httpService.DownloadFile(msiUri, localMsiPath);
         }
+
+        public void InstallMsi(string msiFilePath)
+        {
+            LaunchProcessTrait.LaunchProcess(null as MsiService, MsiService.msiexecPath, msiFilePath, 12000);
+        }
     }
 }

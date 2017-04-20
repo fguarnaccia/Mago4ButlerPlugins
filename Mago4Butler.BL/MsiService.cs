@@ -15,7 +15,7 @@ namespace Microarea.Mago4Butler.BL
     internal class MsiService : ILogger
     {
         static readonly Type InstallerType = Type.GetTypeFromProgID("WindowsInstaller.Installer");
-        const string msiexecPath = @"C:\Windows\System32\msiexec.exe";
+        internal const string msiexecPath = @"C:\Windows\System32\msiexec.exe";
         ISettings settings;
         IFileLocker fileLocker;
         MsiZapper msiZapper;
