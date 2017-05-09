@@ -360,7 +360,7 @@ namespace Microarea.Mago4Butler.BL
                 //OnNotification(new NotificationEventArgs() { Message = "Installation info removed" });
 
                 //OnNotification(new NotificationEventArgs() { Message = "Launching msi..." });
-                this.LogInfo("Launching msi with command line " + cmdLineInfo.ToString());
+                this.LogInfo("Launching " + currentRequest.MsiPath + " with command line " + cmdLineInfo.ToString());
                 string installLogFilePath = Path.Combine(this.settings.LogsFolder, "Mago4_" + currentRequest.Instance.Name + "_InstallLog_" + DateTime.Now.ToString("yyyyMMddhhmmss", CultureInfo.InvariantCulture) + ".log");
 
                 try
@@ -420,7 +420,7 @@ namespace Microarea.Mago4Butler.BL
                 //OnNotification(new NotificationEventArgs() { Message = "Application pools removed" });
 
                 //OnNotification(new NotificationEventArgs() { Message = "Launching msi..." });
-                this.LogInfo("Launching msi with command line " + cmdLineInfo.ToString());
+                this.LogInfo("Launching " + currentRequest.MsiPath + " with command line " + cmdLineInfo.ToString());
                 string installLogFilePath = Path.Combine(this.settings.LogsFolder, "Mago4_" + currentRequest.Instance.Name + "_UpdateLog_" + DateTime.Now.ToString("yyyyMMddhhmmss", CultureInfo.InvariantCulture) + ".log");
 
                 try
