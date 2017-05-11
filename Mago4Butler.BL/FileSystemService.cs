@@ -32,7 +32,7 @@ namespace Microarea.Mago4Butler.BL
             }
         }
 
-        static void DeleteDirectory(DirectoryInfo dirInfo, params string[] tokensToBeSkipped)
+        void DeleteDirectory(DirectoryInfo dirInfo, params string[] tokensToBeSkipped)
         {
             var files = dirInfo.GetFiles();
             var subDirs = dirInfo.GetDirectories();
@@ -44,7 +44,14 @@ namespace Microarea.Mago4Butler.BL
                     continue;
                 }
                 file.Attributes |= FileAttributes.Normal;
-                File.Delete(file.FullName);
+                try
+                {
+                    File.Delete(file.FullName);
+                }
+                catch (Exception exc)
+                {
+                    this.LogError("Error deleting " + file.FullName, exc);
+                }
             }
 
             foreach (var subDir in subDirs)
@@ -60,8 +67,10 @@ namespace Microarea.Mago4Butler.BL
             {
                 dirInfo.Delete();
             }
-            catch
-            {}
+            catch (Exception exc)
+            {
+                this.LogError("Error deleting " + dirInfo.FullName, exc);
+            }
         }
     }
 }
