@@ -397,7 +397,6 @@ namespace Microarea.Mago4Butler.BL
             //nessuno lo lock-a e quindi l'utente potrebbe cancellarlo causando errori.
             using (var lockToken = this.fileLocker.CreateLockToken(currentRequest.MsiPath))
             {
-                //OnNotification(new NotificationEventArgs() { Message = "Removing installation info..." });
                 //Rimuovo le informazioni di installazione dal registry se presenti in
                 //modo che la mia installazione non le trovi e tenga i parametri che passo io da riga di comando.
                 this.msiZapper.ZapMsi(currentRequest.MsiPath, this.GetProductCode(currentRequest.MsiPath));
@@ -406,20 +405,7 @@ namespace Microarea.Mago4Butler.BL
                     this.GetUpgradeCode(currentRequest.MsiPath),
                     this.GetProductName(currentRequest.MsiPath).Replace(".", string.Empty));
                 this.registryService.RemoveInstallerFoldersKeys(currentRequest.RootFolder, currentRequest.Instance);
-                //OnNotification(new NotificationEventArgs() { Message = "Installation info removed" });
 
-                //Rimuovo la parte di installazione su IIS per evitare che, se tra un setup e il successivo
-                //alcuni componenti cambiano noe, mi rimangano dei cadaveri.
-                //Rimuovere prima le virtual folder e le application, poi gli application pool.
-                //Un application pool a cui sono collegate ancora applicazioni non puo` essere eliminato
-                //OnNotification(new NotificationEventArgs() { Message = "Removing virtual folders..." });
-                this.iisService.RemoveVirtualFoldersAndApplications(currentRequest.Instance);
-                //OnNotification(new NotificationEventArgs() { Message = "Virtual folders removed" });
-                //OnNotification(new NotificationEventArgs() { Message = "Removing application pools..." });
-                this.iisService.RemoveApplicationPools(currentRequest.Instance);
-                //OnNotification(new NotificationEventArgs() { Message = "Application pools removed" });
-
-                //OnNotification(new NotificationEventArgs() { Message = "Launching msi..." });
                 this.LogInfo("Launching " + currentRequest.MsiPath + " with command line " + cmdLineInfo.ToString());
                 string installLogFilePath = Path.Combine(this.settings.LogsFolder, "Mago4_" + currentRequest.Instance.Name + "_UpdateLog_" + DateTime.Now.ToString("yyyyMMddhhmmss", CultureInfo.InvariantCulture) + ".log");
 
@@ -430,17 +416,14 @@ namespace Microarea.Mago4Butler.BL
                             String.Format("/i \"{0}\" /qn /norestart {1} UICULTURE=\"it-IT\" INSTALLLOCATION=\"{2}\" INSTANCENAME=\"{3}\" DEFAULTWEBSITENAME=\"{4}\" DEFAULTWEBSITEID={5} DEFAULTWEBSITEPORT={6} {7}", currentRequest.MsiPath, this.settings.MsiLog ? String.Format("/l*vx \"{0}\"", installLogFilePath) : string.Empty, currentRequest.RootFolder, currentRequest.Instance.Name, currentRequest.Instance.WebSiteInfo.SiteName, currentRequest.Instance.WebSiteInfo.SiteID, currentRequest.Instance.WebSiteInfo.SitePort, cmdLineInfo.ToString()),
                             3600000
                             );
-                    //OnNotification(new NotificationEventArgs() { Message = "Msi execution successfully terminated..." });
                 }
                 catch (Exception exc)
                 {
                     this.LogError("Msi execution terminated with errors...", exc);
-                    //OnNotification(new NotificationEventArgs() { Message = "Msi execution terminated with errors..." });
                     throw;
                 }
             }
 
-            //OnNotification(new NotificationEventArgs() { Message = "Cleaning registry..." });
             System.Threading.Thread.Sleep(2000);//Wait for the msiexec process to unlock the msi file...
             this.msiZapper.ZapMsi(currentRequest.MsiPath, this.GetProductCode(currentRequest.MsiPath));
             this.registryService.RemoveInstallationInfoKey(
@@ -448,7 +431,6 @@ namespace Microarea.Mago4Butler.BL
                     this.GetUpgradeCode(currentRequest.MsiPath),
                     this.GetProductName(currentRequest.MsiPath).Replace(".", string.Empty));
             this.registryService.RemoveInstallerFoldersKeys(currentRequest.RootFolder, currentRequest.Instance);
-            //OnNotification(new NotificationEventArgs() { Message = "Now the registry is clean" });
         }
     }
 }

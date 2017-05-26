@@ -420,9 +420,20 @@ namespace Microarea.Mago4Butler.BL
         {
             try
             {
+                OnNotification(new NotificationEventArgs() { Message = "Removing files before updating..." });
+                this.Remove(currentRequest);
+                OnNotification(new NotificationEventArgs() { Message = "Files successfully removed." });
+            }
+            catch (Exception exc)
+            {
+                this.LogError("Error removing before updating " + currentRequest.Instance.Name, exc);
+                OnNotification(new NotificationEventArgs() { Message = "Error removing before updating: " + exc.Message });
+            }
+            try
+            {
                 OnNotification(new NotificationEventArgs() { Message = "Launching msi..." });
                 this.msiService.UpdateMsi(currentRequest, cmdLineInfo);
-                OnNotification(new NotificationEventArgs() { Message = "Msi execution successfully terminated..." });
+                OnNotification(new NotificationEventArgs() { Message = "Msi execution successfully terminated." });
             }
             catch (Exception exc)
             {
