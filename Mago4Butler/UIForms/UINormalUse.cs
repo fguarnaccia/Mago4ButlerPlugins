@@ -94,7 +94,7 @@ namespace Microarea.Mago4Butler
             {
                 try
                 {
-                    this.UpdateVersionAndTooltip(e.Instance);
+                    this.UpdateVersionTooltipAndIcon(e.Instance);
                 }
                 catch
                 {}
@@ -102,7 +102,7 @@ namespace Microarea.Mago4Butler
             , null);
         }
 
-        private void UpdateVersionAndTooltip(Model.Instance instance)
+        private void UpdateVersionTooltipAndIcon(Model.Instance instance)
         {
             var idx = this.lsvInstances.Items.IndexOf(instance);
             if (idx < 0)
@@ -123,6 +123,8 @@ namespace Microarea.Mago4Butler
             {
                 item.ToolTipText = string.Concat(instance.Edition.ToString(), " Edition");
             }
+
+            item.ImageIndex = productIdentifierService.IsMagoNet(instance) ? 0 : 1;
         }
 
         private void InitContextMenus()
