@@ -270,7 +270,7 @@ namespace MagoRunnerPlugin
         {
 
             var versione = new Version(version);
-            if (versione.Major == 1)
+            if (versione.Major < 3)
             {
                 return true;
             }
