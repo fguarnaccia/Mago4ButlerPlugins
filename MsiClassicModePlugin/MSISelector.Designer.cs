@@ -41,6 +41,7 @@
             // 
             // lstboxMain
             // 
+            this.lstboxMain.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lstboxMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstboxMain.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.lstboxMain.FormattingEnabled = true;
@@ -56,8 +57,8 @@
             // 
             this.tabControlMsi.Controls.Add(this.tabMain);
             this.tabControlMsi.Controls.Add(this.tabAux);
-            this.tabControlMsi.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tabControlMsi.Location = new System.Drawing.Point(0, 0);
+            this.tabControlMsi.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tabControlMsi.Location = new System.Drawing.Point(0, 27);
             this.tabControlMsi.Name = "tabControlMsi";
             this.tabControlMsi.SelectedIndex = 0;
             this.tabControlMsi.Size = new System.Drawing.Size(310, 196);
@@ -87,6 +88,7 @@
             // 
             // lstboxAux
             // 
+            this.lstboxAux.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lstboxAux.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstboxAux.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.lstboxAux.FormattingEnabled = true;
@@ -101,9 +103,10 @@
             // chkShowHotFix
             // 
             this.chkShowHotFix.AutoSize = true;
-            this.chkShowHotFix.Location = new System.Drawing.Point(7, 202);
+            this.chkShowHotFix.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.chkShowHotFix.Location = new System.Drawing.Point(0, 10);
             this.chkShowHotFix.Name = "chkShowHotFix";
-            this.chkShowHotFix.Size = new System.Drawing.Size(84, 17);
+            this.chkShowHotFix.Size = new System.Drawing.Size(310, 17);
             this.chkShowHotFix.TabIndex = 2;
             this.chkShowHotFix.Text = "Show hot fix";
             this.chkShowHotFix.UseVisualStyleBackColor = true;
@@ -127,11 +130,11 @@
         }
 
         #endregion
-        private System.Windows.Forms.CheckBox chkShowHotFix;
         internal System.Windows.Forms.ListBox lstboxMain;
         internal System.Windows.Forms.ListBox lstboxAux;
         public System.Windows.Forms.TabPage tabMain;
         public System.Windows.Forms.TabPage tabAux;
         public System.Windows.Forms.TabControl tabControlMsi;
+        internal System.Windows.Forms.CheckBox chkShowHotFix;
     }
 }

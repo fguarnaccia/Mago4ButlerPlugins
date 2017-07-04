@@ -88,10 +88,11 @@ namespace MsiClassicModePlugin
 
         public virtual void DrawSelector()
         {
-            BackColor = System.Drawing.Color.White;
+            BackColor = System.Drawing.Color.LightYellow;
             Location = new System.Drawing.Point(50, 60);
             Size = new System.Drawing.Size(365, 218);
             TabIndex = 3;
+          
         }
 
         internal static string UppercaseFirst(string s)
@@ -247,7 +248,7 @@ namespace MsiClassicModePlugin
         {
             base.DrawSelector();
             tabMain.Text = "";
-            
+            chkShowHotFix.Visible = false;
             tabControlMsi.Controls.Remove(tabAux);
         }
 
@@ -269,7 +270,7 @@ namespace MsiClassicModePlugin
             base.MsiSelected += SelectorFromSiteM4_MsiSelected;
             base.MsiSelected += SelectorFromSiteMN_MsiSelected;
             base.HotFixChecked += SelectorFromCCNet_HotFixChecked;
-
+            
             PopulateBothLIstBox();
 
         }
@@ -361,9 +362,13 @@ namespace MsiClassicModePlugin
         }
         public string MsiURINet()
         {
+
+            //BUG  problema della selezione del download è qua dentro!!!
             int idx = lstboxAux.SelectedIndex;
             if (idx < 0 || idx > officialmagonetbuilds.Length) return null;
             return officialmagonetbuilds[idx].DownloadUri;
+            //TODO a causa del flag Show Hotfix si è persa la sincronizzazione tra oggetto grafico ed oggetto in memoria :-(
+
         }
 
  
