@@ -5,6 +5,7 @@ using System.Reflection;
 using System.ComponentModel;
 using Microarea.Mago4Butler.Plugins;
 using System.Drawing;
+using MsiClassicModePlugin.MABuilds;
 
 namespace MsiClassicModePlugin
 {
@@ -95,16 +96,7 @@ namespace MsiClassicModePlugin
           
         }
 
-        internal static string UppercaseFirst(string s)
-        {
-            // Check for empty string.
-            if (string.IsNullOrEmpty(s))
-            {
-                return string.Empty;
-            }
-            // Return char and concat substring.
-            return char.ToUpper(s[0]) + s.Substring(1);
-        }
+  
 
         private void lstbox_DoubleClick(object sender, EventArgs e)
         {
@@ -171,7 +163,7 @@ namespace MsiClassicModePlugin
         private void chkShowHotFix_CheckedChanged(object sender, EventArgs e)
         {
             this.ShowHotFix = chkShowHotFix.Checked;
-
+            //PopulateBothLIstBox();
             if (this.HotFixChecked != null)
             {
                 this.HotFixChecked(this, e);
@@ -216,7 +208,9 @@ namespace MsiClassicModePlugin
 
             {
 
-                lstboxMain.Items.Add(UppercaseFirst((Path.GetFileName(nightly.FilePath).ToLower())));
+                //lstboxMain.Items.Add(UppercaseFirst((Path.GetFileName(nightly.FilePath).ToLower())));
+
+                lstboxMain.Items.Add(nightly);
 
             }
 
@@ -340,10 +334,11 @@ namespace MsiClassicModePlugin
             foreach (var official in OfficialBuild)            
             {
                 //ShowHotFix = true;
-                bool hf = UppercaseFirst(official.MsiFileName.ToLower()).Contains("hf");
+                bool hf = (official.MsiFileName.ToLower()).Contains("hf");
                 if (!hf || ShowHotFix)
                 {
-                    ListBox.Items.Add(UppercaseFirst(official.MsiFileName.ToLower()));
+                  
+                    ListBox.Items.Add(official);
                     ListBox.ForeColor = System.Drawing.Color.Magenta;
                 }
             }
@@ -354,21 +349,29 @@ namespace MsiClassicModePlugin
 
         public string MsiURI4()
         {
-            int idx = lstboxMain.SelectedIndex;
-            if (idx < 0 || idx > officialmago4builds.Length) return null;
+         
+  
 
-            return officialmago4builds[idx].DownloadUri;
+            if (lstboxMain.SelectedItem == null) return null;
+            return ((GetUpdatesResponse)(lstboxMain.SelectedItem)).DownloadUri;
 
         }
         public string MsiURINet()
         {
 
-            //BUG  problema della selezione del download è qua dentro!!!
-            int idx = lstboxAux.SelectedIndex;
-            if (idx < 0 || idx > officialmagonetbuilds.Length) return null;
-            return officialmagonetbuilds[idx].DownloadUri;
-            //TODO a causa del flag Show Hotfix si è persa la sincronizzazione tra oggetto grafico ed oggetto in memoria :-(
+            //BUGdone  problema della selezione del download è qua dentro!!!
+                        //-	Schiaccio il piu` (+) per scegliere di fare una nuova installazione: si apre la tua finestra.
+                        //- Seleziono la tab “Mago.net”: le hf non sono mostrate
+                        //- Spunto la checkbox “Mostra HF”: le hf appaiono
+                        //- Seleziono la HF10 con un solo click
+                        //- Levo la spunta alla checkbox “Mostra HF”: le HF spariscono
+                        //- Faccio doppio click su una versione qualunque: viene scaricata l’ultima HF che avevo selezionato.
 
+         
+            if (lstboxAux.SelectedItem == null) return null;
+      
+            //TODOdone a causa del flag Show Hotfix si è persa la sincronizzazione tra oggetto grafico ed oggetto in memoria :-(
+            return           ((GetUpdatesResponse)(lstboxAux.SelectedItem)).DownloadUri;
         }
 
  
