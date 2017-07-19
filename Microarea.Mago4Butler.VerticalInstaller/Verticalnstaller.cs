@@ -1,4 +1,5 @@
 ﻿using Microarea.Mago4Butler.Plugins;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,7 +18,6 @@ namespace VerticalInstallerPlugin
 
         public override IEnumerable<ContextMenuItem> GetContextMenuItems()
         {
-
             var cmis = new List<ContextMenuItem>();
 
             ContextMenuItem cmi = new ContextMenuItem();
@@ -38,27 +38,37 @@ namespace VerticalInstallerPlugin
         void RunVerticalInstaller(Instance istanza)
         {
             instance = istanza.Name;
-            
-            InsertRegKey();
+
+            InsertRegKey(istanza);
 
             OpenFileDialog filedialog = new OpenFileDialog();
             string FileName = string.Empty;
 
             filedialog.ShowDialog();
-            FileName = filedialog.FileName;
+            //TODO togliere -i quando matteo sistema il butler
+            FileName = "-i " + filedialog.FileName;
 
-            //Process.Start("msiexec -i" , FileName);
+            App.Instance.InstallMsi(FileName.ToString());          
 
         }
 
-
-        void InsertRegKey( )
+        void InsertRegKey(Instance istanza )
 
         {
-            string regvalue = @"aaa{0}";
-            regvalue = string.Format(regvalue, instance);
 
-        }
+            RegistryKey keym4 = Registry.LocalMachine.OpenSubKey("Software", true);
+            RegistryKey keymn = Registry.LocalMachine.OpenSubKey("Software", true);
+
+            keym4.CreateSubKey("Microarea\\Mago4\\E51B08A3-8D02-44BE-B3BC-85144A6C7EBA");
+            keymn.CreateSubKey("Microarea\\Magonet\\94003900-4A72-4209-99B9-C7C1BCF7927F");
+
+            keym4 = keym4.OpenSubKey("Microarea\\Mago4\\E51B08A3-8D02-44BE-B3BC-85144A6C7EBA", true);
+            keymn =  keymn.OpenSubKey("Microarea\\Magonet\\94003900-4A72-4209-99B9-C7C1BCF7927F", true                );
+
+            keym4.SetValue("InstallDir", Path.Combine(App.Instance.Settings.RootFolder, istanza.Name));
+            keymn.SetValue("InstallDir" , Path.Combine(App.Instance.Settings.RootFolder, istanza.Name));
+
+            }
 
 
     }
