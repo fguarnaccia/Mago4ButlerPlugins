@@ -155,6 +155,12 @@ namespace Microarea.Mago4Butler.Plugins
             }
 
             LaunchProcessTrait.LaunchProcess(null as MsiService, MsiService.msiexecPath, argsBuilder.ToString(), 12000);
+
+            //Rimuovo le informazioni di installazione dal registry se presenti in
+            //modo che la mia installazione non le trovi e tenga i parametri che passo io da riga di comando.
+            var msiService = new MsiService(null, null, null, null, null);
+            var msiZapper = new MsiZapper();
+            msiZapper.ZapMsi(msiFilePath, msiService.GetProductCode(msiFilePath));
         }
 
         public bool IsInstanceNameValid(string instanceName)
