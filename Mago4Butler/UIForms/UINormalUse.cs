@@ -116,7 +116,7 @@ namespace Microarea.Mago4Butler
             }
 
             var instanceDirInfo = new DirectoryInfo(Path.Combine(this.settings.RootFolder, instance.Name, "Standard"));
-            instance.Version = Model.Instance.FromStandardDirectoryInfo(instanceDirInfo).Version;
+            instance.Version = model.FromStandardDirectoryInfo(instanceDirInfo).Version;
             item.SubItems[1].Text = instance.Version.ToString();
 
             if (instance.Edition != Edition.None)

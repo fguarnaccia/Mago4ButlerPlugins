@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
@@ -218,7 +219,7 @@ namespace Microarea.Mago4Butler.Model
                 {
                     if (String.Compare("Standard", subDirInfo.Name, StringComparison.InvariantCultureIgnoreCase) == 0)
                     {
-                        var instance = Instance.FromStandardDirectoryInfo(subDirInfo);
+                        var instance = FromStandardDirectoryInfo(subDirInfo);
                         if (instance != null)
                         {
                             //per non far scattare gli eventi
@@ -247,6 +248,110 @@ namespace Microarea.Mago4Butler.Model
             }
 
             OnModelInitialized();
+        }
+
+        public Instance FromStandardDirectoryInfo(DirectoryInfo standardDirInfo)
+        {
+            var parentDirInfo = standardDirInfo.Parent;
+            var installationVerFileInfo = new FileInfo(Path.Combine(standardDirInfo.FullName, "Installation.ver"));
+
+            Instance instance = null;
+            if (installationVerFileInfo.Exists)
+            {
+                string content = null;
+                using (var sr = installationVerFileInfo.OpenText())
+                {
+                    content = sr.ReadToEnd();
+                }
+                var versionRegex = new Regex("<Version>(?<version>.*)</Version>", RegexOptions.IgnoreCase);
+                var match = versionRegex.Match(content);
+                if (match.Success)
+                {
+                    var group = match.Groups["version"];
+                    if (group != null)
+                    {
+                        instance = new Instance() { Name = parentDirInfo.Name, Version = Version.Parse(group.Value), WebSiteInfo = WebSiteInfo.DefaultWebSite };
+                    }
+                }
+            }
+
+            if (instance != null)
+            {
+                var appDataDirInfo = new DirectoryInfo(Path.Combine(standardDirInfo.FullName, "TaskBuilder", "WebFramework", "LoginManager", "App_Data"));
+                if (appDataDirInfo.Exists)
+                {
+                    var magoLicensedFileInfos = appDataDirInfo.GetFiles("Mago*.Licensed.config");
+                    if (magoLicensedFileInfos.Length == 1)
+                    {
+                        var fileNameWOExt = Path.GetFileNameWithoutExtension(magoLicensedFileInfos[0].FullName);
+                        var tokens = fileNameWOExt.Split('-');
+                        if (tokens.Length == 2)
+                        {
+                            if (tokens[1].StartsWith("ent", StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                instance.Edition = Edition.Enterprise;
+                            }
+                            else if (tokens[1].StartsWith("pro", StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                instance.Edition = Edition.Professional;
+                            }
+                            else if (tokens[1].StartsWith("std", StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                instance.Edition = Edition.Standard;
+                            }
+                        }
+                    }
+                }
+                if (IsMagoNet(instance))
+                {
+                    instance.ProductType = ProductType.Magonet;
+                }
+                else if (IsMago4(instance))
+                {
+                    instance.ProductType = ProductType.Mago4;
+                }
+            }
+
+            Debug.Assert(instance != null);
+            return instance;
+        }
+
+        private bool IsMagoNet(Instance instance)
+        {
+            var installationVerPath = GetInstallationVer(instance.Name);
+
+            if (!installationVerPath.Exists)
+            {
+                return false;
+            }
+
+            var content = ReadFileContent(installationVerPath);
+
+            return content.IndexOf("<ProductName>Magonet</ProductName>", StringComparison.OrdinalIgnoreCase) != -1;
+        }
+
+        private bool IsMago4(Instance instance)
+        {
+            var installationVerPath = GetInstallationVer(instance.Name);
+
+            if (!installationVerPath.Exists)
+            {
+                return false;
+            }
+
+            var content = ReadFileContent(installationVerPath);
+
+            return content.IndexOf("<ProductName>Mago4</ProductName>", StringComparison.OrdinalIgnoreCase) != -1;
+        }
+
+        private static string ReadFileContent(FileInfo installationVerPath)
+        {
+            return new StreamReader(File.OpenRead(installationVerPath.FullName)).ReadToEnd();
+        }
+
+        private FileInfo GetInstallationVer(string instanceName)
+        {
+            return new FileInfo(Path.Combine(settings.RootFolder, instanceName, "Standard", "Installation.ver"));
         }
 
         private void LoadFromConfigurationFile()
