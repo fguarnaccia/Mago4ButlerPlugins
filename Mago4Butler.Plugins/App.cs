@@ -2,6 +2,8 @@
 using Microarea.Mago4Butler.BL;
 using Microarea.Mago4Butler.Log;
 using System;
+using System.IO;
+using System.Text;
 using System.Windows.Forms;
 
 namespace Microarea.Mago4Butler.Plugins
@@ -131,7 +133,24 @@ namespace Microarea.Mago4Butler.Plugins
 
         public void InstallMsi(string msiFilePath)
         {
-            LaunchProcessTrait.LaunchProcess(null as MsiService, MsiService.msiexecPath, msiFilePath, 12000);
+            var argsBuilder = new StringBuilder();
+
+            argsBuilder
+                .Append("/i")
+                .Append(" \"")
+                .Append(msiFilePath)
+                .Append("\"");
+
+            if (BL.Settings.Default.MsiLog)
+            {
+                argsBuilder
+                    .Append(" /lv*x")
+                    .Append(" \"")
+                    .Append(Path.Combine(BL.Settings.Default.LogsFolder, Path.GetFileNameWithoutExtension(msiFilePath) + ".log"))
+                    .Append("\"");
+            }
+
+            LaunchProcessTrait.LaunchProcess(null as MsiService, MsiService.msiexecPath, argsBuilder.ToString(), 12000);
         }
     }
 }
