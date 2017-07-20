@@ -4,6 +4,7 @@ using Microarea.Mago4Butler.Log;
 using System;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace Microarea.Mago4Butler.Plugins
@@ -24,6 +25,9 @@ namespace Microarea.Mago4Butler.Plugins
         }
 
         AppAutomation appAutomation;
+        const string instanceNameRegexPattern = "^[a-zA-Z0-9]$";
+        readonly Regex instanceNameRegex = new Regex(instanceNameRegexPattern);
+
         protected App()
         {
             
@@ -151,6 +155,11 @@ namespace Microarea.Mago4Butler.Plugins
             }
 
             LaunchProcessTrait.LaunchProcess(null as MsiService, MsiService.msiexecPath, argsBuilder.ToString(), 12000);
+        }
+
+        public bool IsInstanceNameValid(string instanceName)
+        {
+            return instanceNameRegex.IsMatch(instanceName);
         }
     }
 }

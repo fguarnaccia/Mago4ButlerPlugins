@@ -28,6 +28,7 @@ namespace Microarea.Mago4Butler.AutomaticUpdates
         {
             try
             {
+                App.Instance.IsInstanceNameValid("Matteo3");
                 Thread.Sleep(5000);
 
                 var remoteVersions = CheckForUpdates();

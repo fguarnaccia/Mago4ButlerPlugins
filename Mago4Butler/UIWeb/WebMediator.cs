@@ -19,10 +19,11 @@ namespace Microarea.Mago4Butler
             InstallerService installerService,
             LoggerService loggerService,
             PluginService pluginService,
-            ISettings settings
+            ISettings settings,
+            ProductIdentifierService productIdentifierService
             )
             :
-            base (model, msiService, installerService, loggerService, pluginService, settings)
+            base (model, msiService, installerService, loggerService, pluginService, settings, productIdentifierService)
         { }
 
         protected override void OnProvisioningNeeded(ProvisioningEventArgs e)
