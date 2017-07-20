@@ -55,6 +55,7 @@
     <Compile Include="ISettings.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="Module.cs" />
+    <Compile Include="ProductType.cs" />
     <Compile Include="Version.cs" />
     <Compile Include="WebSiteInfo.cs" />
   </ItemGroup>

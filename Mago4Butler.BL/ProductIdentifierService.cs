@@ -17,9 +17,19 @@ namespace Microarea.Mago4Butler.BL
         {
             this.settings = settings;
         }
+        public bool IsMagoNet(string msiFilename)
+        {
+            return msiFilename.StartsWith(ProductType.Magonet.ToString(), StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        public bool IsMago4(string msiFilename)
+        {
+            return msiFilename.StartsWith(ProductType.Mago4.ToString(), StringComparison.InvariantCultureIgnoreCase);
+        }
+
         public bool IsMagoNet(Instance instance)
         {
-            var installationVerPath = GetInstallationVer(instance);
+            var installationVerPath = GetInstallationVer(instance.Name);
 
             if (!installationVerPath.Exists)
             {
@@ -34,7 +44,7 @@ namespace Microarea.Mago4Butler.BL
 
         public bool IsMago4(Instance instance)
         {
-            var installationVerPath = GetInstallationVer(instance);
+            var installationVerPath = GetInstallationVer(instance.Name);
 
             if (!installationVerPath.Exists)
             {
@@ -52,9 +62,9 @@ namespace Microarea.Mago4Butler.BL
             return new StreamReader(File.OpenRead(installationVerPath.FullName)).ReadToEnd();
         }
 
-        private FileInfo GetInstallationVer(Instance instance)
+        private FileInfo GetInstallationVer(string instanceName)
         {
-            return new FileInfo(Path.Combine(settings.RootFolder, instance.Name, "Standard", "Installation.ver"));
+            return new FileInfo(Path.Combine(settings.RootFolder, instanceName, "Standard", "Installation.ver"));
         }
     }
 }

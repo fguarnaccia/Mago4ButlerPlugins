@@ -148,10 +148,13 @@ namespace Microarea.Mago4Butler
                     return false;
                 }
 
-                var version = msiService.GetVersion(msiFullFilePath);
-
                 if (instanceToInstall != null)
                 {
+                    var version = msiService.GetVersion(msiFullFilePath);
+                    var productIdentifierService = IoCContainer.Instance.Get<ProductIdentifierService>();
+                    var productType = productIdentifierService.IsMagoNet(Path.GetFileName(msiFullFilePath)) ? ProductType.Magonet : ProductType.Mago4;
+
+                    instanceToInstall.ProductType = productType;
                     instanceToInstall.Version = version;
                 }
             }

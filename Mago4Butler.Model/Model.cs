@@ -242,6 +242,7 @@ namespace Microarea.Mago4Butler.Model
                 {
                     this.instances[i].Version = instanceOnDisk.Version;
                     this.instances[i].Edition = instanceOnDisk.Edition;
+                    this.instances[i].ProductType = instanceOnDisk.ProductType;
                 }
             }
 

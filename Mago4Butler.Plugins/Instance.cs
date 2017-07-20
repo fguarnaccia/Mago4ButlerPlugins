@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microarea.Mago4Butler.Model;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -13,5 +14,6 @@ namespace Microarea.Mago4Butler.Plugins
     {
         public string Name { get; set; }
         public string Version { get; set; }
+        public ProductType ProductType { get; set; }
     }
 }

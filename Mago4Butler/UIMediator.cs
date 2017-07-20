@@ -52,6 +52,7 @@ namespace Microarea.Mago4Butler
         InstallerService installerService;
         LoggerService loggerService;
         PluginService pluginService;
+        ProductIdentifierService productIdentifierService;
 
         string msiFullFilePath;
 
@@ -65,7 +66,8 @@ namespace Microarea.Mago4Butler
             InstallerService installerService,
             LoggerService loggerService,
             PluginService pluginService,
-            ISettings settings
+            ISettings settings,
+            ProductIdentifierService productIdentifierService
             )
         {
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
@@ -78,6 +80,7 @@ namespace Microarea.Mago4Butler
             this.pluginService = pluginService;
             this.msiService = msiService;
             this.installerService = installerService;
+            this.productIdentifierService = productIdentifierService;
 
             WinApp.Idle += Application_Idle;
         }
@@ -485,12 +488,15 @@ namespace Microarea.Mago4Butler
                 instanceName = bag.InstanceName;
             }
 
+            var productType = this.productIdentifierService.IsMagoNet(Path.GetFileName(msiFullFilePath)) ? ProductType.Magonet : ProductType.Mago4;
+
             this.model.AddInstance(new Model.Instance()
             {
                 Name = instanceName,
                 Version = msiService.GetVersion(this.msiFullFilePath),
                 WebSiteInfo = WebSiteInfo.DefaultWebSite,
-                ProvisioningCommandLine = provisioningCommandLine
+                ProvisioningCommandLine = provisioningCommandLine,
+                ProductType = productType
             });
         }
     }

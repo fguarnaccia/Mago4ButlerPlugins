@@ -23,6 +23,7 @@ namespace Microarea.Mago4Butler.Model
         public int WcfStartPort { get; set; }
         [YamlDotNet.Serialization.YamlIgnore]
         public Edition Edition { get; set; }
+        public ProductType ProductType { get; set; }
 
         public static Instance FromStandardDirectoryInfo(DirectoryInfo standardDirInfo)
         {
@@ -73,6 +74,14 @@ namespace Microarea.Mago4Butler.Model
                             {
                                 instance.Edition = Edition.Standard;
                             }
+                        }
+                        if (fileNameWOExt.StartsWith(ProductType.Mago4.ToString(), StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            instance.ProductType = ProductType.Mago4;
+                        }
+                        else
+                        {
+                            instance.ProductType = ProductType.Magonet;
                         }
                     }
                 }

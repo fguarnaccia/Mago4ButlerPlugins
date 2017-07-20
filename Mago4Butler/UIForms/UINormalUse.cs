@@ -124,7 +124,7 @@ namespace Microarea.Mago4Butler
                 item.ToolTipText = string.Concat(instance.Edition.ToString(), " Edition");
             }
 
-            item.ImageIndex = productIdentifierService.IsMagoNet(instance) ? 0 : 1;
+            item.ImageIndex = instance.ProductType == ProductType.Magonet ? 0 : 1;
         }
 
         private void InitContextMenus()
@@ -210,7 +210,7 @@ namespace Microarea.Mago4Butler
             {
                 item.ToolTipText = string.Concat(instance.Edition.ToString(), " Edition");
             }
-            item.ImageIndex = productIdentifierService.IsMagoNet(instance) ? 0 : 1;
+            item.ImageIndex = instance.ProductType == ProductType.Magonet ? 0 : 1;
 
             var listViewItem = this.lsvInstances.Items.Add(item);
         }
