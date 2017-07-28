@@ -13,8 +13,10 @@ namespace VerticalInstallerPlugin
 {
     public class Verticalnstaller : Mago4ButlerPlugin
     {
-        string root = string.Empty;
-        string instance = string.Empty;
+        
+        RegistryKey key = Registry.LocalMachine.OpenSubKey("Software", true);
+        string m4key = "Microarea\\Mago4\\E51B08A3-8D02-44BE-B3BC-85144A6C7EBA";
+        string mnkey = "Microarea\\Magonet\\94003900-4A72-4209-99B9-C7C1BCF7927F";
 
         public override IEnumerable<ContextMenuItem> GetContextMenuItems()
         {
@@ -37,18 +39,23 @@ namespace VerticalInstallerPlugin
 
         void RunVerticalInstaller(Instance istanza)
         {
-            instance = istanza.Name;
-
+          
             InsertRegKey(istanza);
 
             OpenFileDialog filedialog = new OpenFileDialog();
-            string FileName = string.Empty;
 
             filedialog.ShowDialog();
-            //TODO togliere -i quando matteo sistema il butler
-            FileName = "-i " + filedialog.FileName;
 
-            App.Instance.InstallMsi(FileName.ToString());          
+   
+
+            try
+            {
+                App.Instance.InstallMsi(filedialog.FileName);
+            }
+            catch (System.Exception )
+            {
+                return;
+            }
 
         }
 
@@ -56,19 +63,26 @@ namespace VerticalInstallerPlugin
 
         {
 
-            RegistryKey keym4 = Registry.LocalMachine.OpenSubKey("Software", true);
-            RegistryKey keymn = Registry.LocalMachine.OpenSubKey("Software", true);
+            switch (istanza.ProductType)
+            {
+                case Microarea.Mago4Butler.Model.ProductType.Mago4:
+                    key.CreateSubKey(m4key);
+                    key = key.OpenSubKey(m4key, true);
+                    break;
 
-            keym4.CreateSubKey("Microarea\\Mago4\\E51B08A3-8D02-44BE-B3BC-85144A6C7EBA");
-            keymn.CreateSubKey("Microarea\\Magonet\\94003900-4A72-4209-99B9-C7C1BCF7927F");
+                case Microarea.Mago4Butler.Model.ProductType.Magonet:
+                    key.CreateSubKey(mnkey);
+                    key = key.OpenSubKey(mnkey, true);
+                    break;
 
-            keym4 = keym4.OpenSubKey("Microarea\\Mago4\\E51B08A3-8D02-44BE-B3BC-85144A6C7EBA", true);
-            keymn =  keymn.OpenSubKey("Microarea\\Magonet\\94003900-4A72-4209-99B9-C7C1BCF7927F", true                );
-
-            keym4.SetValue("InstallDir", Path.Combine(App.Instance.Settings.RootFolder, istanza.Name));
-            keymn.SetValue("InstallDir" , Path.Combine(App.Instance.Settings.RootFolder, istanza.Name));
-
+                case Microarea.Mago4Butler.Model.ProductType.None:
+  
+                    break;
             }
+               
+            key.SetValue("InstallDir", Path.Combine(App.Instance.Settings.RootFolder, istanza.Name));
+
+        }
 
 
     }

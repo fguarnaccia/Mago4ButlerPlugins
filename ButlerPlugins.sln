@@ -11,6 +11,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D48D2E5F-8BCA-43C8-8FAF-0CBDC72B54E8}"
 	ProjectSection(SolutionItems) = preProject
 		..\deploy.bat = ..\deploy.bat
+		Trello-Butler.url = Trello-Butler.url
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VersionManager", "VersionManager\VersionManager.csproj", "{0FF997AA-E75E-48B6-ABEE-3BEE0D69852C}"
