@@ -68,6 +68,8 @@
     <Compile Include="Mago4ButlerPlugin.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ToolstripMenuItem.cs" />
+    <Compile Include="ToolstripMenuItemClickHandler.cs" />
     <Compile Include="Worker.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -4,6 +4,7 @@ namespace Microarea.Mago4Butler.Plugins
 {
     public interface IPlugin
     {
+        IEnumerable<ToolstripMenuItem> GetToolstripMenuItems();
         IEnumerable<ContextMenuItem> GetContextMenuItems();
         DoubleClickHandler GetDoubleClickHandler();
         void OnUpdating(CmdLineInfo cmdLineInfo);

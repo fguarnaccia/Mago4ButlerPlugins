@@ -1,9 +1,12 @@
 ﻿using Microarea.Mago4Butler.BL;
 using Microarea.Mago4Butler.Model;
+using Microarea.Mago4Butler.Plugins;
 using Microarea.Tools.ProvisioningConfigurator.ProvisioningConfigurator;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using WinApp = System.Windows.Forms.Application;
@@ -22,12 +25,13 @@ namespace Microarea.Mago4Butler
         UINormalUse uiNormalUse;
 
         IUIMediator uiMediator;
-
+        PluginService pluginService;
         ISettings settings;
 
         public MainForm(
             IUIMediator uiMediator,
             ISettings settings,
+            PluginService pluginService,
             UIEmpty uiEmpty,
             UIWaiting uiWaiting,
             UIWaitingMinimizedFactory uiWaitingMinimizedFactory,
@@ -44,6 +48,8 @@ namespace Microarea.Mago4Butler
             this.uiMediator = uiMediator;
 
             this.settings = settings;
+
+            this.pluginService = pluginService;
 
             InitializeComponent();
 
@@ -83,8 +89,45 @@ namespace Microarea.Mago4Butler
             this.uiNormalUse.RemoveInstance += UiNormalUse_RemoveInstance;
             this.uiWaiting.Back += UiWaiting_Back;
 
+            InitToolstripMenuItems();
+
             Thread.Sleep(1000);
             UpdateUI();
+        }
+
+        private void InitToolstripMenuItems()
+        {
+            foreach (var plugin in this.pluginService.Plugins)
+            {
+                if (plugin != null)
+                {
+                    var toolstripMenuItems = plugin.GetToolstripMenuItems();
+                    if (toolstripMenuItems != null && toolstripMenuItems.Count() > 0)
+                    {
+                        foreach (var toolstripMenuItem in toolstripMenuItems)
+                        {
+                            AddToolstripItem(toolstripMenuItem, this.toolStrip.Items);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void AddToolstripItem(ToolstripMenuItem toolstripMenuItem, ToolStripItemCollection items)
+        {
+            var menuItem = new ToolStripButton();
+            menuItem.Font = this.toolStrip.Font;
+            menuItem.Name = toolstripMenuItem.Name;
+            menuItem.Text = toolstripMenuItem.Text;
+
+            items.Insert(this.toolStrip.Items.Count - 1, menuItem);
+
+            if (toolstripMenuItem.Command != null)
+            {
+                var handler = new ToolstripMenuItemClickHandler() { ToolstripMenuItem = toolstripMenuItem };
+                menuItem.Click += handler.MenuItem_Click;
+                menuItem.Tag = handler;
+            }
         }
 
         private void CreateUIWaitingMinimized()

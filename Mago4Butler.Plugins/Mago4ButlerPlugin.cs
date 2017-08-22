@@ -12,6 +12,7 @@ namespace Microarea.Mago4Butler.Plugins
         {
 
         }
+
         public virtual IEnumerable<ContextMenuItem> GetContextMenuItems()
         {
             return new List<ContextMenuItem>();
@@ -20,6 +21,11 @@ namespace Microarea.Mago4Butler.Plugins
         public virtual DoubleClickHandler GetDoubleClickHandler()
         {
             return null;
+        }
+
+        public virtual IEnumerable<ToolstripMenuItem> GetToolstripMenuItems()
+        {
+            return new List<ToolstripMenuItem>();
         }
 
         public virtual void OnApplicationStarted()

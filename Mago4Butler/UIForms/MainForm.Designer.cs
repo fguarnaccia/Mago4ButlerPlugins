@@ -40,6 +40,7 @@
             // toolStrip
             // 
             this.toolStrip.BackColor = System.Drawing.SystemColors.Window;
+            this.toolStrip.Font = new System.Drawing.Font("Verdana", 9F);
             this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsbViewLogs,
