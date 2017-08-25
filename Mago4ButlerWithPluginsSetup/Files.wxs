@@ -2,329 +2,332 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
     <Fragment>
         <DirectoryRef Id="INSTALLLOCATION">
-            <Component Id="cmpEED4B49D5F0E8C3B8DC5932EF1A0C37E" Guid="E58C97FF-C7A0-4A57-B0FD-BFE8553EF152">
+            <Component Id="cmpEED4B49D5F0E8C3B8DC5932EF1A0C37E" Guid="C2884E5D-8EF6-42CA-B1EA-B44032416228">
                 <File Id="fil2905E52DBFB686C519F93D1FAD0C1425" KeyPath="yes" Source="$(var.M4BSourceDir)\Apitron.PDF.Kit.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmpD3152F19D34BA7C70190D15EEFDA3024" Guid="C12248B8-C046-475C-AE16-045AF30F787A">
+            <Component Id="cmpD3152F19D34BA7C70190D15EEFDA3024" Guid="042D1643-9308-4BB8-AE3D-827EC843A3FE">
                 <File Id="fil0C27833B1602F80F2FA903E33F7FDD26" KeyPath="yes" Source="$(var.M4BSourceDir)\AutoMapper.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmp9E910694E9B5888F2FEA19E84EA85B4A" Guid="227CCB4F-1B34-434C-AB62-87BF3E03EB54">
+            <Component Id="cmp9E910694E9B5888F2FEA19E84EA85B4A" Guid="33E3752C-3A9D-4F73-997D-6F96F2D6D956">
                 <File Id="fil0C3E2365E1340BC0C3736DE7E464783D" KeyPath="yes" Source="$(var.M4BSourceDir)\Castle.Core.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmpE0390BCB2ADCAA5F66753C9BED4FFF0A" Guid="0B515327-D0A3-4B78-8491-5449B80B4EA9">
+            <Component Id="cmpE0390BCB2ADCAA5F66753C9BED4FFF0A" Guid="24607843-9657-45FF-ABAC-1B571002C1F7">
                 <File Id="fil3F1FCAADF328C8181898C0DD8E99A641" KeyPath="yes" Source="$(var.M4BSourceDir)\CefSharp.BrowserSubprocess.Core.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmp5D61E4EF91CAB549CB03B2EB092D9E70" Guid="E0F3CB6E-9F5E-4A1B-A864-5AFC67836652">
+            <Component Id="cmp5D61E4EF91CAB549CB03B2EB092D9E70" Guid="8012970D-5777-42A4-A1FD-16E617E877FD">
                 <File Id="filBFF35A26D5AB8751589B66187806046C" KeyPath="yes" Source="$(var.M4BSourceDir)\CefSharp.BrowserSubprocess.exe" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmp0995BD87A688C7738EFBA97ADEDCBE5D" Guid="CF17AB93-DD61-467E-9993-34903FE99D1B">
+            <Component Id="cmp0995BD87A688C7738EFBA97ADEDCBE5D" Guid="3AB8B28E-E6A5-4FC8-B471-142616352008">
                 <File Id="filE60EC4DFD9037F2A3D764E98FA6B957D" KeyPath="yes" Source="$(var.M4BSourceDir)\CefSharp.Core.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmpAA4539EF5288BFD8D8D4ABDE8F8B1187" Guid="439B8519-877F-48D1-A924-7BFD668218B2">
+            <Component Id="cmpAA4539EF5288BFD8D8D4ABDE8F8B1187" Guid="22FCDD9A-6D28-4F01-BEF6-693969081CFA">
                 <File Id="fil4597C64DECD3CC1A62738ABE026771DD" KeyPath="yes" Source="$(var.M4BSourceDir)\CefSharp.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmp04838B58D097B4FDB0369115D76188A0" Guid="23722C72-89A2-440B-930A-19133DBB60FD">
+            <Component Id="cmp04838B58D097B4FDB0369115D76188A0" Guid="4236EEF4-CECB-4AC4-90A5-D5A2085491A8">
                 <File Id="filC19AEA9753DFBCBAEFD00DD6BEA5FF97" KeyPath="yes" Source="$(var.M4BSourceDir)\CefSharp.WinForms.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmpA2818E4783FF4F1B11195FBEEE78345B" Guid="2C840954-AE07-4F1B-A164-6314B34DA458">
+            <Component Id="cmpA2818E4783FF4F1B11195FBEEE78345B" Guid="A2F491CD-793C-4769-B12F-AC3044ADD0A4">
                 <File Id="fil5B858EF37871E88A14F2FFABF9403DF0" KeyPath="yes" Source="$(var.M4BSourceDir)\cef_100_percent.pak" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmpE27EA2C713D0E391691A1BB487131384" Guid="482235A7-DABE-4BB0-BAF1-57F581BA97D8">
+            <Component Id="cmpE27EA2C713D0E391691A1BB487131384" Guid="6D1F9D2B-BEDC-4888-89EF-1DFB042523F6">
                 <File Id="fil2FAD09C77CBBF7444653C9CDA5CDB5C5" KeyPath="yes" Source="$(var.M4BSourceDir)\cef_200_percent.pak" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmp50E11A5A68F2382207442BFC58CFE7C6" Guid="1838A662-4BAA-42D5-8FFB-E22A187D0D97">
+            <Component Id="cmp50E11A5A68F2382207442BFC58CFE7C6" Guid="642DE0EF-71C0-4EA4-BBB6-379B51751254">
                 <File Id="fil94CDF9510AE961FB6E332896CD6ABAC1" KeyPath="yes" Source="$(var.M4BSourceDir)\Colorful.Console.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmp0F5D17E69B3F5CFB6475D3C32E88205B" Guid="A4364EE7-C067-4237-A1B3-28F3C2D558BF">
+            <Component Id="cmp0F5D17E69B3F5CFB6475D3C32E88205B" Guid="A80616F7-A91D-4C36-A2F2-D63573017DC0">
                 <File Id="filB536660B048CEB29FB12F352D8F1FEF0" KeyPath="yes" Source="$(var.M4BSourceDir)\d3dcompiler_47.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmp8F5C2F900AC5532E3BF07B6514F520B1" Guid="B1969456-E9B4-48BE-9650-EE8DC8C04FBF">
+            <Component Id="cmp8F5C2F900AC5532E3BF07B6514F520B1" Guid="E47284E8-91A5-47AB-BEF8-D11515CD255F">
                 <File Id="filCE360A9C65C2C091E7F1C6E751E4D071" KeyPath="yes" Source="$(var.M4BSourceDir)\DocumentFormat.OpenXml.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmp9911AF95ADC7A148BBB5C669B4DAC3E2" Guid="3EC73FC2-DAF1-4857-88C6-646F731C22C0">
+            <Component Id="cmp9911AF95ADC7A148BBB5C669B4DAC3E2" Guid="AA230981-69BB-4320-B375-9C38E95A154A">
                 <File Id="fil4989BCCFFA6A868905A1A3636E55B13D" KeyPath="yes" Source="$(var.M4BSourceDir)\Fleck.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmp0EC921D1A4ECAD12A56C8CD0FBD74932" Guid="373E1B37-0D5C-464C-906F-53F03A4ED68A">
+            <Component Id="cmp0EC921D1A4ECAD12A56C8CD0FBD74932" Guid="401973F5-4E68-44DA-BAC4-97DBADD1E917">
                 <File Id="fil96AA2A722F0BB3FADEAB3308BA9FB4F4" KeyPath="yes" Source="$(var.M4BSourceDir)\ICSharpCode.NRefactory.CSharp.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmp763CAB7A6D037F9280A15E3D4DC7C156" Guid="3AFA6F6B-5AB1-480C-A40E-916B4F8F9788">
+            <Component Id="cmp763CAB7A6D037F9280A15E3D4DC7C156" Guid="0FC31F7B-DE26-4925-95C1-9C86B639EE4C">
                 <File Id="filEA292C3400BD1DC19F94FA65B2059BCB" KeyPath="yes" Source="$(var.M4BSourceDir)\ICSharpCode.NRefactory.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmp1238296BCB400508C89B9EC1F650B0EC" Guid="8F980A93-BAD0-4797-A786-FB935BC0CC02">
+            <Component Id="cmp1238296BCB400508C89B9EC1F650B0EC" Guid="11F41DAD-D010-469F-8D2B-9BC5A5F4539D">
                 <File Id="fil63EFADB66B829A5706948768B72650DA" KeyPath="yes" Source="$(var.M4BSourceDir)\ICSharpCode.SharpZipLib.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmpAD780F452DF2C97C2E02B0C7E6888BC5" Guid="3E744054-DA63-45FA-8F13-1BC8F1BC8B36">
+            <Component Id="cmpAD780F452DF2C97C2E02B0C7E6888BC5" Guid="6A5DE44B-0212-406D-BD02-F7E9CEE3B15C">
                 <File Id="filD8095838954446FF176193BE6C691987" KeyPath="yes" Source="$(var.M4BSourceDir)\icudtl.dat" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmp33244A11CD4BA09B92136620D5F34755" Guid="CCB96432-E2FF-4D11-BEC6-64B1006BC4B8">
+            <Component Id="cmp33244A11CD4BA09B92136620D5F34755" Guid="7A98199B-5D59-40BF-B0C5-B205CF8521CC">
                 <File Id="fil26B33926A08420EB36BA00CD0455A247" KeyPath="yes" Source="$(var.M4BSourceDir)\libcef.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmp00C53F360BB659A7A278563BA33FB36A" Guid="CD6F3594-F559-433E-9AF8-99497409C964">
+            <Component Id="cmp00C53F360BB659A7A278563BA33FB36A" Guid="8B2710C8-DB00-4CA2-B0FD-4C7DC3E86C78">
                 <File Id="filD5706F6E26FB1E2F617D644821E3FC84" KeyPath="yes" Source="$(var.M4BSourceDir)\libEGL.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmp3088F90A74F3771F6A3F79DBCA72246C" Guid="10511E5A-C87D-4D3C-8970-BF352BD01306">
+            <Component Id="cmp3088F90A74F3771F6A3F79DBCA72246C" Guid="116B818E-EA93-4604-A06B-8E723C38902F">
                 <File Id="filDF02A313F6DA96A806BFA98A5DD32690" KeyPath="yes" Source="$(var.M4BSourceDir)\libGLESv2.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmpE5C01B5677C30D575CC15B4B558A57E0" Guid="D3BA1D55-78E7-40DC-BA8F-B8501F37CB2D">
+            <Component Id="cmpE5C01B5677C30D575CC15B4B558A57E0" Guid="3E27661B-F153-425D-BF22-DDDB999EE6B9">
                 <File Id="filD17F9AFAC4DF3D7A44817DFBA8510C1A" KeyPath="yes" Source="$(var.M4BSourceDir)\log4net.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmp960F35D70F0EBEC58F98A7AA8188B8DF" Guid="8A96FA26-D6AA-44AB-BBF0-035EFB49291A">
+            <Component Id="cmp960F35D70F0EBEC58F98A7AA8188B8DF" Guid="6511590B-3295-4876-A732-1889BC11A516">
                 <File Id="fil48FF2D61C6767B2EA232635E7EDC7896" KeyPath="yes" Source="$(var.M4BSourceDir)\Mago4Butler.Automation.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmp626C37DEC83FABEE8B9B7EA4A04B4F5A" Guid="E04F2268-0051-49B2-98B8-57BCC749842F">
+            <Component Id="cmp626C37DEC83FABEE8B9B7EA4A04B4F5A" Guid="BBFCC0C5-90A0-41D9-AFB9-6425C9B74B30">
                 <File Id="fil728B67FAB1E67E68DC712216B11F40C3" KeyPath="yes" Source="$(var.M4BSourceDir)\Mago4Butler.BL.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmp1D99A47FA0F814E1BF826F6563046879" Guid="CEC20EDF-5351-4A28-BD4F-8DA08E5D7D70">
+            <Component Id="cmp1D99A47FA0F814E1BF826F6563046879" Guid="516424ED-6362-4C49-A7D2-258454A6F764">
                 <File Id="filF9CBAD268DEBBFB15F3C5040D492F9B4" KeyPath="yes" Source="$(var.M4BSourceDir)\Mago4Butler.BL.dll.config" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmp390026EB15EE0696EB37503F4A399A76" Guid="9927F426-B591-4AB2-BACA-FBD3DBE7EC3E">
+            <Component Id="cmp390026EB15EE0696EB37503F4A399A76" Guid="52DE49D7-A463-4088-AC47-913C740CC317">
                 <File Id="filB779D55293480C349EF5D6ACAFBEA873" KeyPath="yes" Source="$(var.M4BSourceDir)\Mago4Butler.exe" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmpFF7A3CDB5B7BE431942B830AD2C44562" Guid="66EC63D0-2F77-45F6-89DD-45188B2A2227">
+            <Component Id="cmpFF7A3CDB5B7BE431942B830AD2C44562" Guid="346CFAD0-EAAB-41E4-8035-894A365C39BB">
                 <File Id="fil82E2871515F7998D3B5FB853063755EA" KeyPath="yes" Source="$(var.M4BSourceDir)\Mago4Butler.exe.config" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmpD1D2AD7CA036987E2495026E50CF2DDB" Guid="602662A1-96FD-4CFA-B953-B4D26EEF8A87">
+            <Component Id="cmpD1D2AD7CA036987E2495026E50CF2DDB" Guid="F29E4278-8DA8-42E0-AD3C-139D8A2D9821">
                 <File Id="filD88B02EFB3085EC6FA3B4AC8B09B21E9" KeyPath="yes" Source="$(var.M4BSourceDir)\Mago4Butler.Log.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmpB546B4088C25EE0BEB3D40305B83DF05" Guid="A7AA4E41-7CA5-40D8-B821-0B28FBFC7792">
+            <Component Id="cmpB546B4088C25EE0BEB3D40305B83DF05" Guid="A5E2C416-4B71-4BFC-9EE6-AF42317F8A21">
                 <File Id="fil820C1109A0B46827674E21D9CF78A1B5" KeyPath="yes" Source="$(var.M4BSourceDir)\Mago4Butler.Model.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmpD6888565DF77E6A16BDC8A36671C67B7" Guid="56F8DC19-5889-45FF-801E-0CAF48BE0B10">
+            <Component Id="cmpD6888565DF77E6A16BDC8A36671C67B7" Guid="0EA594B1-FB4D-4A10-91CF-A96F2708EFB6">
                 <File Id="fil7C9B22C18B2360BD2207F9F2D3FF4FBA" KeyPath="yes" Source="$(var.M4BSourceDir)\Mago4Butler.Plugins.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmp5283944DD3AB1DBF821C306193E7BB43" Guid="2827743C-1C33-4214-9515-7218CD7C6A29">
+            <Component Id="cmp5283944DD3AB1DBF821C306193E7BB43" Guid="085823E7-E5AD-466A-B7BC-3FC620FB875E">
                 <File Id="fil9BAF5FB5C44B41D7DB938E9FB0AEF04F" KeyPath="yes" Source="$(var.M4BSourceDir)\Microarea.Mago4Butler.AutomaticUpdates.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmp8827DE684B0B67CB955311D90D9D8D5F" Guid="E645C5F0-2FAE-45D0-BDC6-D367A70A0F0E">
+            <Component Id="cmp8827DE684B0B67CB955311D90D9D8D5F" Guid="2A10D059-CCB9-43EE-A52A-4CF09B776EA0">
                 <File Id="fil1E4FDD7C28A647F4BAF6978DE5FDDC7A" KeyPath="yes" Source="$(var.M4BSourceDir)\Microarea.Mago4Butler.Reporter.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmp0A6AF983FF69BF675B6F620ACDB9DF7F" Guid="980538F4-B4C2-4D57-999E-05D0771C7667">
+            <Component Id="cmp0A6AF983FF69BF675B6F620ACDB9DF7F" Guid="57ADBADA-7920-45A0-86C8-40BC4B348298">
                 <File Id="filCB7B1BFE8577BAA42A6BD81449353FEF" KeyPath="yes" Source="$(var.M4BSourceDir)\Microarea.Mago4Butler.Reporter.dll.config" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmp20094029BE4055C60C3D03E9FE5A4DD7" Guid="C2D13C7F-4CA5-46B1-A7E5-0D0BE0F52E6D">
+            <Component Id="cmp20094029BE4055C60C3D03E9FE5A4DD7" Guid="580563E2-7056-4A12-879B-D5D01FB8AC71">
                 <File Id="filA43E65A1E36EE3F6CCF37803FBE452FA" KeyPath="yes" Source="$(var.M4BSourceDir)\Microarea.Mago4Butler.Telemetry.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmpB03B3A4F1073D894728545E0DE966BE1" Guid="818C5422-9C1C-45C3-8137-2F91AD3F3000">
+            <Component Id="cmpB03B3A4F1073D894728545E0DE966BE1" Guid="BD6BDA07-4671-4292-8FBB-3D51689B8054">
                 <File Id="filE7F53B78469C7CF9B9B1C46A9EA8E0A5" KeyPath="yes" Source="$(var.M4BSourceDir)\Microarea.Mago4Butler.Telemetry.dll.config" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmp8B516EF1CA553709E2F2B4E287CBB338" Guid="EA49E5D9-8543-4854-B9D4-B6904E2383F1">
+            <Component Id="cmp8B516EF1CA553709E2F2B4E287CBB338" Guid="2925FA91-52C4-4D6F-9A98-53A55008886E">
                 <File Id="filEA0B512CDB70803B6C6BAC92F16C7ABF" KeyPath="yes" Source="$(var.M4BSourceDir)\Microarea.TaskBuilderNet.Core.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmpA33B1B25097CF995776A3B91AD0CAC35" Guid="0CB12939-70DF-4F44-A280-6A2023C98566">
+            <Component Id="cmpA33B1B25097CF995776A3B91AD0CAC35" Guid="9833D969-7EBB-413E-8F97-42FC008B0044">
                 <File Id="filEEF656C51E370FC7146FC539E4081596" KeyPath="yes" Source="$(var.M4BSourceDir)\Microarea.TaskBuilderNet.Core.dll.config" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmp25B2D667AC87066E928EE3A03F5C5063" Guid="ACCF8E34-5FCC-478F-AF11-98D6DEF2D283">
+            <Component Id="cmp25B2D667AC87066E928EE3A03F5C5063" Guid="1440C968-9E73-416C-807F-05E431F0132A">
                 <File Id="filFF8C6E1E6E4CE1DDE16B974F540CCA12" KeyPath="yes" Source="$(var.M4BSourceDir)\Microarea.TaskBuilderNet.Data.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmp8DB66F73A027CE8DE9603897B52D54C0" Guid="F4D69A4F-21AC-4B1C-A344-EE6ECCEC4647">
+            <Component Id="cmp8DB66F73A027CE8DE9603897B52D54C0" Guid="2D3A9684-473C-47FF-A03C-8E274B605E8E">
                 <File Id="filC40625A077A4F9C4E003071C54304359" KeyPath="yes" Source="$(var.M4BSourceDir)\Microarea.TaskBuilderNet.Interfaces.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmpCC3CF2ADC9DD78B7009DAD5F9F4754C8" Guid="42095A2C-D861-47A1-94FD-6E0C05F85CA1">
+            <Component Id="cmpCC3CF2ADC9DD78B7009DAD5F9F4754C8" Guid="5805CD06-6D7D-48AB-978F-14CA58BA5718">
                 <File Id="fil17F1FD38431B5ABF7ACE85A3059FB2FB" KeyPath="yes" Source="$(var.M4BSourceDir)\Microsoft.Web.Administration.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmp218F58E796F34D9FD362466EA14E66F7" Guid="A4D38B1D-49D4-4DD4-984C-1667FB1EB657">
+            <Component Id="cmp218F58E796F34D9FD362466EA14E66F7" Guid="272F6E1D-F6E8-45EC-B04C-992F29EE4800">
                 <File Id="filE5AE4B6502043B9992586FFCCBD76260" KeyPath="yes" Source="$(var.M4BSourceDir)\Mono.Security.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmp5AA483655AD0AD5646C0569540F22069" Guid="DC8E8E01-3A9E-4922-A073-C8FF2F9A8E3C">
+            <Component Id="cmp5AA483655AD0AD5646C0569540F22069" Guid="898EC477-4B48-4366-80DD-9A12C091D063">
                 <File Id="fil41E6E0CB75C64C2BF12866538B9B1A17" KeyPath="yes" Source="$(var.M4BSourceDir)\natives_blob.bin" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmpE48528C4F5932A4EFD89F7331108F45D" Guid="BEB59D6B-4603-47DF-8E14-B95CB2A857F4">
+            <Component Id="cmpE48528C4F5932A4EFD89F7331108F45D" Guid="9239D79A-DE88-4D24-9BDD-A94C83CBB5F8">
                 <File Id="filF1B84C2C6BCC693224B7A7959445B74F" KeyPath="yes" Source="$(var.M4BSourceDir)\Newtonsoft.Json.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmp09935A19E62F557F1283D8B2856AAFF4" Guid="BB11EB69-1834-4951-A683-5984EDC2E841">
+            <Component Id="cmp09935A19E62F557F1283D8B2856AAFF4" Guid="81270110-EAAE-4750-B2E0-D0F843E3E2E0">
                 <File Id="filB3467F5442DD3EF32A3C43894512D9CC" KeyPath="yes" Source="$(var.M4BSourceDir)\Ninject.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmp9A40C99BFA27C8396AA9416552434677" Guid="B89582D4-DA7C-45FF-8051-79F89FFA17D2">
+            <Component Id="cmp9A40C99BFA27C8396AA9416552434677" Guid="A7A1C640-6CA3-46CE-8307-EB99A060DF89">
                 <File Id="filFD5DDF65414F693D5EA816255381A5F8" KeyPath="yes" Source="$(var.M4BSourceDir)\Ninject.Extensions.Factory.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmp2EC731CFD13A379B90F06F28976E8100" Guid="11B56DDE-0F70-441C-A3CC-E437BB3C9002">
+            <Component Id="cmp2EC731CFD13A379B90F06F28976E8100" Guid="FB5E17F6-8E3A-4ED5-BE8F-E17B516FB5F9">
                 <File Id="filE965B020EB93F46360C7D3024F819514" KeyPath="yes" Source="$(var.M4BSourceDir)\Npgsql.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmpECDE56C89508227011FAE08A4AB025F0" Guid="678FF790-3613-4FAC-B6F4-45E3D0D8EEA1">
+            <Component Id="cmpECDE56C89508227011FAE08A4AB025F0" Guid="A8DAF199-0914-4DB0-BDB1-03C2F9ED7585">
                 <File Id="fil2268E63F8CA05EC264516B25F97D761E" KeyPath="yes" Source="$(var.M4BSourceDir)\Nustache.Core.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmp3E91BFC534AFA9B380469C9D6C8A19AC" Guid="40F37B4B-61CC-48B6-8C88-6D9C678E18F5">
+            <Component Id="cmp3E91BFC534AFA9B380469C9D6C8A19AC" Guid="58648312-278C-4C2A-995A-06E2AA2C68B8">
                 <File Id="filB749F95B87B100127B1B62BE9A823C67" KeyPath="yes" Source="$(var.M4BSourceDir)\plgnMagoRunner.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmpAC768EFD4AC3E49D78ED030616FFBF19" Guid="1D4FD1AE-DD8C-4702-8D60-F3569FB2688F">
+            <Component Id="cmpAC768EFD4AC3E49D78ED030616FFBF19" Guid="F61731B7-0D0F-40A4-B423-B366540B1E68">
                 <File Id="filF42DDA19A7A75C4BEB13A8F6E4E93468" KeyPath="yes" Source="$(var.M4BSourceDir)\plgnMagoRunner.dll.config" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmp097FB63967BA7FFC95711D7AFD4B253D" Guid="CFDF1EF2-1D40-453D-AA4D-FFB637884923">
+            <Component Id="cmp097FB63967BA7FFC95711D7AFD4B253D" Guid="2712DCEE-92DA-4955-8D49-340AA7FC4CA9">
                 <File Id="fil7082DE5CBC6F2FE38D5A4B2ADAB161AA" KeyPath="yes" Source="$(var.M4BSourceDir)\plgnMsiClassicMode.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmp2E10E6C834ED32E8C35D9BAEF5881988" Guid="B5113EE5-F144-4B4F-846A-953CB9955E5E">
+            <Component Id="cmp190F529C789F5C7C3ED63C0401BC552C" Guid="639E22C7-A9FB-4B5B-86D6-18B338B31A5A">
+                <File Id="fil8D67A988A31C4230C3CFD1CE16E2E5EE" KeyPath="yes" Source="$(var.M4BSourceDir)\plgnVerticalInstaller.dll" ProcessorArchitecture="msil" />
+            </Component>
+            <Component Id="cmp2E10E6C834ED32E8C35D9BAEF5881988" Guid="92AD6DB8-B879-40F6-911D-587CDB4EA004">
                 <File Id="fil5BABE1C792EB5B637C8C92F09270F401" KeyPath="yes" Source="$(var.M4BSourceDir)\ProvisioningConfigurator.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmp8E6679B70D4C7935CE4D756EC3A5F2B4" Guid="21610B78-924C-4B35-A9A9-5B7897D209E5">
+            <Component Id="cmp8E6679B70D4C7935CE4D756EC3A5F2B4" Guid="DC5BE1E7-9B66-4D9C-A2CD-5A28AB44D0AB">
                 <File Id="filC8278C0E3D05166CBE7E6A15EEBC156D" KeyPath="yes" Source="$(var.M4BSourceDir)\ProvisioningConfigurator.dll.config" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmpDA70C4EB2033DAE17BAFD422DACC539A" Guid="D43050C6-D30E-4707-B48E-E00E43DE471A">
+            <Component Id="cmpDA70C4EB2033DAE17BAFD422DACC539A" Guid="9E554E7B-406C-4F94-B729-B8CB413E2509">
                 <File Id="fil68E34D8AB8D6C3245DED1250960E0358" KeyPath="yes" Source="$(var.M4BSourceDir)\SailorsPromises.dll" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmpAAFD0C92FD12CBCDA83EA46DC41445D1" Guid="C6E0BA61-523F-413D-B5EC-6C8D3B9816B6">
+            <Component Id="cmpAAFD0C92FD12CBCDA83EA46DC41445D1" Guid="17ED53F7-D8D8-4C88-9824-B1CA8FD014DC">
                 <File Id="fil6ECB45D4C4E0E5ACB3B3985950C14201" KeyPath="yes" Source="$(var.M4BSourceDir)\snapshot_blob.bin" ProcessorArchitecture="msil" />
             </Component>
-            <Component Id="cmpD249DAB5A39ECC97DFD997BB012C6577" Guid="8052ABE7-BC73-49C1-9C70-36B4FCEE9A88">
+            <Component Id="cmpD249DAB5A39ECC97DFD997BB012C6577" Guid="E135724C-7A2B-44E0-98D7-C1413513BB5E">
                 <File Id="filBDD311EBA63985BD35F6D1289C73BDDD" KeyPath="yes" Source="$(var.M4BSourceDir)\YamlDotNet.dll" ProcessorArchitecture="msil" />
             </Component>
             <Directory Id="dirF2DB3C44B894CD4571482EAE3116C6E1" Name="locales">
-                <Component Id="cmpBFF376583BAB2932C2A479C0396FBAA3" Guid="2C8D28AB-703C-4B73-AEA2-A40EAF0C03F5">
+                <Component Id="cmpBFF376583BAB2932C2A479C0396FBAA3" Guid="6D034D82-5F3D-42A7-B88F-16E939E789B6">
                     <File Id="fil8F95D56F94B2F43FD9DBC0CA6FCE94BB" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\am.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmpA39B33BA02CEA0C402C16718239362AC" Guid="A22EF7C6-C2CB-40C6-A644-60D31CFA4752">
+                <Component Id="cmpA39B33BA02CEA0C402C16718239362AC" Guid="5E35453D-DAB2-48D7-9AC5-3ED8B191B971">
                     <File Id="fil354DAEA9BB85A3161222D71C32D694DC" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\ar.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmpC118D738353783C03B31B656BD57CC5E" Guid="C668792A-E224-4185-8EDF-D565A0F4599C">
+                <Component Id="cmpC118D738353783C03B31B656BD57CC5E" Guid="0C9C202E-817F-4AB0-81CD-09F5A68748FA">
                     <File Id="fil9B3A378042E7F876E6C14E6D640DF488" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\bg.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmp19A827AC055A4A811B99AFA1152BBE77" Guid="700073C5-0225-4A17-9CB3-D4CA551C3EDD">
+                <Component Id="cmp19A827AC055A4A811B99AFA1152BBE77" Guid="E39237E9-DD11-4EF9-845C-2CC506B1E246">
                     <File Id="filC3B7CA46E3D607EEFA48E18B9402A2CF" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\bn.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmp89565F273626ED2023B705FDFECE92E2" Guid="7EBC78ED-02FD-4DEC-9DAC-EEA50BE8E945">
+                <Component Id="cmp89565F273626ED2023B705FDFECE92E2" Guid="C04F5673-0827-496C-8878-8BE4E1F9D88F">
                     <File Id="filDB47FD63B313499BB64B47618D1376D0" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\ca.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmpA73B672D9D3DF5B089D525EB30BBA1F6" Guid="6A4165F4-5BD0-407C-ABB4-FEC615043FB1">
+                <Component Id="cmpA73B672D9D3DF5B089D525EB30BBA1F6" Guid="9C166736-0DA4-4D1C-8FCB-96170A939C50">
                     <File Id="fil641A6F142FF8B85E6E4D466E96D37327" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\cs.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmp8D63B0FC98E1A85A83CD69F8430B7B8A" Guid="2E1AB3AB-EB95-4CE2-BC4A-68EC55492AE4">
+                <Component Id="cmp8D63B0FC98E1A85A83CD69F8430B7B8A" Guid="655D9F49-AAA5-41E7-A8F8-3E4883127325">
                     <File Id="fil006A8EB4BF0CD6A8066EA80FF1014386" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\da.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmp735773684891C489BA7321060F9B7C0F" Guid="62A43FB4-9D7D-4178-B85B-96B564B8240E">
+                <Component Id="cmp735773684891C489BA7321060F9B7C0F" Guid="A0DE4393-805F-462A-A847-B3B24CAB13AA">
                     <File Id="fil26A9837ED592906D49C18ED625C8B40C" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\de.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmpC7FEF11F0C528EC1AE67551E77D6BFDE" Guid="126CDB50-718A-45A6-8FB7-1881359501DA">
+                <Component Id="cmpC7FEF11F0C528EC1AE67551E77D6BFDE" Guid="F72C419F-7188-48C2-9D9C-873312E60B68">
                     <File Id="fil21D19A866F83D46F68E4FD79DF1AB25B" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\el.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmp56203DC882AA78AA899C7A0637605019" Guid="7D726F7C-BC82-4382-A915-A2DD956CC2CC">
+                <Component Id="cmp56203DC882AA78AA899C7A0637605019" Guid="8046ECE0-5300-4309-8FC6-C925EB98632E">
                     <File Id="filC5F11173E0695D4DD7BB2F36FC157D68" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\en-GB.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmpF5BDF7F3923C407640943F4CC041BB6A" Guid="70B65130-E9B5-4714-A8C1-B80035E6DE82">
+                <Component Id="cmpF5BDF7F3923C407640943F4CC041BB6A" Guid="D795431E-4E74-4D1D-8688-46F9B0FC8874">
                     <File Id="fil98550AE43E160393088D3EBA2BFE0FCB" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\en-US.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmp2CAEAA59A001E6A98DF44DF631ED44AB" Guid="A6198A58-9939-45CB-8C03-9ACCF602A465">
+                <Component Id="cmp2CAEAA59A001E6A98DF44DF631ED44AB" Guid="D4220F57-9415-4565-AC6F-36685BB06413">
                     <File Id="fil23317B1EC1939E3602CAD0933DEC6D7E" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\es-419.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmp5D3FA126EADBB2129EB407D3395D413C" Guid="D2E529B1-5E8E-4EA1-AD08-B0F57E735125">
+                <Component Id="cmp5D3FA126EADBB2129EB407D3395D413C" Guid="EA96E493-426B-40AC-BDB6-8F66CF83A04E">
                     <File Id="fil8876B3E6BD885AC9848CBFB0093FFF6A" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\es.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmpE174B9B411EA81B831A0570B5A406A32" Guid="3736D33E-255E-40CB-8A9D-5D73B0A6F5E4">
+                <Component Id="cmpE174B9B411EA81B831A0570B5A406A32" Guid="2C1D4E33-786C-451C-8D25-5E6D3E5F83F9">
                     <File Id="filBB38492F12F6C3C9786E4D669DC60E9D" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\et.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmp6BD1D21FD8DBC3772A406C75F99349ED" Guid="E919CE2D-5ABC-4A45-BE36-E247859299E8">
+                <Component Id="cmp6BD1D21FD8DBC3772A406C75F99349ED" Guid="6FA1D86E-DC9B-439E-B1FA-1EA7B05A72B3">
                     <File Id="fil21355E1A185F6D7DDC0BEB4D261AB8FD" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\fa.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmpB6FD08CE3DFED4F6326D90CD66926CD1" Guid="C8AA07D2-9497-4A74-8E99-4DCCE8B4101C">
+                <Component Id="cmpB6FD08CE3DFED4F6326D90CD66926CD1" Guid="1FEF2FF3-1097-44B1-813B-A1C2A6D5771E">
                     <File Id="filFF89441D3F1D6733C9B3B6A9C088BACE" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\fi.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmp7499C151DC3E1FB63A87186F0DD41B83" Guid="DF0FF55B-FDDF-479F-BDBF-428E90602A86">
+                <Component Id="cmp7499C151DC3E1FB63A87186F0DD41B83" Guid="9E5BC872-3871-4EE2-9329-78EAD3EF6166">
                     <File Id="fil52AA5266025D574F9C53FB8E45D0ECCC" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\fil.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmpE3E5AD67020299D6681950FF21F3532C" Guid="50B89E97-2457-4A45-B0EB-7A0F673893BA">
+                <Component Id="cmpE3E5AD67020299D6681950FF21F3532C" Guid="E389E781-CAE0-433C-9EBE-22063916852C">
                     <File Id="fil148E4651BAD06C6B4D59F6E883BAF630" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\fr.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmpAA0B79C131F16616B030B1D6EB14863C" Guid="C0CE71B9-04DD-4F43-81FC-9631C7118CF9">
+                <Component Id="cmpAA0B79C131F16616B030B1D6EB14863C" Guid="EC747FA5-BA8D-4C6D-8473-6A463506CA57">
                     <File Id="filFD13725C510EDAA804CCFF64C6123400" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\gu.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmpC9A84128A2236AA5B445114017527703" Guid="81CCCE9F-E655-4675-B239-13BE43DAAA20">
+                <Component Id="cmpC9A84128A2236AA5B445114017527703" Guid="3A5895D2-7E78-47FF-B436-160366026D4B">
                     <File Id="filCABF3161B045C693D8DA2939B8732AF6" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\he.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmp82BBDCD621FFCAD0F3D84D9760719E27" Guid="DA81839D-A98E-42FE-B8BB-641FB1781F06">
+                <Component Id="cmp82BBDCD621FFCAD0F3D84D9760719E27" Guid="96B024BA-4FB7-4F0C-AC7C-8F0D914ABB5F">
                     <File Id="filB4362717A05AE1506ED28AA1272F8063" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\hi.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmp71AB95857AB8C3478FAB1C553472E49C" Guid="80BBE98D-E0AC-45D5-B57B-9FDC51C116D0">
+                <Component Id="cmp71AB95857AB8C3478FAB1C553472E49C" Guid="B70B6056-0F9C-449A-80B1-A9A3C7CBCFAE">
                     <File Id="filB3BE4533084DC45FFC292A96AA5EA524" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\hr.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmpE1686E7A5F8B3842B5E7828BB83B0344" Guid="606C86F0-58AE-49BB-96F9-1E4E341F35F2">
+                <Component Id="cmpE1686E7A5F8B3842B5E7828BB83B0344" Guid="9F1AAC6F-CEC8-4367-8BE2-2579F1D39634">
                     <File Id="fil55B201777FA30DEFE15C058CE53A2A92" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\hu.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmpD859D31B71571D9A45BBAF1C47DAD712" Guid="1CD09683-9F2F-40DC-A66E-0B0ACADD6D90">
+                <Component Id="cmpD859D31B71571D9A45BBAF1C47DAD712" Guid="E19BF4AB-EBF7-44B4-8B79-EF00FCE233AA">
                     <File Id="filDED4A6AB2F4CC49B74087891ECC39B81" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\id.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmp39BEBE542B9A3B63E69D8C9EDDE35F7D" Guid="46613119-EB4A-49CB-A948-790DFCD27D73">
+                <Component Id="cmp39BEBE542B9A3B63E69D8C9EDDE35F7D" Guid="2A548F99-AA13-4081-B434-D90B8256941A">
                     <File Id="filECCFC6ED94957039B3D5495F12BE8DCE" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\it.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmp85036295FB265B554DF404DBA57CC841" Guid="5116C85E-F901-4AD1-87A1-B95024224E97">
+                <Component Id="cmp85036295FB265B554DF404DBA57CC841" Guid="187251E4-A5B2-440B-8E24-096779EB2D9E">
                     <File Id="fil881E87D7759E0F988DB8A4845923F515" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\ja.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmp9E0C58A3529F077885B9BA27DBF7C709" Guid="45AF552A-0105-4B68-8686-57E993E67C39">
+                <Component Id="cmp9E0C58A3529F077885B9BA27DBF7C709" Guid="03C25130-A20C-4160-9824-CBB814CB508F">
                     <File Id="fil7CCD55CBE3EC806E14CDE854C5B679A1" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\kn.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmpD4BB6EE4EDA16A87DB41E8D91A67D73D" Guid="F4D7FBFC-BE25-4873-AAF8-ED5CDED9F7B2">
+                <Component Id="cmpD4BB6EE4EDA16A87DB41E8D91A67D73D" Guid="12D15349-8C24-4AB2-9D73-8FB270709384">
                     <File Id="filF031D2907A1D3FEE3FD14150BA11677D" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\ko.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmp5671C72D72B56F12B580AB6ACF3E21A7" Guid="1E35FCCD-9F76-4E72-974D-E685188CF282">
+                <Component Id="cmp5671C72D72B56F12B580AB6ACF3E21A7" Guid="19E8F4E5-A73A-4355-A53D-001ACA7844D4">
                     <File Id="filD2AB827486089CEBC15F110B39AD6CF0" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\lt.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmp69155DABB8FCFB4971F0C50D88993783" Guid="09464C79-ECFB-40C3-88A7-3ED2D2692C97">
+                <Component Id="cmp69155DABB8FCFB4971F0C50D88993783" Guid="8829DD9A-C04E-4557-97F6-1254A6B8D857">
                     <File Id="fil942FFE10B05A01C7F0D1730BED83910E" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\lv.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmp6567E5A6CFFB71F61468672DAB68525C" Guid="D1D88F34-314A-4A7B-A0E9-B371303C723A">
+                <Component Id="cmp6567E5A6CFFB71F61468672DAB68525C" Guid="995120DE-A201-4CA4-A6C6-48B23E8DD81F">
                     <File Id="filAAFF076DE370949F08B40454E7CE7A7A" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\ml.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmpBFA7FDB4515799B992680DD192DCE386" Guid="9CAF2B07-24A3-4011-B369-20467E77BEC9">
+                <Component Id="cmpBFA7FDB4515799B992680DD192DCE386" Guid="C73D3339-4055-4F23-856E-9567D487EF0D">
                     <File Id="filCDBFAE00F501AB24C9702C68524D69BB" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\mr.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmp38A1B20356119F3AA592634E7B37BF5E" Guid="537A8E92-55CA-44B2-B618-469A665E2228">
+                <Component Id="cmp38A1B20356119F3AA592634E7B37BF5E" Guid="EC18FA66-5322-493D-906A-C1E5D058200C">
                     <File Id="filC8E3507F6F7A55A163314149FAC056FA" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\ms.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmpCA069001712DA30F0D958DF16B7639C3" Guid="510C7E16-9EF3-4AB4-B427-97B5A5E5B8D3">
+                <Component Id="cmpCA069001712DA30F0D958DF16B7639C3" Guid="C553FF56-9095-4C18-9D51-47D34252168A">
                     <File Id="fil8496AD520E11B7D486E21851DA29F937" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\nb.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmp2661F33B2602F3AE52B70372E84E3EE6" Guid="A50DF323-7D07-4682-B172-0ED48EBE6192">
+                <Component Id="cmp2661F33B2602F3AE52B70372E84E3EE6" Guid="81FEA943-B1C8-462D-8B3D-5EE05867667F">
                     <File Id="fil50814DF270594EA90664C4BDD82449AE" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\nl.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmp2AA1FDDBF4A599A65E0D5D26A7566F85" Guid="6A384244-1BBE-4470-85C4-E39AAFCBF9F4">
+                <Component Id="cmp2AA1FDDBF4A599A65E0D5D26A7566F85" Guid="490D8389-9F0A-48E3-A7B1-64FCE2AA422E">
                     <File Id="fil15AB1693F50B0C39CBD988F0449BA69C" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\pl.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmpFB8ACA7EDA7143DE975DBB1411FFE4DA" Guid="2B1BA3E0-40C4-43C2-9241-E5EFCB3DD64F">
+                <Component Id="cmpFB8ACA7EDA7143DE975DBB1411FFE4DA" Guid="EE149156-7437-4EC6-96FD-56937E3002FF">
                     <File Id="filBFD75F5A956ED0108C4DFC5006858C6B" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\pt-BR.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmp8D09408AD939C3614F036BA23F83CEAF" Guid="0DB43E1D-693C-40AA-B2D8-DE880E9F8EF2">
+                <Component Id="cmp8D09408AD939C3614F036BA23F83CEAF" Guid="F1759B99-7260-473B-8E76-7B3B7723097A">
                     <File Id="fil165C565A2123F9016DE932F2605EEF3F" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\pt-PT.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmpECC3A8D97CB36A71D0B7F443E35800C8" Guid="D9204DA6-EBFF-4CB8-BFF5-57BF0B92781A">
+                <Component Id="cmpECC3A8D97CB36A71D0B7F443E35800C8" Guid="91AD6F3E-1A9D-4ED1-8E90-9C77CE088068">
                     <File Id="fil7268471638E44D685039DA059BF6B276" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\ro.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmp59C964B6F43003A1A3A55DD1AECBCA43" Guid="87F1B9E4-683F-4089-9C4E-4661DB5DEB1C">
+                <Component Id="cmp59C964B6F43003A1A3A55DD1AECBCA43" Guid="803F77A9-704B-48E7-91B2-902931B52F13">
                     <File Id="filEE2098B112CE25E1E814BE76A0A58478" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\ru.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmpD12328D1B1C15F161D59BDEC861510F0" Guid="EB04DCB9-E4F4-4FC4-B24C-EA5A9282A486">
+                <Component Id="cmpD12328D1B1C15F161D59BDEC861510F0" Guid="98832BB8-CC52-4ACA-A328-8636BD1D6792">
                     <File Id="fil6269F5A0A0688B3B296D2088CAE0BEB1" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\sk.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmp3A85435A15C2282620E6E7F0F9C4BA6A" Guid="27B565E3-12C1-40D9-840A-C69436093DF3">
+                <Component Id="cmp3A85435A15C2282620E6E7F0F9C4BA6A" Guid="7F287B98-E408-438A-BD11-4E4E6F552763">
                     <File Id="fil0A180FFAC3BD28C3BF7A2A8BE7C96105" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\sl.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmpD2B5995B3E4E01A197EDCF6123804C6A" Guid="EDEAC3D1-3D6E-4BFA-9420-A9FCF13D706B">
+                <Component Id="cmpD2B5995B3E4E01A197EDCF6123804C6A" Guid="90CB9703-688A-41AD-B9B5-29A11909F7AD">
                     <File Id="filD66471D6CBC4AECB272C4A6303A41DD8" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\sr.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmp24216D7215E1414DFC89B25EDBD5E2C7" Guid="B39BCC3B-BBFB-463E-889B-3D149711A411">
+                <Component Id="cmp24216D7215E1414DFC89B25EDBD5E2C7" Guid="21009376-AD8B-4EB2-A1AF-10C3AC1968BC">
                     <File Id="fil999E12334C66401B0DDE806F5BAC6E37" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\sv.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmpC238592F3A8A15C93C6F9FCB0043B2E8" Guid="42DEB97E-65CF-470E-B7DC-A4F53AD69824">
+                <Component Id="cmpC238592F3A8A15C93C6F9FCB0043B2E8" Guid="912209AC-DFA3-4A10-9981-8F48CAE26359">
                     <File Id="filA31A936363583E3EEA91982D3F02DDDD" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\sw.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmp5EDB33FD1D4504499060DA7E0C62AE11" Guid="6592E970-313F-40C1-8358-D146DEE4A1C7">
+                <Component Id="cmp5EDB33FD1D4504499060DA7E0C62AE11" Guid="90DE6CCF-109B-4E17-BFBC-33243C814281">
                     <File Id="filE9990BCE49D1632B0E8CF7BB431BCE97" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\ta.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmp1764BF5ACF1F8B00CF2EB9783FC14CCA" Guid="8A4EEF01-93E9-4FFD-BC9C-29053A151B04">
+                <Component Id="cmp1764BF5ACF1F8B00CF2EB9783FC14CCA" Guid="5D522DE8-5245-4B4B-BF33-54232905B2BB">
                     <File Id="fil64F8E1361E343EA23E9CC6FB414F6754" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\te.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmp3E970D995EC47A179D0999E90DB6B6F5" Guid="F98EB8FE-05E9-4653-9860-ADB9FCCA9F6D">
+                <Component Id="cmp3E970D995EC47A179D0999E90DB6B6F5" Guid="B1D866D3-68B7-468E-BA32-F05DE095512D">
                     <File Id="fil82746CA108C372AC7E8EA3048724DE8D" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\th.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmpD5D4E15D8044E7D4CF6399FC7B9EB899" Guid="DDC31759-478B-4ACA-B659-603D35DC126D">
+                <Component Id="cmpD5D4E15D8044E7D4CF6399FC7B9EB899" Guid="BBBB66D6-1C65-4D94-BB09-0BB9B1A684A5">
                     <File Id="fil57A3D94E67020C32D0130877AFE40955" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\tr.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmpD6CADF170B18A0852ED40B4D72E34CB2" Guid="F00E8021-826A-495A-A849-EA6802981ED6">
+                <Component Id="cmpD6CADF170B18A0852ED40B4D72E34CB2" Guid="688A4ABE-02EA-47F7-804E-5C945C3AA1A9">
                     <File Id="filD67F04A931259ADFFD79D1D2D591C155" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\uk.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmp2F96D450A2382E95B5CC47DF57BB4135" Guid="EC7D31CB-350C-49F7-8688-C1EF42894AFA">
+                <Component Id="cmp2F96D450A2382E95B5CC47DF57BB4135" Guid="4A2BD58E-F073-428D-B382-BA2DF6FFA1C6">
                     <File Id="fil4721D1439AD7A2BAEF57F359E64B1B2F" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\vi.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmp7A63BCA67A249AC87379F6ADDD98ED22" Guid="D7188922-8A8F-4FCD-8390-8BE980665918">
+                <Component Id="cmp7A63BCA67A249AC87379F6ADDD98ED22" Guid="C7E5C151-B2ED-46AB-B943-393306FF973F">
                     <File Id="fil3EBAB326EA8790FB30363E1482AFD693" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\zh-CN.pak" ProcessorArchitecture="msil" />
                 </Component>
-                <Component Id="cmpE41B2E2811D70BC820F795B969ECE32C" Guid="BD006C51-61E4-4B5F-884D-F4839B2DCE28">
+                <Component Id="cmpE41B2E2811D70BC820F795B969ECE32C" Guid="75C11688-C834-4105-8C77-334DD697EB43">
                     <File Id="fil5E9D73A0434758F73E3D46D1E22A910C" KeyPath="yes" Source="$(var.M4BSourceDir)\locales\zh-TW.pak" ProcessorArchitecture="msil" />
                 </Component>
             </Directory>
@@ -382,6 +385,7 @@
             <ComponentRef Id="cmp3E91BFC534AFA9B380469C9D6C8A19AC" />
             <ComponentRef Id="cmpAC768EFD4AC3E49D78ED030616FFBF19" />
             <ComponentRef Id="cmp097FB63967BA7FFC95711D7AFD4B253D" />
+            <ComponentRef Id="cmp190F529C789F5C7C3ED63C0401BC552C" />
             <ComponentRef Id="cmp2E10E6C834ED32E8C35D9BAEF5881988" />
             <ComponentRef Id="cmp8E6679B70D4C7935CE4D756EC3A5F2B4" />
             <ComponentRef Id="cmpDA70C4EB2033DAE17BAFD422DACC539A" />
