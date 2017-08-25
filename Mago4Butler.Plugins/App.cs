@@ -25,7 +25,7 @@ namespace Microarea.Mago4Butler.Plugins
         }
 
         AppAutomation appAutomation;
-        const string instanceNameRegexPattern = "^[a-zA-Z0-9]$";
+        const string instanceNameRegexPattern = "^[\\-a-zA-Z0-9]$";
         readonly Regex instanceNameRegex = new Regex(instanceNameRegexPattern);
 
         protected App()
