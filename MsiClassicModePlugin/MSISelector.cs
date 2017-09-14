@@ -36,7 +36,7 @@ namespace MsiClassicModePlugin
 
             FileInfo fi = new FileInfo(SelectedMsiFileName);
 
-            string instancename = "{0}_{1}";
+            string instancename = "{0}-{1}";
             string root = "";
             string buildnumb = string.Empty;
 

@@ -13,8 +13,9 @@ namespace MsiClassicModePlugin
 {
     public partial class frmMsiClassicMode : Form
     {
-
+        //TODO: implementare controllo nome istanza  App.Instance.IsInstanceNameValid(istanza.Name);
         bool IsUpdating { get; set; }
+        bool FieldsHaveErrors { get; set; }
         MSISelector msiselector;
         public frmMsiClassicMode(bool isupdating = false/*, CmdLineInfo listfeature*/  )
         {
@@ -72,13 +73,18 @@ namespace MsiClassicModePlugin
         {
 
             errProvider.Clear();
-
-            if (!FieldsHaveErrors())
+               if (!FieldsHaveErrors || !FieldsAreEmpty())
             { this.DialogResult = System.Windows.Forms.DialogResult.OK; }
 
         }
 
-        private bool FieldsHaveErrors()
+        //private bool FieldsHaveErrors()
+        //{
+        //    return FieldsAreEmpty();
+
+        //}
+
+        private bool FieldsAreEmpty()
         {
             var boxes = Controls.OfType<TextBox>();
 
@@ -116,7 +122,7 @@ namespace MsiClassicModePlugin
 
         private void frmMsiClassicMode_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (FieldsHaveErrors())
+            if (FieldsHaveErrors)
             { this.DialogResult = System.Windows.Forms.DialogResult.Cancel; }
             Properties.Settings.Default.Save();
         }
@@ -136,11 +142,21 @@ namespace MsiClassicModePlugin
 
                 errProvider.SetIconAlignment((TextBox)sender, ErrorIconAlignment.MiddleLeft);
                 errProvider.SetError((TextBox)sender, "Instance Already exists!");
-
                 return;
             }
-        }
 
+
+            if (!App.Instance.IsInstanceNameValid(txtInstanceName.Text))
+            {
+                errProvider.SetIconAlignment((TextBox)sender, ErrorIconAlignment.MiddleLeft);
+                errProvider.SetError((TextBox)sender, "Instance Name invalid!");
+                FieldsHaveErrors = true;
+                return;
+            }
+            else
+            { FieldsHaveErrors = false; }
+
+        }
 
         private void MsiSelector_MsiSelected(object sender, EventArgs e)
         {
@@ -148,9 +164,8 @@ namespace MsiClassicModePlugin
             if (msiselector != null)
                 msiselector.Visible = false;
 
-            if (!IsUpdating && txtInstanceName.Text == string.Empty)
-                txtInstanceName.Text = msiselector.SelectedInstanceName;
-
+            if (!IsUpdating && txtInstanceName.Text == string.Empty)        
+                                txtInstanceName.Text = msiselector.SelectedInstanceName;
         }
 
         private void txtboxFileMsi_TextChanged(object sender, EventArgs e)

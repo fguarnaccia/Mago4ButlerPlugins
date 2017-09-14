@@ -13,6 +13,7 @@ namespace MsiClassicModePlugin
         //SUGGESTIONS: Ripristino installazione - script IIS   - aggiunta lingue
         //SUGGESTIONS: gestire caratteri nome istanza
         //SUGGESTIONS: in fase di cancellazione di una build, avere un flag che consenta di scegliere se cancellare o meno dalla cartella in locale anche l’MSI che si è ricopiato in fase di installazione? 
+        //SUGGESTIONS: gestire problemi WS con ccnet (listbox vuota)
 
         static MsiClassicMode()
         {
