@@ -83,7 +83,7 @@
             this.txtboxFileMsi.Name = "txtboxFileMsi";
             this.txtboxFileMsi.Size = new System.Drawing.Size(365, 20);
             this.txtboxFileMsi.TabIndex = 1;
-            this.txtboxFileMsi.TextChanged += new System.EventHandler(this.txtboxFileMsi_TextChanged);
+
             // 
             // dlgOpenFile
             // 

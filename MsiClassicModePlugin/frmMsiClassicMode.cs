@@ -109,11 +109,13 @@ namespace MsiClassicModePlugin
             bool result = false;
 
 
-            foreach (var i in App.Instance.GetInstances().ToString())
+            foreach (var i in App.Instance.GetInstances())
             {
-                if (i.Equals(NomeIstanza))
-                {
+
+                if (string.Compare (i , NomeIstanza ,StringComparison.InvariantCultureIgnoreCase) == 0)
+                                {
                     result = true;
+                    break;
                 }
 
             }
@@ -144,7 +146,7 @@ namespace MsiClassicModePlugin
                 errProvider.SetError((TextBox)sender, "Instance Already exists!");
                 return;
             }
-
+            
 
             if (!App.Instance.IsInstanceNameValid(txtInstanceName.Text))
             {
@@ -168,17 +170,17 @@ namespace MsiClassicModePlugin
                                 txtInstanceName.Text = msiselector.SelectedInstanceName;
         }
 
-        private void txtboxFileMsi_TextChanged(object sender, EventArgs e)
-        {
+        //private void txtboxFileMsi_TextChanged(object sender, EventArgs e)
+        //{
 
-            if (!InstanceAlreadyExists(txtInstanceName.Text))
-                txtInstanceName.BackColor = Color.White;
-            else
-            {
-                txtInstanceName.BackColor = Color.Yellow;
-            }
+        //    //////if (!InstanceAlreadyExists(txtInstanceName.Text))
+        //    //////    txtInstanceName.BackColor = Color.White;
+        //    //////else
+        //    //////{
+        //    //////    txtInstanceName.BackColor = Color.Yellow;
+        //    //////}
 
-        }
+        //}
 
         private void itemCCNet_Click(object sender, EventArgs e)
         {
