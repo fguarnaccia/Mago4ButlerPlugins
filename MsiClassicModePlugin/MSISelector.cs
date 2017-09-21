@@ -181,10 +181,6 @@ namespace MsiClassicModePlugin
 
             base.MsiSelected += SelectorFromCCNet_MsiSelected;
          
-
-
-
-
             this.PopulateListBoxWithNightlytMsi(true);
         }
 

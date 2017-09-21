@@ -13,9 +13,11 @@ namespace MsiClassicModePlugin
 {
     public partial class frmMsiClassicMode : Form
     {
-        //TODO: implementare controllo nome istanza  App.Instance.IsInstanceNameValid(istanza.Name);
+        
         bool IsUpdating { get; set; }
         bool FieldsHaveErrors { get; set; }
+
+
         MSISelector msiselector;
         public frmMsiClassicMode(bool isupdating = false/*, CmdLineInfo listfeature*/  )
         {
@@ -72,17 +74,15 @@ namespace MsiClassicModePlugin
         private void btnOk_Click(object sender, EventArgs e)
         {
 
-            errProvider.Clear();
-               if (!FieldsHaveErrors || !FieldsAreEmpty())
-            { this.DialogResult = System.Windows.Forms.DialogResult.OK; }
-
+            //errProvider.Clear();
+            if (!FieldsHaveErrors && !FieldsAreEmpty())
+            { this.DialogResult = System.Windows.Forms.DialogResult.OK;
+                errProvider.Clear();
+            }
+            
+            
         }
 
-        //private bool FieldsHaveErrors()
-        //{
-        //    return FieldsAreEmpty();
-
-        //}
 
         private bool FieldsAreEmpty()
         {
@@ -131,7 +131,7 @@ namespace MsiClassicModePlugin
 
         private void frmMsiClassicMode_Load(object sender, EventArgs e)
         {
-
+            
             propgrdSettings.CollapseAllGridItems();
         }
 
@@ -162,25 +162,37 @@ namespace MsiClassicModePlugin
 
         private void MsiSelector_MsiSelected(object sender, EventArgs e)
         {
-            txtboxFileMsi.Text = msiselector.SelectedMsiFilePath;
-            if (msiselector != null)
-                msiselector.Visible = false;
+            //DONE: aggiunto try-catch [verificare eccezione System.InvalidCastException: Unable to cast object of type 'MsiClassicModePlugin.SelectorFromCCNet' to type 'System.Windows.Forms.TextBox'.
+            //  at MsiClassicModePlugin.frmMsiClassicMode.MsiSelector_MsiSelected(Object sender, EventArgs e)]
+            try
+            {
+                txtboxFileMsi.Text = msiselector.SelectedMsiFilePath;
+                if (msiselector != null)
+                    msiselector.Visible = false;
 
-            if (!IsUpdating && txtInstanceName.Text == string.Empty)        
-                                txtInstanceName.Text = msiselector.SelectedInstanceName;
+                if (!IsUpdating && txtInstanceName.Text == string.Empty)
+                    txtInstanceName.Text = msiselector.SelectedInstanceName;
+            }
+            catch (Exception ex)
+            {
+            
+
+                    PluginException plgnex = new PluginException("", ex);
+
+                    plgnex.ParamName = "SelectedMsiFilePath";
+                    plgnex.ParamValue = msiselector.SelectedMsiFilePath;
+                    plgnex.ToString();
+                     plgnex.ParamName = "SelectedInstanceName";
+                    plgnex.ParamValue = msiselector.SelectedInstanceName;
+                     plgnex.ToString();
+                throw plgnex;
+
+                }
+
+            
         }
 
-        //private void txtboxFileMsi_TextChanged(object sender, EventArgs e)
-        //{
 
-        //    //////if (!InstanceAlreadyExists(txtInstanceName.Text))
-        //    //////    txtInstanceName.BackColor = Color.White;
-        //    //////else
-        //    //////{
-        //    //////    txtInstanceName.BackColor = Color.Yellow;
-        //    //////}
-
-        //}
 
         private void itemCCNet_Click(object sender, EventArgs e)
         {
