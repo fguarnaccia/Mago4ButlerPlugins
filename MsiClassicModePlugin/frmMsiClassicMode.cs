@@ -114,12 +114,14 @@ namespace MsiClassicModePlugin
 
                 if (string.Compare (i , NomeIstanza ,StringComparison.InvariantCultureIgnoreCase) == 0)
                                 {
+                    
                     result = true;
                     break;
                 }
 
             }
-            return result;
+            FieldsHaveErrors = result;
+                return result;
         }
 
         private void frmMsiClassicMode_FormClosing(object sender, FormClosingEventArgs e)

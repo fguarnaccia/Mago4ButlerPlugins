@@ -96,8 +96,6 @@ namespace MsiClassicModePlugin
           
         }
 
-  
-
         private void lstbox_DoubleClick(object sender, EventArgs e)
         {
 
@@ -184,7 +182,6 @@ namespace MsiClassicModePlugin
             this.PopulateListBoxWithNightlytMsi(true);
         }
 
-  
 
         private void SelectorFromCCNet_MsiSelected(object sender, EventArgs e)
         {
@@ -209,7 +206,6 @@ namespace MsiClassicModePlugin
                 lstboxMain.Items.Add(nightly);
 
             }
-
 
             if (lstboxMain.Items.Count == 1)
                 lstboxMain.SelectedIndex = 0;
@@ -321,8 +317,7 @@ namespace MsiClassicModePlugin
            
         }
 
-
-
+        
        internal  void PopulateListBoxWithOfficialMsi(ListBox ListBox, MABuilds.GetUpdatesResponse[] OfficialBuild)
         {
             ListBox.Items.Clear();
