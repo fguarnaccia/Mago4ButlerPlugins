@@ -36,6 +36,7 @@ namespace SocialPlugin
         private void btnOk_Click(object sender, EventArgs e)
         {
             this.ContactUsOK(this, e);
+            MessageBox.Show("Message has been sent successfully!", "Social",MessageBoxButtons.OK,MessageBoxIcon.Information);
             this.Close();
             this.Dispose();
                

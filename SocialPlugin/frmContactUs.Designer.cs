@@ -63,6 +63,7 @@
             // 
             // txtFrom
             // 
+            this.txtFrom.Enabled = false;
             this.txtFrom.Location = new System.Drawing.Point(103, 15);
             this.txtFrom.Name = "txtFrom";
             this.txtFrom.Size = new System.Drawing.Size(316, 20);
@@ -70,6 +71,7 @@
             // 
             // txtSubject
             // 
+            this.txtSubject.Enabled = false;
             this.txtSubject.Location = new System.Drawing.Point(103, 54);
             this.txtSubject.Name = "txtSubject";
             this.txtSubject.Size = new System.Drawing.Size(316, 20);
