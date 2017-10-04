@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="SendSlackRequest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="payload" type="tns:PostSlackRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PostSlackRequest">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Channel" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Text" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Subject" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SendSlackRequestResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="TichetNumber">
+        <s:complexType />
+      </s:element>
+      <s:element name="TichetNumberResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="TichetNumberResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="SendSlackRequestSoapIn">
+    <wsdl:part name="parameters" element="tns:SendSlackRequest" />
+  </wsdl:message>
+  <wsdl:message name="SendSlackRequestSoapOut">
+    <wsdl:part name="parameters" element="tns:SendSlackRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="TichetNumberSoapIn">
+    <wsdl:part name="parameters" element="tns:TichetNumber" />
+  </wsdl:message>
+  <wsdl:message name="TichetNumberSoapOut">
+    <wsdl:part name="parameters" element="tns:TichetNumberResponse" />
+  </wsdl:message>
+  <wsdl:portType name="SlackServiceSoap">
+    <wsdl:operation name="SendSlackRequest">
+      <wsdl:input message="tns:SendSlackRequestSoapIn" />
+      <wsdl:output message="tns:SendSlackRequestSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="TichetNumber">
+      <wsdl:input message="tns:TichetNumberSoapIn" />
+      <wsdl:output message="tns:TichetNumberSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SlackServiceSoap" type="tns:SlackServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SendSlackRequest">
+      <soap:operation soapAction="http://tempuri.org/SendSlackRequest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TichetNumber">
+      <soap:operation soapAction="http://tempuri.org/TichetNumber" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SlackServiceSoap12" type="tns:SlackServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SendSlackRequest">
+      <soap12:operation soapAction="http://tempuri.org/SendSlackRequest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TichetNumber">
+      <soap12:operation soapAction="http://tempuri.org/TichetNumber" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SlackService">
+    <wsdl:port name="SlackServiceSoap" binding="tns:SlackServiceSoap">
+      <soap:address location="http://www.microarea.it/PAASUpdates/SlackService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SlackServiceSoap12" binding="tns:SlackServiceSoap12">
+      <soap12:address location="http://www.microarea.it/PAASUpdates/SlackService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
