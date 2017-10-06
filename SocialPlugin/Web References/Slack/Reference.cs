@@ -26,7 +26,7 @@ namespace SocialPlugin.Slack {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.2053.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Web.Services.WebServiceBindingAttribute(Name="SlackServiceSoap", Namespace="http://tempuri.org/")]
+    [System.Web.Services.WebServiceBindingAttribute(Name="SlackServiceSoap", Namespace="http://www.microarea.it/PAASUpdates/")]
     public partial class SlackService : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
         private System.Threading.SendOrPostCallback SendSlackRequestOperationCompleted;
@@ -78,7 +78,7 @@ namespace SocialPlugin.Slack {
         public event TichetNumberCompletedEventHandler TichetNumberCompleted;
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/SendSlackRequest", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.microarea.it/PAASUpdates/SendSlackRequest", RequestNamespace="http://www.microarea.it/PAASUpdates/", ResponseNamespace="http://www.microarea.it/PAASUpdates/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public void SendSlackRequest(PostSlackRequest payload) {
             this.Invoke("SendSlackRequest", new object[] {
                         payload});
@@ -106,7 +106,7 @@ namespace SocialPlugin.Slack {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/TichetNumber", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.microarea.it/PAASUpdates/TichetNumber", RequestNamespace="http://www.microarea.it/PAASUpdates/", ResponseNamespace="http://www.microarea.it/PAASUpdates/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public string TichetNumber() {
             object[] results = this.Invoke("TichetNumber", new object[0]);
             return ((string)(results[0]));
@@ -156,7 +156,7 @@ namespace SocialPlugin.Slack {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.microarea.it/PAASUpdates/")]
     public partial class PostSlackRequest {
         
         private string channelField;
