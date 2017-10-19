@@ -130,6 +130,7 @@ namespace MagoRunnerPlugin
             return;
         }
 
+        
         public override DoubleClickHandler GetDoubleClickHandler()
         {
 
@@ -138,6 +139,8 @@ namespace MagoRunnerPlugin
             return dch;
                  
         }
+
+
 
         void RunRoot(Instance istanza)
         {
