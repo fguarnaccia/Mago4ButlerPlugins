@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Xml;
-using System.Windows.Forms;
 
 /// <summary>
 /// Aggiorna la versione 
@@ -34,14 +29,11 @@ namespace VersionManager
 
             string path = string.Empty;
 
-            //MessageBox.Show("args len: " + args.Length + ", values: " + string.Join(", ", args));
-
             if (args[0] == "POST")
             {
-               SetPluginVersion(args[1] , args[2]);
+               WritePluginVersionOnUpdatesxml(args[1] , args[2]);
               
                 return;
-
             }
 
             else
@@ -80,22 +72,22 @@ namespace VersionManager
             }
         }
 
-        private void WriteVersionOnAssemblyInfo(string path, string newversion, ref string content)
+        static void WriteVersionOnAssemblyInfo(string path, string newversion, string oldversion)
 
         {
+            string content;
             using (StreamReader sr = new StreamReader(path))
             {
                 content = sr.ReadToEnd();
             }
 
-            content = content.Replace("oldversion", newversion);
+            content = content.Replace(oldversion, newversion);
 
             using (StreamWriter sw = new StreamWriter(path, false))
             {
                 sw.Write(content);
             }
         }
-
 
 
         private static string CalculateNewVersion(string major, string minor)
@@ -129,7 +121,7 @@ namespace VersionManager
         }
         
 
-        private static void SetPluginVersion(string plgnNamespace, string pathOfAssemblyinfo)
+        static void WritePluginVersionOnUpdatesxml(string plgnNamespace, string pathOfAssemblyinfo)
         {
             
             string xmlfile = string.Empty;
@@ -143,7 +135,10 @@ namespace VersionManager
 
                 if (item.GetAttribute("name") == plgnNamespace)
                 {
-                   item.SetAttribute("version", CalculateNewVersion(GetLastVersion(pathOfAssemblyinfo)));
+                    string oldversion = GetLastVersion(pathOfAssemblyinfo);
+                    string newversion = CalculateNewVersion(oldversion);
+                    item.SetAttribute("version", newversion);
+                    WriteVersionOnAssemblyInfo(pathOfAssemblyinfo, newversion, oldversion);
                 }
 
             }
