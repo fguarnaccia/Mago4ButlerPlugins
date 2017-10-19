@@ -83,7 +83,6 @@
             this.txtboxFileMsi.Name = "txtboxFileMsi";
             this.txtboxFileMsi.Size = new System.Drawing.Size(365, 20);
             this.txtboxFileMsi.TabIndex = 1;
-
             // 
             // dlgOpenFile
             // 
@@ -115,12 +114,14 @@
             this.btnEsc.TabIndex = 6;
             this.btnEsc.Text = "&Annulla";
             this.btnEsc.UseVisualStyleBackColor = true;
+
             // 
             // propgrdSettings
             // 
             this.propgrdSettings.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.propgrdSettings.HelpVisible = false;
+            this.propgrdSettings.LineColor = System.Drawing.SystemColors.ControlDark;
             this.propgrdSettings.Location = new System.Drawing.Point(2, 151);
             this.propgrdSettings.Name = "propgrdSettings";
             this.propgrdSettings.Size = new System.Drawing.Size(464, 238);
@@ -134,26 +135,26 @@
             this.itemSite});
             this.dropdownMsiFrom.Name = "contextMenuStrip1";
             this.dropdownMsiFrom.ShowImageMargin = false;
-            this.dropdownMsiFrom.Size = new System.Drawing.Size(128, 92);
+            this.dropdownMsiFrom.Size = new System.Drawing.Size(88, 70);
             // 
             // itemCCNet
             // 
             this.itemCCNet.Name = "itemCCNet";
-            this.itemCCNet.Size = new System.Drawing.Size(127, 22);
+            this.itemCCNet.Size = new System.Drawing.Size(87, 22);
             this.itemCCNet.Text = "CCNet";
             this.itemCCNet.Click += new System.EventHandler(this.itemCCNet_Click);
             // 
             // itemFolder
             // 
             this.itemFolder.Name = "itemFolder";
-            this.itemFolder.Size = new System.Drawing.Size(127, 22);
+            this.itemFolder.Size = new System.Drawing.Size(87, 22);
             this.itemFolder.Text = "Local";
             this.itemFolder.Click += new System.EventHandler(this.itemFolder_Click);
             // 
             // itemSite
             // 
             this.itemSite.Name = "itemSite";
-            this.itemSite.Size = new System.Drawing.Size(127, 22);
+            this.itemSite.Size = new System.Drawing.Size(87, 22);
             this.itemSite.Text = "&Official";
             this.itemSite.Visible = false;
             this.itemSite.Click += new System.EventHandler(this.itemSite_Click);

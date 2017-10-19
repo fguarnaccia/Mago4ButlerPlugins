@@ -16,7 +16,7 @@ namespace MsiClassicModePlugin
         
         bool IsUpdating { get; set; }
         bool FieldsHaveErrors { get; set; }
-
+       
 
         MSISelector msiselector;
         public frmMsiClassicMode(bool isupdating = false/*, CmdLineInfo listfeature*/  )
@@ -178,7 +178,6 @@ namespace MsiClassicModePlugin
             catch (Exception ex)
             {
             
-
                     PluginException plgnex = new PluginException("", ex);
 
                     plgnex.ParamName = "SelectedMsiFilePath";
@@ -190,11 +189,8 @@ namespace MsiClassicModePlugin
                 throw plgnex;
 
                 }
-
             
         }
-
-
 
         private void itemCCNet_Click(object sender, EventArgs e)
         {
@@ -237,6 +233,7 @@ namespace MsiClassicModePlugin
             Controls.SetChildIndex(msiselector, 0);
 
         }
+
     }
 
     // ------   ***** ------------------

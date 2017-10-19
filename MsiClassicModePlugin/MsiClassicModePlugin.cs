@@ -11,8 +11,24 @@ namespace MsiClassicModePlugin
     {
 
         //SUGGESTIONS: Ripristino installazione - script IIS   - aggiunta lingue
-        //SUGGESTIONS: in fase di cancellazione di una build, avere un flag che consenta di scegliere se cancellare o meno dalla cartella in locale anche l’MSI che si è ricopiato in fase di installazione? 
         //SUGGESTIONS: gestire problemi WS con ccnet (listbox vuota)
+
+        //List<Feature> FixedFeatures = new List<Feature>() {
+        //    new Feature() { Description = "Mago4" },
+        //    new Feature() {  Description = "MagoNet" } ,
+        //    new Feature() { Description = "Italian (Italy)" },
+        //    new Feature() { Description = "Language Packages" },
+        //     new Feature() { Description = "TaskBuilder Framework" },
+        //};
+
+        System.Collections.Specialized.StringCollection FixedFeatures = new System.Collections.Specialized.StringCollection()
+        {
+           "Mago4" , "MagoNet" , "Italian (Italy)", "Language Packages" , "TaskBuilder Framework"
+
+        };
+
+
+
 
         static MsiClassicMode()
         {
@@ -21,7 +37,16 @@ namespace MsiClassicModePlugin
                 Properties.Settings.Default.Upgrade();
                 Properties.Settings.Default.UpgradeRequired = false;
                 Properties.Settings.Default.Save();
+                         
             }
+
+        #if DEBUG 
+
+            Properties.Settings.Default.Reset();
+
+        #endif
+
+                
         }
 
         public enum ProductSignature
@@ -37,7 +62,8 @@ namespace MsiClassicModePlugin
             //stimola il WS per accelerare la risposta quando richiesto
             MABuilds.UpdatesService ccnet = new MABuilds.UpdatesService();
             Task.Factory.StartNew(() => ccnet.GetNightlyBuilds());
-               
+
+            
         }
         public override void OnInstalling(CmdLineInfo cmdLineInfo)
         {
@@ -67,8 +93,10 @@ namespace MsiClassicModePlugin
             //        .Where(f => String.Compare(f.Description, description, StringComparison.InvariantCultureIgnoreCase) == 0)
             //        .FirstOrDefault();     
 
-            //if (IsMago4Setup(cmdLineInfo))
-            //{
+
+           
+            
+
                 var clonedCollection = new List<Feature>(cmdLineInfo.Features);
 
                 foreach (Feature feature in clonedCollection)
@@ -76,12 +104,18 @@ namespace MsiClassicModePlugin
                     if (!Properties.Settings.Default.KeepFeatures.Contains(feature.Description))
                     {
 
+                    if (FixedFeatures.Contains(feature.Description)) continue;
+
                         cmdLineInfo.Features.Remove(feature);
                     }
                 }
+            ///TODO Fix Keepfeatures here,  spostare nel ciclo sopra
+            //foreach (Feature feature in FixedFeatures)
+            //{
+            //    cmdLineInfo.Features.Add(feature);
             //}
-            //listfeature.Features = cmdLineInfo.Features;
-            
+
+            Debug.Assert(true, "");
         }  
 
         void StopSharedFolder(Instance istanza)

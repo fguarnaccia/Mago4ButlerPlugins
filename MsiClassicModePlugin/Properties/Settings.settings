@@ -23,12 +23,7 @@
     <Setting Name="KeepFeatures" Type="System.Collections.Specialized.StringCollection" Scope="User">
       <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;string&gt;Italian (Italy)&lt;/string&gt;
-  &lt;string&gt;Language Packages&lt;/string&gt;
-  &lt;string&gt;TaskBuilder Framework&lt;/string&gt;
   &lt;string&gt;TaskBuilder Studio&lt;/string&gt;
-  &lt;string&gt;Mago4&lt;/string&gt;
-  &lt;string&gt;Mago.net&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
     <Setting Name="UpgradeRequired" Type="System.Boolean" Scope="User">
