@@ -115,7 +115,7 @@ namespace MsiClassicModePlugin
             //    cmdLineInfo.Features.Add(feature);
             //}
 
-            Debug.Assert(true, "");
+
         }  
 
         void StopSharedFolder(Instance istanza)
