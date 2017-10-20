@@ -346,7 +346,11 @@ namespace Microarea.Mago4Butler.Model
 
         private static string ReadFileContent(FileInfo installationVerPath)
         {
-            return new StreamReader(File.OpenRead(installationVerPath.FullName)).ReadToEnd();
+            using (var inputStream = File.OpenRead(installationVerPath.FullName))
+            using (var sr = new StreamReader(inputStream))
+            {
+                return sr.ReadToEnd();
+            }
         }
 
         private FileInfo GetInstallationVer(string instanceName)
