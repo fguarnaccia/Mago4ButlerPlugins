@@ -357,6 +357,7 @@ namespace Microarea.Mago4Butler.BL
                     this.GetUpgradeCode(currentRequest.MsiPath),
                     this.GetProductName(currentRequest.MsiPath).Replace(".", string.Empty));
                 this.registryService.RemoveInstallerFoldersKeys(currentRequest.RootFolder, currentRequest.Instance);
+                this.registryService.RemoveTBFPRegistration();
                 //OnNotification(new NotificationEventArgs() { Message = "Installation info removed" });
 
                 //OnNotification(new NotificationEventArgs() { Message = "Launching msi..." });
@@ -388,6 +389,7 @@ namespace Microarea.Mago4Butler.BL
                     this.GetUpgradeCode(currentRequest.MsiPath),
                     this.GetProductName(currentRequest.MsiPath).Replace(".", string.Empty));
             this.registryService.RemoveInstallerFoldersKeys(currentRequest.RootFolder, currentRequest.Instance);
+            this.registryService.RemoveTBFPRegistration();
             //OnNotification(new NotificationEventArgs() { Message = "Now the registry is clean" });
         }
 
@@ -405,6 +407,7 @@ namespace Microarea.Mago4Butler.BL
                     this.GetUpgradeCode(currentRequest.MsiPath),
                     this.GetProductName(currentRequest.MsiPath).Replace(".", string.Empty));
                 this.registryService.RemoveInstallerFoldersKeys(currentRequest.RootFolder, currentRequest.Instance);
+                this.registryService.RemoveTBFPRegistration();
 
                 this.LogInfo("Launching " + currentRequest.MsiPath + " with command line " + cmdLineInfo.ToString());
                 string installLogFilePath = Path.Combine(this.settings.LogsFolder, "Mago4_" + currentRequest.Instance.Name + "_UpdateLog_" + DateTime.Now.ToString("yyyyMMddhhmmss", CultureInfo.InvariantCulture) + ".log");
@@ -431,6 +434,7 @@ namespace Microarea.Mago4Butler.BL
                     this.GetUpgradeCode(currentRequest.MsiPath),
                     this.GetProductName(currentRequest.MsiPath).Replace(".", string.Empty));
             this.registryService.RemoveInstallerFoldersKeys(currentRequest.RootFolder, currentRequest.Instance);
+            this.registryService.RemoveTBFPRegistration();
         }
     }
 }

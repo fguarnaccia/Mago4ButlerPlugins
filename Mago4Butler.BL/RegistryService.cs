@@ -14,6 +14,17 @@ namespace Microarea.Mago4Butler.BL
 {
     internal class RegistryService : ILogger
     {
+        public void RemoveTBFPRegistration()
+        {
+            using (RegistryKey key = Registry.ClassesRoot)
+            {
+                if (key != null)
+                {
+                    key.DeleteSubKeyTree("Microarea.SnapInstaller.v1");
+                    key.DeleteSubKeyTree(".tbfp");
+                }
+            }
+        }
         public void RemoveInstallationInfoKey(string msiFullPath, string upgradeCode, string productName)
         {
             try
