@@ -195,14 +195,23 @@ namespace MsiClassicModePlugin
         internal void PopulateListBoxWithNightlytMsi(bool FromWebService)
         {
 
-            nightlybuilds = updateservice.GetNightlyBuilds();
+            updateservice.Timeout = 10000;
 
+            try
+            {
+                nightlybuilds = updateservice.GetNightlyBuilds();
+            }
+
+            catch (System.Net.WebException e)
+            {
+                MessageBox.Show("Please, try again later!", e.Message.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }              
+
+            
             foreach (var nightly in nightlybuilds)
 
             {
-
-                //lstboxMain.Items.Add(UppercaseFirst((Path.GetFileName(nightly.FilePath).ToLower())));
-
                 lstboxMain.Items.Add(nightly);
 
             }
@@ -246,7 +255,6 @@ namespace MsiClassicModePlugin
         MABuilds.GetUpdatesResponse[] officialmago4builds;
         MABuilds.GetUpdatesResponse[] officialmagonetbuilds;
         MABuilds.GetUpdatesRequest updaterequest = new MABuilds.GetUpdatesRequest();
-        
 
         public SelectorFromSite()
         {
@@ -263,12 +271,32 @@ namespace MsiClassicModePlugin
 
         private void PopulateBothLIstBox()
         {
+
+            updateservice.Timeout = 10000;
+
             updaterequest.ProductSignature = MsiClassicMode.ProductSignature.M4GO.ToString();
-            officialmago4builds = updateservice.GetOfficialBuilds(updaterequest);
+            try
+            {
+                officialmago4builds = updateservice.GetOfficialBuilds(updaterequest);
+            }
+            catch (System.Net.WebException e)
+            {
+                MessageBox.Show("Please, try again later!", e.Message.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
             PopulateListBoxWithOfficialMsi(lstboxMain, officialmago4builds);
 
+
             updaterequest.ProductSignature = GetEnumDescription(MsiClassicMode.ProductSignature.MagoNetPro);
-            officialmagonetbuilds = updateservice.GetOfficialBuilds(updaterequest);
+            try
+            {
+                officialmagonetbuilds = updateservice.GetOfficialBuilds(updaterequest);
+            }
+            catch (System.Net.WebException e)
+            {
+                MessageBox.Show("Please, try again later!", e.Message.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
             PopulateListBoxWithOfficialMsi(lstboxAux, officialmagonetbuilds);
 
         }
@@ -340,9 +368,6 @@ namespace MsiClassicModePlugin
 
         public string MsiURI4()
         {
-         
-  
-
             if (lstboxMain.SelectedItem == null) return null;
             return ((GetUpdatesResponse)(lstboxMain.SelectedItem)).DownloadUri;
 

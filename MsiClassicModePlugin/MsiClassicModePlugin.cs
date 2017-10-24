@@ -10,9 +10,6 @@ namespace MsiClassicModePlugin
     public class MsiClassicMode : Mago4ButlerPlugin
     {
 
-        //SUGGESTIONS: Ripristino installazione - script IIS   - aggiunta lingue
-        //SUGGESTIONS: gestire problemi WS con ccnet (listbox vuota)
-
         //List<Feature> FixedFeatures = new List<Feature>() {
         //    new Feature() { Description = "Mago4" },
         //    new Feature() {  Description = "MagoNet" } ,
@@ -26,8 +23,6 @@ namespace MsiClassicModePlugin
            "Mago4" , "MagoNet" , "Italian (Italy)", "Language Packages" , "TaskBuilder Framework"
 
         };
-
-
 
 
         static MsiClassicMode()
@@ -60,7 +55,7 @@ namespace MsiClassicModePlugin
         public override void OnApplicationStarted()
         {
             //stimola il WS per accelerare la risposta quando richiesto
-            MABuilds.UpdatesService ccnet = new MABuilds.UpdatesService();
+            MABuilds.UpdatesService ccnet = new MABuilds.UpdatesService();    
             Task.Factory.StartNew(() => ccnet.GetNightlyBuilds());
 
             
@@ -93,9 +88,7 @@ namespace MsiClassicModePlugin
             //        .Where(f => String.Compare(f.Description, description, StringComparison.InvariantCultureIgnoreCase) == 0)
             //        .FirstOrDefault();     
 
-
-           
-            
+       
 
                 var clonedCollection = new List<Feature>(cmdLineInfo.Features);
 
@@ -104,16 +97,12 @@ namespace MsiClassicModePlugin
                     if (!Properties.Settings.Default.KeepFeatures.Contains(feature.Description))
                     {
 
-                    if (FixedFeatures.Contains(feature.Description)) continue;
+                        if (FixedFeatures.Contains(feature.Description)) continue;
 
-                        cmdLineInfo.Features.Remove(feature);
+                             cmdLineInfo.Features.Remove(feature);
                     }
                 }
-            ///TODO Fix Keepfeatures here,  spostare nel ciclo sopra
-            //foreach (Feature feature in FixedFeatures)
-            //{
-            //    cmdLineInfo.Features.Add(feature);
-            //}
+
 
 
         }  
