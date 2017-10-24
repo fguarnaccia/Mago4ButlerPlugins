@@ -20,8 +20,16 @@ namespace Microarea.Mago4Butler.BL
             {
                 if (key != null)
                 {
-                    key.DeleteSubKeyTree("Microarea.SnapInstaller.v1");
-                    key.DeleteSubKeyTree(".tbfp");
+                    var subKeys = key.GetSubKeyNames()
+                        .Where(n => 
+                            string.Compare("Microarea.SnapInstaller.v1", n, StringComparison.OrdinalIgnoreCase) == 0 ||
+                            string.Compare(".tbfp", n, StringComparison.OrdinalIgnoreCase) == 0
+                            );
+
+                    foreach (var subKey in subKeys)
+                    {
+                        key.DeleteSubKeyTree(subKey);
+                    }
                 }
             }
         }

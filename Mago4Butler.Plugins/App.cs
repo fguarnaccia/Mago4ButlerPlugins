@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Microarea.Mago4Butler.Plugins
@@ -135,47 +136,57 @@ namespace Microarea.Mago4Butler.Plugins
             httpService.DownloadFile(msiUri, localMsiPath);
         }
 
-        public void InstallMsi(string msiFilePath, string masterProductUpgradeCode = null, string masterProductName = null, string instance = null)
+        [Obsolete("Use InstallMsi(string msiFilePath, string masterProductUpgradeCode, string masterProductName, string instance)")]
+        public void InstallMsi(string msiFilePath)
         {
-            var argsBuilder = new StringBuilder();
+            InstallMsi(msiFilePath, null, null, null);
+        }
 
-            argsBuilder
-                .Append("/i")
-                .Append(" \"")
-                .Append(msiFilePath)
-                .Append("\"");
-
-            if (BL.Settings.Default.MsiLog)
+        public void InstallMsi(string msiFilePath, string masterProductUpgradeCode, string masterProductName, string instance)
+        {
+            Task.Factory.StartNew(()
+                =>
             {
+                var argsBuilder = new StringBuilder();
+
                 argsBuilder
-                    .Append(" /lv*x")
+                    .Append("/i")
                     .Append(" \"")
-                    .Append(Path.Combine(BL.Settings.Default.LogsFolder, Path.GetFileNameWithoutExtension(msiFilePath) + ".log"))
+                    .Append(msiFilePath)
                     .Append("\"");
-            }
 
-            LaunchProcessTrait.LaunchProcess(null as MsiService, MsiService.msiexecPath, argsBuilder.ToString(), 12000);
+                if (BL.Settings.Default.MsiLog)
+                {
+                    argsBuilder
+                        .Append(" /lv*x")
+                        .Append(" \"")
+                        .Append(Path.Combine(BL.Settings.Default.LogsFolder, Path.GetFileNameWithoutExtension(msiFilePath) + ".log"))
+                        .Append("\"");
+                }
 
-            //Rimuovo le informazioni di installazione dal registry se presenti in
-            //modo che la mia installazione non le trovi e tenga i parametri che passo io da riga di comando.
-            var msiService = new MsiService(null, null, null, null, null);
-            var msiZapper = new MsiZapper();
-            msiZapper.ZapMsi(msiFilePath, msiService.GetProductCode(msiFilePath));
+                LaunchProcessTrait.LaunchProcess(null as MsiService, MsiService.msiexecPath, argsBuilder.ToString(), 12000);
 
-            if (
-                !string.IsNullOrWhiteSpace(masterProductUpgradeCode) &&
-                !string.IsNullOrWhiteSpace(masterProductName) &&
-                !string.IsNullOrWhiteSpace(instance)
-                )
-            {
-                var registryService = new RegistryService();
-                registryService.RemoveInstallationInfoKey(
-                        string.Empty,
-                        masterProductUpgradeCode,
-                        masterProductName.Replace(".", string.Empty)
-                        );
-                registryService.RemoveInstallerFoldersKeys(Settings.RootFolder, instance);
-            }
+                //Rimuovo le informazioni di installazione dal registry se presenti in
+                //modo che la mia installazione non le trovi e tenga i parametri che passo io da riga di comando.
+                var msiService = new MsiService(null, null, null, null, null);
+                var msiZapper = new MsiZapper();
+                msiZapper.ZapMsi(msiFilePath, msiService.GetProductCode(msiFilePath));
+
+                if (
+                    !string.IsNullOrWhiteSpace(masterProductUpgradeCode) &&
+                    !string.IsNullOrWhiteSpace(masterProductName) &&
+                    !string.IsNullOrWhiteSpace(instance)
+                    )
+                {
+                    var registryService = new RegistryService();
+                    registryService.RemoveInstallationInfoKey(
+                            string.Empty,
+                            masterProductUpgradeCode,
+                            masterProductName.Replace(".", string.Empty)
+                            );
+                    registryService.RemoveInstallerFoldersKeys(Settings.RootFolder, instance);
+                }
+            });
         }
 
         public bool IsInstanceNameValid(string instanceName)
