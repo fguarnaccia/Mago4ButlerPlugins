@@ -178,11 +178,17 @@ namespace Microarea.Mago4Butler.Plugins
                     !string.IsNullOrWhiteSpace(instance)
                     )
                 {
+                    var cleanMasterProductName = masterProductName.Replace(".", string.Empty);
                     var registryService = new RegistryService();
                     registryService.RemoveInstallationInfoKey(
                             string.Empty,
                             masterProductUpgradeCode,
-                            masterProductName.Replace(".", string.Empty)
+                            cleanMasterProductName
+                            );
+                    registryService.RemoveInstallationInfoKey(
+                            string.Empty,
+                            msiService.GetUpgradeCode(msiFilePath),
+                            cleanMasterProductName
                             );
                     registryService.RemoveInstallerFoldersKeys(Settings.RootFolder, instance);
                 }
