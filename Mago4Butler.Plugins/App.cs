@@ -135,7 +135,7 @@ namespace Microarea.Mago4Butler.Plugins
             httpService.DownloadFile(msiUri, localMsiPath);
         }
 
-        public void InstallMsi(string msiFilePath)
+        public void InstallMsi(string msiFilePath, string masterProductUpgradeCode = null, string masterProductName = null, string instance = null)
         {
             var argsBuilder = new StringBuilder();
 
@@ -161,6 +161,21 @@ namespace Microarea.Mago4Butler.Plugins
             var msiService = new MsiService(null, null, null, null, null);
             var msiZapper = new MsiZapper();
             msiZapper.ZapMsi(msiFilePath, msiService.GetProductCode(msiFilePath));
+
+            if (
+                !string.IsNullOrWhiteSpace(masterProductUpgradeCode) &&
+                !string.IsNullOrWhiteSpace(masterProductName) &&
+                !string.IsNullOrWhiteSpace(instance)
+                )
+            {
+                var registryService = new RegistryService();
+                registryService.RemoveInstallationInfoKey(
+                        string.Empty,
+                        masterProductUpgradeCode,
+                        masterProductName.Replace(".", string.Empty)
+                        );
+                registryService.RemoveInstallerFoldersKeys(Settings.RootFolder, instance);
+            }
         }
 
         public bool IsInstanceNameValid(string instanceName)

@@ -60,8 +60,12 @@ namespace Microarea.Mago4Butler.BL
                 this.LogError("Error removing installation info keys for " + msiFullPath, exc);
             }
         }
-
         public void RemoveInstallerFoldersKeys(string rootPath, Instance instance)
+        {
+            RemoveInstallerFoldersKeys(rootPath, instance.Name);
+        }
+
+        public void RemoveInstallerFoldersKeys(string rootPath, string instanceName)
         {
             try
             {
@@ -70,7 +74,7 @@ namespace Microarea.Mago4Butler.BL
                 string keyName = @"Software\Microsoft\Windows\CurrentVersion\Installer\Folders";
                 var foldersKey = localMachineKey.OpenSubKey(keyName, true);
 
-                var instanceRootPath = Path.Combine(rootPath, instance.Name);
+                var instanceRootPath = Path.Combine(rootPath, instanceName);
                 foreach (var keyValue in foldersKey.GetValueNames())
                 {
                     if (keyValue.StartsWith(instanceRootPath, StringComparison.InvariantCultureIgnoreCase))
@@ -81,7 +85,7 @@ namespace Microarea.Mago4Butler.BL
             }
             catch (Exception exc)
             {
-                this.LogError("Error removing installation folder keys for " + instance.Name, exc);
+                this.LogError("Error removing installation folder keys for " + instanceName, exc);
             }
         }
 
