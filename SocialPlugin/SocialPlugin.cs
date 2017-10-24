@@ -13,7 +13,7 @@ namespace SocialPlugin
         frmContactUs contactus ;
 
         Slack.PostSlackRequest payload = new Slack.PostSlackRequest();
-        //Slack.SlackServiceSoapClient slack = new Slack.SlackServiceSoapClient(); necessrai osil WS viene referneziato come Service e non come web 
+        //Slack.SlackServiceSoapClient slack = new Slack.SlackServiceSoapClient(); necessario se il WS viene referenziato come Service e non come web 
         Slack.SlackService slack = new Slack.SlackService();
       
         public void CmdContactUS()

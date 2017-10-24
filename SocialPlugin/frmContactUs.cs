@@ -14,20 +14,13 @@ namespace SocialPlugin
         string User = Environment.UserName;
         //public string Ticket { get; set; }
 
-    //    public frmContactUs()
-    //    {
-    //        InitializeComponent();
-    //        txtFrom.Text = RetrieveEmailAddress(Domain, User);
-            
-      
-    //}
+
         public frmContactUs(string Ticket) 
         {
 
             InitializeComponent();
             txtFrom.Text = RetrieveEmailAddress(Domain, User);
-            txtSubject.Text = Ticket;
-           
+            txtSubject.Text = Ticket;  
 
         }
 

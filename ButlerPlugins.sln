@@ -4,8 +4,6 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagoRunnerPlugin.MagoRunner", "MagoRunnerPlugin\MagoRunnerPlugin.MagoRunner.csproj", "{DDF38A44-C6C7-4643-B991-68870B94E8E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientSetup", "ClientSetupPlugin\ClientSetup.csproj", "{7B94404F-1303-4A5C-80DC-AE1467F3C0CF}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MsiClassicModePlugin.MsiClassicMode", "MsiClassicModePlugin\MsiClassicModePlugin.MsiClassicMode.csproj", "{D7AF6322-4DAC-4D52-9051-EB023F83A5CA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D48D2E5F-8BCA-43C8-8FAF-0CBDC72B54E8}"
@@ -44,14 +42,6 @@ Global
 		{DDF38A44-C6C7-4643-B991-68870B94E8E7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DDF38A44-C6C7-4643-B991-68870B94E8E7}.Release|x86.ActiveCfg = Release|x86
 		{DDF38A44-C6C7-4643-B991-68870B94E8E7}.Release|x86.Build.0 = Release|x86
-		{7B94404F-1303-4A5C-80DC-AE1467F3C0CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7B94404F-1303-4A5C-80DC-AE1467F3C0CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7B94404F-1303-4A5C-80DC-AE1467F3C0CF}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{7B94404F-1303-4A5C-80DC-AE1467F3C0CF}.Deploy|Any CPU.ActiveCfg = Debug|Any CPU
-		{7B94404F-1303-4A5C-80DC-AE1467F3C0CF}.Deploy|x86.ActiveCfg = Debug|Any CPU
-		{7B94404F-1303-4A5C-80DC-AE1467F3C0CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7B94404F-1303-4A5C-80DC-AE1467F3C0CF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7B94404F-1303-4A5C-80DC-AE1467F3C0CF}.Release|x86.ActiveCfg = Release|Any CPU
 		{D7AF6322-4DAC-4D52-9051-EB023F83A5CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D7AF6322-4DAC-4D52-9051-EB023F83A5CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D7AF6322-4DAC-4D52-9051-EB023F83A5CA}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -114,30 +104,27 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 8
+		SccNumberOfProjects = 7
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = http://tfs:8080/tfs/microarea
 		SccLocalPath0 = .
 		SccProjectUniqueName1 = VersionManager\\VersionManager.csproj
 		SccProjectName1 = VersionManager
 		SccLocalPath1 = VersionManager
-		SccProjectUniqueName2 = ClientSetupPlugin\\ClientSetup.csproj
-		SccProjectName2 = ClientSetupPlugin
-		SccLocalPath2 = ClientSetupPlugin
-		SccProjectUniqueName3 = MagoRunnerPlugin\\MagoRunnerPlugin.MagoRunner.csproj
-		SccProjectName3 = MagoRunnerPlugin
-		SccLocalPath3 = MagoRunnerPlugin
-		SccProjectUniqueName4 = MsiClassicModePlugin\\MsiClassicModePlugin.MsiClassicMode.csproj
-		SccProjectName4 = MsiClassicModePlugin
-		SccLocalPath4 = MsiClassicModePlugin
-		SccProjectUniqueName5 = tstMagoRunner\\tstMagoRunner.csproj
-		SccProjectName5 = tstMagoRunner
-		SccLocalPath5 = tstMagoRunner
-		SccProjectUniqueName6 = Microarea.Mago4Butler.VerticalInstaller\\VerticalInstallerPlugin.VerticalInstaller.csproj
-		SccProjectName6 = Microarea.Mago4Butler.VerticalInstaller
-		SccLocalPath6 = Microarea.Mago4Butler.VerticalInstaller
-		SccProjectUniqueName7 = SocialPlugin\\SocialPlugin.Social.csproj
-		SccProjectName7 = SocialPlugin
-		SccLocalPath7 = SocialPlugin
+		SccProjectUniqueName2 = MagoRunnerPlugin\\MagoRunnerPlugin.MagoRunner.csproj
+		SccProjectName2 = MagoRunnerPlugin
+		SccLocalPath2 = MagoRunnerPlugin
+		SccProjectUniqueName3 = MsiClassicModePlugin\\MsiClassicModePlugin.MsiClassicMode.csproj
+		SccProjectName3 = MsiClassicModePlugin
+		SccLocalPath3 = MsiClassicModePlugin
+		SccProjectUniqueName4 = tstMagoRunner\\tstMagoRunner.csproj
+		SccProjectName4 = tstMagoRunner
+		SccLocalPath4 = tstMagoRunner
+		SccProjectUniqueName5 = Microarea.Mago4Butler.VerticalInstaller\\VerticalInstallerPlugin.VerticalInstaller.csproj
+		SccProjectName5 = Microarea.Mago4Butler.VerticalInstaller
+		SccLocalPath5 = Microarea.Mago4Butler.VerticalInstaller
+		SccProjectUniqueName6 = SocialPlugin\\SocialPlugin.Social.csproj
+		SccProjectName6 = SocialPlugin
+		SccLocalPath6 = SocialPlugin
 	EndGlobalSection
 EndGlobal
