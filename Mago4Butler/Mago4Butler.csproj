@@ -297,6 +297,10 @@
       <Project>{7852b045-f57a-458e-b718-89f9fa26e8a0}</Project>
       <Name>AutomaticUpdates</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DustmanButler\DustmanButler.csproj">
+      <Project>{79f0acd6-251e-4389-a623-913414c0566f}</Project>
+      <Name>DustmanButler</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Mago4Butler.Automation\Mago4Butler.Automation.csproj">
       <Project>{3cb71368-55e5-4557-b12b-8e453398d2a3}</Project>
       <Name>Mago4Butler.Automation</Name>

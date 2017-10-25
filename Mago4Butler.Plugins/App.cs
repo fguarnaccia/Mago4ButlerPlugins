@@ -1,4 +1,5 @@
-﻿using Microarea.Mago4Butler.Automation;
+﻿using AutoMapper;
+using Microarea.Mago4Butler.Automation;
 using Microarea.Mago4Butler.BL;
 using Microarea.Mago4Butler.Log;
 using System;
@@ -29,9 +30,17 @@ namespace Microarea.Mago4Butler.Plugins
         const string instanceNameRegexPattern = "^[\\-a-zA-Z0-9]+$";
         readonly Regex instanceNameRegex = new Regex(instanceNameRegexPattern);
 
+        MapperConfiguration settingsMapperConfig;
+        IMapper settingsLineMapper;
+
         protected App()
         {
-            
+            this.settingsMapperConfig = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<BL.Settings, Settings>();
+            });
+
+            this.settingsLineMapper = settingsMapperConfig.CreateMapper();
         }
         public void Init()
         {
@@ -46,7 +55,8 @@ namespace Microarea.Mago4Butler.Plugins
         {
             get
             {
-                return new Settings() { RootFolder = BL.Settings.Default.RootFolder, MsiFolder = BL.Settings.Default.MsiFolder };
+                //return new Settings() { RootFolder = BL.Settings.Default.RootFolder, MsiFolder = BL.Settings.Default.MsiFolder, LogsFolder = BL.Settings.Default.LogsFolder };
+                return settingsLineMapper.Map<Settings>(BL.Settings.Default);
             }
         }
 
