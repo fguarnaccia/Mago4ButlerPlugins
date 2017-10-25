@@ -178,7 +178,9 @@ namespace Microarea.Mago4Butler.Plugins
                     !string.IsNullOrWhiteSpace(instance)
                     )
                 {
-                    var cleanMasterProductName = masterProductName.Replace(".", string.Empty);
+                    var cleanMasterProductName = masterProductName
+                        .Replace(".", string.Empty)
+                        .Trim();
                     var registryService = new RegistryService();
                     registryService.RemoveInstallationInfoKey(
                             string.Empty,
