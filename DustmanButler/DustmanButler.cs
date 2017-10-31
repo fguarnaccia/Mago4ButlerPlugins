@@ -29,11 +29,45 @@ namespace Microarea.Mago4Butler.DustmanButler
                 DateTime yesterday = DateTime.Now.AddDays(-1).Date;
                 DeleteMsiFilesOlderThan(yesterday);
                 DeleteLogFilesOlderThan(yesterday);
+                DeleteZombieInstances();
 
             }
             catch (Exception exc)
             {
                 App.Instance.Error("Error collecting dust", exc);
+            }
+        }
+
+        private void DeleteZombieInstances()
+        {
+            var zombieInstances = App.Instance.GetZombies();
+            foreach (var zombieInstance in zombieInstances)
+            {
+                var zombieDirInfo = new DirectoryInfo(zombieInstance);
+                if (zombieDirInfo.Exists)
+                {
+                    try
+                    {
+                        SetReadonly(zombieDirInfo, false);
+                        zombieDirInfo.Delete(true);
+                    }
+                    catch (Exception exc)
+                    {
+                        App.Instance.Error("Error deleting zombie instance " + zombieInstance, exc);
+                    }
+                }
+            }
+        }
+
+        private void SetReadonly(DirectoryInfo dirInfo, bool bReadonly)
+        {
+            foreach (var subDir in dirInfo.GetDirectories())
+            {
+                SetReadonly(subDir, bReadonly);
+            }
+            foreach (var file in dirInfo.GetFiles())
+            {
+                file.Attributes &= ~FileAttributes.ReadOnly;
             }
         }
 

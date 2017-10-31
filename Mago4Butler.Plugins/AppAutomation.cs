@@ -72,6 +72,23 @@ namespace Microarea.Mago4Butler.Plugins
             }
         }
 
+        public string[] GetZombies()
+        {
+            if (Client.IsConnected)
+            {
+                Writer.WriteLine(Command.GetZombies);
+                Writer.Flush();
+                var response = Reader.ReadLine();
+
+                return response.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            }
+            else
+            {
+                this.LogInfo("AppAutomation server is not connected, unable to send GetInstances command");
+                return new string[] { };
+            }
+        }
+
         public string[] GetPluginsData()
         {
             if (Client.IsConnected)

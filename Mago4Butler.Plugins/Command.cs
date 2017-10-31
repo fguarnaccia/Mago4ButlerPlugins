@@ -7,6 +7,7 @@
         ShutdownApplication,
         GetPluginFolderPath,
         GetInstances,
-        GetPluginsData
+        GetPluginsData,
+        GetZombies
     }
 }

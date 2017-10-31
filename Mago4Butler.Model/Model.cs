@@ -19,6 +19,7 @@ namespace Microarea.Mago4Butler.Model
         ISettings settings;
 
         List<Instance> instances = new List<Instance>();
+        List<DirectoryInfo> zombies = new List<DirectoryInfo>();
 
         public event EventHandler<InstanceEventArgs> InstanceAdded;
         public event EventHandler<InstanceEventArgs> InstanceRemoved;
@@ -71,16 +72,17 @@ namespace Microarea.Mago4Butler.Model
 
         public Instance[] Instances
         {
-            get
-            {
-                return instances.ToArray();
-            }
+            get => instances.ToArray();
             internal set
             {
                 this.instances.Clear();
                 this.instances.AddRange(value);
             }
         }
+
+
+        public IEnumerable<DirectoryInfo> Zombies { get => zombies; }
+
         public void RemoveInstances(Instance[] instances)
         {
             if (instances != null)
@@ -311,8 +313,11 @@ namespace Microarea.Mago4Butler.Model
                     instance.ProductType = ProductType.Mago4;
                 }
             }
+            else
+            {
+                zombies.Add(standardDirInfo.Parent);
+            }
 
-            Debug.Assert(instance != null);
             return instance;
         }
 

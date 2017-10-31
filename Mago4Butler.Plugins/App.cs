@@ -125,6 +125,11 @@ namespace Microarea.Mago4Butler.Plugins
             return this.appAutomation.GetInstances();
         }
 
+        public string[] GetZombies()
+        {
+            return this.appAutomation.GetZombies();
+        }
+
         public string[] GetPluginsData()
         {
             return this.appAutomation.GetPluginsData();

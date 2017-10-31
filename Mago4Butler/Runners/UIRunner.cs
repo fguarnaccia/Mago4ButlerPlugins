@@ -118,9 +118,17 @@ namespace Microarea.Mago4Butler
                     e.Response = PluginService.PluginsPath;
                     break;
                 case Command.GetInstances:
-                    var model = IoCContainer.Instance.Get<Model.Model>();
-                    e.Response = string.Join(",", model.Instances.Select(i => i.Name).ToArray());
-                    break;
+                    {
+                        var model = IoCContainer.Instance.Get<Model.Model>();
+                        e.Response = string.Join(",", model.Instances.Select(i => i.Name).ToArray());
+                        break;
+                    }
+                case Command.GetZombies:
+                    {
+                        var model = IoCContainer.Instance.Get<Model.Model>();
+                        e.Response = string.Join(",", model.Zombies.Select(d => d.FullName).ToArray());
+                        break;
+                    }
                 case Command.GetPluginsData:
                     {
                         var pluginService = IoCContainer.Instance.Get<PluginService>();
