@@ -39,6 +39,10 @@
   <xsl:template match="wix:Component[key('AutmaticUpdates-search', @Id)]" />
   <xsl:template match="wix:ComponentRef[key('AutmaticUpdates-search', @Id)]" />
 
+  <xsl:key name="Dustman-search" match="wix:Component[contains(wix:File/@Source, 'Microarea.Mago4Butler.DustmanButler')]" use="@Id" />
+  <xsl:template match="wix:Component[key('Dustman-search', @Id)]" />
+  <xsl:template match="wix:ComponentRef[key('Dustman-search', @Id)]" />
+
   <xsl:key name="Telemetry-search" match="wix:Component[contains(wix:File/@Source, 'Microarea.Mago4Butler.Telemetry')]" use="@Id" />
   <xsl:template match="wix:Component[key('Telemetry-search', @Id)]" />
   <xsl:template match="wix:ComponentRef[key('Telemetry-search', @Id)]" />
