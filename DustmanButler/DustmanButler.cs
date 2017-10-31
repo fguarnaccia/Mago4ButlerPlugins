@@ -45,18 +45,22 @@ namespace Microarea.Mago4Butler.DustmanButler
                 return;
             }
 
-            foreach (var msiFile in msiFolderDirInfo.GetFiles("*.msi", SearchOption.TopDirectoryOnly))
+            var toBeDeleted = msiFolderDirInfo.
+                GetFiles("*.msi", SearchOption.TopDirectoryOnly)
+                .Where(
+                    f
+                    => f.Name.StartsWith("mago", StringComparison.InvariantCultureIgnoreCase)
+                        && f.CreationTime.Date < threshold
+                        );
+            foreach (var msiFile in toBeDeleted)
             {
-                if (msiFile.CreationTime.Date < threshold)
+                try
                 {
-                    try
-                    {
-                        msiFile.Delete();
-                    }
-                    catch (Exception exc)
-                    {
-                        App.Instance.Error(string.Format(CultureInfo.InvariantCulture, "Error deleting {0}", msiFile), exc);
-                    }
+                    msiFile.Delete();
+                }
+                catch (Exception exc)
+                {
+                    App.Instance.Error(string.Format(CultureInfo.InvariantCulture, "Error deleting {0}", msiFile), exc);
                 }
             }
         }
