@@ -19,7 +19,7 @@ namespace Microarea.Mago4Butler.Model
         ISettings settings;
 
         List<Instance> instances = new List<Instance>();
-        List<DirectoryInfo> zombies = new List<DirectoryInfo>();
+        List<DirectoryInfo> zombieInstances = new List<DirectoryInfo>();
 
         public event EventHandler<InstanceEventArgs> InstanceAdded;
         public event EventHandler<InstanceEventArgs> InstanceRemoved;
@@ -81,7 +81,8 @@ namespace Microarea.Mago4Butler.Model
         }
 
 
-        public IEnumerable<DirectoryInfo> Zombies { get => zombies; }
+        [YamlDotNet.Serialization.YamlIgnore]
+        public IEnumerable<DirectoryInfo> ZombieInstances { get => zombieInstances; }
 
         public void RemoveInstances(Instance[] instances)
         {
@@ -315,7 +316,7 @@ namespace Microarea.Mago4Butler.Model
             }
             else
             {
-                zombies.Add(standardDirInfo.Parent);
+                zombieInstances.Add(standardDirInfo.Parent);
             }
 
             return instance;
