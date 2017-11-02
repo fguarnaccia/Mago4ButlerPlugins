@@ -126,7 +126,11 @@ namespace Microarea.Mago4Butler
                 case Command.GetZombies:
                     {
                         var model = IoCContainer.Instance.Get<Model.Model>();
-                        e.Response = string.Join(",", model.ZombieInstances.Select(d => d.FullName).ToArray());
+                        var fifteenDaysAgo = DateTime.Now.AddDays(-15);
+                        var zombies = model.ZombieInstances
+                            .Where(zi => zi.CreationTime < fifteenDaysAgo)
+                            .Select(d => d.FullName);
+                        e.Response = string.Join(",", zombies.ToArray());
                         break;
                     }
                 case Command.GetPluginsData:
