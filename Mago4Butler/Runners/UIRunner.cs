@@ -76,11 +76,33 @@ namespace Microarea.Mago4Butler
         private void PluginService_PluginsLoaded(object sender, EventArgs e)
         {
             appAutomationServer.CommandReceived += AppAutomationServer_CommandReceived;
-            var workingThread = new Thread(() => appAutomationServer.Start());
-            workingThread.IsBackground = true;
+            var workingThread = new Thread(() => appAutomationServer.Start())
+            {
+                IsBackground = true
+            };
             workingThread.Start();
 
             App.Instance.Init();
+
+            this.LogInfo("================================================================================");
+
+            var version = GetType().Assembly.GetName().Version.ToString();
+            this.LogInfo(String.Format("Mago4 Butler v. {0}", version));
+
+            var plugins = pluginService.Plugins;
+            if (plugins.Any())
+            {
+                this.LogInfo("Loaded plugins:");
+                foreach (var plugin in plugins)
+                {
+                    this.LogInfo(string.Format("\t{0} {1}", plugin.GetName(), plugin.GetVersion()));
+                }
+            }
+            else
+            {
+                this.LogInfo("No plugins installed");
+            }
+            this.LogInfo("--------------------------------------------------------------------------------");
         }
 
         private void AppAutomationServer_CommandReceived(object sender, CommandEventArgs e)

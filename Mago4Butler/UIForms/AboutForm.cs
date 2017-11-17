@@ -27,9 +27,7 @@ namespace Microarea.Mago4Butler
             this.Text += String.Format(" Mago4 Butler v. {0}", version);
 
             var plugins = pluginService.Plugins;
-            if (plugins.Count() == 0)
-                this.tabControl.TabPages.Remove(this.tabPagePlugins);
-            else
+            if (plugins.Any())
             {
                 var sb = new StringBuilder();
                 foreach (var plugin in plugins)
@@ -37,6 +35,10 @@ namespace Microarea.Mago4Butler
                     sb.AppendLine(string.Concat(plugin.GetName(), " ", plugin.GetVersion()));
                 }
                 lblPlugins.Text = sb.ToString();
+            }
+            else
+            {
+                this.tabControl.TabPages.Remove(this.tabPagePlugins);
             }
         }
     }
