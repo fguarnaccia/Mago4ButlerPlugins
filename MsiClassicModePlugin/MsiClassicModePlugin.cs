@@ -20,7 +20,7 @@ namespace MsiClassicModePlugin
 
         System.Collections.Specialized.StringCollection FixedFeatures = new System.Collections.Specialized.StringCollection()
         {
-           "Mago4" , "MagoNet" , "Italian (Italy)", "Language Packages" , "TaskBuilder Framework"
+           "Mago4" , "Mago.net" , "Italian (Italy)", "Language Packages" , "TaskBuilder Framework"
 
         };
 
@@ -88,7 +88,6 @@ namespace MsiClassicModePlugin
             //        .Where(f => String.Compare(f.Description, description, StringComparison.InvariantCultureIgnoreCase) == 0)
             //        .FirstOrDefault();     
 
-       
 
                 var clonedCollection = new List<Feature>(cmdLineInfo.Features);
 
@@ -102,8 +101,6 @@ namespace MsiClassicModePlugin
                              cmdLineInfo.Features.Remove(feature);
                     }
                 }
-
-
 
         }  
 
