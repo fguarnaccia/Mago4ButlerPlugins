@@ -34,27 +34,15 @@ namespace Microarea.Mago4Butler
 
         protected virtual void OnUpdateInstance(UpdateInstanceEventArgs e)
         {
-            var handler = UpdateInstance;
-            if (handler != null)
-            {
-                handler(this, e);
-            }
+            UpdateInstance?.Invoke(this, e);
         }
         protected virtual void OnRemoveInstance(RemoveInstanceEventArgs e)
         {
-            var handler = RemoveInstance;
-            if (handler != null)
-            {
-                handler(this, e);
-            }
+            RemoveInstance?.Invoke(this, e);
         }
         protected virtual void OnInstallNewInstance(InstallInstanceEventArgs e)
         {
-            var handler = InstallNewInstance;
-            if (handler != null)
-            {
-                handler(this, e);
-            }
+            InstallNewInstance?.Invoke(this, e);
         }
 
         public UINormalUse(Model.Model model, PluginService pluginService, InstallerService installerService, ISettings settings, ProductIdentifierService productIdentifierService)

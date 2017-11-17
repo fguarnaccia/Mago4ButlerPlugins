@@ -108,7 +108,7 @@ namespace Microarea.Mago4Butler
                 Bind<UIError>().ToSelf();
 
                 Bind<MainForm>().ToSelf();
-                Bind<Lazy<CefForm>>().ToFactory();
+                //Bind<Lazy<CefForm>>().ToFactory();
                 //Bind<Lazy<ContextMenuHandler>>().ToFactory();
                 //Bind<Lazy<ButlerSchemeHandlerFactory>>().ToFactory();
 
