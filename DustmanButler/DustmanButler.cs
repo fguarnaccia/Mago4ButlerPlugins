@@ -29,7 +29,8 @@ namespace Microarea.Mago4Butler.DustmanButler
                 DateTime yesterday = DateTime.Now.AddDays(-1).Date;
                 DeleteMsiFilesOlderThan(yesterday);
                 DeleteLogFilesOlderThan(yesterday);
-                DeleteZombieInstances();
+                DateTime sevenDaysAgo = DateTime.Now.AddDays(-7).Date;
+                DeleteZombieInstancesOlderThan(sevenDaysAgo);
 
             }
             catch (Exception exc)
@@ -38,13 +39,13 @@ namespace Microarea.Mago4Butler.DustmanButler
             }
         }
 
-        private void DeleteZombieInstances()
+        private void DeleteZombieInstancesOlderThan(DateTime threshold)
         {
             var zombieInstances = App.Instance.GetZombies();
             foreach (var zombieInstance in zombieInstances)
             {
                 var zombieDirInfo = new DirectoryInfo(zombieInstance);
-                if (zombieDirInfo.Exists)
+                if (zombieDirInfo.Exists && zombieDirInfo.LastAccessTime < threshold)
                 {
                     try
                     {
