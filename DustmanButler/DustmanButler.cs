@@ -25,10 +25,10 @@ namespace Microarea.Mago4Butler.DustmanButler
         {
             try
             {
-                Thread.Sleep(1379);
-                DateTime yesterday = DateTime.Now.AddDays(-1).Date;
-                DeleteMsiFilesOlderThan(yesterday);
-                DeleteLogFilesOlderThan(yesterday);
+                Thread.Sleep(8379);
+                DateTime fiveDaysAgo = DateTime.Now.AddDays(-5).Date;
+                DeleteMsiFilesOlderThan(fiveDaysAgo);
+                DeleteLogFilesOlderThan(fiveDaysAgo);
                 DateTime sevenDaysAgo = DateTime.Now.AddDays(-7).Date;
                 DeleteZombieInstancesOlderThan(sevenDaysAgo);
 
