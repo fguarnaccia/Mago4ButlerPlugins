@@ -31,6 +31,17 @@ namespace MagoRunnerPlugin
                 );
             cmis.Add(cmi);
 
+            cmi.Name = "runSetTitle";
+            cmi.Text = "set as Title";
+            cmi.ShortcutKeys = Keys.Control | Keys.T;
+            cmi.Command = new Action<Instance>(
+                (instance)
+                =>
+                runSetTitle(instance)
+                );
+            cmis.Add(cmi);
+
+
             cmi = new ContextMenuItem();
             cmi.Name = "runMadico";
             cmi.Text = "...Check Instance";
@@ -123,6 +134,31 @@ namespace MagoRunnerPlugin
 
              return cmis;
         
+        }
+
+        private void runSetTitle(Instance instance)
+        {
+            string BrandMn = @"Standard\Applications\ERP\Solutions\main.brand.xml";
+            string BrandM4 = @"Standard\Applications\ERP\Solutions\Mago4-Pro.Brand.xml";
+
+           
+            string xmlfile = string.Empty;
+            XmlDocument domdoc = new XmlDocument();
+            if (IsMago4(instance.Version))
+            {
+                
+                xmlfile = Path.Combine(App.Instance.Settings.RootFolder, instance.Name, BrandMn); ;
+
+            }
+            else
+            {
+                xmlfile = Path.Combine(App.Instance.Settings.RootFolder, instance.Name, BrandM4); 
+            }
+    
+
+                domdoc.Load(xmlfile);
+
+       
         }
 
         private void RunNothing(Instance instance)
