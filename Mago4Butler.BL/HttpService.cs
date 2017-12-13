@@ -111,16 +111,16 @@ namespace Microarea.Mago4Butler.BL
                 //login effettuata, ora posso scaricare l'msi...
                 responseTask = httpClient.GetAsync(address);
                 responseTask.Wait(timeoutMillSecs);
-                var contentTask = responseTask.Result.Content.ReadAsByteArrayAsync();
-                contentTask.Wait(timeoutMillSecs);
 
-                if (contentTask.Result.Length < 1000000)//1MB
+                if (responseTask.Result.Content.Headers.ContentLength < 1000000)//1MB
                 {
                     throw new Exception("I cannot download the msi file, maybe the login is not correct?");
                 }
+
                 using (var outputStream = File.Create(filePath))
                 {
-                    outputStream.Write(contentTask.Result, 0, contentTask.Result.Length);
+                    var contentTask = responseTask.Result.Content.CopyToAsync(outputStream);
+                    contentTask.Wait(timeoutMillSecs);
                 }
             }
         }
