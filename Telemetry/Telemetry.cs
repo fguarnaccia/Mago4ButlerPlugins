@@ -39,7 +39,7 @@ namespace Microarea.Mago4Butler.Telemetry
 #if DEBUG
                 svc.Url = "http://usr-canessamat1/PAASUpdates/TelemetryService.asmx";
 #else
-                svc.Url = "http://spp-hotfix/PAASUpdates/TelemetryService.asmx";
+                svc.Url = "http://vts-backend/PAASUpdates/TelemetryService.asmx";
 #endif
                 currentRequest.MachineName = machineName;
                 currentRequest.PluginsData = pluginsData.ToArray();

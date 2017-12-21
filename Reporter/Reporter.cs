@@ -34,7 +34,7 @@ namespace Microarea.Mago4Butler.Reporter
 #if DEBUG
                 svc.Url = "http://usr-canessamat1/PAASUpdates/ReportService.asmx";
 #else
-                svc.Url = "http://spp-hotfix/PAASUpdates/ReportService.asmx";
+                svc.Url = "http://vts-backend/PAASUpdates/ReportService.asmx";
 #endif
                 try
                 {
