@@ -14,13 +14,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VersionManager", "VersionManager\VersionManager.csproj", "{0FF997AA-E75E-48B6-ABEE-3BEE0D69852C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tstMagoRunner", "tstMagoRunner\tstMagoRunner.csproj", "{58C67988-B113-4E16-8C7C-B5DE3D567300}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VerticalInstallerPlugin.VerticalInstaller", "Microarea.Mago4Butler.VerticalInstaller\VerticalInstallerPlugin.VerticalInstaller.csproj", "{9B1E91D7-9B91-4B20-8633-2220523F02A2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialPlugin.Social", "SocialPlugin\SocialPlugin.Social.csproj", "{691769EE-CADA-411B-8EDD-C483C12CD4E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActivationPlugin", "ActivationPlugin\ActivationPlugin.csproj", "{0928F473-68EF-4080-B8F0-C2D8CC1E0962}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActivationMngrPlugin.ActivationMngr", "ActivationPlugin\ActivationMngrPlugin.ActivationMngr.csproj", "{0928F473-68EF-4080-B8F0-C2D8CC1E0962}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -68,15 +66,6 @@ Global
 		{0FF997AA-E75E-48B6-ABEE-3BEE0D69852C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0FF997AA-E75E-48B6-ABEE-3BEE0D69852C}.Release|x86.ActiveCfg = Release|Any CPU
 		{0FF997AA-E75E-48B6-ABEE-3BEE0D69852C}.Release|x86.Build.0 = Release|Any CPU
-		{58C67988-B113-4E16-8C7C-B5DE3D567300}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{58C67988-B113-4E16-8C7C-B5DE3D567300}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{58C67988-B113-4E16-8C7C-B5DE3D567300}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{58C67988-B113-4E16-8C7C-B5DE3D567300}.Deploy|Any CPU.ActiveCfg = Debug|Any CPU
-		{58C67988-B113-4E16-8C7C-B5DE3D567300}.Deploy|Any CPU.Build.0 = Debug|Any CPU
-		{58C67988-B113-4E16-8C7C-B5DE3D567300}.Deploy|x86.ActiveCfg = Debug|Any CPU
-		{58C67988-B113-4E16-8C7C-B5DE3D567300}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{58C67988-B113-4E16-8C7C-B5DE3D567300}.Release|Any CPU.Build.0 = Release|Any CPU
-		{58C67988-B113-4E16-8C7C-B5DE3D567300}.Release|x86.ActiveCfg = Release|Any CPU
 		{9B1E91D7-9B91-4B20-8633-2220523F02A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9B1E91D7-9B91-4B20-8633-2220523F02A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B1E91D7-9B91-4B20-8633-2220523F02A2}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -118,7 +107,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 8
+		SccNumberOfProjects = 7
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = http://tfs:8080/tfs/microarea
 		SccLocalPath0 = .
@@ -131,17 +120,14 @@ Global
 		SccProjectUniqueName3 = MsiClassicModePlugin\\MsiClassicModePlugin.MsiClassicMode.csproj
 		SccProjectName3 = MsiClassicModePlugin
 		SccLocalPath3 = MsiClassicModePlugin
-		SccProjectUniqueName4 = tstMagoRunner\\tstMagoRunner.csproj
-		SccProjectName4 = tstMagoRunner
-		SccLocalPath4 = tstMagoRunner
-		SccProjectUniqueName5 = Microarea.Mago4Butler.VerticalInstaller\\VerticalInstallerPlugin.VerticalInstaller.csproj
-		SccProjectName5 = Microarea.Mago4Butler.VerticalInstaller
-		SccLocalPath5 = Microarea.Mago4Butler.VerticalInstaller
-		SccProjectUniqueName6 = SocialPlugin\\SocialPlugin.Social.csproj
-		SccProjectName6 = SocialPlugin
-		SccLocalPath6 = SocialPlugin
-		SccProjectUniqueName7 = ActivationPlugin\\ActivationPlugin.csproj
-		SccProjectName7 = ActivationPlugin
-		SccLocalPath7 = ActivationPlugin
+		SccProjectUniqueName4 = Microarea.Mago4Butler.VerticalInstaller\\VerticalInstallerPlugin.VerticalInstaller.csproj
+		SccProjectName4 = Microarea.Mago4Butler.VerticalInstaller
+		SccLocalPath4 = Microarea.Mago4Butler.VerticalInstaller
+		SccProjectUniqueName5 = SocialPlugin\\SocialPlugin.Social.csproj
+		SccProjectName5 = SocialPlugin
+		SccLocalPath5 = SocialPlugin
+		SccProjectUniqueName6 = ActivationPlugin\\ActivationMngrPlugin.ActivationMngr.csproj
+		SccProjectName6 = ActivationPlugin
+		SccLocalPath6 = ActivationPlugin
 	EndGlobalSection
 EndGlobal
