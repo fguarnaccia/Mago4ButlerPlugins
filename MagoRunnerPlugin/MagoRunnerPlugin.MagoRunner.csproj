@@ -49,6 +49,7 @@
     <OutputPath>bin\x86\Deploy\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Mago4Butler.Model, Version=1.0.6101.18522, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="Mago4Butler.Plugins">
       <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\Mago4Butler\Mago4Butler.Plugins.dll</HintPath>
     </Reference>
