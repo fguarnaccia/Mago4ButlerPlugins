@@ -91,7 +91,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Standard\TaskBuilder\TaskBuilderNet\Microarea.TaskBuilderNet.ParametersManager\Microarea.TaskBuilderNet.ParametersManager.csproj">
+    <ProjectReference Include="..\..\..\Development_1x\Standard\TaskBuilder\TaskBuilderNet\Microarea.TaskBuilderNet.ParametersManager\Microarea.TaskBuilderNet.ParametersManager.csproj">
       <Project>{befdb95f-5504-4c27-993b-094c069cb8bf}</Project>
       <Name>Microarea.TaskBuilderNet.ParametersManager</Name>
     </ProjectReference>

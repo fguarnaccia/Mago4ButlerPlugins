@@ -168,11 +168,11 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Standard\TaskBuilder\TaskBuilderNet\Microarea.TaskBuilderNet.Core\Microarea.TaskBuilderNet.Core.csproj">
+    <ProjectReference Include="..\..\..\Development_1x\Standard\TaskBuilder\TaskBuilderNet\Microarea.TaskBuilderNet.Core\Microarea.TaskBuilderNet.Core.csproj">
       <Project>{dca1dc48-522c-41fa-9e43-3dcce3ed0fe3}</Project>
       <Name>Microarea.TaskBuilderNet.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Standard\TaskBuilder\TaskBuilderNet\Microarea.TaskBuilderNet.Interfaces\Microarea.TaskBuilderNet.Interfaces.csproj">
+    <ProjectReference Include="..\..\..\Development_1x\Standard\TaskBuilder\TaskBuilderNet\Microarea.TaskBuilderNet.Interfaces\Microarea.TaskBuilderNet.Interfaces.csproj">
       <Project>{d21fd41d-0c68-40ef-a65a-ccfa47a05f3e}</Project>
       <Name>Microarea.TaskBuilderNet.Interfaces</Name>
     </ProjectReference>

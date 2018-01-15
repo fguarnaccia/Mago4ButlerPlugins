@@ -21,17 +21,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomaticUpdates", "Autmati
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TaskBuilderNet", "TaskBuilderNet", "{8F83B0E7-0A95-4AA3-94B0-F06D90888795}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microarea.TaskBuilderNet.Interfaces", "..\..\Standard\TaskBuilder\TaskBuilderNet\Microarea.TaskBuilderNet.Interfaces\Microarea.TaskBuilderNet.Interfaces.csproj", "{D21FD41D-0C68-40EF-A65A-CCFA47A05F3E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microarea.TaskBuilderNet.Interfaces", "..\..\Development_1x\Standard\TaskBuilder\TaskBuilderNet\Microarea.TaskBuilderNet.Interfaces\Microarea.TaskBuilderNet.Interfaces.csproj", "{D21FD41D-0C68-40EF-A65A-CCFA47A05F3E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microarea.TaskBuilderNet.Core", "..\..\Standard\TaskBuilder\TaskBuilderNet\Microarea.TaskBuilderNet.Core\Microarea.TaskBuilderNet.Core.csproj", "{DCA1DC48-522C-41FA-9E43-3DCCE3ED0FE3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microarea.TaskBuilderNet.Core", "..\..\Development_1x\Standard\TaskBuilder\TaskBuilderNet\Microarea.TaskBuilderNet.Core\Microarea.TaskBuilderNet.Core.csproj", "{DCA1DC48-522C-41FA-9E43-3DCCE3ED0FE3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microarea.TaskBuilderNet.Data", "..\..\Standard\TaskBuilder\TaskBuilderNet\Microarea.TaskBuilderNet.Data\Microarea.TaskBuilderNet.Data.csproj", "{F2F1C352-B5F8-4E92-A85F-99B012F80504}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microarea.TaskBuilderNet.Data", "..\..\Development_1x\Standard\TaskBuilder\TaskBuilderNet\Microarea.TaskBuilderNet.Data\Microarea.TaskBuilderNet.Data.csproj", "{F2F1C352-B5F8-4E92-A85F-99B012F80504}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microarea.TaskBuilderNet.Licence", "..\..\Standard\TaskBuilder\TaskBuilderNet\Microarea.TaskBuilderNet.Licence\Microarea.TaskBuilderNet.Licence.csproj", "{042804B4-7D3B-490B-864D-EFE3F7AC3462}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microarea.TaskBuilderNet.Licence", "..\..\Development_1x\Standard\TaskBuilder\TaskBuilderNet\Microarea.TaskBuilderNet.Licence\Microarea.TaskBuilderNet.Licence.csproj", "{042804B4-7D3B-490B-864D-EFE3F7AC3462}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microarea.TaskBuilderNet.ParametersManager", "..\..\Standard\TaskBuilder\TaskBuilderNet\Microarea.TaskBuilderNet.ParametersManager\Microarea.TaskBuilderNet.ParametersManager.csproj", "{BEFDB95F-5504-4C27-993B-094C069CB8BF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microarea.TaskBuilderNet.ParametersManager", "..\..\Development_1x\Standard\TaskBuilder\TaskBuilderNet\Microarea.TaskBuilderNet.ParametersManager\Microarea.TaskBuilderNet.ParametersManager.csproj", "{BEFDB95F-5504-4C27-993B-094C069CB8BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProvisioningConfigurator", "..\..\Standard\TaskBuilder\Tools\ProvisioningConfigurator\ProvisioningConfigurator\ProvisioningConfigurator.csproj", "{A84F78EE-5EDE-4C7C-A042-36E0806BACF5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProvisioningConfigurator", "..\..\Development_1x\Standard\TaskBuilder\Tools\ProvisioningConfigurator\ProvisioningConfigurator\ProvisioningConfigurator.csproj", "{A84F78EE-5EDE-4C7C-A042-36E0806BACF5}"
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Mago4ButlerWithPluginsSetup", "Mago4ButlerWithPluginsSetup\Mago4ButlerWithPluginsSetup.wixproj", "{30CC3935-A7C5-441E-9A26-A6C94BFDEC69}"
 EndProject

@@ -288,7 +288,7 @@
     <None Include="img\Add.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Standard\TaskBuilder\Tools\ProvisioningConfigurator\ProvisioningConfigurator\ProvisioningConfigurator.csproj">
+    <ProjectReference Include="..\..\..\Development_1x\Standard\TaskBuilder\Tools\ProvisioningConfigurator\ProvisioningConfigurator\ProvisioningConfigurator.csproj">
       <Project>{a84f78ee-5ede-4c7c-a042-36e0806bacf5}</Project>
       <Name>ProvisioningConfigurator</Name>
     </ProjectReference>
