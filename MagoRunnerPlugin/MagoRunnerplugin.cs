@@ -183,6 +183,7 @@ namespace MagoRunnerPlugin
         internal void SetM4Title(string BrandFile, string Title, bool RestoreDefaultTitle)
 
         {
+            if (!File.Exists(BrandFile)) return;
             const string cstBrandM4 = "Mago4";
             if (RestoreDefaultTitle) Title = cstBrandM4;
        
@@ -205,6 +206,8 @@ namespace MagoRunnerPlugin
             const string cstBrandMn = "Mago.net";
 
             XmlDocument domdoc = new XmlDocument();
+            if (!File.Exists(BrandFile)) return;
+
             domdoc.Load(BrandFile);
 
             if (RestoreDefaultTitle) Title = cstBrandMn;
