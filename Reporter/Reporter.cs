@@ -32,7 +32,7 @@ namespace Microarea.Mago4Butler.Reporter
             using (var svc = new ReportService())
             {
 #if DEBUG
-                svc.Url = "http://usr-canessamat1/PAASUpdates/ReportService.asmx";
+                svc.Url = "http://localhost/PAASUpdates/ReportService.asmx";
 #else
                 svc.Url = "http://vts-backend/PAASUpdates/ReportService.asmx";
 #endif

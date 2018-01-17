@@ -37,7 +37,7 @@ namespace Microarea.Mago4Butler.Telemetry
             using (var svc = new TelemetryService())
             {
 #if DEBUG
-                svc.Url = "http://usr-canessamat1/PAASUpdates/TelemetryService.asmx";
+                svc.Url = "http://localhost/PAASUpdates/TelemetryService.asmx";
 #else
                 svc.Url = "http://vts-backend/PAASUpdates/TelemetryService.asmx";
 #endif
