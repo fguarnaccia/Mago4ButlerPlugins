@@ -53,14 +53,29 @@ namespace Microarea.Mago4Butler.Plugins
             
         }
 
+        public virtual void OnInstalled(Instance instance)
+        {
+
+        }
+
         public virtual void OnInstalling(CmdLineInfo cmdLineInfo)
         {
             
         }
 
+        public virtual void OnRemoved(Instance[] instances)
+        {
+
+        }
+
         public virtual void OnRemoving(Instance[] instances)
         {
             
+        }
+
+        public virtual void OnUpdated(Instance[] instances)
+        {
+
         }
 
         public virtual void OnUpdating(CmdLineInfo cmdLineInfo)

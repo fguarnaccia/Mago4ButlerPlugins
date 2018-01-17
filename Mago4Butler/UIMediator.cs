@@ -192,6 +192,24 @@ namespace Microarea.Mago4Butler
             string message = e.Instances[0].Name + " successfully updated";
             this.loggerService.LogInfo(message);
             OnJobNotification(new Mago4Butler.JobEventArgs() { Progress = message, NotificationType = NotificationTypes.Progress });
+
+            var instances = new List<Plugins.Instance>();
+            foreach (var i in e.Instances)
+            {
+                instances.Add(instanceMapper.Map<Plugins.Instance>(i));
+            }
+            var arrInstances = instances.ToArray();
+            foreach (var plugin in this.pluginService.Plugins)
+            {
+                try
+                {
+                    plugin.OnUpdated(arrInstances);
+                }
+                catch (Exception exc)
+                {
+                    this.loggerService.LogError("'OnUpdated' event failed, skipping plugin " + plugin.GetName(), exc);
+                }
+            }
         }
 
         private void InstallerService_Updating(object sender, UpdateInstanceEventArgs e)
@@ -220,6 +238,24 @@ namespace Microarea.Mago4Butler
             string message = e.Instances[0].Name + " successfully removed";
             this.loggerService.LogInfo(message);
             OnJobNotification(new Mago4Butler.JobEventArgs() { Progress = message, NotificationType = NotificationTypes.Progress });
+
+            var instances = new List<Plugins.Instance>(e.Instances.Length);
+            foreach (var instance in e.Instances)
+            {
+                instances.Add(instanceMapper.Map<Plugins.Instance>(instance));
+            }
+            var arrInstances = instances.ToArray();
+            foreach (var plugin in this.pluginService.Plugins)
+            {
+                try
+                {
+                    plugin.OnRemoved(arrInstances);
+                }
+                catch (Exception exc)
+                {
+                    this.loggerService.LogError("'OnRemoved' event failed, skipping plugin " + plugin.GetName(), exc);
+                }
+            }
         }
 
         private void InstallerService_Removing(object sender, RemoveInstanceEventArgs e)
@@ -233,11 +269,12 @@ namespace Microarea.Mago4Butler
             {
                 instances.Add(instanceMapper.Map<Plugins.Instance>(instance));
             }
+            var arrInstances = instances.ToArray();
             foreach (var plugin in this.pluginService.Plugins)
             {
                 try
                 {
-                    plugin.OnRemoving(instances.ToArray());
+                    plugin.OnRemoving(arrInstances);
                 }
                 catch (Exception exc)
                 {
@@ -251,6 +288,19 @@ namespace Microarea.Mago4Butler
             string message = "Database configuration...";
             this.loggerService.LogInfo(message);
             OnJobNotification(new Mago4Butler.JobEventArgs() { Progress = message, Notification = message, NotificationType = NotificationTypes.Progress | NotificationTypes.Notification });
+
+            var i = instanceMapper.Map<Plugins.Instance>(e.Instance);
+            foreach (var plugin in this.pluginService.Plugins)
+            {
+                try
+                {
+                    plugin.OnInstalled(i);
+                }
+                catch (Exception exc)
+                {
+                    this.loggerService.LogError("'OnInstalled' event failed, skipping plugin " + plugin.GetName(), exc);
+                }
+            }
 
             try
             {
