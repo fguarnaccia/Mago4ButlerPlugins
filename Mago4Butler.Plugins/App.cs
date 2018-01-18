@@ -113,7 +113,7 @@ namespace Microarea.Mago4Butler.Plugins
             }
         }
 
-        public System.Version GetVersion(string pluginName)
+        public Int64 GetVersion(string pluginName)
         {
             return this.appAutomation.GetPluginVersion(pluginName);
         }

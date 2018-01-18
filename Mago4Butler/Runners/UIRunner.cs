@@ -95,7 +95,8 @@ namespace Microarea.Mago4Butler
                 this.LogInfo("Loaded plugins:");
                 foreach (var plugin in plugins)
                 {
-                    this.LogInfo(string.Format("\t{0} {1}", plugin.GetName(), plugin.GetVersion()));
+                    var pluginName = plugin.GetName();
+                    this.LogInfo(string.Format("\t{0} {1}", pluginName, pluginService.GetPluginVersion(pluginName)));
                 }
             }
             else
@@ -117,23 +118,12 @@ namespace Microarea.Mago4Butler
                 case Command.GetVersion:
                     if (e.Args == Path.GetFileNameWithoutExtension(this.GetType().Assembly.Location))
                     {
-                        e.Response = this.GetType().Assembly.GetName().Version.ToString();
+                        var fi = new FileInfo(this.GetType().Assembly.Location);
+                        e.Response = fi.LastWriteTimeUtc.Ticks.ToString();
                     }
                     else
                     {
-                        bool found = false;
-                        foreach (var plugin in IoCContainer.Instance.Get<PluginService>().Plugins)
-                        {
-                            if (plugin.GetName() == e.Args)
-                            {
-                                found = true;
-                                e.Response = plugin.GetVersion().ToString();
-                            }
-                        }
-                        if (!found)
-                        {
-                            e.Response = string.Empty;
-                        }
+                        e.Response = pluginService.GetPluginVersion(e.Args);
                     }
                     break;
                 case Command.GetPluginFolderPath:
@@ -157,11 +147,11 @@ namespace Microarea.Mago4Butler
                     }
                 case Command.GetPluginsData:
                     {
-                        var pluginService = IoCContainer.Instance.Get<PluginService>();
                         var responseBld = new StringBuilder();
                         foreach (var plugin in pluginService.Plugins)
                         {
-                            responseBld.Append(plugin.GetName()).Append("-").Append(plugin.GetVersion()).Append(",");
+                            var pluginName = plugin.GetName();
+                            responseBld.Append(pluginName).Append("-").Append(pluginService.GetPluginVersion(pluginName)).Append(",");
                         }
                         responseBld.Remove(responseBld.Length - 1, 1);
                         e.Response = responseBld.ToString();

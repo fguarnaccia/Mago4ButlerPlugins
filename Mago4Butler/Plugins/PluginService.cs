@@ -15,14 +15,12 @@ namespace Microarea.Mago4Butler
         List<IPlugin> plugins;
         string ipluginTypeName;
 
+        readonly Dictionary<string, string> pluginsVerison = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
+
         public event EventHandler<PluginErrorEventArgs> ErrorLoadingPlugins;
         protected virtual void OnErrorLoadingPlugins(PluginErrorEventArgs e)
         {
-            var handler = ErrorLoadingPlugins;
-            if (handler != null)
-            {
-                handler(this, e);
-            }
+            ErrorLoadingPlugins?.Invoke(this, e);
         }
         public event EventHandler<EventArgs> PluginsLoaded;
         protected virtual void OnPluginsLoaded()
@@ -87,6 +85,7 @@ namespace Microarea.Mago4Butler
                 if (plugin != null)
                 {
                     plugins.Add(plugin);
+                    pluginsVerison.Add(plugin.GetName(), dllFileInfo.LastWriteTimeUtc.Ticks.ToString());
                     plugin = null;
                 }
             }
@@ -124,6 +123,14 @@ namespace Microarea.Mago4Butler
             }
 
             return pluginInstance;
+        }
+
+        public string GetPluginVersion(string pluginName)
+        {
+            var pluginVersion = string.Empty;
+            pluginsVerison.TryGetValue(pluginName, out pluginVersion);
+
+            return pluginVersion;
         }
     }
 }
