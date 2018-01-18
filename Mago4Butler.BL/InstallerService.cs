@@ -450,7 +450,7 @@ namespace Microarea.Mago4Butler.BL
             OnNotification(new NotificationEventArgs() { Message = "Application configured" });
 
             OnNotification(new NotificationEventArgs() { Message = "Restarting Login Manager..." });
-            this.iisService.RestartLoginManager(currentRequest.Instance);
+            this.iisService.RestartLoginManager(currentRequest.Instance.Name);
             OnNotification(new NotificationEventArgs() { Message = "Login Manager restarted" });
 
             OnNotification(new NotificationEventArgs() { Message = "Updating company database..." });
@@ -490,7 +490,7 @@ namespace Microarea.Mago4Butler.BL
             OnNotification(new NotificationEventArgs() { Message = "Application configured" });
 
             OnNotification(new NotificationEventArgs() { Message = "Restarting Login Manager..." });
-            this.iisService.RestartLoginManager(currentRequest.Instance);
+            this.iisService.RestartLoginManager(currentRequest.Instance.Name);
             OnNotification(new NotificationEventArgs() { Message = "Login Manager restarted" });
 
             OnNotification(new NotificationEventArgs() { Message = "Creating settings.config file with wcf starting port..." });

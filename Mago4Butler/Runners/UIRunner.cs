@@ -82,7 +82,7 @@ namespace Microarea.Mago4Butler
             };
             workingThread.Start();
 
-            App.Instance.Init();
+            App.Instance.Init(IoCContainer.Instance.Get<IisService>());
 
             this.LogInfo("================================================================================");
 

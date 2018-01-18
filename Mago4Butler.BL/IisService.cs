@@ -156,9 +156,9 @@ namespace Microarea.Mago4Butler.BL
             return webSites;
         }
 
-        public void RestartLoginManager(Instance instance)
+        public void RestartLoginManager(string instanceName)
         {
-            var webConfigFullPath = Path.Combine(this.settings.RootFolder, instance.Name, "Standard", "TaskBuilder", "WebFramework", "LoginManager", "web.config");
+            var webConfigFullPath = Path.Combine(this.settings.RootFolder, instanceName, "Standard", "TaskBuilder", "WebFramework", "LoginManager", "web.config");
 
             if (File.Exists(webConfigFullPath))
             {
@@ -174,12 +174,12 @@ namespace Microarea.Mago4Butler.BL
                 }
                 catch (Exception exc)
                 {
-                    this.LogError("Exception restarting login manager for " + instance.Name, exc);
+                    this.LogError("Exception restarting login manager for " + instanceName, exc);
                 }
             }
             else
             {
-                this.LogInfo("Unable to restart login manager for " + instance.Name + " because the file " + webConfigFullPath + " does not exist");
+                this.LogInfo("Unable to restart login manager for " + instanceName + " because the file " + webConfigFullPath + " does not exist");
             }
         }
     }

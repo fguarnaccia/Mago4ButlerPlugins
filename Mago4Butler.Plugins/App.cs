@@ -33,6 +33,8 @@ namespace Microarea.Mago4Butler.Plugins
         MapperConfiguration settingsMapperConfig;
         IMapper settingsLineMapper;
 
+        IisService iisService;
+
         protected App()
         {
             this.settingsMapperConfig = new MapperConfiguration(cfg =>
@@ -42,13 +44,14 @@ namespace Microarea.Mago4Butler.Plugins
 
             this.settingsLineMapper = settingsMapperConfig.CreateMapper();
         }
-        public void Init()
+        public void Init(IisService iisService)
         {
             if (this.appAutomation != null)
             {
                 Dispose();
             }
             this.appAutomation = new AppAutomation();
+            this.iisService = iisService;
         }
 
         public Settings Settings
@@ -215,6 +218,11 @@ namespace Microarea.Mago4Butler.Plugins
         public bool IsInstanceNameValid(string instanceName)
         {
             return instanceNameRegex.IsMatch(instanceName);
+        }
+
+        public void RestartLoginManager(string instanceName)
+        {
+            this.iisService.RestartLoginManager(instanceName);
         }
     }
 }
