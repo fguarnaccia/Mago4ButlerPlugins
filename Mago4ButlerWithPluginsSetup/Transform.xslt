@@ -15,6 +15,26 @@
   </xsl:template>
   <xsl:output method="xml" indent="yes" />
 
+  <xsl:key name="CefSharp-search" match="wix:Component[contains(wix:File/@Source, 'CefSharp')]" use="@Id" />
+  <xsl:template match="wix:Component[key('CefSharp-search', @Id)]" />
+  <xsl:template match="wix:ComponentRef[key('CefSharp-search', @Id)]" />
+
+  <xsl:key name="LibCef-search" match="wix:Component[contains(wix:File/@Source, 'libcef.dll')]" use="@Id" />
+  <xsl:template match="wix:Component[key('LibCef-search', @Id)]" />
+  <xsl:template match="wix:ComponentRef[key('LibCef-search', @Id)]" />
+
+  <xsl:key name="libEGL-search" match="wix:Component[contains(wix:File/@Source, 'libEGL.dll')]" use="@Id" />
+  <xsl:template match="wix:Component[key('libEGL-search', @Id)]" />
+  <xsl:template match="wix:ComponentRef[key('libEGL-search', @Id)]" />
+
+  <xsl:key name="libGLESv2-search" match="wix:Component[contains(wix:File/@Source, 'libGLESv2.dll')]" use="@Id" />
+  <xsl:template match="wix:Component[key('libGLESv2-search', @Id)]" />
+  <xsl:template match="wix:ComponentRef[key('libGLESv2-search', @Id)]" />
+
+  <xsl:key name="dat-search" match="wix:Component[contains(wix:File/@Source, '.dat')]" use="@Id" />
+  <xsl:template match="wix:Component[key('dat-search', @Id)]" />
+  <xsl:template match="wix:ComponentRef[key('dat-search', @Id)]" />
+
   <xsl:key name="log-search" match="wix:Component[contains(wix:File/@Source, '.log')]" use="@Id" />
   <xsl:template match="wix:Component[key('log-search', @Id)]" />
   <xsl:template match="wix:ComponentRef[key('log-search', @Id)]" />
@@ -51,13 +71,21 @@
   <xsl:template match="wix:Component[key('NoCefPak-search', @Id)]" />
   <xsl:template match="wix:ComponentRef[key('NoCefPak-search', @Id)]" />
   
-  <xsl:key name="NoCefPakExtensions-search" match="wix:Component[contains(wix:File/@Source, 'cef_extensions.pak')]" use="@Id" />
-  <xsl:template match="wix:Component[key('NoCefPakExtensions-search', @Id)]" />
-  <xsl:template match="wix:ComponentRef[key('NoCefPakExtensions-search', @Id)]" />
+  <xsl:key name="NoPakExtensions-search" match="wix:Component[contains(wix:File/@Source, '.pak')]" use="@Id" />
+  <xsl:template match="wix:Component[key('NoPakExtensions-search', @Id)]" />
+  <xsl:template match="wix:ComponentRef[key('NoPakExtensions-search', @Id)]" />
+
+  <xsl:key name="NoBinExtensions-search" match="wix:Component[contains(wix:File/@Source, '.bin')]" use="@Id" />
+  <xsl:template match="wix:Component[key('NoBinExtensions-search', @Id)]" />
+  <xsl:template match="wix:ComponentRef[key('NoBinExtensions-search', @Id)]" />
   
   <xsl:key name="Nod3dcompiler_43-search" match="wix:Component[contains(wix:File/@Source, 'd3dcompiler_43.dll')]" use="@Id" />
   <xsl:template match="wix:Component[key('Nod3dcompiler_43-search', @Id)]" />
   <xsl:template match="wix:ComponentRef[key('Nod3dcompiler_43-search', @Id)]" />
+  
+  <xsl:key name="Nod3dcompiler_47-search" match="wix:Component[contains(wix:File/@Source, 'd3dcompiler_47.dll')]" use="@Id" />
+  <xsl:template match="wix:Component[key('Nod3dcompiler_47-search', @Id)]" />
+  <xsl:template match="wix:ComponentRef[key('Nod3dcompiler_47-search', @Id)]" />
   
   <xsl:key name="Nodevtools_resources-search" match="wix:Component[contains(wix:File/@Source, 'devtools_resources.pak')]" use="@Id" />
   <xsl:template match="wix:Component[key('Nodevtools_resources-search', @Id)]" />

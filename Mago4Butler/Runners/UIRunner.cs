@@ -108,8 +108,7 @@ namespace Microarea.Mago4Butler
 
         private void AppAutomationServer_CommandReceived(object sender, CommandEventArgs e)
         {
-            Command command;
-            Enum.TryParse(e.Command, out command);
+            Enum.TryParse(e.Command, out Command command);
             switch (command)
             {
                 case Command.ShutdownApplication:
@@ -119,7 +118,7 @@ namespace Microarea.Mago4Butler
                     if (e.Args == Path.GetFileNameWithoutExtension(this.GetType().Assembly.Location))
                     {
                         var fi = new FileInfo(this.GetType().Assembly.Location);
-                        e.Response = fi.LastWriteTimeUtc.Ticks.ToString();
+                        e.Response = fi.LastWriteTimeUtc.AddHours(1).Ticks.ToString();//TODO MATTEO: eliminare .AddHours(1). Serve perche` la data di modifica della dll e` sempre minore di quella di modifica dell'msi sul server perche` per forza di cose l'msi viene generato dolo l'exe di butler.
                     }
                     else
                     {

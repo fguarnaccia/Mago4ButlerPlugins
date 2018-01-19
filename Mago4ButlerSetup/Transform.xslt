@@ -79,6 +79,10 @@
   <xsl:template match="wix:Component[key('Nod3dcompiler-search', @Id)]" />
   <xsl:template match="wix:ComponentRef[key('Nod3dcompiler-search', @Id)]" />
 
+  <xsl:key name="Nod3dcompiler_47-search" match="wix:Component[contains(wix:File/@Source, 'd3dcompiler_47')]" use="@Id" />
+  <xsl:template match="wix:Component[key('Nod3dcompiler_47-search', @Id)]" />
+  <xsl:template match="wix:ComponentRef[key('Nod3dcompiler_47-search', @Id)]" />
+
   <xsl:key name="Nolibcef-search" match="wix:Component[contains(wix:File/@Source, 'libcef.dll')]" use="@Id" />
   <xsl:template match="wix:Component[key('Nolibcef-search', @Id)]" />
   <xsl:template match="wix:ComponentRef[key('Nolibcef-search', @Id)]" />
@@ -90,8 +94,10 @@
   <xsl:key name="NolibGLESv2-search" match="wix:Component[contains(wix:File/@Source, 'libGLESv2.dll')]" use="@Id" />
   <xsl:template match="wix:Component[key('NolibGLESv2-search', @Id)]" />
   <xsl:template match="wix:ComponentRef[key('NolibGLESv2-search', @Id)]" />
-  
-  
+
+  <xsl:key name="Nowidevinecdmadapter-search" match="wix:Component[contains(wix:File/@Source, 'widevinecdmadapter.dll')]" use="@Id" />
+  <xsl:template match="wix:Component[key('Nowidevinecdmadapter-search', @Id)]" />
+  <xsl:template match="wix:ComponentRef[key('Nowidevinecdmadapter-search', @Id)]" />
   
   <xsl:template match='wix:Component'>
     <xsl:copy>

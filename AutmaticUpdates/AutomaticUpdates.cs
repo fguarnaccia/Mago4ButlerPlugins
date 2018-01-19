@@ -63,9 +63,17 @@ namespace Microarea.Mago4Butler.AutomaticUpdates
                 {
                     if (update.Type == type.dll)
                     {
-                        foreach (var file in update.FileNames)
+                        try
                         {
-                            File.Copy(Path.Combine(localCacheForUpdates, file), Path.Combine(pluginsFolderPath, file), true);
+                            foreach (var file in update.FileNames)
+                            {
+                                File.Copy(Path.Combine(localCacheForUpdates, file), Path.Combine(pluginsFolderPath, file), true);
+                            }
+                        }
+                        catch (Exception exc)
+                        {
+                            App.Instance.Error("Error during the update process of " + update.Name, exc);
+                            continue;
                         }
                     }
                     else if (update.Type == type.msi)
