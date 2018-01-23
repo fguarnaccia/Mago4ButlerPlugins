@@ -213,9 +213,15 @@ namespace MagoRunnerPlugin
 
             var element = brands.FirstOrDefault();
             element.Attribute("branded").Value = Title;
+            try
+            {
+                xe.Save(BrandFile);
+            }
+            catch (IOException ex)
+            {
+                if (IsFileLocked(ex)) return;
 
-            xe.Save(BrandFile);
-            
+            }
         }
 
         private static bool IsFileLocked(Exception exception)
