@@ -63,9 +63,17 @@ namespace Microarea.Mago4Butler.AutomaticUpdates
                 {
                     if (update.Type == type.dll)
                     {
-                        foreach (var file in update.FileNames)
+                        try
                         {
-                            File.Copy(Path.Combine(localCacheForUpdates, file), Path.Combine(pluginsFolderPath, file), true);
+                            foreach (var file in update.FileNames)
+                            {
+                                File.Copy(Path.Combine(localCacheForUpdates, file), Path.Combine(pluginsFolderPath, file), true);
+                            }
+                        }
+                        catch (Exception exc)
+                        {
+                            App.Instance.Error("Error during the update process of " + update.Name, exc);
+                            continue;
                         }
                     }
                     else if (update.Type == type.msi)
@@ -116,7 +124,7 @@ namespace Microarea.Mago4Butler.AutomaticUpdates
             {
                 var version = App.Instance.GetVersion(updateDescriptor.Name);
                 //Se versione e` nulla significa che il pacchetto non e` installato localmente, lo installo.
-                if (version == null || updateDescriptor.Version > version)
+                if (updateDescriptor.Version > version)
                 {
                     updates.Updates.Add(updateDescriptor);
                     try
@@ -159,7 +167,7 @@ namespace Microarea.Mago4Butler.AutomaticUpdates
                 }
                 foreach (var upd in upds.Items)
                 {
-                    remoteVersions.Add(upd.name, UpdateDescriptor.From(upd));
+                    remoteVersions.Add(upd.name, UpdateDescriptor.From(upd, updatesManifestPath));
                 }
             }
             catch (Exception exc)

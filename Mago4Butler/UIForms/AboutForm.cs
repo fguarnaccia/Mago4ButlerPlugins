@@ -32,7 +32,8 @@ namespace Microarea.Mago4Butler
                 var sb = new StringBuilder();
                 foreach (var plugin in plugins)
                 {
-                    sb.AppendLine(string.Concat(plugin.GetName(), " ", plugin.GetVersion()));
+                    var pluginName = plugin.GetName();
+                    sb.AppendLine(string.Concat(pluginName, " ", pluginService.GetPluginVersion(pluginName)));
                 }
                 lblPlugins.Text = sb.ToString();
             }

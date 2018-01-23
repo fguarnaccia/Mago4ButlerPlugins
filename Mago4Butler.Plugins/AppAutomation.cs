@@ -19,22 +19,22 @@ namespace Microarea.Mago4Butler.Plugins
             }
         }
 
-        public System.Version GetPluginVersion(string pluginName)
+        public Int64 GetPluginVersion(string pluginName)
         {
             if (Client.IsConnected)
             {
                 Writer.WriteLine(String.Join(" ", Command.GetVersion, pluginName));
                 Writer.Flush();
                 var response = Reader.ReadLine();
-                System.Version pluginVersion = new System.Version();
-                System.Version.TryParse(response, out pluginVersion);
+                Int64 pluginVersion = 0;
+                Int64.TryParse(response, out pluginVersion);
 
                 return pluginVersion;
             }
             else
             {
                 this.LogInfo("AppAutomation server is not connected, unable to send GetPluginVersion command");
-                return new System.Version(Int32.MaxValue, 0, 0, 0);
+                return Int64.MaxValue;
             }
         }
 

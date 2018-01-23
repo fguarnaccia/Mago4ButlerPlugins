@@ -3,4 +3,4 @@ Mago4Butler allows installing Mago4 in a "multi-instance" way, thus overcoming W
 
 It was born to allow installing Mago4 in the cloud but since then has evolved becoming an important tool in the tool-belt of every tester and domain specialist needing to install Mago4 on his computer.
 
-It is has a base structure that provides all funzionalities needed for the cloud scenario whereas all the extra capabilities needed to install Mago4 on a tester computer are provided by plugins.
+It has a base structure that provides all funzionalities needed for the cloud scenario whereas all the extra capabilities to install Mago4 on a tester computer are provided by plugins.
