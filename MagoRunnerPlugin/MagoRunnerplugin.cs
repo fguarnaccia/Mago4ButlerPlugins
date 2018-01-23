@@ -238,14 +238,15 @@ namespace MagoRunnerPlugin
 
             try
             {
-                domdoc.Load(BrandFile);
+                XmlDocument testdomdoc = new XmlDocument();
+                testdomdoc.Load(BrandFile);
             }
             catch (IOException ex)
             {
                 if (IsFileLocked(ex)) return;
 
             }
-            domdoc = null;
+            
             domdoc.Load(BrandFile);
 
             if (RestoreDefaultTitle) Title = cstBrandMn;
