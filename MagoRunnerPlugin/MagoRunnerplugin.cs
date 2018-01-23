@@ -7,14 +7,20 @@ using System.IO;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using System.Linq;
+using System.Runtime.InteropServices;
+
 namespace MagoRunnerPlugin
 {
     public class MagoRunner : Mago4ButlerPlugin
     {
+                    //serve per scrivere nel log di butler
+            //App.Instance.Info("messaggio");
+
         string root = string.Empty;
         string instance = string.Empty;
        
-  
+        const int ERROR_SHARING_VIOLATION = 32;
+        const int ERROR_LOCK_VIOLATION = 33;
         public override IEnumerable<ContextMenuItem> GetContextMenuItems()
         {
 
@@ -186,9 +192,19 @@ namespace MagoRunnerPlugin
             if (!File.Exists(BrandFile)) return;
             const string cstBrandM4 = "Mago4";
             if (RestoreDefaultTitle) Title = cstBrandM4;
+            XElement xe;
+            try
+            {
+                xe = XElement.Load(BrandFile);
+            }
+            catch (IOException ex)
+            {
+                if (IsFileLocked(ex)) return ;
        
-            XElement xe = XElement.Load(BrandFile);
+            }
+            xe = null;
 
+            xe = XElement.Load(BrandFile);
             var brands =
                 from el in xe.Descendants("BrandedKey")
 
@@ -199,8 +215,14 @@ namespace MagoRunnerPlugin
             element.Attribute("branded").Value = Title;
 
             xe.Save(BrandFile);
+            
         }
 
+        private static bool IsFileLocked(Exception exception)
+        {
+            int errorCode = Marshal.GetHRForException(exception) & ((1 << 16) - 1);
+            return errorCode == ERROR_SHARING_VIOLATION || errorCode == ERROR_LOCK_VIOLATION;
+        }
         internal void SetMnTitle(string BrandFile, string Title, bool RestoreDefaultTitle)
         {
             const string cstBrandMn = "Mago.net";
@@ -208,6 +230,16 @@ namespace MagoRunnerPlugin
             XmlDocument domdoc = new XmlDocument();
             if (!File.Exists(BrandFile)) return;
 
+            try
+            {
+                domdoc.Load(BrandFile);
+            }
+            catch (IOException ex)
+            {
+                if (IsFileLocked(ex)) return;
+
+            }
+            domdoc = null;
             domdoc.Load(BrandFile);
 
             if (RestoreDefaultTitle) Title = cstBrandMn;
