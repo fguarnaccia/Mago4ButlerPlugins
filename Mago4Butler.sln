@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.14
+VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mago4Butler", "Mago4Butler\Mago4Butler.csproj", "{74895131-51FE-4FE9-BAEB-8D8E192E27CF}"
 EndProject
@@ -14,8 +14,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitalSignerClient", "DigitalSignerClient\DigitalSignerClient.csproj", "{00545D6C-42B4-4F42-B8F3-5E7282E03DBE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mago4Butler.Plugins", "Mago4Butler.Plugins\Mago4Butler.Plugins.csproj", "{2D2E7056-A199-4418-8040-1830BB6FA8D2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VersionManager", "VersionManager\VersionManager.csproj", "{0FF997AA-E75E-48B6-ABEE-3BEE0D69852C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomaticUpdates", "AutmaticUpdates\AutomaticUpdates.csproj", "{7852B045-F57A-458E-B718-89F9FA26E8A0}"
 EndProject
@@ -99,13 +97,6 @@ Global
 		{2D2E7056-A199-4418-8040-1830BB6FA8D2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2D2E7056-A199-4418-8040-1830BB6FA8D2}.Release|x86.ActiveCfg = Release|Any CPU
 		{2D2E7056-A199-4418-8040-1830BB6FA8D2}.Release|x86.Build.0 = Release|Any CPU
-		{0FF997AA-E75E-48B6-ABEE-3BEE0D69852C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0FF997AA-E75E-48B6-ABEE-3BEE0D69852C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0FF997AA-E75E-48B6-ABEE-3BEE0D69852C}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{0FF997AA-E75E-48B6-ABEE-3BEE0D69852C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0FF997AA-E75E-48B6-ABEE-3BEE0D69852C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0FF997AA-E75E-48B6-ABEE-3BEE0D69852C}.Release|x86.ActiveCfg = Release|Any CPU
-		{0FF997AA-E75E-48B6-ABEE-3BEE0D69852C}.Release|x86.Build.0 = Release|Any CPU
 		{7852B045-F57A-458E-B718-89F9FA26E8A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7852B045-F57A-458E-B718-89F9FA26E8A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7852B045-F57A-458E-B718-89F9FA26E8A0}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -236,7 +227,6 @@ Global
 		{A063F660-3E25-452C-B093-0C85F2B81A27} = {807CBFB5-AB06-4AD2-BD86-9083B92B7504}
 		{00545D6C-42B4-4F42-B8F3-5E7282E03DBE} = {807CBFB5-AB06-4AD2-BD86-9083B92B7504}
 		{2D2E7056-A199-4418-8040-1830BB6FA8D2} = {366B46EA-2F7E-4A3C-B501-0515CD8B3A10}
-		{0FF997AA-E75E-48B6-ABEE-3BEE0D69852C} = {807CBFB5-AB06-4AD2-BD86-9083B92B7504}
 		{7852B045-F57A-458E-B718-89F9FA26E8A0} = {366B46EA-2F7E-4A3C-B501-0515CD8B3A10}
 		{D21FD41D-0C68-40EF-A65A-CCFA47A05F3E} = {8F83B0E7-0A95-4AA3-94B0-F06D90888795}
 		{DCA1DC48-522C-41FA-9E43-3DCCE3ED0FE3} = {8F83B0E7-0A95-4AA3-94B0-F06D90888795}
@@ -253,95 +243,7 @@ Global
 		{FBB3184C-9ED3-4441-BEE9-F129D3FBC542} = {807CBFB5-AB06-4AD2-BD86-9083B92B7504}
 		{79F0ACD6-251E-4389-A623-913414C0566F} = {366B46EA-2F7E-4A3C-B501-0515CD8B3A10}
 	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 23
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://tfs:8080/tfs/microarea
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = Mago4Butler\\Mago4Butler.csproj
-		SccProjectName1 = Mago4Butler
-		SccLocalPath1 = Mago4Butler
-		SccProjectUniqueName2 = Mago4Butler.BL\\Mago4Butler.BL.csproj
-		SccProjectName2 = Mago4Butler.BL
-		SccLocalPath2 = Mago4Butler.BL
-		SccProjectUniqueName3 = Mago4ButlerSetup\\Mago4ButlerSetup.wixproj
-		SccProjectTopLevelParentUniqueName3 = Mago4Butler.sln
-		SccProjectName3 = Mago4ButlerSetup
-		SccLocalPath3 = Mago4ButlerSetup
-		SccProjectUniqueName4 = DigitalSignerClient\\DigitalSignerClient.csproj
-		SccProjectTopLevelParentUniqueName4 = Mago4Butler.sln
-		SccProjectName4 = DigitalSignerClient
-		SccLocalPath4 = DigitalSignerClient
-		SccProjectUniqueName5 = Mago4Butler.Plugins\\Mago4Butler.Plugins.csproj
-		SccProjectTopLevelParentUniqueName5 = Mago4Butler.sln
-		SccProjectName5 = Mago4Butler.Plugins
-		SccLocalPath5 = Mago4Butler.Plugins
-		SccProjectUniqueName6 = VersionManager\\VersionManager.csproj
-		SccProjectTopLevelParentUniqueName6 = Mago4Butler.sln
-		SccProjectName6 = VersionManager
-		SccLocalPath6 = VersionManager
-		SccProjectUniqueName7 = ..\\..\\Standard\\TaskBuilder\\TaskBuilderNet\\Microarea.TaskBuilderNet.Interfaces\\Microarea.TaskBuilderNet.Interfaces.csproj
-		SccProjectTopLevelParentUniqueName7 = Mago4Butler.sln
-		SccProjectName7 = ../../TaskBuilder_1_x/TaskBuilderNet/Microarea.TaskBuilderNet.Interfaces
-		SccLocalPath7 = ..\\..\\Standard\\TaskBuilder\\TaskBuilderNet\\Microarea.TaskBuilderNet.Interfaces
-		SccProjectUniqueName8 = ..\\..\\Standard\\TaskBuilder\\TaskBuilderNet\\Microarea.TaskBuilderNet.Core\\Microarea.TaskBuilderNet.Core.csproj
-		SccProjectTopLevelParentUniqueName8 = Mago4Butler.sln
-		SccProjectName8 = ../../TaskBuilder_1_x/TaskBuilderNet/Microarea.TaskBuilderNet.Core
-		SccLocalPath8 = ..\\..\\Standard\\TaskBuilder\\TaskBuilderNet\\Microarea.TaskBuilderNet.Core
-		SccProjectUniqueName9 = ..\\..\\Standard\\TaskBuilder\\TaskBuilderNet\\Microarea.TaskBuilderNet.Data\\Microarea.TaskBuilderNet.Data.csproj
-		SccProjectTopLevelParentUniqueName9 = Mago4Butler.sln
-		SccProjectName9 = ../../TaskBuilder_1_x/TaskBuilderNet/Microarea.TaskBuilderNet.Data
-		SccLocalPath9 = ..\\..\\Standard\\TaskBuilder\\TaskBuilderNet\\Microarea.TaskBuilderNet.Data
-		SccProjectUniqueName10 = ..\\..\\Standard\\TaskBuilder\\TaskBuilderNet\\Microarea.TaskBuilderNet.Licence\\Microarea.TaskBuilderNet.Licence.csproj
-		SccProjectTopLevelParentUniqueName10 = Mago4Butler.sln
-		SccProjectName10 = ../../TaskBuilder_1_x/TaskBuilderNet/Microarea.TaskBuilderNet.Licence
-		SccLocalPath10 = ..\\..\\Standard\\TaskBuilder\\TaskBuilderNet\\Microarea.TaskBuilderNet.Licence
-		SccProjectUniqueName11 = ..\\..\\Standard\\TaskBuilder\\TaskBuilderNet\\Microarea.TaskBuilderNet.ParametersManager\\Microarea.TaskBuilderNet.ParametersManager.csproj
-		SccProjectTopLevelParentUniqueName11 = Mago4Butler.sln
-		SccProjectName11 = ../../TaskBuilder_1_x/TaskBuilderNet/Microarea.TaskBuilderNet.ParametersManager
-		SccLocalPath11 = ..\\..\\Standard\\TaskBuilder\\TaskBuilderNet\\Microarea.TaskBuilderNet.ParametersManager
-		SccProjectUniqueName12 = ..\\..\\Standard\\TaskBuilder\\Tools\\ProvisioningConfigurator\\ProvisioningConfigurator\\ProvisioningConfigurator.csproj
-		SccProjectTopLevelParentUniqueName12 = Mago4Butler.sln
-		SccProjectName12 = ../../TaskBuilder_1_x/Tools/ProvisioningConfigurator/ProvisioningConfigurator
-		SccLocalPath12 = ..\\..\\Standard\\TaskBuilder\\Tools\\ProvisioningConfigurator\\ProvisioningConfigurator
-		SccProjectUniqueName13 = Mago4ButlerWithPluginsSetup\\Mago4ButlerWithPluginsSetup.wixproj
-		SccProjectTopLevelParentUniqueName13 = Mago4Butler.sln
-		SccProjectName13 = Mago4ButlerWithPluginsSetup
-		SccLocalPath13 = Mago4ButlerWithPluginsSetup
-		SccProjectUniqueName14 = AutmaticUpdates\\AutomaticUpdates.csproj
-		SccProjectTopLevelParentUniqueName14 = Mago4Butler.sln
-		SccProjectName14 = AutmaticUpdates
-		SccLocalPath14 = AutmaticUpdates
-		SccProjectUniqueName15 = Mago4Butler.Model\\Mago4Butler.Model.csproj
-		SccProjectName15 = Mago4Butler.Model
-		SccLocalPath15 = Mago4Butler.Model
-		SccProjectUniqueName16 = Mago4Butler.Log\\Mago4Butler.Log.csproj
-		SccProjectTopLevelParentUniqueName16 = Mago4Butler.sln
-		SccProjectName16 = Mago4Butler.Log
-		SccLocalPath16 = Mago4Butler.Log
-		SccProjectUniqueName17 = Mago4Butler.Automation\\Mago4Butler.Automation.csproj
-		SccProjectTopLevelParentUniqueName17 = Mago4Butler.sln
-		SccProjectName17 = Mago4Butler.Automation
-		SccLocalPath17 = Mago4Butler.Automation
-		SccProjectUniqueName18 = Telemetry\\Telemetry.csproj
-		SccProjectTopLevelParentUniqueName18 = Mago4Butler.sln
-		SccProjectName18 = Telemetry
-		SccLocalPath18 = Telemetry
-		SccProjectUniqueName19 = NoTbs\\NoTbs.csproj
-		SccProjectTopLevelParentUniqueName19 = Mago4Butler.sln
-		SccProjectName19 = NoTbs
-		SccLocalPath19 = NoTbs
-		SccProjectUniqueName20 = Reporter\\Reporter.csproj
-		SccProjectTopLevelParentUniqueName20 = Mago4Butler.sln
-		SccProjectName20 = Reporter
-		SccLocalPath20 = Reporter
-		SccProjectUniqueName21 = Mago4ButlerBootstrapper\\Mago4ButlerBootstrapper.wixproj
-		SccProjectTopLevelParentUniqueName21 = Mago4Butler.sln
-		SccProjectName21 = Mago4ButlerBootstrapper
-		SccLocalPath21 = Mago4ButlerBootstrapper
-		SccProjectUniqueName22 = DustmanButler\\DustmanButler.csproj
-		SccProjectTopLevelParentUniqueName22 = Mago4Butler.sln
-		SccProjectName22 = DustmanButler
-		SccLocalPath22 = DustmanButler
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {829D9D3B-55F1-4ECE-B24C-C294AA32576C}
 	EndGlobalSection
 EndGlobal
