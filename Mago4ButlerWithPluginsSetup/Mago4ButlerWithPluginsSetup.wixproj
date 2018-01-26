@@ -53,9 +53,6 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
-  <PropertyGroup>
-    <PostBuildEvent>..\..\..\DigitalSignerClient\bin\Release\Microarea.DigitalSignerClient.exe "$(TargetDir)$(TargetFileName)"</PostBuildEvent>
-  </PropertyGroup>
   <Target Name="BeforeBuild">
     <!-- Get the programs assembly version from the .exe file -->
     <GetAssemblyIdentity AssemblyFiles="..\Mago4Butler\bin\$(platform)\$(Configuration)\Mago4Butler.exe">
@@ -70,5 +67,8 @@
     <PreBuildEvent>cd..
 cd..
 $(ProjectDir)CollectFiles.bat $(Configuration) $(SolutionDir) $(PlatformName) $(ProjectName)</PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent />
   </PropertyGroup>
 </Project>

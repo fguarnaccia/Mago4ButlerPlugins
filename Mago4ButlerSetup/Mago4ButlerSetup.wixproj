@@ -78,11 +78,11 @@
     </CreateProperty>
   </Target>
   <PropertyGroup>
-    <PostBuildEvent>..\..\..\DigitalSignerClient\bin\Release\Microarea.DigitalSignerClient.exe "$(TargetDir)$(TargetFileName)"</PostBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup>
     <PreBuildEvent>cd..
 cd..
 $(ProjectDir)CollectFiles.bat $(Configuration) $(SolutionDir) $(PlatformName) $(ProjectName)</PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent />
   </PropertyGroup>
 </Project>
