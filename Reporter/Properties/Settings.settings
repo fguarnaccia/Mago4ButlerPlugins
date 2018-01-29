@@ -1,9 +1,0 @@
-﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Microarea.Mago4Butler.Reporter.Properties" GeneratedClassName="Settings">
-  <Profiles />
-  <Settings>
-    <Setting Name="Microarea_Mago4Butler_Reporter_PAASUpdates_ReportService" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://localhost/PAASUpdates/ReportService.asmx</Value>
-    </Setting>
-  </Settings>
-</SettingsFile>

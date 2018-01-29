@@ -1,7 +1,0 @@
-<?xml version="1.0" standalone="yes"?>
-<ParameterSettings>
-  <Section name="Preference" localize="Preferenze">
-    <Setting name="TBLoaderDefaultSOAPPort" type="integer" hidden="False" localize="Porta SOAP di default per il TBLoader" value="{{WcfSoapPort}}" />
-    <Setting name="TBLoaderDefaultTCPPort" type="integer" hidden="False" localize="Default port for TBLoader Net-TCP server" value="{{TcpPort}}" />
-  </Section>
-</ParameterSettings>
