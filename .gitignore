@@ -1,3 +1,5 @@
+OfficialReleaseVersion/
+
 ### VisualStudioCode ###
 .vscode/*
 !.vscode/settings.json
